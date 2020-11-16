@@ -1,0 +1,19 @@
+{
+  "name": "tenup-wp-scaffold",
+  "version": "1.0.0",
+  "description": "Project Description",
+  "homepage": "https://project-domain.tld",
+  "repository": {
+    "type": "git",
+    "url": "https://project-git-repo.tld"
+  },
+  "author": {
+    "name": "10up",
+    "email": "info@10up.com",
+    "url": "https://10up.com",
+    "role": "developer"
+  },
+  "engines": {
+    "node": ">=12.0.0"
+  }
+}

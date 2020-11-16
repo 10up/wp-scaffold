@@ -1,0 +1,33 @@
+{
+  "name": "tenup-theme",
+  "version": "1.0.0",
+  "scripts": {
+    "start": "10up-scripts start",
+    "build": "10up-scripts build",
+    "format-js": "10up-scripts format-js",
+    "lint-js": "10up-scripts lint-js",
+    "lint-style": "10up-scripts lint-style",
+    "test": "10up-scripts test-unit-jest"
+  },
+  "engines": {
+    "node": ">=12.0.0"
+  },
+  "devDependencies": {
+    "@10up/scripts": "^1.0.6"
+  },
+  "dependencies": {
+    "normalize.css": "^8.0.1"
+  },
+  "build": {
+    "admin": "./assets/js/admin/admin.js",
+    "blocks": "./includes/blocks/blocks.js",
+    "frontend": "./assets/js/frontend/frontend.js",
+    "shared": "./assets/js/shared/shared.js",
+    "styleguide": "./assets/js/styleguide/styleguide.js",
+    "admin-style": "./assets/css/admin/admin-style.css",
+    "editor-style": "./assets/css/frontend/editor-style.css",
+    "shared-style": "./assets/css/shared/shared-style.css",
+    "style": "./assets/css/frontend/style.css",
+    "styleguide-style": "./assets/css/styleguide/styleguide.css"
+  }
+}

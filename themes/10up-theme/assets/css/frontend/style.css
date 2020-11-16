@@ -1,0 +1,30 @@
+/**
+ * TenUpTheme
+ * https://project-website.tld
+ *
+ */
+
+/* Resets - installed via NPM */
+@import url("normalize.css");
+
+/* Global - global pieces like media queries, mixins and placholders */
+@import url("global/index.css");
+
+/* Base - base styles such as fonts, typography, and wordpress overrides */
+@import url("base/index.css");
+
+/* Layout - styles specific to layout */
+
+/* @import url("layout/index.css"); */
+
+/* Templates */
+
+/* @import url("templates/index.css"); */
+
+/* Components */
+
+/* @import url("components/index.css"); */
+
+/* Gutenberg blocks */
+
+/* @import url("../blocks/index.css"); */
