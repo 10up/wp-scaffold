@@ -1,0 +1,18 @@
+{
+	"title": "Example Block",
+	"description": "An Example Block",
+	"text-domain": "tenup-scaffold",
+	"name": "tenup/example",
+	"icon": "feedback",
+	"attributes":{
+		"customTitle": {
+			"type" : "string"
+		}
+  },
+  "example": {
+    "attributes":{
+      "customTitle": "Example Block"
+    }
+  },
+	"editorScript": "file:../../../dist/example-block.js"
+}
