@@ -38,6 +38,7 @@ function setup() {
 
 	// Uncomment to register custom blocks via the theme.
 
+	/*
 	add_action(
 		'init',
 		function() {
@@ -55,6 +56,7 @@ function setup() {
 			remove_filter( 'plugins_url', __NAMESPACE__ . '\filter_plugins_url', 10, 2 );
 		}
 	);
+	*/
 
 }
 
