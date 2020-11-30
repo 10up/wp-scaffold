@@ -3,7 +3,8 @@
 	"description": "An Example Block",
 	"text-domain": "tenup-scaffold",
 	"name": "tenup/example",
-	"icon": "feedback",
+  "icon": "feedback",
+  "category": "tenup-scaffold-blocks",
 	"attributes":{
 		"customTitle": {
 			"type" : "string"
@@ -14,5 +15,5 @@
       "customTitle": "Example Block"
     }
   },
-	"editorScript": "file:../../../dist/example-block.js"
+	"editorScript": "file:../../../dist/blocks/example-block/editor.js"
 }
