@@ -21,6 +21,7 @@ tmtags
 *.un~
 Session.vim
 *.swp
+.vscode
 
 # Mac OSX
 .DS_Store

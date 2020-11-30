@@ -10,12 +10,13 @@ define( 'TENUP_THEME_VERSION', '0.1.0' );
 define( 'TENUP_THEME_TEMPLATE_URL', get_template_directory_uri() );
 define( 'TENUP_THEME_PATH', get_template_directory() . '/' );
 define( 'TENUP_THEME_INC', TENUP_THEME_PATH . 'includes/' );
+define( 'TENUP_THEME_BLOCK_DIR', TENUP_THEME_INC . 'blocks/' );
 
 require_once TENUP_THEME_INC . 'core.php';
 require_once TENUP_THEME_INC . 'overrides.php';
 require_once TENUP_THEME_INC . 'template-tags.php';
 require_once TENUP_THEME_INC . 'utility.php';
-require_once TENUP_THEME_INC . 'blocks/blocks.php';
+require_once TENUP_THEME_INC . 'blocks.php';
 
 // Run the setup functions.
 TenUpTheme\Core\setup();

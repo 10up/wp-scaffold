@@ -1,22 +1,30 @@
 /**
- * Example block
+ * Example-block
+ * Custom title block -- feel free to delete
  */
 
-/* eslint-disable react/prop-types */
+/**
+ * WordPress dependencies
+ */
+import { __ } from '@wordpress/i18n';
+import { registerBlockType } from '@wordpress/blocks';
 
-const { __ } = wp.i18n;
-const { registerBlockType } = wp.blocks;
+/**
+ * Internal dependencies
+ */
+import edit from './edit';
+import save from './save';
+import { name } from './block.json';
 
-registerBlockType('tenup/example-block', {
-	title: __('Example Block', 'tenup-theme'),
-	category: 'tenup-theme-blocks',
-	icon: 'smiley',
-	edit: ({ className }) => {
-		return (
-			<div className={className}>
-				<h1>Example Block Editor</h1>
-			</div>
-		);
-	},
-	save: () => null,
+/* Uncomment for CSS overrides in the admin */
+// import './index.css';
+
+/**
+ * Register block
+ */
+registerBlockType(name, {
+	title: __('Example Block'),
+	description: __('An Example Block'),
+	edit,
+	save,
 });

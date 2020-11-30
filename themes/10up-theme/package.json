@@ -16,7 +16,8 @@
     "@10up/scripts": "^1.0.6"
   },
   "dependencies": {
-    "normalize.css": "^8.0.1"
+    "normalize.css": "^8.0.1",
+    "prop-types": "^15.7.2"
   },
   "build": {
     "admin": "./assets/js/admin/admin.js",
@@ -28,6 +29,7 @@
     "editor-style": "./assets/css/frontend/editor-style.css",
     "shared-style": "./assets/css/shared/shared-style.css",
     "style": "./assets/css/frontend/style.css",
-    "styleguide-style": "./assets/css/styleguide/styleguide.css"
+    "styleguide-style": "./assets/css/styleguide/styleguide.css",
+    "example-block": "./includes/blocks/example-block/"
   }
 }
