@@ -22,6 +22,8 @@ function setup() {
 	add_action( 'after_setup_theme', $n( 'i18n' ) );
 	add_action( 'after_setup_theme', $n( 'theme_setup' ) );
 	add_action( 'wp_enqueue_scripts', $n( 'scripts' ) );
+	add_action( 'admin_enqueue_scripts', $n( 'admin_styles' ) );
+	add_action( 'admin_enqueue_scripts', $n( 'admin_scripts' ) );
 	add_action( 'wp_enqueue_scripts', $n( 'styles' ) );
 	add_action( 'wp_head', $n( 'js_detection' ), 0 );
 	add_action( 'wp_head', $n( 'add_manifest' ), 10 );
@@ -74,7 +76,7 @@ function scripts() {
 
 	wp_enqueue_script(
 		'frontend',
-		TENUP_THEME_TEMPLATE_URL . '/dist/frontend.js',
+		TENUP_THEME_TEMPLATE_URL . '/dist/js/frontend.js',
 		Utility\get_asset_info( 'frontend', 'dependencies' ),
 		Utility\get_asset_info( 'frontend', 'version' ),
 		true
@@ -83,13 +85,71 @@ function scripts() {
 	if ( is_page_template( 'templates/page-styleguide.php' ) ) {
 		wp_enqueue_script(
 			'styleguide',
-			TENUP_THEME_TEMPLATE_URL . '/dist/styleguide.js',
+			TENUP_THEME_TEMPLATE_URL . '/dist/js/styleguide.js',
 			Utility\get_asset_info( 'styleguide', 'dependencies' ),
 			Utility\get_asset_info( 'styleguide', 'version' ),
 			true
 		);
 	}
 
+	/*
+	wp_enqueue_script(
+		'shared',
+		TENUP_THEME_TEMPLATE_URL . '/dist/js/shared.js',
+		Utility\get_asset_info( 'shared', 'dependencies' ),
+		Utility\get_asset_info( 'shared', 'version' ),
+		true
+	);
+	*/
+}
+
+/**
+ * Enqueue scripts for admin
+ *
+ * @return void
+ */
+function admin_scripts() {
+	wp_enqueue_script(
+		'admin',
+		TENUP_THEME_TEMPLATE_URL . '/dist/js/admin.js',
+		Utility\get_asset_info( 'admin', 'dependencies' ),
+		Utility\get_asset_info( 'admin', 'version' ),
+		true
+	);
+
+	/*
+	wp_enqueue_script(
+		'shared',
+		TENUP_THEME_TEMPLATE_URL . '/dist/js/shared.js',
+		Utility\get_asset_info( 'shared', 'dependencies' ),
+		Utility\get_asset_info( 'shared', 'version' ),
+		true
+	);
+	*/
+}
+
+/**
+ * Enqueue styles for admin
+ *
+ * @return void
+ */
+function admin_styles() {
+
+	wp_enqueue_style(
+		'admin-style',
+		TENUP_THEME_TEMPLATE_URL . '/dist/css/admin-style.css',
+		[],
+		Utility\get_asset_info( 'admin-style', 'version' )
+	);
+
+	/*
+	wp_enqueue_style(
+		'shared-style',
+		TENUP_THEME_TEMPLATE_URL . '/dist/css/shared-style.css',
+		[],
+		Utility\get_asset_info( 'shared-style', 'version' )
+	);
+	*/
 }
 
 /**
@@ -101,7 +161,7 @@ function styles() {
 
 	wp_enqueue_style(
 		'styles',
-		TENUP_THEME_TEMPLATE_URL . '/dist/style.css',
+		TENUP_THEME_TEMPLATE_URL . '/dist/css/style.css',
 		[],
 		Utility\get_asset_info( 'style', 'version' )
 	);
@@ -109,7 +169,7 @@ function styles() {
 	if ( is_page_template( 'templates/page-styleguide.php' ) ) {
 		wp_enqueue_style(
 			'styleguide',
-			TENUP_THEME_TEMPLATE_URL . '/dist/styleguide-style.css',
+			TENUP_THEME_TEMPLATE_URL . '/dist/css/styleguide-style.css',
 			[],
 			Utility\get_asset_info( 'styleguide-style', 'version' )
 		);
