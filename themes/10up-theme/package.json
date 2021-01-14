@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "scripts": {
     "start": "10up-scripts start",
+    "watch": "10up-scripts watch",
     "build": "10up-scripts build",
     "format-js": "10up-scripts format-js",
     "lint-js": "10up-scripts lint-js",
@@ -13,23 +14,25 @@
     "node": ">=12.0.0"
   },
   "devDependencies": {
-    "@10up/scripts": "^1.0.7"
+    "@10up/scripts": "^1.0.11"
   },
   "dependencies": {
     "normalize.css": "^8.0.1",
     "prop-types": "^15.7.2"
   },
-  "build": {
-    "admin": "./assets/js/admin/admin.js",
-    "blocks": "./includes/blocks/blocks.js",
-    "frontend": "./assets/js/frontend/frontend.js",
-    "shared": "./assets/js/shared/shared.js",
-    "styleguide": "./assets/js/styleguide/styleguide.js",
-    "admin-style": "./assets/css/admin/admin-style.css",
-    "editor-style": "./assets/css/frontend/editor-style.css",
-    "shared-style": "./assets/css/shared/shared-style.css",
-    "style": "./assets/css/frontend/style.css",
-    "styleguide-style": "./assets/css/styleguide/styleguide.css",
-    "example-block": "./includes/blocks/example-block/index.js"
+  "@10up/scripts": {
+    "entry": {
+      "admin": "./assets/js/admin/admin.js",
+      "blocks": "./includes/blocks/blocks.js",
+      "frontend": "./assets/js/frontend/frontend.js",
+      "shared": "./assets/js/shared/shared.js",
+      "styleguide": "./assets/js/styleguide/styleguide.js",
+      "admin-style": "./assets/css/admin/admin-style.css",
+      "editor-style": "./assets/css/frontend/editor-style.css",
+      "shared-style": "./assets/css/shared/shared-style.css",
+      "style": "./assets/css/frontend/style.css",
+      "styleguide-style": "./assets/css/styleguide/styleguide.css",
+      "example-block": "./includes/blocks/example-block/index.js"
+    }
   }
 }
