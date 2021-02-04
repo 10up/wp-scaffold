@@ -1,5 +1,5 @@
 {
-  "name": "tenup-theme",
+  "name": "tenup-plugin",
   "version": "1.0.0",
   "scripts": {
     "start": "10up-scripts start",
