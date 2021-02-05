@@ -4,9 +4,6 @@
  *
  */
 
-/* Resets - installed via NPM */
-@import url("normalize.css");
-
 /* Global - global pieces like media queries, mixins and placholders */
 @import url("global/index.css");
 
