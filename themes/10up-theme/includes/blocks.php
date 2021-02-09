@@ -27,12 +27,13 @@ function setup() {
 	add_action( 'init', $n( 'register_theme_blocks' ) );
 
 	/*
-	// Uncomment to register custom blocks via the Block Library plugin.
+	If you are using the block library, remove the blocks you don't need.
 
 	add_filter( 'tenup_available_blocks', function ( $blocks ) {
-		$blocks['example-block'] = [
-			'dir' => TENUP_THEME_BLOCK_DIR,
-		];
+		if ( ! empty( $blocks['integrated-hero'] ) ) {
+			unset( $blocks['integrated-hero'] );
+		}
+
 		return $blocks;
 	} );
 	*/
