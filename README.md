@@ -16,3 +16,7 @@ Much of the functionality in the scaffold is intended to be optional depending o
 1. [10up Scripts](https://github.com/10up/10up-scripts) must be used for asset bundling. Over the years we've found differences in how assets are built across projects to be very confusing for engineers.  As such, we are standardizing on 10up Scripts (which you can extend as needed). 10up Scripts contains in depth docs on how it works.
 2. Functionality should be built into the 10up must-use functionality as much as possible. Presentation should be kept in the theme. Separating these two makes long term development, maintenance, and extensibility much easier.
 3. Blocks should be built into the theme and follow the [example block](https://github.com/10up/wp-scaffold/tree/trunk/themes/10up-theme/includes/blocks/example-block) provided.
+
+## Block Library
+
+Make sure to look at the blocks in the [10up Block Library](https://github.com/10up/block-library) to see if anything can be used on your project. All the blocks in the library are extremely extensible so you can customize everything for your project needs.
