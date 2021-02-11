@@ -21,6 +21,7 @@
     "prop-types": "^15.7.2"
   },
   "@10up/scripts": {
+    "devURL": "https://my-project.test",
     "entry": {
       "admin": "./assets/js/admin/admin.js",
       "blocks": "./includes/blocks/blocks.js",
