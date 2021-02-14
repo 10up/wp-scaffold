@@ -1,0 +1,10 @@
+{
+	"includes/TenUp/*.php": {
+		"type": "plugin",
+		"test": "tests/TenUp/%sTest.php"
+	},
+	"tests/TenUp/*Test.php": {
+		"type": "test",
+		"alternate": "includes/TenUp/%s.php"
+	}
+}

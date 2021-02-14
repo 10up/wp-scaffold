@@ -1,0 +1,29 @@
+node_modules
+bower_components
+release
+vendor
+.idea
+*.log
+
+# Project Files
+dist
+
+# Editors
+*.esproj
+*.tmproj
+*.tmproject
+tmtags
+.*.sw[a-z]
+*.un~
+Session.vim
+*.swp
+
+# Mac OSX
+.DS_Store
+._*
+.Spotlight-V100
+.Trashes
+
+# Windows
+Thumbs.db
+Desktop.ini
