@@ -36,8 +36,14 @@ class Assets {
 	 */
 	public function register_scripts() {
 		$this->script(
-			'filter-options',
-			'dist/js/filter-options.js',
+			'tenup-plugin-admin',
+			'dist/js/admin.js',
+			[]
+		);
+
+		$this->script(
+			'tenup-plugin-editor',
+			'dist/js/editor.js',
 			[]
 		);
 	}
@@ -47,8 +53,14 @@ class Assets {
 	 */
 	public function register_styles() {
 		$this->style(
-			'filter-options',
-			'dist/css/filter-options-style.css',
+			'tenup-plugin-admin',
+			'dist/css/admin.css',
+			[]
+		);
+
+		$this->style(
+			'tenup-plugin-editor',
+			'dist/css/editor.css',
 			[]
 		);
 	}

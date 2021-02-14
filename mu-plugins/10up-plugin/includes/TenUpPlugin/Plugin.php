@@ -75,7 +75,7 @@ class Plugin {
 	 */
 	public function init() {
 		$this->plugin_support = [
-			// todo
+			'assets' => new Assets(),
 		];
 
 		$this->register_objects( $this->plugin_support );
@@ -96,6 +96,8 @@ class Plugin {
 	 * @return void
 	 */
 	public function init_admin_scripts() {
+		wp_enqueue_script( 'tenup-plugin-admin' );
+		wp_enqueue_style( 'tenup-plugin-admin' );
 	}
 
 	/**
@@ -105,6 +107,8 @@ class Plugin {
 	 * @return void
 	 */
 	public function init_editor_scripts() {
+		wp_enqueue_script( 'tenup-plugin-editor' );
+		wp_enqueue_style( 'tenup-plugin-editor' );
 	}
 
 	/**
