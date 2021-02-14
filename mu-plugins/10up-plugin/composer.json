@@ -17,7 +17,10 @@
   "autoload": {
     "psr-4": {
       "TenUpPlugin\\": "includes/TenUpPlugin/"
-    }
+    },
+    "files": [
+      "includes/TenUpPlugin/Helper/Helpers.php"
+    ]
   },
   "require-dev": {
     "phpunit/phpunit": "~7.5.0",

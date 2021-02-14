@@ -138,7 +138,7 @@ class Plugin {
 	 *
 	 * @param object $object A support object.
 	 *
-	 * @return void
+	 * @return bool
 	 */
 	public function register( $object ) {
 		if ( $object->can_register() ) {
@@ -148,7 +148,11 @@ class Plugin {
 			}
 
 			$object->register();
+
+			return true;
 		}
+
+		return false;
 	}
 
 	/**
