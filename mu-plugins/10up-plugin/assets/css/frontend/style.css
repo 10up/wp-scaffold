@@ -8,20 +8,9 @@
 @import url("global/index.css");
 
 /* Base - base styles such as fonts, typography, and wordpress overrides */
-@import url("base/index.css");
 
-/* Layout - styles specific to layout */
-
-/* @import url("layout/index.css"); */
-
-/* Templates */
-
-/* @import url("templates/index.css"); */
+/* @import url("base/index.css"); */
 
 /* Components */
 
 /* @import url("components/index.css"); */
-
-/* Gutenberg blocks */
-
-/* @import url("../blocks/index.css"); */
