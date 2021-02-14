@@ -26,7 +26,7 @@
       "admin": "./assets/js/admin/admin.js",
       "editor": "./assets/js/editor/editor.js",
       "admin-style": "./assets/css/admin/admin-style.css",
-      "editor-style": "./assets/css/editor/editor-style.css",
+      "editor-style": "./assets/css/editor/editor-style.css"
     }
   }
 }
