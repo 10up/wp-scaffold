@@ -18,6 +18,9 @@ class Assets {
 	 * Registers the scripts & styles.
 	 */
 	public function register() {
+		// Hook to allow async or defer on asset loading.
+		add_filter( 'script_loader_tag', [ $this, 'script_loader_tag' ], 10, 2 );
+
 		$this->register_scripts();
 		$this->register_styles();
 	}
@@ -116,4 +119,39 @@ class Assets {
 	public function asset_url( $path ) {
 		return trailingslashit( TENUP_PLUGIN_URL ) . $path;
 	}
+
+	/**
+	 * Add async/defer attributes to enqueued scripts that have the specified script_execution flag.
+	 *
+	 * @link https://core.trac.wordpress.org/ticket/12009
+	 * @param string $tag    The script tag.
+	 * @param string $handle The script handle.
+	 * @return string
+	 */
+	function script_loader_tag( $tag, $handle ) {
+		$script_execution = wp_scripts()->get_data( $handle, 'script_execution' );
+
+		if ( ! $script_execution ) {
+			return $tag;
+		}
+
+		if ( 'async' !== $script_execution && 'defer' !== $script_execution ) {
+			return $tag; // _doing_it_wrong()?
+		}
+
+		// Abort adding async/defer for scripts that have this script as a dependency. _doing_it_wrong()?
+		foreach ( wp_scripts()->registered as $script ) {
+			if ( in_array( $handle, $script->deps, true ) ) {
+				return $tag;
+			}
+		}
+
+		// Add the attribute if it hasn't already been added.
+		if ( ! preg_match( ":\s$script_execution(=|>|\s):", $tag ) ) {
+			$tag = preg_replace( ':(?=></script>):', " $script_execution", $tag, 1 );
+		}
+
+		return $tag;
+	}
+
 }

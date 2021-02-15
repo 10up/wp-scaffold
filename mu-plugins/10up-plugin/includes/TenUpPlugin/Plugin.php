@@ -57,6 +57,13 @@ class Plugin {
 	 * @return void
 	 */
 	public function enable() {
+		/**
+		 * Fires before the TenUpPlugin is enabled.
+		 *
+		 * @param Plugin $plugin The plugin instance
+		 */
+		do_action( 'tenup_plugin_before_enable', $this );
+
 		add_action( 'init', [ $this, 'init' ], 11 );
 		add_action( 'admin_init', [ $this, 'init_admin' ] );
 		add_action( 'admin_enqueue_scripts', [ $this, 'init_admin_scripts' ] );
@@ -65,6 +72,13 @@ class Plugin {
 		if ( $this->is_wp_cli() ) {
 			$this->init_commands();
 		}
+
+		/**
+		 * Fires after the TenUpPlugin is enabled.
+		 *
+		 * @param Plugin $plugin The plugin instance
+		 */
+		do_action( 'tenup_plugin_enable', $this );
 	}
 
 	/**
@@ -74,6 +88,16 @@ class Plugin {
 	 * @return void
 	 */
 	public function init() {
+		/**
+		 * Fires before the TenUpPlugin is initialized.
+		 *
+		 * @param Plugin $plugin The plugin instance
+		 */
+		do_action( 'tenup_plugin_before_init', $this );
+
+		$locale = apply_filters( 'plugin_locale', get_locale(), 'tenup-plugin' );
+		load_plugin_textdomain( 'tenup-plugin', false, TENUP_PLUGIN_DIR . '/languages/' );
+
 		$this->plugin_support = [
 			'taxonomy_factory'  => new Taxonomy\TaxonomyFactory(),
 			'post_type_factory' => new PostType\PostTypeFactory(),
@@ -81,6 +105,13 @@ class Plugin {
 		];
 
 		$this->register_objects( $this->plugin_support );
+
+		/**
+		 * Fires after the TenUpPlugin is initialized.
+		 *
+		 * @param Plugin $plugin The plugin instance
+		 */
+		do_action( 'tenup_plugin_init', $this );
 	}
 
 	/**
