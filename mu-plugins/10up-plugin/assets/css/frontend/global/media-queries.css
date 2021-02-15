@@ -1,0 +1,13 @@
+/*
+ * Media Queries
+ */
+@custom-media --bp-tiny ( min-width: 25em ); /* 400px */
+@custom-media --bp-small ( min-width: 30em ); /* 480px */
+@custom-media --bp-medium ( min-width: 48em ); /* 768px */
+@custom-media --bp-large ( min-width: 64em ); /* 1024px */
+@custom-media --bp-xlarge ( min-width: 80em ); /* 1280px */
+@custom-media --bp-xxlarge ( min-width: 90em ); /* 1440px */
+
+/* WP Core Breakpoints (used for the admin bar for example) */
+@custom-media --wp-small ( min-width: 600px );
+@custom-media --wp-medium-max (max-width: 782px);

@@ -1,0 +1,18 @@
+{
+  "name": "10up/wp-plugin",
+  "type": "wordpress-plugin",
+  "authors": [
+    {
+      "name": "10up",
+      "email": "info@10up.com"
+    }
+  ],
+  "require": {
+    "php": ">=7.0"
+  },
+  "autoload": {
+    "psr-4": {
+      "TenUpPlugin\\": "includes/classes/"
+    }
+  }
+}

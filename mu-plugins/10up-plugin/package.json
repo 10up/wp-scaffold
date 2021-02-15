@@ -1,5 +1,5 @@
 {
-  "name": "tenup-theme",
+  "name": "tenup-plugin",
   "version": "1.0.0",
   "scripts": {
     "start": "10up-scripts start",
@@ -27,12 +27,10 @@
       "blocks": "./includes/blocks/blocks.js",
       "frontend": "./assets/js/frontend/frontend.js",
       "shared": "./assets/js/shared/shared.js",
-      "styleguide": "./assets/js/styleguide/styleguide.js",
       "admin-style": "./assets/css/admin/admin-style.css",
       "editor-style": "./assets/css/frontend/editor-style.css",
       "shared-style": "./assets/css/shared/shared-style.css",
       "style": "./assets/css/frontend/style.css",
-      "styleguide-style": "./assets/css/styleguide/styleguide.css",
       "example-block": "./includes/blocks/example-block/index.js"
     }
   }
