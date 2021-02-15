@@ -102,6 +102,7 @@ class Plugin {
 			'taxonomy_factory'  => new Taxonomy\TaxonomyFactory(),
 			'post_type_factory' => new PostType\PostTypeFactory(),
 			'assets'            => new Assets(),
+			'site_settings'     => new Admin\SiteSettings(),
 		];
 
 		$this->register_objects( $this->plugin_support );
