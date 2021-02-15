@@ -4,6 +4,8 @@ release
 vendor
 .idea
 *.log
+.nvmrc
+.npmrc
 
 # Project Files
 dist
