@@ -12,7 +12,7 @@ namespace TenUpPlugin;
  * files. The assets are registered here. Other parts of the plugin can
  * use them by enqueuing or declaring as dependencies.
  */
-class Assets {
+class Assets extends Module {
 
 	/**
 	 * Registers the scripts & styles.

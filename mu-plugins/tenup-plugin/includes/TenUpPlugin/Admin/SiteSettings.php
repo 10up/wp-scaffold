@@ -10,7 +10,7 @@ namespace TenUpPlugin\Admin;
 /**
  * SiteSettings provides Fieldmanager based UI for global site settings.
  */
-class SiteSettings {
+class SiteSettings extends \TenUpPlugin\Module {
 
 	/**
 	 * Fieldmanager Setting ID

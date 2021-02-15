@@ -24,7 +24,7 @@ namespace TenUpPlugin\PostType;
  *
  * ```
  */
-class PostTypeFactory {
+class PostTypeFactory extends \TenUpPlugin\Module {
 
 	/**
 	 * Previously created post type instances.

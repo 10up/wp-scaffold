@@ -22,7 +22,7 @@ namespace TenUpPlugin\Taxonomy;
  *
  * ```
  */
-class TaxonomyFactory {
+class TaxonomyFactory extends \TenUpPlugin\Module {
 
 	/**
 	 * Taxonomy to Class mapping.
