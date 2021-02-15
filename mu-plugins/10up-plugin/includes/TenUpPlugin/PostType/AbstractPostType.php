@@ -169,7 +169,6 @@ abstract class AbstractPostType {
 		 *
 		 * @param array  $options  Default post type options.
 		 * @param string $name Post type name.
-		 * @param string $posttype The post type name.
 		 */
 		$options = apply_filters(
 			'tenup_plugin_post_type_options',

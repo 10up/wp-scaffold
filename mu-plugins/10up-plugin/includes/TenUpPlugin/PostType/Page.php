@@ -2,15 +2,15 @@
 /**
  * Page
  *
- * @package Groundworks
+ * @package TenUpPlugin
  */
 
-namespace Groundworks\PostType;
+namespace TenUpPlugin\PostType;
 
 /**
- * Page PostType customizes the Core Page Post Type.
+ * Page Post Type customizes the Core Page Post Type.
  */
-class PagePostType extends AbstractPostType {
+class Page extends AbstractPostType {
 
 	/**
 	 * Get the post type name.

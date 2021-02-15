@@ -75,7 +75,9 @@ class Plugin {
 	 */
 	public function init() {
 		$this->plugin_support = [
-			'assets' => new Assets(),
+			'taxonomy_factory'  => new Taxonomy\TaxonomyFactory(),
+			'post_type_factory' => new PostType\PostTypeFactory(),
+			'assets'            => new Assets(),
 		];
 
 		$this->register_objects( $this->plugin_support );

@@ -32,3 +32,7 @@ tenup_plugin_define( 'TENUP_PLUGIN_URL', plugin_dir_url( TENUP_PLUGIN ) );
 // Post Type Names
 tenup_plugin_define( 'POST_POST_TYPE', 'post' );
 tenup_plugin_define( 'PAGE_POST_TYPE', 'page' );
+
+// Taxonomy Names
+tenup_plugin_define( 'CATEGORY_TAXONOMY', 'category' );
+tenup_plugin_define( 'POST_TAG_TAXONOMY', 'post_tag' );
