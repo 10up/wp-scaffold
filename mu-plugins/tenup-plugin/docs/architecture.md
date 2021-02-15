@@ -5,7 +5,7 @@ If you want to familiarize yourself with the code base, you are just in the righ
 
 ## Bird's Eye View
 
-todo
+![](https://raw.githubusercontent.com/10up/wp-scaffold/d22480a6319bb85c639d49552679ab818937ce57/mu-plugins/tenup-plugin/docs/images/birds_eye_view_v1.png)
 
 ## Code Map
 
