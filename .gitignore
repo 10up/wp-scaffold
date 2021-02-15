@@ -32,3 +32,6 @@ Session.vim
 # Windows
 Thumbs.db
 Desktop.ini
+
+# ignore plugins
+plugins
