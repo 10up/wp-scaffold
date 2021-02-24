@@ -8,13 +8,18 @@
     "format-js": "10up-scripts format-js",
     "lint-js": "10up-scripts lint-js",
     "lint-style": "10up-scripts lint-style",
-    "test": "10up-scripts test-unit-jest"
+    "test": "10up-scripts test-unit-jest",
+    "test-watch": "10up-scripts test-unit-jest --watch"
   },
   "engines": {
     "node": ">=12.0.0"
   },
   "devDependencies": {
-    "@10up/scripts": "^1.1.1"
+    "@10up/scripts": "^1.1.3",
+    "@testing-library/dom": "^7.29.6",
+    "@testing-library/jest-dom": "^5.11.9",
+    "@testing-library/react": "^11.2.5",
+    "@testing-library/user-event": "^12.7.3"
   },
   "dependencies": {
     "normalize.css": "^8.0.1",
