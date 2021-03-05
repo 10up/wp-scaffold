@@ -18,6 +18,3 @@ Much of the functionality in the scaffold is intended to be optional depending o
 2. Functionality should be built into the 10up must-use functionality as much as possible. Presentation should be kept in the theme. Separating these two makes long term development, maintenance, and extensibility much easier.
 3. Blocks should be built into the theme and follow the [example block](https://github.com/10up/wp-scaffold/tree/trunk/themes/10up-theme/includes/blocks/example-block) provided.
 
-## Block Library
-
-Make sure to look at the blocks in the [10up Block Library](https://github.com/10up/block-library) to see if anything can be used on your project. All the blocks in the library are extremely extensible so you can customize everything for your project needs.
