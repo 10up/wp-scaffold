@@ -14,7 +14,7 @@ import { registerBlockType } from '@wordpress/blocks';
  */
 import edit from './edit';
 import save from './save';
-import { name } from './block.json';
+import block from './block.json';
 
 /* Uncomment for CSS overrides in the admin */
 // import './index.css';
@@ -22,7 +22,7 @@ import { name } from './block.json';
 /**
  * Register block
  */
-registerBlockType(name, {
+registerBlockType(block.name, {
 	title: __('Example Block'),
 	description: __('An Example Block'),
 	edit,
