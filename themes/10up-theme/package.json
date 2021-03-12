@@ -33,6 +33,7 @@
       "shared-style": "./assets/css/shared/shared-style.css",
       "style": "./assets/css/frontend/style.css",
       "styleguide-style": "./assets/css/styleguide/styleguide.css",
+      "core-block-overrides": "./includes/core-block-overrides.js",
       "example-block": "./includes/blocks/example-block/index.js"
     }
   }
