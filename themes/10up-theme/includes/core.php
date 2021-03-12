@@ -139,7 +139,7 @@ function core_block_overrides() {
 	if ( file_exists( $overrides ) ) {
 		$dep = require_once $overrides;
 		wp_enqueue_script(
-			'tenup-block-library-block-overrides-script',
+			'core-block-overrides',
 			TENUP_THEME_DIST_URL . 'js/core-block-overrides.js',
 			$dep['dependencies'],
 			$dep['version'],
