@@ -9,6 +9,8 @@
 define( 'TENUP_THEME_VERSION', '0.1.0' );
 define( 'TENUP_THEME_TEMPLATE_URL', get_template_directory_uri() );
 define( 'TENUP_THEME_PATH', get_template_directory() . '/' );
+define( 'TENUP_THEME_DIST_PATH', TENUP_THEME_PATH . 'dist/' );
+define( 'TENUP_THEME_DIST_URL', TENUP_THEME_TEMPLATE_URL . '/dist/' );
 define( 'TENUP_THEME_INC', TENUP_THEME_PATH . 'includes/' );
 define( 'TENUP_THEME_BLOCK_DIR', TENUP_THEME_INC . 'blocks/' );
 
