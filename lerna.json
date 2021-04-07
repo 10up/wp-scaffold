@@ -1,0 +1,7 @@
+{
+  "packages": [
+    "themes/*",
+    "mu-plugins/10up-plugin"
+  ],
+  "version": "independent"
+}
