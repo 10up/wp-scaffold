@@ -7,6 +7,15 @@
     "type": "git",
     "url": "https://project-git-repo.tld"
   },
+  "scripts": {
+    "prepare": "lerna bootstrap --hoist",
+    "build": "lerna run build --stream",
+    "start": "lerna run start --parallel",
+    "watch": "lerna run watch --parallel",
+    "test": "lerna run test --stram",
+    "clean": "lerna clean",
+    "clean-dist": "lerna run clean-dist --stram"
+  },
   "author": {
     "name": "10up",
     "email": "info@10up.com",
@@ -15,5 +24,8 @@
   },
   "engines": {
     "node": ">=12.0.0"
+  },
+  "devDependencies": {
+    "lerna": "^4.0.0"
   }
 }

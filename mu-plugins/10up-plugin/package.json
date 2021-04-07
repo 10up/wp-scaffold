@@ -8,7 +8,8 @@
     "format-js": "10up-scripts format-js",
     "lint-js": "10up-scripts lint-js",
     "lint-style": "10up-scripts lint-style",
-    "test": "10up-scripts test-unit-jest"
+    "test": "10up-scripts test-unit-jest",
+    "clean-dist": "rm -rf ./dist"
   },
   "engines": {
     "node": ">=12.0.0"
