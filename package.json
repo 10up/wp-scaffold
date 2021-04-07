@@ -12,9 +12,9 @@
     "build": "lerna run build --stream",
     "start": "lerna run start --parallel",
     "watch": "lerna run watch --parallel",
-    "test": "lerna run test --stram",
+    "test": "lerna run test --stream",
     "clean": "lerna clean",
-    "clean-dist": "lerna run clean-dist --stram"
+    "clean-dist": "lerna run clean-dist --stream"
   },
   "author": {
     "name": "10up",

@@ -22,6 +22,7 @@ It contains a bare bones theme and must use plugin for you to base your developm
 }
 ```
 5. To build plugins/themes simply run `npm install` at the root and `npm run [build|start|watch]` and lerna will automatically build all themes and plugins.
+6. In the unlikely scenario that you're having a problem with hoisted deps where [packages can't be found](https://github.com/lerna/lerna/blob/main/doc/hoist.md#module-resolution) we encourage you to fix the issue (or look for an alternative library/package). In the worst case scenario you can disable hoisting by removing the `--hoist` flag in the `prepare` script in `package.json`.
 
 ## Scaffold Rules
 
