@@ -1,0 +1,14 @@
+{
+    "*.css": [
+        "stylelint"
+    ],
+    "*.js": [
+        "eslint"
+    ],
+    "*.jsx": [
+        "eslint"
+    ],
+    "*.php": [
+        "./vendor/bin/phpcs --extensions=php --warning-severity=8 -s"
+    ]
+}

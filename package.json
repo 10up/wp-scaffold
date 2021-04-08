@@ -8,7 +8,7 @@
     "url": "https://project-git-repo.tld"
   },
   "scripts": {
-    "prepare": "lerna bootstrap --hoist",
+    "prepare": "lerna bootstrap --hoist && husky install",
     "build": "lerna run build --stream",
     "start": "lerna run start --parallel",
     "watch": "lerna run watch --parallel",
@@ -26,6 +26,8 @@
     "node": ">=12.0.0"
   },
   "devDependencies": {
-    "lerna": "^4.0.0"
+    "husky": "^6.0.0",
+    "lerna": "^4.0.0",
+    "lint-staged": "^10.5.4"
   }
 }
