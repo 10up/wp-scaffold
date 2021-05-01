@@ -26,7 +26,7 @@ function setup() {
 
 	add_action( 'init', $n( 'register_theme_blocks' ) );
 
-	add_action( 'init', $n( 'block_patterns_and_categories') );
+	add_action( 'init', $n( 'block_patterns_and_categories' ) );
 
 	/*
 	If you are using the block library, remove the blocks you don't need.
@@ -49,7 +49,6 @@ function setup() {
 function register_theme_blocks() {
 	// Filter the plugins URL to allow us to have blocks in themes with linked assets. i.e editorScripts
 	add_filter( 'plugins_url', __NAMESPACE__ . '\filter_plugins_url', 10, 2 );
-
 
 	// Require custom blocks.
 	require_once TENUP_THEME_BLOCK_DIR . '/example-block/register.php';
@@ -122,7 +121,6 @@ function blocks_categories( $categories, $post ) {
  * @return void
  */
 function block_patterns_and_categories() {
-
 	/*
 	## Examples
 
@@ -130,10 +128,10 @@ function block_patterns_and_categories() {
 	register_block_pattern(
 		'tenup/block-pattern',
 		array(
-        	'title'       => __( 'Two buttons', 'tenup' ),
-        	'description' => _x( 'Two horizontal buttons, the left button is filled in, and the right button is outlined.', 'Block pattern description', 'wpdocs-my-plugin' ),
-        	'content'     => "<!-- wp:buttons {\"align\":\"center\"} -->\n<div class=\"wp-block-buttons aligncenter\"><!-- wp:button {\"backgroundColor\":\"very-dark-gray\",\"borderRadius\":0} -->\n<div class=\"wp-block-button\"><a class=\"wp-block-button__link has-background has-very-dark-gray-background-color no-border-radius\">" . esc_html__( 'Button One', 'wpdocs-my-plugin' ) . "</a></div>\n<!-- /wp:button -->\n\n<!-- wp:button {\"textColor\":\"very-dark-gray\",\"borderRadius\":0,\"className\":\"is-style-outline\"} -->\n<div class=\"wp-block-button is-style-outline\"><a class=\"wp-block-button__link has-text-color has-very-dark-gray-color no-border-radius\">" . esc_html__( 'Button Two', 'wpdocs-my-plugin' ) . "</a></div>\n<!-- /wp:button --></div>\n<!-- /wp:buttons -->",
-    	)
+			'title'       => __( 'Two buttons', 'tenup' ),
+			'description' => _x( 'Two horizontal buttons, the left button is filled in, and the right button is outlined.', 'Block pattern description', 'wpdocs-my-plugin' ),
+			'content'     => "<!-- wp:buttons {\"align\":\"center\"} -->\n<div class=\"wp-block-buttons aligncenter\"><!-- wp:button {\"backgroundColor\":\"very-dark-gray\",\"borderRadius\":0} -->\n<div class=\"wp-block-button\"><a class=\"wp-block-button__link has-background has-very-dark-gray-background-color no-border-radius\">" . esc_html__( 'Button One', 'wpdocs-my-plugin' ) . "</a></div>\n<!-- /wp:button -->\n\n<!-- wp:button {\"textColor\":\"very-dark-gray\",\"borderRadius\":0,\"className\":\"is-style-outline\"} -->\n<div class=\"wp-block-button is-style-outline\"><a class=\"wp-block-button__link has-text-color has-very-dark-gray-color no-border-radius\">" . esc_html__( 'Button Two', 'wpdocs-my-plugin' ) . "</a></div>\n<!-- /wp:button --></div>\n<!-- /wp:buttons -->",
+		)
 	);
 
 	// Unregister a block pattern
