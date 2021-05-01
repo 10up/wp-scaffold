@@ -28,6 +28,8 @@ function setup() {
 
 	add_action( 'init', $n( 'block_patterns_and_categories') );
 
+	add_action( 'init', $n( 'disable_drop_cap_setting' ) );
+
 	/*
 	If you are using the block library, remove the blocks you don't need.
 
@@ -149,4 +151,48 @@ function block_patterns_and_categories() {
 	unregister_block_pattern('client-name')
 
 	*/
+}
+
+/**
+ * Disable the block editor setting to add a drop cap to a paragraph
+ *
+ * The DropCap setting can get disabled via the theme.json file. Since this mechanism currently is
+ * only available in the Gutenberg Plugin there is a way to filter these setting in core. Since the
+ * theme.json format is still experimental however the format for disabling the dropCap option changed
+ * between WordPress 5.6 & 5.7. In 5.8 the theme.json will most likely be supported and this won't be
+ * necessary any longer.
+ */
+function disable_drop_cap_setting() {
+	global $wp_version;
+
+	if ( version_compare( $wp_version, '5.7', '>=' ) ) {
+		add_filter( 'block_editor_settings', 'disable_drop_cap_editor_settings_5_7' );
+	}
+
+	if (
+		version_compare( $wp_version, '5.6', '>=' ) &&
+		version_compare( $wp_version, '5.7', '<' )
+	) {
+		add_filter( 'block_editor_settings', 'disable_drop_cap_editor_settings_5_6' );
+	}
+}
+
+/**
+ * Disable the drop cap setting for WordPress 5.7 +
+ *
+ * @param array $editor_settings block editor settings
+ */
+function disable_drop_cap_editor_settings_5_7( $editor_settings ) {
+	$editor_settings['__experimentalFeatures']['defaults']['typography']['dropCap'] = false;
+	return $editor_settings;
+}
+
+/**
+ * Disable the drop cap setting for WordPress 5.6
+ *
+ * @param array $editor_settings block editor settings
+ */
+function disable_drop_cap_editor_settings_5_6( $editor_settings ) {
+	$editor_settings['__experimentalFeatures']['global']['typography']['dropCap'] = false;
+	return $editor_settings;
 }
