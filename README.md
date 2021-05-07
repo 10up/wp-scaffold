@@ -44,3 +44,12 @@ Much of the functionality in the scaffold is intended to be optional depending o
     "clean-dist": "rm -rf ./dist"
   },
 ```
+
+## Husky and Lint-Staged
+
+Husky and Lint-Staged are both set up to run on the pre-commit hook. The lint-staged configuration file is available to edit in `.lintstagedrc.json`.
+By default it will run the following:
+
+- `eslint` on JS and JSX files.
+- `stylelint` on CSS files.
+- `phpcs` on PHP files.
