@@ -1,12 +1,12 @@
 {
     "*.css": [
-      "10up-scripts lint-style"
+      "10up-toolkit lint-style"
     ],
     "*.js": [
-      "10up-scripts lint-js"
+      "10up-toolkit lint-js"
     ],
     "*.jsx": [
-      "10up-scripts lint-js"
+      "10up-toolkit lint-js"
     ],
     "*.php": [
       "./vendor/bin/phpcs --extensions=php --warning-severity=8 -s"
