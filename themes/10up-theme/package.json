@@ -2,26 +2,26 @@
   "name": "tenup-theme",
   "version": "1.0.0",
   "scripts": {
-    "start": "10up-scripts start",
-    "watch": "10up-scripts watch",
-    "build": "10up-scripts build",
-    "format-js": "10up-scripts format-js",
-    "lint-js": "10up-scripts lint-js",
-    "lint-style": "10up-scripts lint-style",
-    "test": "10up-scripts test-unit-jest",
+    "start": "10up-toolkit start",
+    "watch": "10up-toolkit watch",
+    "build": "10up-toolkit build",
+    "format-js": "10up-toolkit format-js",
+    "lint-js": "10up-toolkit lint-js",
+    "lint-style": "10up-toolkit lint-style",
+    "test": "10up-toolkit test-unit-jest",
     "clean-dist": "rm -rf ./dist"
   },
   "engines": {
     "node": ">=12.0.0"
   },
   "devDependencies": {
-    "@10up/scripts": "^1.3.1"
+    "10up-toolkit": "^1.0.0"
   },
   "dependencies": {
     "normalize.css": "^8.0.1",
     "prop-types": "^15.7.2"
   },
-  "@10up/scripts": {
+  "10up-toolkit": {
     "devURL": "https://my-project.test",
     "entry": {
       "admin": "./assets/js/admin/admin.js",
