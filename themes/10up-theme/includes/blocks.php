@@ -22,7 +22,7 @@ function setup() {
 
 	add_action( 'enqueue_block_editor_assets', $n( 'blocks_editor_styles' ) );
 
-	add_filter( 'allowed_block_types', $n( 'allowed_block_types', 10, 2 ) );
+	add_filter( 'allowed_block_types', $n( 'allowed_block_types' ), 10, 2 );
 
 	add_filter( 'block_categories', $n( 'blocks_categories' ), 10, 2 );
 
@@ -38,7 +38,13 @@ function setup() {
 			unset( $blocks['integrated-hero'] );
 		}
 
-		return $blocks;
+		// Enable all of the available blocks.
+		// Be sure to also allow blocks below (SEE: allowed_block_types())
+		return [
+			'accordion',
+			'accordion-item',
+		];
+
 	} );
 	*/
 }
@@ -102,30 +108,35 @@ function blocks_editor_styles() {
 function allowed_block_types( $allowed_block_types ) {
 
 	$allowed_blocks = [
-		'core/paragraph',
-		'core/image',
 		'core/block',
-		'core/image',
-		'core/heading',
-		'core/gallery',
-		'core/list',
-		'core/quote',
-		'core/cover',
-		'core/file',
-		'core/video',
-		'core/pullquote',
-		'core/table',
-		'core/spacer',
-		'core/buttons',
 		'core/button',
+		'core/buttons',
 		'core/columns',
+		'core/cover',
+		'core/embed',
+		'core/file',
+		'core/gallery',
 		'core/group',
+		'core/heading',
+		'core/image',
+		'core/list',
 		'core/media-text',
-		'core/separator',
-		'core/rss',
+		'core/paragraph',
+		'core/pullquote',
+		'core/quote',
 		'core/search',
-		'core/social-links',
 		'core/social-link',
+		'core/social-links',
+		'core/separator',
+		'core/spacer',
+		'core/table',
+		'core/video',
+		'core/rss',
+
+		/* How to allow blocks from the block library plugin
+		'tenup/accordion',
+		'tenup/accordion-item',
+		*/
 	];
 
 	return $allowed_blocks;
