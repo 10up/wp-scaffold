@@ -5,11 +5,6 @@ import { __ } from '@wordpress/i18n';
 import { RichText } from '@wordpress/block-editor';
 
 /**
- * Internal dependencies
- */
-import { editPropsShape } from './props-shape';
-
-/**
  * Edit component.
  * See https://wordpress.org/gutenberg/handbook/designers-developers/developers/block-api/block-edit-save/#edit
  *
@@ -37,6 +32,4 @@ const ExampleBockEdit = ({
 		</div>
 	);
 };
-// Set the propTypes
-ExampleBockEdit.propTypes = editPropsShape;
 export default ExampleBockEdit;
