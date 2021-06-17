@@ -22,6 +22,8 @@ function setup() {
 
 	add_action( 'enqueue_block_editor_assets', $n( 'blocks_editor_styles' ) );
 
+	add_filter( 'allowed_block_types', $n( 'allowed_block_types' ), 10, 2 );
+
 	add_filter( 'block_categories', $n( 'blocks_categories' ), 10, 2 );
 
 	add_action( 'init', $n( 'register_theme_blocks' ) );
@@ -36,7 +38,13 @@ function setup() {
 			unset( $blocks['integrated-hero'] );
 		}
 
-		return $blocks;
+		// Enable all of the available blocks.
+		// Be sure to also allow blocks below (SEE: allowed_block_types())
+		return [
+			'accordion',
+			'accordion-item',
+		];
+
 	} );
 	*/
 }
@@ -87,6 +95,50 @@ function blocks_editor_styles() {
 		TENUP_THEME_VERSION
 	);
 
+}
+
+/**
+ * Allowed blocks in editor
+ * See reference of available blocks here: https://wordpress.org/support/article/blocks/
+ *
+ * @param array $allowed_block_types core array
+ * @return array  $allowed_blocks modified array under right conditions.
+ */
+function allowed_block_types( $allowed_block_types ) {
+
+	$allowed_blocks = [
+		'core/block',
+		'core/button',
+		'core/buttons',
+		'core/columns',
+		'core/cover',
+		'core/embed',
+		'core/file',
+		'core/gallery',
+		'core/group',
+		'core/heading',
+		'core/image',
+		'core/list',
+		'core/media-text',
+		'core/paragraph',
+		'core/pullquote',
+		'core/quote',
+		'core/search',
+		'core/social-link',
+		'core/social-links',
+		'core/separator',
+		'core/spacer',
+		'core/table',
+		'core/video',
+		'core/rss',
+
+		/* How to allow blocks from the block library plugin
+		'tenup/accordion',
+		'tenup/accordion-item',
+		*/
+	];
+
+	return $allowed_blocks;
 }
 
 /**
