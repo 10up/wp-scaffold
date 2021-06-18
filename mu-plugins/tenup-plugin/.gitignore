@@ -2,15 +2,13 @@ node_modules
 bower_components
 release
 vendor
-phpunit.xml
 .idea
-uploads
-upgrade
-cache
+*.log
+.nvmrc
+.npmrc
 
 # Project Files
 dist
-backstop_data
 
 # Editors
 *.esproj
@@ -21,7 +19,6 @@ tmtags
 *.un~
 Session.vim
 *.swp
-.vscode
 
 # Mac OSX
 .DS_Store
@@ -32,6 +29,3 @@ Session.vim
 # Windows
 Thumbs.db
 Desktop.ini
-
-# ignore plugins
-plugins

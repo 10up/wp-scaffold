@@ -1,0 +1,6 @@
+<?xml version="1.0"?>
+<ruleset name="TenUp PHPCS">
+	<description>TenUp PHPCS extended.</description>
+
+	<rule ref="TenUp-Default" />
+</ruleset>
