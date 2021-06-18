@@ -15,4 +15,9 @@
 	</head>
 	<body <?php body_class(); ?>>
 		<?php wp_body_open(); ?>
-		<h1><?php bloginfo( 'name' ); ?></h1>
+
+		<a href="#main" class="screen-reader-text"><?php echo esc_html_e( 'Skip to main content', 'tenup-theme' ); ?></a>
+
+		<main id="main" role="main" tabindex="-1">
+
+			<h1><?php bloginfo( 'name' ); ?></h1>
