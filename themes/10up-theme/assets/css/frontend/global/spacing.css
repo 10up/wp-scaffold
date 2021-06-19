@@ -1,0 +1,14 @@
+/*
+ * Spacing
+ */
+:root {
+	--s-xxsmall: 0.625rem; /* 10px */
+	--s-xsmall: 1.25rem; /* 20px */
+	--s-small: 1.875rem; /* 30px */
+	--s-medium: 2.5rem; /* 40px */
+	--s-xmedium: 3.125rem; /* 50px */
+	--s-xxmedium: 3.75rem; /* 60px */
+	--s-large: 4.375rem; /* 70px */
+	--s-xlarge: 5rem; /* 80px */
+	--s-xxlarge: 5.625rem; /* 90px */
+}
