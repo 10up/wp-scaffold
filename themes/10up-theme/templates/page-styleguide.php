@@ -57,6 +57,7 @@ get_header();
 				<h3>H3, Heading 3 {38px}</h3>
 				<h4>H4, Heading 4 {30px}</h4>
 				<h5>H5, Heading 5 {26px}</h5>
+				<h6>H6, Heading 6 {22px}</h6>
 			</div><!--/.content-->
 
 		</section><!--/.uikit__section-->

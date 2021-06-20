@@ -1,0 +1,102 @@
+/*
+ * Base Font Styles
+ */
+body {
+	font-family: var(--ff-body);
+	font-size: var(--fs-base);
+	line-height: var(--lh-base);
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+.heading-h1,
+.heading-h2,
+.heading-h3,
+.heading-h4,
+.heading-h5,
+.heading-h6 {
+	color: var(--c-accent1);
+	font-family: var(--ff-heading);
+	line-height: var(--lh-medium);
+	margin: 0;
+}
+
+h1,
+.heading-h1,
+.has-xxlarge-font-size {
+	font-size: var(--fs-xlarge);
+
+	@media (--bp-large) {
+		font-size: var(--fs-xxlarge);
+	}
+}
+
+h2,
+.heading-h2,
+.has-xlarge-font-size {
+	font-size: var(--fs-large);
+
+	@media (--bp-large) {
+		font-size: var(--fs-xlarge);
+	}
+}
+
+h3,
+.heading-h3,
+.has-large-font-size {
+	font-size: var(--fs-xxmedium);
+
+	@media (--bp-large) {
+		font-size: var(--fs-large);
+	}
+}
+
+h4,
+.heading-h4,
+.has-xxmedium-font-size {
+	font-size: var(--fs-xmedium);
+
+	@media (--bp-large) {
+		font-size: var(--fs-xxmedium);
+	}
+}
+
+h5,
+.heading-h5,
+.has-xmedium-font-size {
+	font-size: var(--fs-medium);
+
+	@media (--bp-large) {
+		font-size: var(--fs-xmedium);
+	}
+}
+
+h6,
+.heading-h6,
+.has-medium-font-size {
+	font-size: var(--fs-small);
+
+	@media (--bp-large) {
+		font-size: var(--fs-medium);
+	}
+}
+
+.has-body-font-size {
+	font-size: var(--fs-base);
+}
+
+.has-small-font-size {
+	font-size: var(--fs-small);
+}
+
+.has-xsmall-font-size {
+	font-size: var(--fs-xsmall);
+}
+
+.has-xxsmall-font-size {
+	font-size: var(--fs-xxsmall);
+}
