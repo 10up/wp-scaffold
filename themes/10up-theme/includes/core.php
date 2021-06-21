@@ -60,8 +60,6 @@ function theme_setup() {
 		)
 	);
 
-	add_theme_support( 'disable-custom-font-sizes' );
-
 	add_theme_support(
 		'editor-font-sizes',
 		array(
