@@ -18,6 +18,7 @@
     "10up-toolkit": "^1.0.0"
   },
   "dependencies": {
+    "@10up/component-navigation": "^2.1.0",
     "normalize.css": "^8.0.1"
   },
   "10up-toolkit": {
