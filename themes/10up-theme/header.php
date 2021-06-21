@@ -15,4 +15,5 @@
 	</head>
 	<body <?php body_class(); ?>>
 		<?php wp_body_open(); ?>
-		<h1><?php bloginfo( 'name' ); ?></h1>
+
+		<?php get_template_part( 'partials/header/site-header' ); ?>
