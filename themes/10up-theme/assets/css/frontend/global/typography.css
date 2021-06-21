@@ -1,0 +1,38 @@
+/*
+ * Typography variables
+ */
+
+:root {
+	--ff-body: system-ui;
+	--ff-heading: system-ui;
+
+	/*
+	 * Font Sizes
+	 */
+	--fs-xxsmall: 13px;
+	--fs-xsmall: 14px;
+	--fs-small: 16px;
+	--fs-base: 18px;
+	--fs-medium: 22px;
+	--fs-xmedium: 26px;
+	--fs-xxmedium: 30px;
+	--fs-large: 38px;
+	--fs-xlarge: 48px;
+	--fs-xxlarge: 64px;
+
+	/*
+	 * Font Weights
+	 */
+	--fw-light: 300;
+	--fw-normal: 400;
+	--fw-medium: 400;
+	--fw-bold: 700;
+
+	/*
+	 * Line Height
+	 */
+	--lh-default: 1;
+	--lh-base: 1.33;
+	--lh-medium: 1.4;
+	--lh-large: 1.6;
+}
