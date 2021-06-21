@@ -78,7 +78,7 @@ h5,
 h6,
 .heading-h6,
 .has-medium-font-size {
-	font-size: var(--fs-small);
+	font-size: var(--fs-base);
 
 	@media (--bp-large) {
 		font-size: var(--fs-medium);
