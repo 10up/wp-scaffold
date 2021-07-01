@@ -1,8 +1,5 @@
-/**
- * Text meant only for screen readers
- * Source: https://make.wordpress.org/accessibility/handbook/markup/the-css-class-screen-reader-text/
- */
-.screen-reader-text {
+.visually-hidden,
+.visually-hidden-focusable:not(:focus):not(:active) {
 	border: 0;
 	clip: rect(1px, 1px, 1px, 1px);
 	clip-path: inset(50%);
@@ -13,21 +10,4 @@
 	position: absolute;
 	width: 1px;
 	word-wrap: normal !important;
-
-	&:focus {
-		background-color: var(--c-white);
-		clip: auto !important;
-		clip-path: none;
-		color: var(--c-black);
-		display: block;
-		font-size: 1em;
-		height: auto;
-		left: 5px;
-		line-height: normal;
-		padding: 15px 23px 14px;
-		text-decoration: none;
-		top: 5px;
-		width: auto;
-		z-index: 100000; /* Above WP toolbar. */
-	}
 }
