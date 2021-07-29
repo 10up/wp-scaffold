@@ -64,7 +64,7 @@ function theme_setup() {
 		'editor-font-sizes',
 		array(
 			array(
-				'name'      => __( 'Extra Extra Small', 'tenup-theme' ),
+				'name'      => __( '2X Small', 'tenup-theme' ),
 				'shortName' => __( 'XXS', 'tenup-theme' ),
 				'size'      => 13,
 				'slug'      => 'xxsmall',
@@ -100,7 +100,7 @@ function theme_setup() {
 				'slug'      => 'xmedium',
 			),
 			array(
-				'name'      => __( 'Extra Extra Medium', 'tenup-theme' ),
+				'name'      => __( '2X Medium', 'tenup-theme' ),
 				'shortName' => __( 'XXM', 'tenup-theme' ),
 				'size'      => 30,
 				'slug'      => 'xxmedium',
@@ -118,7 +118,7 @@ function theme_setup() {
 				'slug'      => 'xlarge',
 			),
 			array(
-				'name'      => __( 'Extra Extra Large', 'tenup-theme' ),
+				'name'      => __( '2X Large', 'tenup-theme' ),
 				'shortName' => __( 'XXL', 'tenup-theme' ),
 				'size'      => 64,
 				'slug'      => 'xxlarge',
