@@ -31,8 +31,8 @@
 	/*
 	 * Line Height
 	 */
-	--lh-default: 1;
-	--lh-base: 1.33;
-	--lh-medium: 1.4;
-	--lh-large: 1.6;
+	--lh-small: 1.3;
+	--lh-base: 1.5;
+	--lh-medium: 1.6;
+	--lh-large: 1.7;
 }
