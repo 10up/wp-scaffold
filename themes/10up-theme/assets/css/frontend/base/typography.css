@@ -3,7 +3,7 @@
  */
 body {
 	font-family: var(--ff-body);
-	font-size: var(--fs-base);
+	font-size: var(--font-size-base);
 	line-height: var(--lh-base);
 }
 
@@ -28,75 +28,75 @@ h6,
 h1,
 .heading-h1,
 .has-xxlarge-font-size {
-	font-size: var(--fs-xlarge);
+	font-size: var(--font-size-xlarge);
 
 	@media (--bp-large) {
-		font-size: var(--fs-xxlarge);
+		font-size: var(--font-size-xxlarge);
 	}
 }
 
 h2,
 .heading-h2,
 .has-xlarge-font-size {
-	font-size: var(--fs-large);
+	font-size: var(--font-size-large);
 
 	@media (--bp-large) {
-		font-size: var(--fs-xlarge);
+		font-size: var(--font-size-xlarge);
 	}
 }
 
 h3,
 .heading-h3,
 .has-large-font-size {
-	font-size: var(--fs-xxmedium);
+	font-size: var(--font-size-xxmedium);
 
 	@media (--bp-large) {
-		font-size: var(--fs-large);
+		font-size: var(--font-size-large);
 	}
 }
 
 h4,
 .heading-h4,
 .has-xxmedium-font-size {
-	font-size: var(--fs-xmedium);
+	font-size: var(--font-size-xmedium);
 
 	@media (--bp-large) {
-		font-size: var(--fs-xxmedium);
+		font-size: var(--font-size-xxmedium);
 	}
 }
 
 h5,
 .heading-h5,
 .has-xmedium-font-size {
-	font-size: var(--fs-medium);
+	font-size: var(--font-size-medium);
 
 	@media (--bp-large) {
-		font-size: var(--fs-xmedium);
+		font-size: var(--font-size-xmedium);
 	}
 }
 
 h6,
 .heading-h6,
 .has-medium-font-size {
-	font-size: var(--fs-base);
+	font-size: var(--font-size-base);
 
 	@media (--bp-large) {
-		font-size: var(--fs-medium);
+		font-size: var(--font-size-medium);
 	}
 }
 
 .has-body-font-size {
-	font-size: var(--fs-base);
+	font-size: var(--font-size-base);
 }
 
 .has-small-font-size {
-	font-size: var(--fs-small);
+	font-size: var(--font-size-small);
 }
 
 .has-xsmall-font-size {
-	font-size: var(--fs-xsmall);
+	font-size: var(--font-size-xsmall);
 }
 
 .has-xxsmall-font-size {
-	font-size: var(--fs-xxsmall);
+	font-size: var(--font-size-xxsmall);
 }

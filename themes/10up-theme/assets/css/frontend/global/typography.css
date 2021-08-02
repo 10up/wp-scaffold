@@ -9,16 +9,16 @@
 	/*
 	 * Font Sizes
 	 */
-	--fs-xxsmall: 0.8125rem;
-	--fs-xsmall: 0.875rem;
-	--fs-small: 1rem;
-	--fs-base: 1.125rem;
-	--fs-medium: 1.375rem;
-	--fs-xmedium: 1.625rem;
-	--fs-xxmedium: 1.875rem;
-	--fs-large: 2.375rem;
-	--fs-xlarge: 3rem;
-	--fs-xxlarge: 4rem;
+	--font-size-xxsmall: 0.8125rem;
+	--font-size-xsmall: 0.875rem;
+	--font-size-small: 1rem;
+	--font-size-base: 1.125rem;
+	--font-size-medium: 1.375rem;
+	--font-size-xmedium: 1.625rem;
+	--font-size-xxmedium: 1.875rem;
+	--font-size-large: 2.375rem;
+	--font-size-xlarge: 3rem;
+	--font-size-xxlarge: 4rem;
 
 	/*
 	 * Font Weights
