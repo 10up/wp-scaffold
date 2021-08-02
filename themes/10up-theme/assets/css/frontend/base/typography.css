@@ -2,9 +2,9 @@
  * Base Font Styles
  */
 body {
-	font-family: var(--ff-body);
+	font-family: var(--font-family-body);
 	font-size: var(--font-size-base);
-	line-height: var(--lh-base);
+	line-height: var(--line-height-base);
 }
 
 h1,
@@ -19,9 +19,8 @@ h6,
 .heading-h4,
 .heading-h5,
 .heading-h6 {
-	color: var(--c-accent1);
-	font-family: var(--ff-heading);
-	line-height: var(--lh-medium);
+	font-family: var(--font-family-heading);
+	line-height: var(--line-height-medium);
 	margin: 0;
 }
 

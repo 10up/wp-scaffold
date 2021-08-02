@@ -3,8 +3,8 @@
  */
 
 :root {
-	--ff-body: system-ui;
-	--ff-heading: system-ui;
+	--font-family-body: system-ui;
+	--font-family-heading: system-ui;
 
 	/*
 	 * Font Sizes
@@ -23,16 +23,16 @@
 	/*
 	 * Font Weights
 	 */
-	--fw-light: 300;
-	--fw-normal: 400;
-	--fw-medium: 500;
-	--fw-bold: 700;
+	--font-weight-light: 300;
+	--font-weight-normal: 400;
+	--font-weight-medium: 500;
+	--font-weight-bold: 700;
 
 	/*
 	 * Line Height
 	 */
-	--lh-small: 1.3;
-	--lh-base: 1.5;
-	--lh-medium: 1.6;
-	--lh-large: 1.7;
+	--line-height-small: 1.3;
+	--line-height-base: 1.5;
+	--line-height-medium: 1.6;
+	--line-height-large: 1.7;
 }
