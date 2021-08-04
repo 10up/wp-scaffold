@@ -11,6 +11,11 @@
           "gradients": [],
           "palette": [],
           "link": false
+        },
+        "typography": {
+          "customFontSize": false,
+          "dropCap": false,
+          "fontSizes": []
         }
       }
     }
