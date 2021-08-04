@@ -1,0 +1,18 @@
+{
+  "version": 1,
+  "settings": {
+    "blocks": {
+      "core/paragraph": {
+        "color": {
+          "custom": false,
+          "customDuotone": false,
+          "customGradient": false,
+          "duotone": [],
+          "gradients": [],
+          "palette": [],
+          "link": false
+        }
+      }
+    }
+  }
+}
