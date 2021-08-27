@@ -28,14 +28,14 @@
 		"defaultStylePicker": false,
 		"html": false,
 		"inserter": true,
-		"lineHeight": true,
 		"multiple": true,
 		"reusable": false,
 		"spacing": {
 			"padding": false
 		},
 		"typography": {
-			"fontSize": false
+			"fontSize": false,
+			"lineHeight": true
 		}
 	},
 	"editorScript": "file:../../../dist/blocks/example-block/editor.js"
