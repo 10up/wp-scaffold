@@ -22,7 +22,7 @@ function setup() {
 
 	add_action( 'enqueue_block_editor_assets', $n( 'blocks_editor_styles' ) );
 
-	add_filter( 'block_categories', $n( 'blocks_categories' ), 10, 2 );
+	add_filter( 'block_categories_all', $n( 'blocks_categories' ), 10, 2 );
 
 	add_action( 'init', $n( 'register_theme_blocks' ) );
 
@@ -93,12 +93,12 @@ function blocks_editor_styles() {
  * Filters the registered block categories.
  *
  * @param array  $categories Registered categories.
- * @param object $post       The post object.
+ * @param object $block_editor_context The current block editor context.
  *
  * @return array Filtered categories.
  */
-function blocks_categories( $categories, $post ) {
-	if ( ! in_array( $post->post_type, array( 'post', 'page' ), true ) ) {
+function blocks_categories( $categories, $block_editor_context ) {
+	if ( ! in_array( $block_editor_context->post->post_type, array( 'post', 'page' ), true ) ) {
 		return $categories;
 	}
 
