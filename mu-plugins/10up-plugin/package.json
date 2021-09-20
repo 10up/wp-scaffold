@@ -21,7 +21,6 @@
     "prop-types": "^15.7.2"
   },
   "10up-toolkit": {
-    "devURL": "https://my-project.test",
     "entry": {
       "admin": "./assets/js/admin/admin.js",
       "frontend": "./assets/js/frontend/frontend.js",
