@@ -18,8 +18,7 @@
     "10up-toolkit": "^1.0.0"
   },
   "dependencies": {
-    "normalize.css": "^8.0.1",
-    "prop-types": "^15.7.2"
+    "normalize.css": "^8.0.1"
   },
   "10up-toolkit": {
     "devURL": "https://my-project.test",
