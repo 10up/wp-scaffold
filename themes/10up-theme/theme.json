@@ -1,3 +1,24 @@
 {
-  "version": 1
+  "version": 1,
+  "settings": {
+    "color": {},
+    "custom": {},
+    "layout": {},
+    "spacing": {},
+    "typography": {}
+  },
+  "styles": {
+    "blocks": {},
+    "color": {},
+    "elements": {
+      "h1": {},
+      "h2": {},
+      "h3": {},
+      "h4": {},
+      "h5": {},
+      "h6": {},
+      "link": {}
+    },
+    "typography": {}
+  }
 }
