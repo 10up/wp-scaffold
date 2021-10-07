@@ -28,7 +28,13 @@
     }
   },
   "styles": {
-    "blocks": {},
+    "blocks": {
+      "core/button": {
+        "color": {
+          "palette": []
+        }
+      }
+    },
     "color": {},
     "elements": {
       "h1": {},
