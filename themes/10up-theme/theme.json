@@ -20,7 +20,12 @@
       "customPadding": false,
       "units": []
     },
-    "typography": {}
+    "typography": {
+      "customFontSize": false,
+      "customLineHeight": false,
+      "dropCap": false,
+      "fontSizes": []
+    }
   },
   "styles": {
     "blocks": {},
