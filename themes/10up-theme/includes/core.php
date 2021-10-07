@@ -60,6 +60,8 @@ function theme_setup() {
 		)
 	);
 
+	remove_theme_support( 'block-templates' );
+
 	// This theme uses wp_nav_menu() in three locations.
 	register_nav_menus(
 		array(
