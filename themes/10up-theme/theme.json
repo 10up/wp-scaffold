@@ -1,7 +1,15 @@
 {
   "version": 1,
   "settings": {
-    "color": {},
+    "color": {
+      "custom": false,
+      "customDuotone": false,
+      "customGradient": false,
+      "duotone": [],
+      "gradients": [],
+      "link": false,
+      "palette": []
+    },
     "custom": {},
     "layout": {},
     "spacing": {},
