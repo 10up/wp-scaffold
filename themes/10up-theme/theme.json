@@ -11,7 +11,10 @@
       "palette": []
     },
     "custom": {},
-    "layout": {},
+    "layout": {
+      "contentSize": "800px",
+      "wideSize": "1000px"
+    },
     "spacing": {},
     "typography": {}
   },
