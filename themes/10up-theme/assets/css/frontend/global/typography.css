@@ -1,0 +1,38 @@
+/*
+ * Typography variables
+ */
+
+:root {
+	--font-family-body: system-ui;
+	--font-family-heading: system-ui;
+
+	/*
+	 * Font Sizes
+	 */
+	--font-size-xxsmall: 0.8125rem;
+	--font-size-xsmall: 0.875rem;
+	--font-size-small: 1rem;
+	--font-size-base: 1.125rem;
+	--font-size-medium: 1.375rem;
+	--font-size-xmedium: 1.625rem;
+	--font-size-xxmedium: 1.875rem;
+	--font-size-large: 2.375rem;
+	--font-size-xlarge: 3rem;
+	--font-size-xxlarge: 4rem;
+
+	/*
+	 * Font Weights
+	 */
+	--font-weight-light: 300;
+	--font-weight-normal: 400;
+	--font-weight-medium: 500;
+	--font-weight-bold: 700;
+
+	/*
+	 * Line Height
+	 */
+	--line-height-small: 1.3;
+	--line-height-base: 1.5;
+	--line-height-medium: 1.6;
+	--line-height-large: 1.7;
+}

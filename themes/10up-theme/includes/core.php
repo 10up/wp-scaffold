@@ -60,6 +60,72 @@ function theme_setup() {
 		)
 	);
 
+	add_theme_support(
+		'editor-font-sizes',
+		array(
+			array(
+				'name'      => __( '2X Small', 'tenup-theme' ),
+				'shortName' => __( 'XXS', 'tenup-theme' ),
+				'size'      => 13,
+				'slug'      => 'xxsmall',
+			),
+			array(
+				'name'      => __( 'Extra Small', 'tenup-theme' ),
+				'shortName' => __( 'XS', 'tenup-theme' ),
+				'size'      => 14,
+				'slug'      => 'xsmall',
+			),
+			array(
+				'name'      => __( 'Small', 'tenup-theme' ),
+				'shortName' => __( 'S', 'tenup-theme' ),
+				'size'      => 16,
+				'slug'      => 'small',
+			),
+			array(
+				'name'      => __( 'Body', 'tenup-theme' ),
+				'shortName' => __( 'B', 'tenup-theme' ),
+				'size'      => 18,
+				'slug'      => 'body',
+			),
+			array(
+				'name'      => __( 'Medium', 'tenup-theme' ),
+				'shortName' => __( 'M', 'tenup-theme' ),
+				'size'      => 22,
+				'slug'      => 'medium',
+			),
+			array(
+				'name'      => __( 'Extra Medium', 'tenup-theme' ),
+				'shortName' => __( 'XM', 'tenup-theme' ),
+				'size'      => 26,
+				'slug'      => 'xmedium',
+			),
+			array(
+				'name'      => __( '2X Medium', 'tenup-theme' ),
+				'shortName' => __( 'XXM', 'tenup-theme' ),
+				'size'      => 30,
+				'slug'      => 'xxmedium',
+			),
+			array(
+				'name'      => __( 'Large', 'tenup-theme' ),
+				'shortName' => __( 'L', 'tenup-theme' ),
+				'size'      => 38,
+				'slug'      => 'large',
+			),
+			array(
+				'name'      => __( 'Extra Large', 'tenup-theme' ),
+				'shortName' => __( 'XL', 'tenup-theme' ),
+				'size'      => 48,
+				'slug'      => 'xlarge',
+			),
+			array(
+				'name'      => __( '2X Large', 'tenup-theme' ),
+				'shortName' => __( 'XXL', 'tenup-theme' ),
+				'size'      => 64,
+				'slug'      => 'xxlarge',
+			),
+		)
+	);
+
 	// This theme uses wp_nav_menu() in three locations.
 	register_nav_menus(
 		array(
