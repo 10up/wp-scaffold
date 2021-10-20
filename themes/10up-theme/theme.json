@@ -25,16 +25,16 @@
       "customLineHeight": false,
       "dropCap": false,
       "fontSizes": []
-    }
-  },
-  "styles": {
+    },
     "blocks": {
       "core/button": {
         "color": {
           "palette": []
         }
       }
-    },
+    }
+  },
+  "styles": {
     "color": {},
     "elements": {
       "h1": {},
