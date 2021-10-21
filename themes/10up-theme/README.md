@@ -1,14 +1,14 @@
 # 10up Theme
 
 ## Working with `theme.json`
-The default theme scaffold now ships with a very basic version of the `theme.json` file. This is to ensure all the sideaffects of introducing this file are there from the beginning of a project and therefore set projects up for success if they want to addopt more features through the `theme.json` machanism.
+The default theme scaffold now ships with a very basic version of the `theme.json` file. This is to ensure all the side-affects of introducing this file are there from the beginning of a project and therefore set projects up for success if they want to adopt more features through the `theme.json` mechanism.
 
 ### 🙋 FAQ
 <details>
 <summary>Where has the `.wp-block-group__inner-container` gone?</summary>
 <br />
 
-Core has made the decision to drop the additional inner container of the group block. The rationale behind that decicion is that the additional `div` semantically isn't neccecary and modern layout techniques don't rely on it anymore. The container is still present for _legacy_ themes (themes without a `theme.json` file).
+Core has made the decision to drop the additional inner container of the group block. The rationale behind that decision is that the additional `div` semantically isn't necessary and modern layout techniques don't rely on it anymore. The container is still present for _legacy_ themes (themes without a `theme.json` file).
 
 For new builds it is suggested that we use the `settings.layout.contentWidth` and `settings.layout.wideWidth` options of the `theme.json` for this. The group block has an option in the editor to allow editors to inherit the width for its inner elements.
 
@@ -63,6 +63,31 @@ function remove_layout_support_from_editor_settings( $settings ) {
 	return $settings;
 }
 ```
+</details>
+
+<details>
+<summary>Where can I find documentation for `theme.json`</summary>
+
+### Core Handbook
+You can find the Core Documentation here: [https://developer.wordpress.org/block-editor/how-to-guides/themes/theme-json/](https://developer.wordpress.org/block-editor/how-to-guides/themes/theme-json/). This should give you an overview of the options that are available and be a starting point for you to explore. In the Code examples you will get ones for `WordPress` and ones for `Gutenberg`. The ones for WordPress always are for the version in Core and therefore what we would want to look at.
+
+### Code completion and validation
+Additionally you can add inline documentation & code completion to your editor by adding the `JSON Schema` to your editor.
+
+For VSCode you can add the following to your Settings. But other editors also support this and you can find more information on the topic here: [https://json.schemastore.org](https://json.schemastore.org)
+```json
+{
+	"json.schemas": [
+		{
+			"fileMatch": [
+				"/theme.json"
+			],
+			"url": "https://json.schemastore.org/theme-v1.json"
+		}
+	],
+}
+```
+
 </details>
 
 <sub>* for 10uppers, reach out to Fabian for any questions / guidance / support in regards to `theme.json`</sub>
