@@ -1,0 +1,66 @@
+# 10up Theme
+
+## Working with `theme.json`
+The default theme scaffold now ships with a very basic version of the `theme.json` file. This is to ensure all the sideaffects of introducing this file are there from the beginning of a project and therefore set projects up for success if they want to addopt more features through the `theme.json` machanism.
+
+### 🙋 FAQ
+<details>
+<summary>Where has the `.wp-block-group__inner-container` gone?</summary>
+Core has made the decision to drop the additional inner container of the group block. The rationale behind that decicion is that the additional `div` semantically isn't neccecary and modern layout techniques don't rely on it anymore. The container is still present for _legacy_ themes (themes without a `theme.json` file).
+
+For new builds it is suggested that we use the `settings.layout.contentWidth` and `settings.layout.wideWidth` options of the `theme.json` for this. The group block has an option in the editor to allow editors to inherit the width for its inner elements.
+
+<img width="1904" alt="Screen Shot 2021-10-20 at 12 45 15" src="https://user-images.githubusercontent.com/20684594/138079160-44a28c10-417b-4769-905d-cd5c104e78c0.png">
+
+```json
+{
+    "version": 1,
+    "settings": {
+        "layout": {
+            "contentSize": "800px",
+            "wideSize": "900px"
+        }
+    }
+}
+```
+
+For this, there isn't even any custom CSS needed.
+
+There isn't the best story for responsive overrides in here but the recommendation at this point in time would be using `clamp` as we have officially dropped the IE11 support and that would allow us to have a fluid with scale here for the elements.
+[https://caniuse.com/css-math-functions](https://caniuse.com/css-math-functions)
+
+
+If we need to use different content widths here we can stick to the core way and apply the `max-width` settings to the children of the group block instead of the wrapper element.
+
+```css
+.wp-block-group > * {
+    max-width: var(--site-max-width);
+}
+```
+
+If there are instances where we really cannot get by with styling the child blocks directly there is a hook in PHP that allows us to filter the block editor settings and therefore allows us to override the underlying `supportsLayout` property:
+
+```php
+add_filter(
+	'block_editor_settings_all',
+	'remove_layout_support_from_editor_settings'
+);
+
+/**
+ * This function sets the `supportsLayout` option in the editor settings to false
+ * Therefore it adds back the `wp-block-group__inner-container` element
+ *
+ * As a side effect of this change the `contentWidth` and `wideWidth` defined in the theme.json
+ * no longer have any effect and all the blocks in the editor won't have any width restrictions
+ * applied to them. So that needs to do be manually done by the theme.
+ *
+ * @param array $settings block editor settings
+ */
+function remove_layout_support_from_editor_settings( $settings ) {
+	$settings['supportsLayout'] = false;
+	return $settings;
+}
+```
+</details>
+
+<sub>* for 10uppers, reach out to Fabian for any questions / guidance / support in regards to `theme.json`</sub>
