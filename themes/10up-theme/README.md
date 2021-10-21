@@ -6,6 +6,8 @@ The default theme scaffold now ships with a very basic version of the `theme.jso
 ### 🙋 FAQ
 <details>
 <summary>Where has the `.wp-block-group__inner-container` gone?</summary>
+<br />
+
 Core has made the decision to drop the additional inner container of the group block. The rationale behind that decicion is that the additional `div` semantically isn't neccecary and modern layout techniques don't rely on it anymore. The container is still present for _legacy_ themes (themes without a `theme.json` file).
 
 For new builds it is suggested that we use the `settings.layout.contentWidth` and `settings.layout.wideWidth` options of the `theme.json` for this. The group block has an option in the editor to allow editors to inherit the width for its inner elements.
