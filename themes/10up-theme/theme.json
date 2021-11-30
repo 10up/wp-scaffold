@@ -24,7 +24,33 @@
       "customFontSize": false,
       "customLineHeight": false,
       "dropCap": false,
-      "fontSizes": []
+      "fontSizes": [
+        {
+          "name": "Small",
+          "slug": "small",
+          "size": "13px"
+        },
+        {
+          "name": "Normal",
+          "slug": "normal",
+          "size": "16px"
+        },
+        {
+          "name": "Medium",
+          "slug": "medium",
+          "size": "20px"
+        },
+        {
+          "name": "Large",
+          "slug": "large",
+          "size": "36px"
+        },
+        {
+          "name": "Huge",
+          "slug": "huge",
+          "size": "42px"
+        }
+      ]
     },
     "blocks": {
       "core/button": {
