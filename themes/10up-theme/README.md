@@ -96,3 +96,13 @@ For VSCode you can add the following to your Settings. But other editors also su
 </details>
 
 <sub>* for 10uppers, reach out to Fabian for any questions / guidance / support in regards to `theme.json`</sub>
+
+# Performance Utilities
+The theme now supports `ct.css`. Uh what?
+`ct.css` is a diagnostic stylesheet that exposes potential performance issues in your pages `<head>` element. `ct.css` will return color-coded visual cues with regards to render blocking elements in the theme. This provides a great way for engineers to debug and identify problem resources.
+
+You can activate `ct.css` on any page load by including `?debug_perf=1` in the URL.
+
+Considering we do not want to load script everywhere throughout the theme, we have provided engineeers with a way to trigger the `ct.css` output by using a query param.
+
+<sub>* for 10uppers, reach out to Daine for any questions / guidance / support in regards to `ct.css`</sub>
