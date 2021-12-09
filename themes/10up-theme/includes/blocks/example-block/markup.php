@@ -5,7 +5,7 @@
  * @package TenUpScaffold\Blocks\Example
  *
  * @var array $args {
- *     $args is provided by get_template_call.
+ *     $args is provided by get_template_part.
  *
  *     @type array $attributes Block attributes.
  *     @type array $content    Block content.
