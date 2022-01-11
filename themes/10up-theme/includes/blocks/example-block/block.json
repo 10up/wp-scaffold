@@ -8,13 +8,13 @@
   "icon": "feedback",
   "category": "tenup-scaffold-blocks",
 	"attributes":{
-		"customTitle": {
+		"title": {
 			"type" : "string"
 		}
   },
   "example": {
     "attributes":{
-      "customTitle": "Example Block"
+      "title": "Example Block"
     }
   },
   "supports": {
