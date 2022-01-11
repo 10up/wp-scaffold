@@ -1,4 +1,5 @@
 {
+  "apiVersion": 2,
 	"title": "Example Block",
 	"description": "An Example Block",
 	"text-domain": "tenup-scaffold",
