@@ -92,16 +92,11 @@ function blocks_editor_styles() {
 /**
  * Filters the registered block categories.
  *
- * @param array  $categories Registered categories.
- * @param object $block_editor_context The current block editor context.
+ * @param array $categories Registered categories.
  *
  * @return array Filtered categories.
  */
-function blocks_categories( $categories, $block_editor_context ) {
-	if ( ! in_array( $block_editor_context->post->post_type, array( 'post', 'page' ), true ) ) {
-		return $categories;
-	}
-
+function blocks_categories( $categories ) {
 	return array_merge(
 		$categories,
 		array(
