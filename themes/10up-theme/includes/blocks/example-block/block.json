@@ -3,7 +3,7 @@
   "apiVersion": 2,
 	"title": "Example Block",
 	"description": "An Example Block",
-	"text-domain": "tenup-scaffold",
+	"textdomain": "tenup-scaffold",
 	"name": "tenup/example",
   "icon": "feedback",
   "category": "tenup-scaffold-blocks",
