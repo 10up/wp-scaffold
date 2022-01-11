@@ -82,7 +82,7 @@ function filter_plugins_url( $url, $path ) {
 function blocks_editor_styles() {
 	wp_enqueue_style(
 		'editor-style',
-		TENUP_THEME_TEMPLATE_URL . '/dist/css/editor-style.css',
+		TENUP_THEME_TEMPLATE_URL . '/dist/css/editor-style-overrides.css',
 		[],
 		TENUP_THEME_VERSION
 	);
