@@ -2,7 +2,7 @@
  * WordPress dependencies
  */
 import { __ } from '@wordpress/i18n';
-import { RichText } from '@wordpress/block-editor';
+import { RichText, useBlockProps } from '@wordpress/block-editor';
 
 /**
  * Edit component.
@@ -15,13 +15,17 @@ import { RichText } from '@wordpress/block-editor';
  * @param {Function} props.setAttributes          Sets the value for block attributes.
  * @return {Function} Render the edit screen
  */
-const ExampleBockEdit = ({
-	attributes: { customTitle: currentTitle },
-	className,
-	setAttributes,
-}) => {
+const ExampleBockEdit = (props) => {
+	const {
+		attributes,
+		setAttributes,
+	} = props;
+	const { customTitle: currentTitle } = attributes;
+
+	const blockProps = useBlockProps();
+
 	return (
-		<div className={className}>
+		<div {...blockProps}>
 			<RichText
 				className="wp-block-example-block__title"
 				tagName="h2"

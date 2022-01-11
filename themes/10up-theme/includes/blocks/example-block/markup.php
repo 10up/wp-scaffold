@@ -20,12 +20,13 @@ $args = wp_parse_args(
 		'attributes' => [
 			'customTitle' => __( 'Custom title default', 'tenup' ),
 		],
-		'class_name' => 'wp-block-tenup-example',
 	]
 );
 
+$wrapper_attributes = get_block_wrapper_attributes();
+
 ?>
-<div class="<?php echo esc_attr( $args['class_name'] ); ?>">
+<div <?php echo wp_kses_post( $wrapper_attributes ); ?>>
 	<h2 class="wp-block-example-block__title">
 		<?php echo wp_kses_post( $args['attributes']['customTitle'] ); ?>
 	</h2>
