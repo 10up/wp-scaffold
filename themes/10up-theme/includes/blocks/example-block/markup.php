@@ -4,29 +4,17 @@
  *
  * @package TenUpScaffold\Blocks\Example
  *
- * @var array $args {
- *     $args is provided by get_template_part.
- *
- *     @type array $attributes Block attributes.
- *     @type array $content    Block content.
- *     @type array $block      Block instance.
- * }
+ * @var array    $attributes         Block attributes.
+ * @var string   $content            Block content.
+ * @var WP_Block $block              Block instance.
+ * @var array    $context            BLock context.
+ * @var string   $class_name         Generated class name for concatenation.
+ * @var string   $wrapper_attributes Block Wrapper Attributes. To be applied to the outermost element.
  */
 
-// Set defaults.
-$args = wp_parse_args(
-	$args,
-	[
-		'attributes' => [
-			'customTitle' => __( 'Custom title default', 'tenup' ),
-		],
-		'class_name' => 'wp-block-tenup-example',
-	]
-);
-
 ?>
-<div class="<?php echo esc_attr( $args['class_name'] ); ?>">
-	<h2 class="wp-block-example-block__title">
-		<?php echo wp_kses_post( $args['attributes']['customTitle'] ); ?>
+<div <?php echo wp_kses_post( $wrapper_attributes ); ?>">
+	<h2 class="<?php echo sanitize_html_class( $class_name ); ?>__title">
+		<?php echo wp_kses_post( $attributes['customTitle'] ); ?>
 	</h2>
 </div>
