@@ -6,7 +6,6 @@
 /**
  * WordPress dependencies
  */
-import { __ } from '@wordpress/i18n';
 import { registerBlockType } from '@wordpress/blocks';
 
 /**
@@ -22,9 +21,7 @@ import block from './block.json';
 /**
  * Register block
  */
-registerBlockType(block.name, {
-	title: __('Example Block'),
-	description: __('An Example Block'),
+registerBlockType(block, {
 	edit,
 	save,
 });
