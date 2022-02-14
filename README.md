@@ -14,7 +14,7 @@ It contains a bare bones theme and must use plugin for you to base your developm
 1. [Download a zip](https://github.com/10up/wp-scaffold/archive/trunk.zip) of the repository into your project. At 10up, by default we version control the `wp-content` directory (ignoring obvious things like `uploads`). This enables us to have plugins, theme, etc. all in one repository. Having separate repositories for each plugin and theme only happens in rare circumstances that are outside of our control.
 2. Take what you need. If your project doesn't have a theme, remove the theme. If your project doesn't need any plugin functionality, remove the MU plugin. If your plugin doesn't need CSS/JS, remove it. If your plugin doesn't need to be translated, remove all the translation functionality.
 3. Compiling, minifying, bundling, etc. of JavaScript and CSS is all done by [10up Toolkit](https://github.com/10up/10up-toolkit). 10up Toolkit is included as a dev dependency in both the plugin and theme. If you want to develop on the theme (and vice-versa the plugin), you would navigate to the theme directory in your console and run `npm run start` (after running `npm install` first of course). Inside `package.json` edit `@10up/scripts.devURL` to your local development URL for BrowserSync to work properly. `@10up/toolkit.entry` are the paths to CSS/JS files that need to be bundled. Edit these as needed.
-4. [npm workspaces](https://docs.npmjs.com/cli/v7/using-npm/workspaces) is used to manage npm dependencies. The main benefit of using npm workspaces is that we can hoist all dependencies to the root folder and avoid installing duplicate dependencies, saving time and space. By default the `workspaces` are setup `mu-plugins/10up-plugin` and all themes, if you are building a new plugin/theme make sure to update `workspaces` in `package.json` See the example below:
+4. [npm workspaces](https://docs.npmjs.com/cli/v7/using-npm/workspaces) is used to manage npm dependencies. The main benefit of using npm workspaces is that we can hoist all dependencies to the root folder and avoid installing duplicate dependencies, saving time and space. By default the `workspaces` config are setup so that `mu-plugins/10up-plugin` and all themes are treated as "packages", if you are building a new plugin/theme make sure to update `workspaces` in `package.json` See the example below:
 
 ```json
   "workspaces": [
@@ -32,8 +32,8 @@ It contains a bare bones theme and must use plugin for you to base your developm
 	"watch:plugin": "npm run watch -w=tenup-plugin",
 	"watch": "run-s watch:theme watch:plugin",
 ```
-
-7. To add npm dependencies to your theme and/or plugins add the `-w=package-name` flag to the `npm install` command. E.g: `npm install --save prop-types -w=tenup-plugin` **DO NOT RUN** `npm install` insde an individual workspace/package.
+7. To add npm dependencies to your theme and/or plugins add the `-w=package-name` flag to the `npm install` command. E.g: `npm install --save prop-types -w=tenup-plugin` **DO NOT RUN** `npm install` insde an individual workspace/package. Always run the from the root folder.
+8. If you're building Gutenberg blocks and imporing `@wordpress/*` packages, **you do not** need to manually install them as `10up-toolkit` will handle these packages properly.
 
 ## Scaffold Rules
 
