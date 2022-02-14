@@ -17,7 +17,7 @@
     "start": "npm run watch",
     "watch:theme": "npm run watch -w=tenup-theme",
     "watch:plugin": "npm run watch -w=tenup-plugin",
-    "watch": "run-s watch:theme watch:plugin",
+    "watch": "run-p watch:theme watch:plugin",
     "test": "npm run test --workspaces --if-present",
     "clean": "lerna clean",
     "clean-dist": "npm run clean-dist --if-present"
