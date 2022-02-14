@@ -7,14 +7,20 @@
     "type": "git",
     "url": "https://project-git-repo.tld"
   },
+  "workspaces": [
+    "themes/*",
+    "mu-plugins/10up-plugin"
+  ],
   "scripts": {
-    "prepare": "lerna bootstrap --hoist && husky install",
-    "build": "lerna run build --stream",
-    "start": "lerna run start --parallel",
-    "watch": "lerna run watch --parallel",
-    "test": "lerna run test --stream",
+    "prepare": "husky install",
+    "build": "npm run build --workspaces --if-present",
+    "start": "npm run watch",
+    "watch:theme": "npm run watch -w=tenup-theme",
+    "watch:plugin": "npm run watch -w=tenup-plugin",
+    "watch": "run-s watch:theme watch:plugin",
+    "test": "npm run test --workspaces --if-present",
     "clean": "lerna clean",
-    "clean-dist": "lerna run clean-dist --stream"
+    "clean-dist": "npm run clean-dist --if-present"
   },
   "author": {
     "name": "10up",
@@ -23,11 +29,12 @@
     "role": "developer"
   },
   "engines": {
-    "node": ">=16.0.0"
+    "node": ">=16.0.0",
+    "npm": ">=7.0.0"
   },
   "devDependencies": {
     "husky": "^6.0.0",
-    "lerna": "^4.0.0",
-    "lint-staged": "^10.5.4"
+    "lint-staged": "^10.5.4",
+    "npm-run-all": "^4.1.5"
   }
 }
