@@ -16,10 +16,7 @@ import { RichText, useBlockProps } from '@wordpress/block-editor';
  * @return {Function} Render the edit screen
  */
 const ExampleBockEdit = (props) => {
-	const {
-		attributes,
-		setAttributes,
-	} = props;
+	const { attributes, setAttributes } = props;
 	const { title } = attributes;
 
 	const blockProps = useBlockProps();
