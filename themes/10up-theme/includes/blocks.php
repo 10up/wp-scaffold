@@ -25,6 +25,7 @@ function setup() {
 	add_filter( 'block_categories_all', $n( 'blocks_categories' ), 10, 2 );
 
 	add_action( 'init', $n( 'register_theme_blocks' ) );
+	add_action( 'init', $n( 'register_theme_block_patterns' ) );
 
 	add_action( 'init', $n( 'block_patterns_and_categories' ) );
 
@@ -142,4 +143,132 @@ function block_patterns_and_categories() {
 	unregister_block_pattern('client-name')
 
 	*/
+}
+
+/**
+ * Register theme block patterns
+ */
+function register_theme_block_patterns() {
+	$default_headers = array(
+		'title'         => 'Pattern Name',
+		'description'   => 'Description',
+		'viewportWidth' => 'Viewport Width',
+		'categories'    => 'Categories',
+		'keywords'      => 'Keywords',
+		'blockTypes'    => 'Block Types',
+	);
+
+	// Register patterns for the active theme, for both parent and child theme,
+	// if applicable.
+	foreach ( wp_get_active_and_valid_themes() as $theme ) {
+		$pattern_directory_path = $theme . '/patterns/';
+		if ( file_exists( $pattern_directory_path ) ) {
+			$files = glob( $pattern_directory_path . '*.html' );
+			if ( $files ) {
+				foreach ( $files as $file ) {
+					// Parse pattern slug from file name.
+					if ( ! preg_match( '#/(?P<slug>[A-z0-9_-]+)\.html$#', $file, $matches ) ) {
+						continue;
+					}
+					// Example name: 10up-theme/example-pattern.
+					$pattern_name = get_stylesheet() . '/' . $matches['slug'];
+
+					$pattern_options = get_file_data( $file, $default_headers );
+
+					// Title is a required property.
+					if ( ! $pattern_options['title'] ) {
+						continue;
+					}
+
+					// For properties of type array, parse data as comma-separated.
+					foreach ( array( 'categories', 'keywords', 'blockTypes' ) as $property ) {
+						$pattern_options[ $property ] = array_filter(
+							preg_split(
+								'/[\s,]+/',
+								(string) $pattern_options[ $property ]
+							)
+						);
+					}
+
+					// Parse properties of type int.
+					foreach ( array( 'viewportWidth' ) as $property ) {
+						$pattern_options[ $property ] = (int) $pattern_options[ $property ];
+					}
+
+					// Remove up empty values, so as not to override defaults.
+					foreach ( array_keys( $default_headers ) as $property ) {
+						if ( empty( $pattern_options[ $property ] ) ) {
+							unset( $pattern_options[ $property ] );
+						}
+					}
+
+					// The actual pattern is everything following the leading comment.
+					$raw_content                = file_get_contents( $file );
+					$token                      = '-->';
+					$pattern_options['content'] = substr(
+						$raw_content,
+						strpos( $raw_content, $token ) + strlen( $token )
+					);
+					if ( ! $pattern_options['content'] ) {
+						continue;
+					}
+
+					register_block_pattern( $pattern_name, $pattern_options );
+				}
+			}
+		}
+		if ( file_exists( $pattern_directory_path ) ) {
+			$files = glob( $pattern_directory_path . '*.php' );
+			if ( $files ) {
+				foreach ( $files as $file ) {
+
+					// Parse pattern slug from file name.
+					if ( ! preg_match( '#/(?P<slug>[A-z0-9_-]+)\.php$#', $file, $matches ) ) {
+						continue;
+					}
+					// Example name: 10up-theme/example-pattern.
+					$pattern_name = get_stylesheet() . '/' . $matches['slug'];
+
+					$pattern_options = get_file_data( $file, $default_headers );
+
+					// Title is a required property.
+					if ( ! $pattern_options['title'] ) {
+						continue;
+					}
+
+					// For properties of type array, parse data as comma-separated.
+					foreach ( array( 'categories', 'keywords', 'blockTypes' ) as $property ) {
+						$pattern_options[ $property ] = array_filter(
+							preg_split(
+								'/[\s,]+/',
+								(string) $pattern_options[ $property ]
+							)
+						);
+					}
+
+					// Parse properties of type int.
+					foreach ( array( 'viewportWidth' ) as $property ) {
+						$pattern_options[ $property ] = (int) $pattern_options[ $property ];
+					}
+
+					// Remove up empty values, so as not to override defaults.
+					foreach ( array_keys( $default_headers ) as $property ) {
+						if ( empty( $pattern_options[ $property ] ) ) {
+							unset( $pattern_options[ $property ] );
+						}
+					}
+
+					// The actual pattern content is the output of the file.
+					ob_start();
+					include $file;
+					$pattern_options['content'] = ob_get_clean();
+					if ( ! $pattern_options['content'] ) {
+						continue;
+					}
+
+					register_block_pattern( $pattern_name, $pattern_options );
+				}
+			}
+		}
+	}
 }
