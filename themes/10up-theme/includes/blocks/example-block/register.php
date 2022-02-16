@@ -38,7 +38,6 @@ function render_block_callback( $attributes, $content, $block ) {
 		'includes/blocks/example-block/markup',
 		null,
 		[
-			'class_name' => 'wp-block-tenup-example',
 			'attributes' => $attributes,
 			'content'    => $content,
 			'block'      => $block,
