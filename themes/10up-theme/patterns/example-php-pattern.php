@@ -1,7 +1,7 @@
 <?php
 /**
  * Pattern Name: Example PHP Pattern
- * Categories: text
+ * Categories: 10up-theme
  *
  * @package TenUpTheme
  */
