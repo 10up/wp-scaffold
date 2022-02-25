@@ -50,39 +50,36 @@ function register_theme_blocks() {
 	// Filter the plugins URL to allow us to have blocks in themes with linked assets. i.e editorScripts
 	add_filter( 'plugins_url', __NAMESPACE__ . '\filter_plugins_url', 10, 2 );
 
-	// Register blocks for the active theme, for both parent and child theme,
-	// if applicable.
-	foreach ( wp_get_active_and_valid_themes() as $theme ) {
-		$block_directory_path = $theme . '/includes/blocks/';
-		if ( file_exists( $block_directory_path ) ) {
-			$block_json_files = glob( $block_directory_path . '*/block.json' );
+	// Register all the blocks in the theme
+	$block_directory_path = TENUP_THEME_BLOCK_DIR;
+	if ( file_exists( $block_directory_path ) ) {
+		$block_json_files = glob( $block_directory_path . '*/block.json' );
 
-			// auto register all blocks that were found.
-			foreach ( $block_json_files as $filename ) {
+		// auto register all blocks that were found.
+		foreach ( $block_json_files as $filename ) {
 
-				$block_folder = dirname( $filename );
+			$block_folder = dirname( $filename );
 
-				$block_options = [];
+			$block_options = [];
 
-				$markup_file_path = $block_folder . '/markup.php';
-				if ( file_exists( $markup_file_path ) ) {
+			$markup_file_path = $block_folder . '/markup.php';
+			if ( file_exists( $markup_file_path ) ) {
 
-					// only add the render callback if the block has a file called markdown.php in it's directory
-					$block_options['render_callback'] = function( $attributes, $content, $block ) use ( $block_folder ) {
+				// only add the render callback if the block has a file called markdown.php in it's directory
+				$block_options['render_callback'] = function( $attributes, $content, $block ) use ( $block_folder ) {
 
-						// create helpful variables that will be accessible in markup.php file
-						$context            = $block->context;
-						$wrapper_attributes = wp_kses_post( get_block_wrapper_attributes() );
+					// create helpful variables that will be accessible in markup.php file
+					$context            = $block->context;
+					$wrapper_attributes = wp_kses_post( get_block_wrapper_attributes() );
 
-						// get the actual markup from the markup.php file
-						ob_start();
-						include $block_folder . '/markup.php';
-						return ob_get_clean();
-					};
+					// get the actual markup from the markup.php file
+					ob_start();
+					include $block_folder . '/markup.php';
+					return ob_get_clean();
 				};
-
-				register_block_type_from_metadata( $block_folder, $block_options );
 			};
+
+			register_block_type_from_metadata( $block_folder, $block_options );
 		};
 	};
 
