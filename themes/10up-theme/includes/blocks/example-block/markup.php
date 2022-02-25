@@ -15,6 +15,6 @@
 ?>
 <div <?php echo wp_kses_post( $wrapper_attributes ); ?>">
 	<h2 class="<?php echo sanitize_html_class( $class_name ); ?>__title">
-		<?php echo wp_kses_post( $attributes['customTitle'] ); ?>
+		<?php echo wp_kses_post( $attributes['title'] ); ?>
 	</h2>
 </div>
