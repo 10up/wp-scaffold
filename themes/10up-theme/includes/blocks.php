@@ -8,7 +8,7 @@
 namespace TenUpTheme\Blocks;
 
 use TenUpTheme\Blocks\Example;
-
+use TenUpTheme\Utility;
 
 /**
  * Set up blocks
@@ -111,10 +111,10 @@ function filter_plugins_url( $url, $path ) {
  */
 function blocks_editor_styles() {
 	wp_enqueue_style(
-		'editor-style',
-		TENUP_THEME_TEMPLATE_URL . '/dist/css/editor-style.css',
+		'editor-style-overrides',
+		TENUP_THEME_TEMPLATE_URL . '/dist/css/editor-style-overrides.css',
 		[],
-		TENUP_THEME_VERSION
+		Utility\get_asset_info( 'editor-style-overrides', 'version' )
 	);
 
 }
