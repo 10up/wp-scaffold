@@ -12,7 +12,7 @@ const DEFAULT_CALLBACK = (Module) => {
 	}
 };
 
-export default (module, selectors = ['body'], cb = DEFAULT_CALLBACK) => {
+export default (module, context, selectors = ['body'], cb = DEFAULT_CALLBACK) => {
 	let shouldImport = false;
 
 	if (Array.isArray(selectors) && selectors.length) {
@@ -28,7 +28,7 @@ export default (module, selectors = ['body'], cb = DEFAULT_CALLBACK) => {
 	}
 
 	/* eslint-disable-next-line consistent-return */
-	return import(`./../${module}`).then(({ default: module }) => {
+	return import(`../${context}/${module}`).then(({ default: module }) => {
 		if (cb && typeof cb === 'function') {
 			cb(module);
 		}
