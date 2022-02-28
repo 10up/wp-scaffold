@@ -208,7 +208,7 @@ function styles() {
 	if ( is_page_template( 'templates/page-styleguide.php' ) ) {
 		wp_enqueue_style(
 			'styleguide',
-			TENUP_THEME_TEMPLATE_URL . '/dist/css/styleguide-style.css',
+			TENUP_THEME_TEMPLATE_URL . '/dist/css/styleguide.css',
 			[],
 			Utility\get_asset_info( 'styleguide-style', 'version' )
 		);
