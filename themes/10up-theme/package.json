@@ -24,14 +24,11 @@
     "devURL": "https://my-project.test",
     "entry": {
       "admin": "./assets/js/admin/admin.js",
+      "editor-style-overrides": "./assets/js/admin/editor-style-overrides.js",
       "blocks": "./includes/blocks/blocks.js",
       "frontend": "./assets/js/frontend/frontend.js",
       "shared": "./assets/js/shared/shared.js",
       "styleguide": "./assets/js/styleguide/styleguide.js",
-      "admin-style": "./assets/css/admin/admin-style.css",
-      "editor-style-overrides": "./assets/css/frontend/editor-style-overrides.css",
-      "shared-style": "./assets/css/shared/shared-style.css",
-      "styleguide-style": "./assets/css/styleguide/styleguide.css",
       "core-block-overrides": "./includes/core-block-overrides.js",
       "example-block": "./includes/blocks/example-block/index.js"
     }

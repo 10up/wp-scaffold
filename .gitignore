@@ -11,6 +11,8 @@ cache
 # Project Files
 dist
 backstop_data
+db.php
+plugins
 
 # Editors
 *.esproj

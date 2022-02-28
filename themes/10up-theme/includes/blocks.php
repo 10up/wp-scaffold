@@ -113,6 +113,16 @@ function blocks_editor_styles() {
 		Utility\get_asset_info( 'editor-style-overrides', 'version' )
 	);
 
+	if ( defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ) {
+		wp_enqueue_script(
+			'editor-style-overrides',
+			TENUP_THEME_TEMPLATE_URL . '/dist/js/editor-style-overrides.js',
+			Utility\get_asset_info( 'editor-style-overrides', 'dependencies' ),
+			Utility\get_asset_info( 'editor-style-overrides', 'version' ),
+			true
+		);
+	}
+
 }
 
 /**
