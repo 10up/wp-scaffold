@@ -8,7 +8,7 @@
 namespace TenUpTheme\Blocks;
 
 use TenUpTheme\Blocks\Example;
-
+use TenUpTheme\Utility;
 
 /**
  * Set up blocks
@@ -42,7 +42,7 @@ function setup() {
 }
 
 /**
- * Add in blocks that are registered in this theme
+ * Automatically registers all blocks that are located within the includes/blocks directory
  *
  * @return void
  */
@@ -50,11 +50,37 @@ function register_theme_blocks() {
 	// Filter the plugins URL to allow us to have blocks in themes with linked assets. i.e editorScripts
 	add_filter( 'plugins_url', __NAMESPACE__ . '\filter_plugins_url', 10, 2 );
 
-	// Require custom blocks.
-	require_once TENUP_THEME_BLOCK_DIR . '/example-block/register.php';
+	// Register all the blocks in the theme
+	if ( file_exists( TENUP_THEME_BLOCK_DIR ) ) {
+		$block_json_files = glob( TENUP_THEME_BLOCK_DIR . '*/block.json' );
 
-	// Call block register functions for each block.
-	Example\register();
+		// auto register all blocks that were found.
+		foreach ( $block_json_files as $filename ) {
+
+			$block_folder = dirname( $filename );
+
+			$block_options = [];
+
+			$markup_file_path = $block_folder . '/markup.php';
+			if ( file_exists( $markup_file_path ) ) {
+
+				// only add the render callback if the block has a file called markdown.php in it's directory
+				$block_options['render_callback'] = function( $attributes, $content, $block ) use ( $block_folder ) {
+
+					// create helpful variables that will be accessible in markup.php file
+					$context            = $block->context;
+					$wrapper_attributes = wp_kses_post( get_block_wrapper_attributes() );
+
+					// get the actual markup from the markup.php file
+					ob_start();
+					include $block_folder . '/markup.php';
+					return ob_get_clean();
+				};
+			};
+
+			register_block_type_from_metadata( $block_folder, $block_options );
+		};
+	};
 
 	// Remove the filter after we register the blocks
 	remove_filter( 'plugins_url', __NAMESPACE__ . '\filter_plugins_url', 10, 2 );
@@ -81,10 +107,10 @@ function filter_plugins_url( $url, $path ) {
  */
 function blocks_editor_styles() {
 	wp_enqueue_style(
-		'editor-style',
-		TENUP_THEME_TEMPLATE_URL . '/dist/css/editor-style.css',
+		'editor-style-overrides',
+		TENUP_THEME_TEMPLATE_URL . '/dist/css/editor-style-overrides.css',
 		[],
-		TENUP_THEME_VERSION
+		Utility\get_asset_info( 'editor-style-overrides', 'version' )
 	);
 
 }

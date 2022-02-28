@@ -29,7 +29,7 @@
       "shared": "./assets/js/shared/shared.js",
       "styleguide": "./assets/js/styleguide/styleguide.js",
       "admin-style": "./assets/css/admin/admin-style.css",
-      "editor-style": "./assets/css/frontend/editor-style.css",
+      "editor-style-overrides": "./assets/css/frontend/editor-style-overrides.css",
       "shared-style": "./assets/css/shared/shared-style.css",
       "styleguide-style": "./assets/css/styleguide/styleguide.css",
       "core-block-overrides": "./includes/core-block-overrides.js",
