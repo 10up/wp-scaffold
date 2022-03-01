@@ -14,12 +14,6 @@ define( 'TENUP_THEME_DIST_URL', TENUP_THEME_TEMPLATE_URL . '/dist/' );
 define( 'TENUP_THEME_INC', TENUP_THEME_PATH . 'includes/' );
 define( 'TENUP_THEME_BLOCK_DIR', TENUP_THEME_INC . 'blocks/' );
 
-if ( defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG && file_exists( __DIR__ . '/dist/fast-refresh.php' ) ) {
-	define( 'TENUP_TOOLKIT_DIST_URL', TENUP_THEME_DIST_URL );
-	define( 'TENUP_TOOLKIT_DIST_PATH', TENUP_THEME_DIST_PATH );
-
-	require_once __DIR__ . '/dist/fast-refresh.php';
-}
 
 if ( defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG && file_exists( __DIR__ . '/dist/fast-refresh.php' ) ) {
 	require_once __DIR__ . '/dist/fast-refresh.php';
