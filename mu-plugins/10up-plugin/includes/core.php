@@ -8,6 +8,8 @@
 namespace TenUpPlugin\Core;
 
 use \WP_Error;
+use TenUpTheme\Utility;
+
 
 /**
  * Default setup routine
@@ -132,7 +134,7 @@ function scripts() {
 	wp_enqueue_script(
 		'tenup_plugin_shared',
 		script_url( 'shared', 'shared' ),
-		[],
+		Utility\get_asset_info( 'shared', 'dependencies' ),
 		TENUP_PLUGIN_VERSION,
 		true
 	);
@@ -140,7 +142,7 @@ function scripts() {
 	wp_enqueue_script(
 		'tenup_plugin_frontend',
 		script_url( 'frontend', 'frontend' ),
-		[],
+		Utility\get_asset_info( 'frontend', 'dependencies' ),
 		TENUP_PLUGIN_VERSION,
 		true
 	);
@@ -157,7 +159,7 @@ function admin_scripts() {
 	wp_enqueue_script(
 		'tenup_plugin_shared',
 		script_url( 'shared', 'shared' ),
-		[],
+		Utility\get_asset_info( 'shared', 'dependencies' ),
 		TENUP_PLUGIN_VERSION,
 		true
 	);
@@ -165,7 +167,7 @@ function admin_scripts() {
 	wp_enqueue_script(
 		'tenup_plugin_admin',
 		script_url( 'admin', 'admin' ),
-		[],
+		Utility\get_asset_info( 'admin', 'dependencies' ),
 		TENUP_PLUGIN_VERSION,
 		true
 	);
@@ -181,7 +183,7 @@ function styles() {
 
 	wp_enqueue_style(
 		'tenup_plugin_shared',
-		style_url( 'shared-style', 'shared' ),
+		style_url( 'shared', 'shared' ),
 		[],
 		TENUP_PLUGIN_VERSION
 	);
@@ -189,14 +191,14 @@ function styles() {
 	if ( is_admin() ) {
 		wp_enqueue_style(
 			'tenup_plugin_admin',
-			style_url( 'admin-style', 'admin' ),
+			style_url( 'admin', 'admin' ),
 			[],
 			TENUP_PLUGIN_VERSION
 		);
 	} else {
 		wp_enqueue_style(
 			'tenup_plugin_frontend',
-			style_url( 'style', 'frontend' ),
+			style_url( 'frontend', 'frontend' ),
 			[],
 			TENUP_PLUGIN_VERSION
 		);
@@ -213,14 +215,14 @@ function admin_styles() {
 
 	wp_enqueue_style(
 		'tenup_plugin_shared',
-		style_url( 'shared-style', 'shared' ),
+		style_url( 'shared', 'shared' ),
 		[],
 		TENUP_PLUGIN_VERSION
 	);
 
 	wp_enqueue_style(
 		'tenup_plugin_admin',
-		style_url( 'admin-style', 'admin' ),
+		style_url( 'admin', 'admin' ),
 		[],
 		TENUP_PLUGIN_VERSION
 	);
