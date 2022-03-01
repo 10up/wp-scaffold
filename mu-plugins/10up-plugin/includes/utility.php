@@ -21,10 +21,10 @@ namespace TenUpPlugin\Utility;
  * @return string|array
  */
 function get_asset_info( $slug, $attribute = null ) {
-	if ( file_exists( TENUP_THEME_PATH . 'dist/js/' . $slug . '.asset.php' ) ) {
-		$asset = require TENUP_THEME_PATH . 'dist/js/' . $slug . '.asset.php';
-	} elseif ( file_exists( TENUP_THEME_PATH . 'dist/css/' . $slug . '.asset.php' ) ) {
-		$asset = require TENUP_THEME_PATH . 'dist/css/' . $slug . '.asset.php';
+	if ( file_exists( TENUP_PLUGIN_PATH . 'dist/js/' . $slug . '.asset.php' ) ) {
+		$asset = require TENUP_PLUGIN_PATH . 'dist/js/' . $slug . '.asset.php';
+	} elseif ( file_exists( TENUP_PLUGIN_PATH . 'dist/css/' . $slug . '.asset.php' ) ) {
+		$asset = require TENUP_PLUGIN_PATH . 'dist/css/' . $slug . '.asset.php';
 	} else {
 		return null;
 	}
