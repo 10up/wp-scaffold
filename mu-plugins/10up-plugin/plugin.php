@@ -17,6 +17,7 @@ if ( file_exists( TENUP_PLUGIN_PATH . 'vendor/autoload.php' ) ) {
 }
 
 // Include files.
+require_once TENUP_PLUGIN_INC . '/utility.php';
 require_once TENUP_PLUGIN_INC . '/core.php';
 
 // Activation/Deactivation.

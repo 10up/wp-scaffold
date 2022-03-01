@@ -8,7 +8,7 @@
 namespace TenUpPlugin\Core;
 
 use \WP_Error;
-use TenUpTheme\Utility;
+use TenUpPlugin\Utility;
 
 
 /**
