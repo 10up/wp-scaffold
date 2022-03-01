@@ -15,13 +15,12 @@
     "node": ">=12.0.0"
   },
   "devDependencies": {
-    "10up-toolkit": "^2.2.0-alpha.6"
+    "10up-toolkit": "^2.2.0-alpha.7"
   },
   "dependencies": {
     "normalize.css": "^8.0.1"
   },
   "10up-toolkit": {
-    "devURL": "https://my-project.test",
     "entry": {
       "admin": "./assets/js/admin/admin.js",
       "editor-style-overrides": "./assets/js/admin/editor-style-overrides.js",

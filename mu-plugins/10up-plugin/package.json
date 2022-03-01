@@ -15,13 +15,12 @@
     "node": ">=12.0.0"
   },
   "devDependencies": {
-    "10up-toolkit": "^2.2.0-alpha.6"
+    "10up-toolkit": "^2.2.0-alpha.7"
   },
   "dependencies": {
     "prop-types": "^15.7.2"
   },
   "10up-toolkit": {
-    "devURL": "https://my-project.test",
     "entry": {
       "admin": "./assets/js/admin/admin.js",
       "frontend": "./assets/js/frontend/frontend.js",
