@@ -6,6 +6,8 @@
  */
 
 ?>
-	<?php wp_footer(); ?>
+		</main>
+
+		<?php wp_footer(); ?>
 	</body>
 </html>
