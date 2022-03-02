@@ -11,7 +11,7 @@ import importAndRun from '../../util/import-and-run';
 //   component is initialized.
 const COMPONENTS = {
 	navigation: {
-		selectors: ['.site-navigation', 'body'],
+		selectors: ['.site-navigation'],
 	},
 
 	// Add your own components here.
