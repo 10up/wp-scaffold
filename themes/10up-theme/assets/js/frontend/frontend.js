@@ -1,1 +1,1 @@
-// import foo from './components/bar';
+// import ExampleUiComponent from './components/example-ui-component';
