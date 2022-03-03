@@ -1,6 +1,5 @@
 // https://plopjs.com/documentation/
 
-/* eslint-disable */
 module.exports = (plop) => {
 	plop.setGenerator('UI component', {
 		description: 'UI Component with options for Partial, CSS, JS & Styleguide example',
@@ -63,13 +62,11 @@ module.exports = (plop) => {
 			const actions = [];
 
 			if (data.withPartial) {
-				actions.push(
-					{
-						type: 'add',
-						path: 'partials/{{typePath}}{{kebabCase name}}/{{kebabCase name}}.php',
-						templateFile: 'plop-templates/ui-component-partial.hbs',
-					},
-				);
+				actions.push({
+					type: 'add',
+					path: 'partials/{{typePath}}{{kebabCase name}}/{{kebabCase name}}.php',
+					templateFile: 'plop-templates/ui-component-partial.hbs',
+				});
 			}
 
 			if (data.withStyleguide) {
