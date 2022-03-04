@@ -10,7 +10,16 @@
       "link": false,
       "palette": []
     },
-    "custom": {},
+    "custom": {
+      "spacing": {
+        "base": "8px",
+        "half-x": "calc(var(--wp--custom--spacing--base) * .5)",
+        "2-x": "calc(var(--wp--custom--spacing--base) * 2)",
+        "3-x": "calc(var(--wp--custom--spacing--base) * 3)",
+        "4-x": "calc(var(--wp--custom--spacing--base) * 4)",
+        "5-x": "calc(var(--wp--custom--spacing--base) * 5)"
+      }
+    },
     "layout": {
       "contentSize": "800px",
       "wideSize": "1000px"
