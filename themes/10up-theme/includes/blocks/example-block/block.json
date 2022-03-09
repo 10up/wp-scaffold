@@ -3,10 +3,10 @@
   "apiVersion": 2,
 	"title": "Example Block",
 	"description": "An Example Block",
-	"textdomain": "tenup-scaffold",
+	"textdomain": "tenup-theme",
 	"name": "tenup/example",
   "icon": "feedback",
-  "category": "tenup-scaffold-blocks",
+  "category": "tenup-theme-blocks",
 	"attributes":{
 		"title": {
 			"type" : "string"

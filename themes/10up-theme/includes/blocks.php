@@ -127,7 +127,7 @@ function blocks_categories( $categories ) {
 		$categories,
 		array(
 			array(
-				'slug'  => 'tenup-scaffold-blocks',
+				'slug'  => 'tenup-theme-blocks',
 				'title' => __( 'Custom Blocks', 'tenup-theme' ),
 			),
 		)
