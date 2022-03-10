@@ -36,7 +36,7 @@ export default class UIKitSection {
 	 * Create a button, add chevron SVG and inject in heading
 	 * Hide section content, set ARIA attributes
 	 *
-	 * @param   {Element} sectionHeading The UI Kit section heading
+	 * @param {Element} sectionHeading The UI Kit section heading
 	 *
 	 */
 	setupCollapsible(sectionHeading) {
@@ -76,9 +76,9 @@ export default class UIKitSection {
 	/**
 	 * Toggles a section
 	 *
-	 * @param   {Object} e        The click event
-	 * @param   {Element} wrapper The UI Kit section content
-	 * @param   {Element} button  The UI Kit section toggle button
+	 * @param {Object}  e       The click event
+	 * @param {Element} wrapper The UI Kit section content
+	 * @param {Element} button  The UI Kit section toggle button
 	 *
 	 */
 	toggleCollapsible(e, wrapper, button) {
