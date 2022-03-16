@@ -2,7 +2,7 @@
 /**
  * Example block markup
  *
- * @package TenUpScaffold\Blocks\Example
+ * @package TenUpTheme\Blocks\Example
  *
  * @var array    $attributes         Block attributes.
  * @var string   $content            Block content.

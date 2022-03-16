@@ -8,7 +8,7 @@
  * All functions should be prefixed with TenUpTheme in order to prevent
  * pollution of the global namespace and potential conflicts with functions
  * from plugins.
- * Example: `tenup_scaffold_function()`
+ * Example: `tenup_theme_function()`
  *
  * @package TenUpTheme\Template_Tags
  *

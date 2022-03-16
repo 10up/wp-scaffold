@@ -48,6 +48,8 @@ function get_colors( $path ) {
 	if ( file_exists( $dir . $path ) ) {
 		$css_vars = file_get_contents( $dir . $path ); // phpcs:ignore WordPress.WP.AlternativeFunctions
 		preg_match_all( ' /#([a-f]|[A-F]|[0-9]){3}(([a-f]|[A-F]|[0-9]){3})?\b/', $css_vars, $matches );
+		// HEX | RGB(A) | HSL(A)
+		preg_match_all( '(#([\da-f]{3}){1,2}|(rgb|hsl)a\((\d{1,3}%?,\s?){3}(1|0?\.\d+)\)|(rgb|hsl)\(\d{1,3}%?(,\s?\d{1,3}%?){2}\))', $css_vars, $matches );
 		return $matches[0];
 	}
 

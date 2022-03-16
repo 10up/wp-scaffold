@@ -4,6 +4,8 @@
 	--c-uikit-hightlight: #f6f6f6;
 	--c-uikit-border: #ccc;
 	--c-uikit-primary: #000;
+	--c-uikit-color-label: #000;
+	--c-uikit-color-label-bg: #fff;
 
 	@custom-media --bp-uikit-small (min-width: 40.625em);
 
@@ -42,32 +44,46 @@
 }
 
 .uikit__colors {
+	align-items: center;
+	display: flex;
+	flex-flow: row wrap;
 	font-family: "Courier New", monospace;
+	gap: 32px;
 	list-style: none;
-	margin: 0;
+	margin: 0 auto;
 	overflow: hidden;
 	padding: 0;
 	text-align: center;
-}
 
-.uikit__color {
-	align-items: center;
-	border: 1px solid var(--c-uikit-border);
-	display: flex;
-	float: left;
-	font-size: 0.85em;
-	height: 90px;
-	justify-content: center;
-	margin-bottom: 32px;
-	margin-right: 32px;
-	width: 90px;
+	& > li.uikit__color {
+		align-items: center;
+		border: 1px solid var(--c-uikit-border);
+		display: flex;
+		flex: 0 0 auto;
+		font-size: 0.85em;
+		height: 90px;
+		justify-content: center;
+		margin: 0;
+		width: 90px;
+
+		&:focus,
+		&:hover {
+
+			& .uikit__color--label {
+				left: auto;
+			}
+		}
+	}
 }
 
 .uikit__color--label {
-	color: var(--c-primary);
+	background: var(--c-uikit-color-label-bg);
+	border: 1px solid var(--c-uikit-border);
+	color: var(--c-uikit-color-label);
+	font-size: var(--fs-xxs, 12px);
 	left: -999em;
 	margin: 0;
-	padding: 0;
+	padding: 0.5em;
 	position: absolute;
 }
 
