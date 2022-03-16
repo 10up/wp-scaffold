@@ -14,6 +14,13 @@ define( 'TENUP_THEME_DIST_URL', TENUP_THEME_TEMPLATE_URL . '/dist/' );
 define( 'TENUP_THEME_INC', TENUP_THEME_PATH . 'includes/' );
 define( 'TENUP_THEME_BLOCK_DIR', TENUP_THEME_INC . 'blocks/' );
 
+
+if ( defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG && file_exists( __DIR__ . '/dist/fast-refresh.php' ) ) {
+	require_once __DIR__ . '/dist/fast-refresh.php';
+	TenUpToolkit\set_dist_url_path( basename( __DIR__ ), TENUP_THEME_DIST_URL, TENUP_THEME_DIST_PATH );
+}
+
+
 require_once TENUP_THEME_INC . 'core.php';
 require_once TENUP_THEME_INC . 'overrides.php';
 require_once TENUP_THEME_INC . 'template-tags.php';
