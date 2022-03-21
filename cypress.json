@@ -1,0 +1,11 @@
+{
+    "baseUrl": "https://tenup-theme.test/",
+    "projectId": "tenup-theme",
+    "env": {
+        "cypress-wp-test-utils": {
+            "username": "",
+            "password": "",
+            "wpVersion": "5.9.2"
+        }
+    }
+}
