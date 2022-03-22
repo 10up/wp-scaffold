@@ -1,7 +1,8 @@
 <?xml version="1.0"?>
 <ruleset name="10up PHPCS">
 	<description>10up PHPCS extended.</description>
-
+	<exclude-pattern>dist/</exclude-pattern>
+	<exclude-pattern>plugins/*</exclude-pattern>
 	<rule ref="10up-Default" />
 
 	<arg name="colors"/>
