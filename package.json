@@ -12,7 +12,7 @@
     "mu-plugins/10up-plugin"
   ],
   "scripts": {
-    "prepare": "husky install",
+    "prepare": "TEN=$(pwd); UP=$(git rev-parse --show-toplevel); TENUP=\"${TEN#\"$UP\"}\"; cd $(git rev-parse --show-toplevel); husky install .${TENUP}/.husky",
     "build": "npm run build --workspaces --if-present",
     "start": "npm run watch",
     "watch:theme": "npm run watch -w=tenup-theme",
