@@ -1,5 +1,5 @@
 {
-    "baseUrl": "http://wpscaffold.test/",
+    "baseUrl": "http://tenup-theme.test/",
     "projectId": "tenup-theme",
     "env": {
         "cypress-wp-test-utils": {
