@@ -77,6 +77,20 @@ function register_theme_blocks() {
 					$context            = $block->context;
 					$wrapper_attributes = wp_kses_post( get_block_wrapper_attributes() );
 
+					$frontend_assets = [
+						'script',
+						'viewScript',
+						'style',
+					];
+
+					foreach ( $frontend_assets as $asset_name ) {
+						$asset_handle         = generate_block_asset_handle( $block->name, $asset_name );
+						$has_asset_registered = ! wp_script_is( $asset_handle );
+						if ( $has_asset_registered ) {
+							wp_enqueue_script( $asset_handle );
+						}
+					}
+
 					// get the actual markup from the markup.php file
 					ob_start();
 					include $block_folder . '/markup.php';
