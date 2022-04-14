@@ -68,8 +68,7 @@ function register_theme_blocks() {
 				$block_options['render_callback'] = function( $attributes, $content, $block ) use ( $block_folder ) {
 
 					// create helpful variables that will be accessible in markup.php file
-					$context            = $block->context;
-					$wrapper_attributes = wp_kses_post( get_block_wrapper_attributes() );
+					$context = $block->context;
 
 					// get the actual markup from the markup.php file
 					ob_start();
