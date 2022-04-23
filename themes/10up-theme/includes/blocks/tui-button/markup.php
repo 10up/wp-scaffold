@@ -15,6 +15,6 @@
 use function WPScaffoldUI\Helpers\get_component;
 $button = get_component( 'button', $attributes );
 ?>
-<divv <?php echo get_block_wrapper_attributes(); // phpcs:ignore ?>">
+<div <?php echo get_block_wrapper_attributes(); // phpcs:ignore ?>">
 	<?php echo wp_kses( $button ); ?>
 </div>
