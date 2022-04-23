@@ -48,7 +48,7 @@ get_header();
 
 	<h1 class="uikit__heading">
 		<div class="uikit__block">
-			<span><?php echo esc_html( get_the_title() ); ?></span>
+			<span><?php echo esc_html( get_the_title() ); ?> Partials</span>
 		</div>
 	</h1>
 
@@ -60,7 +60,7 @@ get_header();
 
 			<div class="content">
 				<?php
-					echo wp_kses( $primary_link );
+					echo wp_kses_post( $primary_link );
 				?>
 			</div><!--/.content-->
 
@@ -68,7 +68,7 @@ get_header();
 
 			<div class="content">
 				<?php
-					echo wp_kses( $secondary_link );
+					echo wp_kses_post( $secondary_link );
 				?>
 			</div><!--/.content-->
 

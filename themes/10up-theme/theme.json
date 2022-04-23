@@ -25,48 +25,48 @@
           "color": "#333"
         },
         {
-          "name": "Red",
-          "slug": "red",
-          "color": "#F00"
+          "name": "Cyan",
+          "slug": "cyan",
+          "color": "#0FF"
         },
         {
-          "name": "Dark Red",
-          "slug": "dark-red",
-          "color": "#033"
+          "name": "Dark Cyan",
+          "slug": "dark-cyan",
+          "color": "#008B8B"
         }
       ]
     },
     "custom": {
       "btn-primary": {
         "bg": {
-          "default": "var(--wp--preset--color--dark-red)",
-          "hover": "var(--wp--preset--color--red)",
-          "focus": "var(--wp--preset--color--red)"
+          "default": "var(--wp--preset--color--cyan)",
+          "hover": "var(--wp--preset--color--dark-cyan)",
+          "focus": "var(--wp--preset--color--dark-cyan)"
         },
         "boxshadow": {
           "default": "none",
-          "hover": "inset 0 0 0 1px var(--wp--preset--color--dark-red)",
-          "focus": "inset 0 0 0 1px var(--wp--preset--color--dark-red)"
+          "hover": "inset 0 0 0 1px var(--wp--preset--color--dark-cyan)",
+          "focus": "inset 0 0 0 1px var(--wp--preset--color--dark-cyan)"
         },
         "brd-radius": "1rem",
         "cursor": "default",
         "pad": "8px 12px",
         "txt": {
-          "default": "var(--wp--preset--color--white)",
-          "hover": "var(--wp--preset--color--white)",
-          "focus": "var(--wp--preset--color--white)"
+          "default": "var(--wp--preset--color--black)",
+          "hover": "var(--wp--preset--color--black)",
+          "focus": "var(--wp--preset--color--black)"
         },
         "txt-dec": {
-          "default": "underline",
-          "hover": "none",
-          "focus": "none"
+          "default": "none",
+          "hover": "underline",
+          "focus": "underline"
         }
       },
       "btn-secondary": {
         "bg": {
-          "default": "var(--wp--preset--color--white)",
-          "hover": "var(--wp--preset--color--red)",
-          "focus": "var(--wp--preset--color--dark-red)"
+          "default": "var(--wp--preset--color--cyan)",
+          "hover": "var(--wp--preset--color--dark-cyan)",
+          "focus": "var(--wp--preset--color--dark-cyan)"
         },
         "boxshadow": {
           "default": "inset 0 0 0 1px var(--wp--preset--color--black)",
