@@ -21,7 +21,6 @@ import block from './block.json';
 /**
  * Register block
  */
-console.log('hit it');
 registerBlockType(block, {
 	edit,
 	save,
