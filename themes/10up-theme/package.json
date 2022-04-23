@@ -18,9 +18,11 @@
     "10up-toolkit": "^3.0.0"
   },
   "dependencies": {
-    "normalize.css": "^8.0.1"
+    "normalize.css": "^8.0.1",
+    "@10up/wp-scaffold-ui": "../plugins/wp-scaffold-ui"
   },
   "10up-toolkit": {
+    "devURL": "https://10upuiwp.test",
     "entry": {
       "admin": "./assets/js/admin/admin.js",
       "editor-style-overrides": "./assets/js/admin/editor-style-overrides.js",
@@ -29,7 +31,8 @@
       "shared": "./assets/js/shared/shared.js",
       "styleguide": "./assets/js/styleguide/styleguide.js",
       "core-block-overrides": "./includes/core-block-overrides.js",
-      "example-block": "./includes/blocks/example-block/index.js"
+      "example-block": "./includes/blocks/example-block/index.js",
+      "tui-button": "./includes/blocks/tui-button/index.js"
     }
   }
 }
