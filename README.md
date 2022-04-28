@@ -32,7 +32,7 @@ It contains a bare bones theme and must use plugin for you to base your developm
 	"watch:plugin": "npm run watch -w=tenup-plugin",
 	"watch": "run-s watch:theme watch:plugin",
 ```
-7. To add npm dependencies to your theme and/or plugins add the `-w=package-name` flag to the `npm install` command. E.g: `npm install --save prop-types -w=tenup-plugin` **DO NOT RUN** `npm install` insde an individual workspace/package. Always run the from the root folder.
+7. To add npm dependencies to your theme and/or plugins add the `-w=package-name` flag to the `npm install` command. E.g: `npm install --save prop-types -w=tenup-plugin` **DO NOT RUN** `npm install` inside an individual workspace/package. Always run the from the root folder.
 8. If you're building Gutenberg blocks and importing `@wordpress/*` packages, **you do not** need to manually install them as `10up-toolkit` will handle these packages properly.
 
 ## Scaffold Rules
