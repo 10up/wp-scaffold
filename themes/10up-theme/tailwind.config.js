@@ -12,6 +12,8 @@ module.exports = {
 		/* Ensure changes to all PHP, JS, and JSON files rebuild your CSS */
 		'./assets/js/**/*.js',
 		'./includes/**/*.{php,js,json}',
+		'./partials/**/*.php',
+		'./templates/**/*.php',
 	],
 	safelist: [
 		/* Prevent editor-specific styles from being purged */
