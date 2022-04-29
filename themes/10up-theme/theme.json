@@ -8,86 +8,9 @@
       "duotone": [],
       "gradients": [],
       "link": false,
-      "palette": [
-        {
-          "name": "Black",
-          "slug": "black",
-          "color": "#000"
-        },
-        {
-          "name": "White",
-          "slug": "white",
-          "color": "#FFF"
-        },
-        {
-          "name": "Charcoal",
-          "slug": "charcoal",
-          "color": "#333"
-        },
-        {
-          "name": "Cyan",
-          "slug": "cyan",
-          "color": "#0FF"
-        },
-        {
-          "name": "Dark Cyan",
-          "slug": "dark-cyan",
-          "color": "#008B8B"
-        }
-      ]
+      "palette": []
     },
-    "custom": {
-      "btn-primary": {
-        "bg": {
-          "default": "var(--wp--preset--color--cyan)",
-          "hover": "var(--wp--preset--color--dark-cyan)",
-          "focus": "var(--wp--preset--color--dark-cyan)"
-        },
-        "boxshadow": {
-          "default": "none",
-          "hover": "inset 0 0 0 1px var(--wp--preset--color--dark-cyan)",
-          "focus": "inset 0 0 0 1px var(--wp--preset--color--dark-cyan)"
-        },
-        "brd-radius": "1rem",
-        "cursor": "default",
-        "pad": "8px 12px",
-        "txt": {
-          "default": "var(--wp--preset--color--black)",
-          "hover": "var(--wp--preset--color--black)",
-          "focus": "var(--wp--preset--color--black)"
-        },
-        "txt-dec": {
-          "default": "none",
-          "hover": "underline",
-          "focus": "underline"
-        }
-      },
-      "btn-secondary": {
-        "bg": {
-          "default": "var(--wp--preset--color--cyan)",
-          "hover": "var(--wp--preset--color--dark-cyan)",
-          "focus": "var(--wp--preset--color--dark-cyan)"
-        },
-        "boxshadow": {
-          "default": "inset 0 0 0 1px var(--wp--preset--color--black)",
-          "hover": "inset 0 0 0 1px var(--wp--preset--color--black)",
-          "focus": "inset 0 0 0 1px var(--wp--preset--color--black)"
-        },
-        "brd-radius": "0.25rem",
-        "cursor": "pointer",
-        "pad": "8px 12px",
-        "txt": {
-          "default": "var(--wp--preset--color--black)",
-          "hover": "var(--wp--preset--color--white)",
-          "focus": "var(--wp--preset--color--white)"
-        },
-        "txt-dec": {
-          "default": "underline",
-          "hover": "none",
-          "focus": "none"
-        }
-      }
-    },
+    "custom": {},
     "layout": {
       "contentSize": "800px",
       "wideSize": "1000px"
