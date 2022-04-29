@@ -1,37 +1,52 @@
 /* WordPress generated classes */
 
 .alignleft {
-	float: left;
-	margin-right: 1rem;
-	text-align: left;
+
+	@apply float-left mr-4 text-left;
+
 }
 
 .alignright {
-	float: right;
-	margin-left: 1rem;
-	text-align: right;
+
+	@apply float-right ml-4 text-right;
 }
 
 .aligncenter {
-	clear: both;
-	display: block;
-	margin-left: auto;
-	margin-right: auto;
-	text-align: center;
+
+	@apply clear-both block mx-auto text-center;
 }
 
 .wp-caption {
-	max-width: 100%;
+
+	@apply max-w-full;
 
 	&.aligncenter {
-		text-align: center;
+
+		@apply text-center;
 	}
 
 	&.alignright {
-		text-align: right;
+
+		@apply text-right;
 	}
 }
 
 .wp-caption-text {
-	margin: 0;
+
+	@apply m-0;
+}
+
+.entry-content > * {
+
+	@apply max-w-content mx-auto;
+}
+
+.entry-content > .alignwide {
+
+	@apply max-w-wide;
+}
+
+.entry-content > .alignfull {
+
+	@apply max-w-none;
 }

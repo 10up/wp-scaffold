@@ -10,10 +10,15 @@
       "link": false,
       "palette": []
     },
-    "custom": {},
+    "custom": {
+      "width": {
+        "content": "800px",
+        "wide": "1000px"
+      }
+    },
     "layout": {
-      "contentSize": "800px",
-      "wideSize": "1000px"
+      "contentSize": "var(--wp--custom--width--content)",
+      "wideSize": "var(--wp--custom--width--wide)"
     },
     "spacing": {
       "customMargin": false,

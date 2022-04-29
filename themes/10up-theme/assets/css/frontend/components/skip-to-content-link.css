@@ -1,5 +1,15 @@
 .skip-to-content-link {
-	left: 0.3125rem;
-	position: absolute;
-	top: 0.3125rem;
+
+	@apply absolute top-[0.3125rem] left-[0.3125rem];
+}
+
+/*
+* Hide WordPress' default Skip To Content
+* Please use Tailwind's .sr-only utility for
+* all other instances of screen reader only content
+*/
+.visually-hidden,
+.visually-hidden-focusable:not(:focus):not(:active) {
+
+	@apply sr-only ![word-wrap:normal];
 }

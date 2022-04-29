@@ -8,7 +8,7 @@
 	*,
 	*::before,
 	*::after {
-		animation-duration: 0.001s !important;
-		transition-duration: 0.001s !important;
+
+		@apply ![animation-dutation:0.001s] !transition-[0.001s];
 	}
 }
