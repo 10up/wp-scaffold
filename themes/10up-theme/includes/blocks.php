@@ -72,15 +72,27 @@ function register_theme_blocks() {
 
 					$frontend_assets = [
 						'script',
-						'viewScript',
+						'view_script',
 						'style',
 					];
 
 					foreach ( $frontend_assets as $asset_name ) {
-						$asset_handle         = generate_block_asset_handle( $block->name, $asset_name );
-						$has_asset_registered = ! wp_script_is( $asset_handle );
-						if ( $has_asset_registered ) {
-							wp_enqueue_script( $asset_handle );
+
+						$asset_info          = $block->block_type->$asset_name;
+						$has_multiple_assets = is_array( $asset_info );
+
+						if ( $has_multiple_assets ) {
+							foreach ( $asset_info as $asset_handle ) {
+								$has_asset_registered = ! wp_script_is( $asset_handle );
+								if ( $has_asset_registered ) {
+									wp_enqueue_script( $asset_handle );
+								}
+							}
+						} else {
+							$has_asset_registered = ! wp_script_is( $asset_info );
+							if ( $has_asset_registered ) {
+								wp_enqueue_script( $asset_info );
+							}
 						}
 					}
 
