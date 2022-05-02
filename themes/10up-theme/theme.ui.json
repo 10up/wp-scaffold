@@ -187,19 +187,19 @@
           "color": "var(--wp--preset--color--secondary--medium)"
         },
         {
-          "name": "Primary",
-          "slug": "primary",
-          "color": "var(--wp--preset--color--secondary--medium)"
+          "name": "Tertiary",
+          "slug": "Tertiary",
+          "color": "var(--wp--preset--color--tertiary--medium)"
         },
         {
           "name": "Dark",
           "slug": "dark",
-          "color": "var(--wp--preset--color--secondary--dark)"
+          "color": "var(--wp--preset--color--dark)"
         },
         {
           "name": "Light",
           "slug": "light",
-          "color": "var(--wp--preset--color--secondary--light)"
+          "color": "var(--wp--preset--color--light)"
         }
       ]
     },
