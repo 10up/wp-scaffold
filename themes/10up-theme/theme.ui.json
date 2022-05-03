@@ -1,5 +1,6 @@
 {
-  "version": 1,
+  "version": 2,
+  "$schema": "https://schemas.wp.org/wp/5.9/theme.json",
   "settings": {
     "custom": {
       "color": {
@@ -36,8 +37,8 @@
           "disabled": "var(--wp--custom--color--base--grey--300)"
         },
         "text": {
-          "primary": "var(--wp--custom--color--dark)",
-          "on-dark": "var(--wp--custom--color--light)",
+          "primary": "var(--wp--custom--color--base--dark)",
+          "on-dark": "var(--wp--custom--color--base--light)",
           "link": "var(--wp--custom--color--base--primary--medium)",
           "disabled": "var(--wp--custom--color--disabled)"
         },
@@ -95,7 +96,6 @@
         },
         "weight": {
           "regular": "400",
-          "medium": "500",
           "semibold": "600",
           "bold": "700"
         },
@@ -176,8 +176,10 @@
     },
     "color": {
       "custom": false,
+      "defaultDuotones": false,
       "duotone": [],
       "customDuotone": false,
+      "defaultGradients": false,
       "gradients": [],
       "customGradient": false,
       "link": false,
@@ -223,6 +225,8 @@
       "customFontSize": false,
       "customLineHeight": false,
       "dropCap": false,
+      "textTransform": false,
+      "customFontWeight": false,
       "fontSizes": [
         {
             "slug": "sm",
@@ -264,8 +268,7 @@
           "size": "var(--wp--custom--font--size--5-xl)",
           "name": "5XL"
         }
-      ],
-      "fontWeight": false
+      ]
     },
     "blocks": {
       "core/button": {
@@ -312,7 +315,6 @@
       },
       "core/heading": {
         "color": {
-          "palette": [],
           "background": false
         }
       },
@@ -342,68 +344,50 @@
     },
     "elements": {
       "h1": {
-        "color": {
-          "text": "var(--wp--custom--color--base--dark)"
-        },
         "typography": {
-          "fontFamily": "var(--wp--custom--font--family--secondary)",
-          "fontSize": "var(--wp--custom--font--size--5-xl)",
-          "lineHeight": "var(--wp--custom--font--line-height--tight)"
+          "fontSize": "var(--wp--custom--font--size--5-xl)"
         }
       },
       "h2": {
-        "color": {
-          "text": "var(--wp--custom--color--base--dark)"
-        },
         "typography": {
-          "fontFamily": "var(--wp--custom--font--family--secondary)",
-          "fontSize": "var(--wp--custom--font--size--4-xl)",
-          "lineHeight": "var(--wp--custom--font--line-height--tight)"
+          "fontSize": "var(--wp--custom--font--size--4-xl)"
         }
       },
       "h3": {
-        "color": {
-          "text": "var(--wp--custom--color--base--dark)"
-        },
         "typography": {
-          "fontFamily": "var(--wp--custom--font--family--secondary)",
-          "fontSize": "var(--wp--custom--font--size--3-xl)",
-          "lineHeight": "var(--wp--custom--font--line-height--tight)"
+          "fontSize": "var(--wp--custom--font--size--3-xl)"
         }
       },
       "h4": {
-        "color": {
-          "text": "var(--wp--custom--color--base--dark)"
-        },
         "typography": {
-          "fontFamily": "var(--wp--custom--font--family--secondary)",
-          "fontSize": "var(--wp--custom--font--size--2-xl)",
-          "lineHeight": "var(--wp--custom--font--line-height--tight)"
+          "fontSize": "var(--wp--custom--font--size--2-xl)"
         }
       },
       "h5": {
-        "color": {
-          "text": "var(--wp--custom--color--base--dark)"
-        },
         "typography": {
-          "fontFamily": "var(--wp--custom--font--family--secondary)",
-          "fontSize": "var(--wp--custom--font--size--xl)",
-          "lineHeight": "var(--wp--custom--font--line-height--tight)"
+          "fontSize": "var(--wp--custom--font--size--xl)"
         }
       },
       "h6": {
-        "color": {
-          "text": "var(--wp--custom--color--base--dark)"
-        },
         "typography": {
-          "fontFamily": "var(--wp--custom--font--family--secondary)",
-          "fontSize": "var(--wp--custom--font--size--lg)",
-          "lineHeight": "var(--wp--custom--font--line-height--tight)"
+          "fontSize": "var(--wp--custom--font--size--lg)"
         }
       },
       "link": {
         "color": {
           "text": "var(--wp--custom--color--text--link)"
+        }
+      }
+    },
+    "blocks": {
+      "core/heading": {
+        "color": {
+          "text": "var(--wp--custom--color--base--dark)"
+        },
+        "typography": {
+          "fontWeight": "700",
+          "fontFamily": "var(--wp--custom--font--family--secondary)",
+          "lineHeight": "var(--wp--custom--font--line-height--tight)"
         }
       }
     }
