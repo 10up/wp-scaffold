@@ -1,5 +1,2 @@
-import '@10up/wp-scaffold-ui/components/button/src/css/style.css';
-import '@10up/wp-scaffold-ui/components/buttons/src/css/style.css';
-import '../../css/frontend/style.css';
-
-// import foo from './components/bar';
+import '@10up/wp-scaffold-ui/assets/css/frontend/utilitystyles.css';
+import '@10up/wp-scaffold-ui/assets/css/frontend/componentstyles.css';
