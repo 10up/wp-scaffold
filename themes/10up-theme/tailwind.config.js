@@ -1,4 +1,7 @@
-const tailwindProse = require('@tailwindcss/typography');
+const typographyPlugin = require('@tailwindcss/typography');
+const formsPlugin = require('@tailwindcss/forms');
+const aspectRatioPlugin = require('@tailwindcss/aspect-ratio');
+const lineClampPlugin = require('@tailwindcss/line-clamp');
 
 module.exports = {
 	/**
@@ -10,10 +13,35 @@ module.exports = {
 	 */
 	content: [
 		/* Ensure changes to all PHP, JS, and JSON files rebuild your CSS */
-		'./assets/js/**/*.js',
-		'./includes/**/*.{php,js,json}',
-		'./partials/**/*.php',
-		'./templates/**/*.php',
+		'404.php',
+		'archive.php',
+		'archive-*.php',
+		'attachment.php',
+		'author.php',
+		'category.php',
+		'category-*.php',
+		'date.php',
+		'footer.php',
+		'front-page.php',
+		'functions.php',
+		'header.php',
+		'home.php',
+		'index.php',
+		'page.php',
+		'search.php',
+		'searchform.php',
+		'single-*.php',
+		'single.php',
+		'singular.php',
+		'tag.php',
+		'taxonomy.php',
+		'taxonomy-*.php',
+
+		// Directories
+		'assets/**/*.js',
+		'includes/**/*.{js, php}',
+		'partials/**/*.php',
+		'templates/**/*.php',
 	],
 	safelist: [
 		/* Prevent editor-specific styles from being purged */
@@ -44,9 +72,13 @@ module.exports = {
 		},
 	},
 	plugins: [
-		/* Extend with 3rd party tailwind plugins or locally import your own */
-
-		/* Add Tailwind Prose https://tailwindcss.com/docs/typography-plugin */
-		tailwindProse(),
+		/*
+			Extend with 3rd party tailwind plugins or locally import your own
+			All plugins are included by default since they are not output if unused.
+		*/
+		typographyPlugin,
+		formsPlugin,
+		aspectRatioPlugin,
+		lineClampPlugin,
 	],
 };
