@@ -4,28 +4,25 @@
  *
  */
 
-/* Tailwind */
-@import url("tailwind/index.css");
-
-/* Global - global pieces like media queries, mixins and placholders */
-
-/* @import url("global/index.css"); */
-
 /* Base - base styles such as fonts, typography, and wordpress overrides */
+
+@import "tailwindcss/base";
 @import url("base/index.css");
 
-/* Layout - styles specific to layout */
 
-/* @import url("layout/index.css"); */
+/* Components */
+
+@import "tailwindcss/components";
+@import url("components/index.css");
 
 /* Templates */
 
 /* @import url("templates/index.css"); */
 
-/* Components */
-
-@import url("components/index.css");
-
 /* Gutenberg blocks */
 
 /* @import url("../blocks/index.css"); */
+
+/* Utilities */
+
+@import "tailwindcss/utilities";
