@@ -27,7 +27,7 @@ if ( function_exists( 'WPScaffoldUI\Helpers\get_component' ) ) :
 			'buttons' => [
 				[
 					'label' => 'Hover',
-					'class' => 'tui-button--hover',
+					'nested_class' => 'tui-button__link--hover',
 				],
 			],
 		]
@@ -39,7 +39,7 @@ if ( function_exists( 'WPScaffoldUI\Helpers\get_component' ) ) :
 			'buttons' => [
 				[
 					'label' => 'Active',
-					'class' => 'tui-button--active',
+					'nested_class' => 'tui-button__link--active',
 				],
 			],
 		]
@@ -51,7 +51,7 @@ if ( function_exists( 'WPScaffoldUI\Helpers\get_component' ) ) :
 			'buttons' => [
 				[
 					'label' => 'Focus',
-					'class' => 'tui-button--focus',
+					'nested_class' => 'tui-button__link--focus',
 				],
 			],
 		]

@@ -120,12 +120,12 @@
       },
       "decoration": {
         "default": {
-          "none": "none",
+          "default": "none",
           "hover": "underline",
           "focus": "underline"
         },
         "interactive" : {
-          "none": "none",
+          "default": "none",
           "hover": "none",
           "focus": "none"
         }
