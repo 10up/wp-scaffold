@@ -34,7 +34,8 @@
           "light": "#FFF",
           "alert": "#ef4444",
           "succes": "#22c55e",
-          "disabled": "var(--wp--custom--color--base--grey--300)"
+          "disabled": "var(--wp--custom--color--base--grey--300)",
+          "outline": "rgb(0 125 250 / 60%)"
         },
         "text": {
           "primary": "var(--wp--custom--color--base--dark)",
@@ -45,15 +46,18 @@
         "interactive": {
           "primary": {
             "default": "var(--wp--custom--color--base--primary--medium)",
-            "active": "var(--wp--custom--color--base--primary--dark)"
+            "active": "var(--wp--custom--color--base--primary--dark)",
+            "outline": "var(--wp--custom--color--base--outline)"
           },
           "secondary": {
             "default": "var(--wp--custom--color--base--secondary--medium)",
-            "active": "var(--wp--custom--color--base--secondary--dark)"
+            "active": "var(--wp--custom--color--base--secondary--dark)",
+            "outline": "var(--wp--custom--color--base--outline)"
           },
           "tertiary": {
             "default": "var(--wp--custom--color--base--tertiary--medium)",
-            "active": "var(--wp--custom--color--base--tertiary--dark)"
+            "active": "var(--wp--custom--color--base--tertiary--dark)",
+            "outline": "var(--wp--custom--color--base--outline)"
           }
         }
       },
@@ -166,6 +170,14 @@
           "base": "0.2s",
           "fast": "0.1s",
           "slow": "0.4s"
+        }
+      },
+      "outline": {
+        "style": {
+          "none": "none",
+          "default": "1px solid",
+          "md": "2px solid",
+          "lg": "4px solid "
         }
       },
       "content": {
