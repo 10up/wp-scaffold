@@ -474,7 +474,7 @@ get_header();
 
 ?>
 
-<div style="max-width: 1280px; margin: 0 auto; padding: 1.5rem">
+<div class="tui-content-container" style="max-width: 1280px; margin: 0 auto; padding: 1.5rem">
 
 <h1 class="uikit__heading">
 	<?php echo esc_html( get_the_title() ); ?> <?php esc_html_e( 'Sink Page', 'tenup-theme' ); ?>
