@@ -1,7 +1,27 @@
 const typographyPlugin = require('@tailwindcss/typography');
-const formsPlugin = require('@tailwindcss/forms');
-const aspectRatioPlugin = require('@tailwindcss/aspect-ratio');
-const lineClampPlugin = require('@tailwindcss/line-clamp');
+const themeJSON = require('./theme.json');
+
+function getThemePalette() {
+	const { palette } = themeJSON.settings.color;
+
+	return Array.isArray(palette) ? palette : [];
+}
+
+function getThemeColors() {
+	const palette = getThemePalette();
+
+	if (!palette) return [];
+
+	const colors = {};
+
+	palette.forEach((paletteColor) => {
+		const { slug, color } = paletteColor;
+
+		colors[slug] = color;
+	});
+
+	return colors;
+}
 
 module.exports = {
 	/**
@@ -15,11 +35,9 @@ module.exports = {
 		/* Ensure changes to all PHP, JS, and JSON files rebuild your CSS */
 		'404.php',
 		'archive.php',
-		'archive-*.php',
 		'attachment.php',
 		'author.php',
 		'category.php',
-		'category-*.php',
 		'date.php',
 		'footer.php',
 		'front-page.php',
@@ -30,12 +48,10 @@ module.exports = {
 		'page.php',
 		'search.php',
 		'searchform.php',
-		'single-*.php',
 		'single.php',
 		'singular.php',
 		'tag.php',
 		'taxonomy.php',
-		'taxonomy-*.php',
 
 		// Directories
 		'assets/**/*.js',
@@ -44,12 +60,9 @@ module.exports = {
 		'templates/**/*.php',
 	],
 	safelist: [
-		/* Prevent editor-specific styles from being purged */
-		'editor-post-title__block',
-		'editor-post-title__input',
-		'entry-content',
-		'entry-title',
-		'block-editor-block-list__layout',
+		{
+			pattern: /(bg|text)-(primary|secondary|tertiary)/,
+		},
 	],
 	theme: {
 		/* Override the default theme */
@@ -60,6 +73,7 @@ module.exports = {
 			current: 'currentColor',
 			white: 'var(--wp--preset--color--white)',
 			black: 'var(--wp--preset--color--black)',
+			...getThemeColors(),
 		},
 		extend: {
 			/* Extend the default theme */
@@ -77,8 +91,5 @@ module.exports = {
 			All plugins are included by default since they are not output if unused.
 		*/
 		typographyPlugin,
-		formsPlugin,
-		aspectRatioPlugin,
-		lineClampPlugin,
 	],
 };
