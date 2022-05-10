@@ -6,13 +6,13 @@
 
 /* Base - base styles such as fonts, typography, and wordpress overrides */
 
-@import "tailwindcss/base";
+@import url("tailwindcss/base");
 @import url("base/index.css");
 
 
 /* Components */
 
-@import "tailwindcss/components";
+@import url("tailwindcss/components");
 @import url("components/index.css");
 
 /* Templates */
@@ -25,4 +25,4 @@
 
 /* Utilities */
 
-@import "tailwindcss/utilities";
+@import url("tailwindcss/utilities");
