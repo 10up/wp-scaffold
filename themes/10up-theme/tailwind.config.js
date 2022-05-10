@@ -1,4 +1,5 @@
 const typographyPlugin = require('@tailwindcss/typography');
+const colors = require('tailwindcss/colors');
 const themeJSON = require('./theme.json');
 
 function getThemePalette() {
@@ -66,18 +67,27 @@ module.exports = {
 	],
 	theme: {
 		/* Override the default theme */
-
+		container: {
+			center: true,
+			padding: {
+				default: '1.25rem',
+				md: '2rem',
+				lg: '2.5rem',
+			},
+		},
 		/* Define brand colors using --wp custom properties from the theme.json */
 		colors: {
 			transparent: 'transparent',
 			current: 'currentColor',
-			white: 'var(--wp--preset--color--white)',
-			black: 'var(--wp--preset--color--black)',
 			...getThemeColors(),
+			/* Include additional palette colors as appropriate to fill in gaps for brand colors */
+			gray: colors.gray,
 		},
 		extend: {
 			/* Extend the default theme */
-
+			screens: {
+				'wp-md': '600px' /* WP Specific Breakpoint used in Gutenberg */,
+			},
 			maxWidth: {
 				/* Custom width properties width from the `theme.json` file */
 				content: 'var(--wp--custom--width--content)',
