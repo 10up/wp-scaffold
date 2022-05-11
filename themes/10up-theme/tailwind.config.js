@@ -5,6 +5,24 @@ const themeJSON = require('./theme.json');
 function getThemePalette() {
 	const { palette } = themeJSON.settings.color;
 
+	// get the color palette for any blocks that have a color palette
+	Object.values(themeJSON.blocks ?? {}).forEach((block) => {
+		const { palette: blockPalette } = block.color;
+
+		if (!blockPalette || !Array.isArray(blockPalette)) {
+			return;
+		}
+
+		blockPalette.forEach((paletteColor) => {
+			const { slug } = paletteColor;
+
+			const isExistingColor = palette.find((color) => color.slug === slug);
+			if (!isExistingColor) {
+				palette.push(paletteColor);
+			}
+		});
+	});
+
 	return Array.isArray(palette) ? palette : [];
 }
 
