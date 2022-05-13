@@ -27,7 +27,7 @@ if ( function_exists( 'WPScaffoldUI\Helpers\get_component' ) ) :
 			'buttons' => [
 				[
 					'label' => 'Hover',
-					'class' => 'tui-button--hover',
+					'nested_class' => 'tui-button__link--hover',
 				],
 			],
 		]
@@ -39,7 +39,7 @@ if ( function_exists( 'WPScaffoldUI\Helpers\get_component' ) ) :
 			'buttons' => [
 				[
 					'label' => 'Active',
-					'class' => 'tui-button--active',
+					'nested_class' => 'tui-button__link--active',
 				],
 			],
 		]
@@ -51,7 +51,7 @@ if ( function_exists( 'WPScaffoldUI\Helpers\get_component' ) ) :
 			'buttons' => [
 				[
 					'label' => 'Focus',
-					'class' => 'tui-button--focus',
+					'nested_class' => 'tui-button__link--focus',
 				],
 			],
 		]
@@ -180,6 +180,7 @@ if ( function_exists( 'WPScaffoldUI\Helpers\get_component' ) ) :
 				[
 					'label' => 'Disabled',
 					'disabled' => true,
+					'nested_class' => 'tui-button__link--disabled',
 				],
 			],
 		]
@@ -356,7 +357,7 @@ if ( function_exists( 'WPScaffoldUI\Helpers\get_component' ) ) :
 				[
 					'label' => 'Outline hover',
 					'style' => 'outline',
-					'class' => 'tui-button--hover',
+					'nested_class' => 'tui-button__link--hover',
 				],
 			],
 		]
@@ -369,7 +370,7 @@ if ( function_exists( 'WPScaffoldUI\Helpers\get_component' ) ) :
 				[
 					'label' => 'Outline active',
 					'style' => 'outline',
-					'class' => 'tui-button--active',
+					'nested_class' => 'tui-button__link--active',
 				],
 			],
 		]
@@ -382,7 +383,7 @@ if ( function_exists( 'WPScaffoldUI\Helpers\get_component' ) ) :
 				[
 					'label' => 'Outline focus',
 					'style' => 'outline',
-					'class' => 'tui-button--focus',
+					'nested_class' => 'tui-button__link--focus',
 				],
 			],
 		]
@@ -396,6 +397,72 @@ if ( function_exists( 'WPScaffoldUI\Helpers\get_component' ) ) :
 					'label' => 'Disabled',
 					'style' => 'outline',
 					'disabled' => true,
+					'nested_class' => 'tui-button__link--disabled',
+				],
+			],
+		]
+	);
+
+	$text_button = get_component(
+		'buttons',
+		$args = [
+			'buttons' => [
+				[
+					'label' => 'Text',
+					'style' => 'text',
+				],
+			],
+		]
+	);
+
+	$text_button_hover = get_component(
+		'buttons',
+		$args = [
+			'buttons' => [
+				[
+					'label' => 'Text hover',
+					'style' => 'text',
+					'nested_class' => 'tui-button__link--hover',
+				],
+			],
+		]
+	);
+
+	$text_button_active = get_component(
+		'buttons',
+		$args = [
+			'buttons' => [
+				[
+					'label' => 'Text active',
+					'style' => 'text',
+					'nested_class' => 'tui-button__link--active',
+				],
+			],
+		]
+	);
+
+	$text_button_focus = get_component(
+		'buttons',
+		$args = [
+			'buttons' => [
+				[
+					'label' => 'Text focus',
+					'style' => 'text',
+					'nested_class' => 'tui-button__link--focus',
+				],
+			],
+		]
+	);
+
+	$text_button_disabled = get_component(
+		'buttons',
+		$args = [
+			'buttons' => [
+				[
+					'label' => 'Disabled',
+					'style' => 'text',
+					'disabled' => true,
+					'nested_class' => 'tui-button__link--disabled',
 				],
 			],
 		]
@@ -407,7 +474,8 @@ get_header();
 
 ?>
 
-<div style="max-width: 1280px; margin: 0 auto; padding: 1.5rem">
+<div class="tui-content-container" style="max-width: 1280px; margin: 0 auto; padding: 1.5rem">
+
 <h1 class="uikit__heading">
 	<?php echo esc_html( get_the_title() ); ?> <?php esc_html_e( 'Sink Page', 'tenup-theme' ); ?>
 </h1>
@@ -429,7 +497,7 @@ get_header();
 
 <div class="uikit__container">
 
-	<div class="uikit__content">
+	<div class="uikit__content tui-content-container">
 		<hr />
 
 		<h2 class="uikit__heading">
@@ -523,6 +591,46 @@ get_header();
 				<h3 class="heading">Outline Disabled</h3>
 				<?php
 					echo wp_kses_post( $outline_button_disabled );
+				?>
+
+			</div><!--/.content-->
+
+		</section><!--/.uikit__section-->
+
+		<h2 class="uikit__heading">
+			<div class="uikit__block">
+				<?php echo esc_html( get_the_title() ); ?> - <?php esc_html_e( 'Partials : Text Variant', 'tenup-theme' ); ?>
+			</div>
+		</h2>
+
+		<section class="uikit__section" id="buttons-text">
+
+			<div class="content">
+				<h3 class="heading">Text</h3>
+				<?php
+					echo wp_kses_post( $text_button );
+				?>
+
+				<h3 class="heading">Text Hover</h3>
+				<?php
+					echo wp_kses_post( $text_button_hover );
+				?>
+
+
+				<h3 class="heading">Text Active</h3>
+				<?php
+					echo wp_kses_post( $text_button_active );
+				?>
+
+				<h3 class="heading">Text Focus</h3>
+				<?php
+					echo wp_kses_post( $text_button_focus );
+				?>
+
+
+				<h3 class="heading">Text Disabled</h3>
+				<?php
+					echo wp_kses_post( $text_button_disabled );
 				?>
 
 			</div><!--/.content-->

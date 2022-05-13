@@ -22,7 +22,6 @@
     "@10up/wp-scaffold-ui": "../plugins/wp-scaffold-ui"
   },
   "10up-toolkit": {
-    "devURL": "https://10upuiwp.test",
     "entry": {
       "admin": "./assets/js/admin/admin.js",
       "editor-style-overrides": "./assets/js/admin/editor-style-overrides.js",
