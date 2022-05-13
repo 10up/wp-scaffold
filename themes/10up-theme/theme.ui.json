@@ -288,9 +288,6 @@
         "border": {
           "customRadius": false
         },
-        "color": {
-          "text": false
-        },
         "typography": {
           "fontSizes": [
             {
