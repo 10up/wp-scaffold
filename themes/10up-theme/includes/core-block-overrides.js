@@ -3,8 +3,7 @@
  */
 
 /* Add the following line to include block styles from UI plugin */
-/* TODO - ideally, block styles can be loaded conditionally as UI components allowed / added to projet */
-/* TODO - import from npm when ready */
+/* TODO - Load core block styles in plugin for UI Kit  */
 
 import '@10up/wp-scaffold-ui/includes/core-block-overrides';
 
