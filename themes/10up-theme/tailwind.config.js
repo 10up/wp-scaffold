@@ -1,5 +1,11 @@
-const typographyPlugin = require('@tailwindcss/typography');
 const colors = require('tailwindcss/colors');
+
+// Tailwind Plugins
+const typographyPlugin = require('@tailwindcss/typography');
+// const formsPlugin = require('@tailwindcss/forms');
+// const aspectRatioPlugin = require('@tailwindcss/aspect-ratio');
+// const lineClampPlugin = require('@tailwindcss/line-clamp');
+
 const themeJSON = require('./theme.json');
 
 function getThemePalette() {
@@ -95,11 +101,29 @@ module.exports = {
 			},
 		},
 	},
+	/*
+		Extend with 3rd party tailwind plugins or locally import your own
+		Uncomment the plugins below and at the top of the file to easily add them to the config.
+	*/
 	plugins: [
 		/*
-			Extend with 3rd party tailwind plugins or locally import your own
-			All plugins are included by default since they are not output if unused.
+			Add prose classes to provide sensible typography styles to longform content blocks
+			See: https://tailwindcss.com/docs/plugins#typography
 		*/
 		typographyPlugin,
+		/* Default form input styling
+			See: https://tailwindcss.com/docs/plugins#forms
+		*/
+		// formsPlugin,
+		/*
+			Adds the ability to use classes like aspect-w-16 aspect-h-9 including arbitrary values
+			See: https://tailwindcss.com/docs/plugins#aspect-ratio
+		*/
+		// aspectRatioPlugin,
+		/*
+			Adds line-clamp utilities, very handy for content heavy sites
+			See: https://tailwindcss.com/docs/plugins#line-clamp
+		*/
+		// lineClampPlugin,
 	],
 };
