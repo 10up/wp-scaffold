@@ -10,7 +10,7 @@
   "workspaces": [
     "themes/*",
     "mu-plugins/10up-plugin",
-    "plugins/wp-scaffold-ui"
+    "plugins/10up-ui-kit"
   ],
   "scripts": {
     "prepare": "husky install",
@@ -18,8 +18,8 @@
     "start": "npm run watch",
     "watch:theme": "npm run watch -w=tenup-theme",
     "watch:plugin": "npm run watch -w=tenup-plugin",
-    "watch:wp-scaffold-ui": "npm run watch -w=@10up/wp-scaffold-ui",
-    "watch": "run-p watch:theme watch:plugin watch:wp-scaffold-ui",
+    "watch:10up-ui-kit": "npm run watch -w=@10up/ui-kit",
+    "watch": "run-p watch:theme watch:plugin watch:10up-ui-kit",
     "test": "npm run test --workspaces --if-present",
     "clean-dist": "npm run clean-dist --if-present"
   },

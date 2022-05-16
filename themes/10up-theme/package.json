@@ -19,7 +19,7 @@
   },
   "dependencies": {
     "normalize.css": "^8.0.1",
-    "@10up/wp-scaffold-ui": "../plugins/wp-scaffold-ui"
+    "@10up/ui-kit": "../plugins/10up-ui-kit"
   },
   "10up-toolkit": {
     "entry": {
