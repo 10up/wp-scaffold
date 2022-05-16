@@ -109,70 +109,6 @@ if ( function_exists( 'UIKit\Helpers\get_component' ) ) :
 		]
 	);
 
-	$cyan_blue_button = get_component(
-		'buttons',
-		$args = [
-			'buttons' => [
-				[
-					'label' => 'Button with color',
-					'nested_class' => 'has-vivid-cyan-blue-background-color has-background has-black-color has-text-color',
-				],
-			],
-		]
-	);
-
-	$cyan_blue_25_button = get_component(
-		'buttons',
-		$args = [
-			'buttons' => [
-				[
-					'label' => 'Button with color and 25% width',
-					'class' => 'tui-button--w-25 tui-button--has-custom-width',
-					'nested_class' => 'has-vivid-cyan-blue-background-color has-background has-black-color has-text-color',
-				],
-			],
-		]
-	);
-
-	$cyan_blue_50_button = get_component(
-		'buttons',
-		$args = [
-			'buttons' => [
-				[
-					'label' => 'Button with color and 50% width',
-					'class' => 'tui-button--w-50 tui-button--has-custom-width',
-					'nested_class' => 'has-vivid-cyan-blue-background-color has-background has-black-color has-text-color',
-				],
-			],
-		]
-	);
-
-	$cyan_blue_75_button = get_component(
-		'buttons',
-		$args = [
-			'buttons' => [
-				[
-					'label' => 'Button with color and 75% width',
-					'class' => 'tui-button--w-75 tui-button--has-custom-width',
-					'nested_class' => 'has-vivid-cyan-blue-background-color has-background has-black-color has-text-color',
-				],
-			],
-		]
-	);
-
-	$cyan_blue_100_button = get_component(
-		'buttons',
-		$args = [
-			'buttons' => [
-				[
-					'label' => 'Button with color and 100% width',
-					'class' => 'tui-button--w-100 tui-button--has-custom-width',
-					'nested_class' => 'has-vivid-cyan-blue-background-color has-background has-black-color has-text-color',
-				],
-			],
-		]
-	);
-
 	$disabled_button = get_component(
 		'buttons',
 		$args = [
@@ -468,6 +404,173 @@ if ( function_exists( 'UIKit\Helpers\get_component' ) ) :
 		]
 	);
 
+
+	$primary_button = get_component(
+		'buttons',
+		$args = [
+			'buttons' => [
+				[
+					'label' => 'Primary',
+					'style' => 'fill',
+				],
+				[
+					'label' => 'Primary',
+					'style' => 'fill',
+					'class' => 'has-xl-font-size has-custom-font-size',
+				],
+			],
+		]
+	);
+
+	$outline_primary_button = get_component(
+		'buttons',
+		$args = [
+			'buttons' => [
+				[
+					'label' => 'Primary',
+					'style' => 'outline',
+				],
+				[
+					'label' => 'Primary',
+					'style' => 'outline',
+					'class' => 'has-xl-font-size has-custom-font-size',
+				],
+			],
+		]
+	);
+
+	$text_primary_button = get_component(
+		'buttons',
+		$args = [
+			'buttons' => [
+				[
+					'label' => 'Primary',
+					'style' => 'text',
+				],
+				[
+					'label' => 'Primary',
+					'style' => 'text',
+					'class' => 'has-xl-font-size has-custom-font-size',
+				],
+			],
+		]
+	);
+
+	$secondary_button = get_component(
+		'buttons',
+		$args = [
+			'buttons' => [
+				[
+					'label' => 'Secondary',
+					'style' => 'fill',
+					'nested_class' => 'has-light-color has-secondary-background-color has-text-color has-background',
+				],
+				[
+					'label' => 'Secondary',
+					'style' => 'fill',
+					'class' => 'has-xl-font-size has-custom-font-size',
+					'nested_class' => 'has-light-color has-secondary-background-color has-text-color has-background',
+				],
+			],
+		]
+	);
+
+	$outline_secondary_button = get_component(
+		'buttons',
+		$args = [
+			'buttons' => [
+				[
+					'label' => 'Secondary',
+					'style' => 'outline',
+					'nested_class' => 'has-secondary-color has-secondary-background-color has-text-color has-background',
+				],
+				[
+					'label' => 'Secondary',
+					'style' => 'outline',
+					'class' => 'has-xl-font-size has-custom-font-size',
+					'nested_class' => 'has-secondary-color has-secondary-background-color has-text-color has-background',
+				],
+			],
+		]
+	);
+
+	$text_secondary_button = get_component(
+		'buttons',
+		$args = [
+			'buttons' => [
+				[
+					'label' => 'Secondary',
+					'style' => 'text',
+					'nested_class' => 'has-secondary-color has-text-color',
+				],
+				[
+					'label' => 'Secondary',
+					'style' => 'text',
+					'class' => 'has-xl-font-size has-custom-font-size',
+					'nested_class' => 'has-secondary-color has-text-color',
+				],
+			],
+		]
+	);
+
+	$tertiary_button = get_component(
+		'buttons',
+		$args = [
+			'buttons' => [
+				[
+					'label' => 'Tertiary',
+					'style' => 'fill',
+					'nested_class' => 'has-light-color has-tertiary-background-color has-text-color has-background',
+				],
+				[
+					'label' => 'Tertiary',
+					'style' => 'fill',
+					'class' => 'has-xl-font-size has-custom-font-size',
+					'nested_class' => 'has-light-color has-tertiary-background-color has-text-color has-background',
+				],
+			],
+		]
+	);
+
+	$outline_tertiary_button = get_component(
+		'buttons',
+		$args = [
+			'buttons' => [
+				[
+					'label' => 'Tertiary',
+					'style' => 'outline',
+					'nested_class' => 'has-tertiary-color has-tertiary-background-color has-text-color has-background',
+				],
+				[
+					'label' => 'Tertiary',
+					'style' => 'outline',
+					'class' => 'has-xl-font-size has-custom-font-size',
+					'nested_class' => 'has-tertiary-color has-tertiary-background-color has-text-color has-background',
+				],
+			],
+		]
+	);
+
+	$text_tertiary_button = get_component(
+		'buttons',
+		$args = [
+			'buttons' => [
+				[
+					'label' => 'Tertiary',
+					'style' => 'text',
+					'nested_class' => 'has-tertiary-color has-text-color',
+				],
+				[
+					'label' => 'Tertiary',
+					'style' => 'text',
+					'class' => 'has-xl-font-size has-custom-font-size',
+					'nested_class' => 'has-tertiary-color has-text-color',
+				],
+			],
+		]
+	);
+
+
 endif;
 
 get_header();
@@ -665,44 +768,61 @@ get_header();
 		</section><!--/.uikit__section-->
 
 		<hr />
-
 		<h2 class="uikit__heading">
 			<div class="uikit__block">
-				<?php echo esc_html( get_the_title() ); ?> - <?php esc_html_e( 'Partials : Color & Widths', 'tenup-theme' ); ?>
+				<?php echo esc_html( get_the_title() ); ?> - <?php esc_html_e( 'Partials : Colors', 'tenup-theme' ); ?>
 			</div>
 		</h2>
 
 		<section>
 			<div>
-
-				<h3 class="heading">Cyan Blue Button</h3>
+				<h3 class="heading">Primary Button</h3>
 				<?php
-					echo wp_kses_post( $cyan_blue_button );
+					echo wp_kses_post( $primary_button );
 				?>
 
-				<h3 class="heading">Cyan Blue 25% Width Button</h3>
+				<h3 class="heading">Primary Outline Button</h3>
 				<?php
-					echo wp_kses_post( $cyan_blue_25_button );
+					echo wp_kses_post( $outline_primary_button );
 				?>
 
-				<h3 class="heading">Cyan Blue 50% Width Button</h3>
+				<h3 class="heading">Primary Text Button</h3>
 				<?php
-					echo wp_kses_post( $cyan_blue_50_button );
+					echo wp_kses_post( $text_primary_button );
 				?>
 
-				<h3 class="heading">Cyan Blue 75% Width Button</h3>
+				<h3 class="heading">Secondary Button</h3>
 				<?php
-					echo wp_kses_post( $cyan_blue_75_button );
+					echo wp_kses_post( $secondary_button );
 				?>
 
-
-				<h3 class="heading">Cyan Blue 100% Width Button</h3>
+				<h3 class="heading">Secondary Outline Button</h3>
 				<?php
-					echo wp_kses_post( $cyan_blue_100_button );
+					echo wp_kses_post( $outline_secondary_button );
 				?>
-			</div><!--/.content-->
 
-		</section><!--/.uikit__section-->
+				<h3 class="heading">Secondary Text Button</h3>
+				<?php
+					echo wp_kses_post( $text_secondary_button );
+				?>
+
+				<h3 class="heading">Tertiary Button</h3>
+				<?php
+					echo wp_kses_post( $tertiary_button );
+				?>
+
+				<h3 class="heading">Tertiary Outline Button</h3>
+				<?php
+					echo wp_kses_post( $outline_tertiary_button );
+				?>
+
+				<h3 class="heading">Tertiary Text Button</h3>
+				<?php
+					echo wp_kses_post( $text_tertiary_button );
+				?>
+			</div>
+		</section>
+
 
 		<hr />
 
