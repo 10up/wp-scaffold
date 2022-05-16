@@ -5,10 +5,10 @@
  * @package TenUpTheme
  */
 
-use function WPScaffoldUI\Helpers\get_component;
+use function UIKit\Helpers\get_component;
 
 // Defining button variations
-if ( function_exists( 'WPScaffoldUI\Helpers\get_component' ) ) :
+if ( function_exists( 'UIKit\Helpers\get_component' ) ) :
 
 	$default_button = get_component(
 		'buttons',

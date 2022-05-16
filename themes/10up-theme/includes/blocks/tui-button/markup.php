@@ -12,7 +12,7 @@
  * @var string   $wrapper_attributes Block Wrapper Attributes. To be applied to the outermost element.
  */
 
-use function WPScaffoldUI\Helpers\get_component;
+use function UIKit\Helpers\get_component;
 $button = get_component( 'button', $attributes );
 ?>
 <div <?php echo get_block_wrapper_attributes(); // phpcs:ignore ?>">
