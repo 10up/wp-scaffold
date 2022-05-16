@@ -2,33 +2,10 @@ const colors = require('tailwindcss/colors');
 
 // Tailwind Plugins
 const typographyPlugin = require('@tailwindcss/typography');
+const { getThemeColors } = require('./includes/tailwind-helpers');
 // const formsPlugin = require('@tailwindcss/forms');
 // const aspectRatioPlugin = require('@tailwindcss/aspect-ratio');
 // const lineClampPlugin = require('@tailwindcss/line-clamp');
-
-const themeJSON = require('./theme.json');
-
-function getThemePalette() {
-	const { palette } = themeJSON.settings.color;
-
-	return Array.isArray(palette) ? palette : [];
-}
-
-function getThemeColors() {
-	const palette = getThemePalette();
-
-	if (!palette) return [];
-
-	const colors = {};
-
-	palette.forEach((paletteColor) => {
-		const { slug, color } = paletteColor;
-
-		colors[slug] = color;
-	});
-
-	return colors;
-}
 
 module.exports = {
 	/**
