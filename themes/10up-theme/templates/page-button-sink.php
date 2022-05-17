@@ -145,7 +145,7 @@ if ( function_exists( 'UIKit\Helpers\get_component' ) ) :
 				],
 				[
 					'label' => 'Register',
-					'style' => 'outline',
+					'class' => 'is-style-outline',
 				],
 			],
 		]
@@ -161,7 +161,7 @@ if ( function_exists( 'UIKit\Helpers\get_component' ) ) :
 				],
 				[
 					'label' => 'Register',
-					'style' => 'outline',
+					'class' => 'is-style-outline',
 				],
 			],
 		]
@@ -177,7 +177,7 @@ if ( function_exists( 'UIKit\Helpers\get_component' ) ) :
 				],
 				[
 					'label' => 'Register',
-					'style' => 'outline',
+					'class' => 'is-style-outline',
 				],
 			],
 		]
@@ -193,7 +193,7 @@ if ( function_exists( 'UIKit\Helpers\get_component' ) ) :
 				],
 				[
 					'label' => 'Register',
-					'style' => 'outline',
+					'class' => 'is-style-outline',
 				],
 			],
 		]
@@ -209,7 +209,7 @@ if ( function_exists( 'UIKit\Helpers\get_component' ) ) :
 				],
 				[
 					'label' => 'Register',
-					'style' => 'outline',
+					'class' => 'is-style-outline',
 				],
 			],
 		]
@@ -225,7 +225,7 @@ if ( function_exists( 'UIKit\Helpers\get_component' ) ) :
 				],
 				[
 					'label' => 'Register',
-					'style' => 'outline',
+					'class' => 'is-style-outline',
 				],
 			],
 		]
@@ -241,7 +241,7 @@ if ( function_exists( 'UIKit\Helpers\get_component' ) ) :
 				],
 				[
 					'label' => 'Register',
-					'style' => 'outline',
+					'class' => 'is-style-outline',
 				],
 			],
 		]
@@ -280,7 +280,7 @@ if ( function_exists( 'UIKit\Helpers\get_component' ) ) :
 			'buttons' => [
 				[
 					'label' => 'Outline',
-					'style' => 'outline',
+					'class' => 'is-style-outline',
 				],
 			],
 		]
@@ -292,7 +292,7 @@ if ( function_exists( 'UIKit\Helpers\get_component' ) ) :
 			'buttons' => [
 				[
 					'label' => 'Outline hover',
-					'style' => 'outline',
+					'class' => 'is-style-outline',
 					'nested_class' => 'tui-button__link--hover',
 				],
 			],
@@ -305,7 +305,7 @@ if ( function_exists( 'UIKit\Helpers\get_component' ) ) :
 			'buttons' => [
 				[
 					'label' => 'Outline active',
-					'style' => 'outline',
+					'class' => 'is-style-outline',
 					'nested_class' => 'tui-button__link--active',
 				],
 			],
@@ -318,7 +318,7 @@ if ( function_exists( 'UIKit\Helpers\get_component' ) ) :
 			'buttons' => [
 				[
 					'label' => 'Outline focus',
-					'style' => 'outline',
+					'class' => 'is-style-outline',
 					'nested_class' => 'tui-button__link--focus',
 				],
 			],
@@ -331,7 +331,7 @@ if ( function_exists( 'UIKit\Helpers\get_component' ) ) :
 			'buttons' => [
 				[
 					'label' => 'Disabled',
-					'style' => 'outline',
+					'class' => 'is-style-outline',
 					'disabled' => true,
 					'nested_class' => 'tui-button__link--disabled',
 				],
@@ -345,7 +345,7 @@ if ( function_exists( 'UIKit\Helpers\get_component' ) ) :
 			'buttons' => [
 				[
 					'label' => 'Text',
-					'style' => 'text',
+					'class' => 'is-style-text',
 				],
 			],
 		]
@@ -357,7 +357,7 @@ if ( function_exists( 'UIKit\Helpers\get_component' ) ) :
 			'buttons' => [
 				[
 					'label' => 'Text hover',
-					'style' => 'text',
+					'class' => 'is-style-text',
 					'nested_class' => 'tui-button__link--hover',
 				],
 			],
@@ -370,7 +370,7 @@ if ( function_exists( 'UIKit\Helpers\get_component' ) ) :
 			'buttons' => [
 				[
 					'label' => 'Text active',
-					'style' => 'text',
+					'class' => 'is-style-text',
 					'nested_class' => 'tui-button__link--active',
 				],
 			],
@@ -383,7 +383,7 @@ if ( function_exists( 'UIKit\Helpers\get_component' ) ) :
 			'buttons' => [
 				[
 					'label' => 'Text focus',
-					'style' => 'text',
+					'class' => 'is-style-text',
 					'nested_class' => 'tui-button__link--focus',
 				],
 			],
@@ -396,7 +396,7 @@ if ( function_exists( 'UIKit\Helpers\get_component' ) ) :
 			'buttons' => [
 				[
 					'label' => 'Disabled',
-					'style' => 'text',
+					'class' => 'is-style-text',
 					'disabled' => true,
 					'nested_class' => 'tui-button__link--disabled',
 				],
@@ -411,11 +411,9 @@ if ( function_exists( 'UIKit\Helpers\get_component' ) ) :
 			'buttons' => [
 				[
 					'label' => 'Primary',
-					'style' => 'fill',
 				],
 				[
 					'label' => 'Primary',
-					'style' => 'fill',
 					'class' => 'has-xl-font-size has-custom-font-size',
 				],
 			],
@@ -428,12 +426,11 @@ if ( function_exists( 'UIKit\Helpers\get_component' ) ) :
 			'buttons' => [
 				[
 					'label' => 'Primary',
-					'style' => 'outline',
+					'class' => 'is-style-outline',
 				],
 				[
 					'label' => 'Primary',
-					'style' => 'outline',
-					'class' => 'has-xl-font-size has-custom-font-size',
+					'class' => 'is-style-outline has-xl-font-size has-custom-font-size',
 				],
 			],
 		]
@@ -445,12 +442,11 @@ if ( function_exists( 'UIKit\Helpers\get_component' ) ) :
 			'buttons' => [
 				[
 					'label' => 'Primary',
-					'style' => 'text',
+					'class' => 'is-style-text',
 				],
 				[
 					'label' => 'Primary',
-					'style' => 'text',
-					'class' => 'has-xl-font-size has-custom-font-size',
+					'class' => 'is-style-text has-xl-font-size has-custom-font-size',
 				],
 			],
 		]
@@ -462,12 +458,10 @@ if ( function_exists( 'UIKit\Helpers\get_component' ) ) :
 			'buttons' => [
 				[
 					'label' => 'Secondary',
-					'style' => 'fill',
 					'nested_class' => 'has-light-color has-secondary-background-color has-text-color has-background',
 				],
 				[
 					'label' => 'Secondary',
-					'style' => 'fill',
 					'class' => 'has-xl-font-size has-custom-font-size',
 					'nested_class' => 'has-light-color has-secondary-background-color has-text-color has-background',
 				],
@@ -481,13 +475,12 @@ if ( function_exists( 'UIKit\Helpers\get_component' ) ) :
 			'buttons' => [
 				[
 					'label' => 'Secondary',
-					'style' => 'outline',
+					'class' => 'is-style-outline',
 					'nested_class' => 'has-secondary-color has-secondary-background-color has-text-color has-background',
 				],
 				[
 					'label' => 'Secondary',
-					'style' => 'outline',
-					'class' => 'has-xl-font-size has-custom-font-size',
+					'class' => 'is-style-outline has-xl-font-size has-custom-font-size',
 					'nested_class' => 'has-secondary-color has-secondary-background-color has-text-color has-background',
 				],
 			],
@@ -500,13 +493,12 @@ if ( function_exists( 'UIKit\Helpers\get_component' ) ) :
 			'buttons' => [
 				[
 					'label' => 'Secondary',
-					'style' => 'text',
+					'class' => 'is-style-text',
 					'nested_class' => 'has-secondary-color has-text-color',
 				],
 				[
 					'label' => 'Secondary',
-					'style' => 'text',
-					'class' => 'has-xl-font-size has-custom-font-size',
+					'class' => 'is-style-text has-xl-font-size has-custom-font-size',
 					'nested_class' => 'has-secondary-color has-text-color',
 				],
 			],
@@ -519,12 +511,10 @@ if ( function_exists( 'UIKit\Helpers\get_component' ) ) :
 			'buttons' => [
 				[
 					'label' => 'Tertiary',
-					'style' => 'fill',
 					'nested_class' => 'has-light-color has-tertiary-background-color has-text-color has-background',
 				],
 				[
 					'label' => 'Tertiary',
-					'style' => 'fill',
 					'class' => 'has-xl-font-size has-custom-font-size',
 					'nested_class' => 'has-light-color has-tertiary-background-color has-text-color has-background',
 				],
@@ -538,13 +528,12 @@ if ( function_exists( 'UIKit\Helpers\get_component' ) ) :
 			'buttons' => [
 				[
 					'label' => 'Tertiary',
-					'style' => 'outline',
+					'class' => 'is-style-outline',
 					'nested_class' => 'has-tertiary-color has-tertiary-background-color has-text-color has-background',
 				],
 				[
 					'label' => 'Tertiary',
-					'style' => 'outline',
-					'class' => 'has-xl-font-size has-custom-font-size',
+					'class' => 'is-style-outline has-xl-font-size has-custom-font-size',
 					'nested_class' => 'has-tertiary-color has-tertiary-background-color has-text-color has-background',
 				],
 			],
@@ -557,13 +546,12 @@ if ( function_exists( 'UIKit\Helpers\get_component' ) ) :
 			'buttons' => [
 				[
 					'label' => 'Tertiary',
-					'style' => 'text',
+					'class' => 'is-style-text',
 					'nested_class' => 'has-tertiary-color has-text-color',
 				],
 				[
 					'label' => 'Tertiary',
-					'style' => 'text',
-					'class' => 'has-xl-font-size has-custom-font-size',
+					'class' => 'is-style-text has-xl-font-size has-custom-font-size',
 					'nested_class' => 'has-tertiary-color has-text-color',
 				],
 			],
