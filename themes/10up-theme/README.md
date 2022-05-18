@@ -1,4 +1,9 @@
-# 10up Theme
+# 10up Theme - Tailwind Edition
+
+## Setting up Tailwind for your project
+
+## Tailwind FAQs
+
 
 ## Working with `theme.json`
 The default theme scaffold now ships with a very basic version of the `theme.json` file. This is to ensure all the side-affects of introducing this file are there from the beginning of a project and therefore set projects up for success if they want to adopt more features through the `theme.json` mechanism.
@@ -9,6 +14,24 @@ The `theme.json` file allows you to take control of your blocks in both the edit
 The values that you provide in the `theme.json` file will be added both on the frontend and in the editor as [CSS custom properties following a fixed naming scheme](https://developer.wordpress.org/block-editor/how-to-guides/themes/theme-json/#css-custom-properties-presets-custom).
 
 ### 🙋 FAQ
+<details>
+	<summary>How do I add the Gutenberg color palette automatically to the Tailwind config?</summary>
+	<br>
+	By default the toolkit will look if theme.json is present and if so, attempt to import colors from the palette you've defined in it. You can also optionally specify that you want to bring in the color palette for blocks (all or specific ones) by passing in either `true` or an array of allowed block names to the `getThemeColors()` function called in `tailwind.config.js`.
+</details>
+<details>
+	<summary>How do I prevent my custom CSS from being purged?</summary>
+	<br>
+	Any custom CSS you author that isn't inside an `@layer` or added to the Tailwind config as a utility will always be included whether you have the class in your content files or not. See the Tailwind Docs on [Removing unused custom CSS for details](https://tailwindcss.com/docs/adding-custom-styles#removing-unused-custom-css).
+</details>
+<details>
+	<summary>Do I need to use any Tailwind plugins?</summary>
+	<br>
+	By default, the toolkit comes with all four [official Tailwind plugins](https://tailwindcss.com/docs/plugins) installed. In most cases you'll want to just enable all of these so you can leverage all of their functionality. Things like the typography plugin are typically essential on sites that have any longform content (which is virtually all websites) and forms are often desirable as well.
+
+	Aspect Ratio and Line Clamp classes are only available if those plugins are included.
+</details>
+
 <details>
 <summary>Where has the `.wp-block-group__inner-container` gone?</summary>
 <br />

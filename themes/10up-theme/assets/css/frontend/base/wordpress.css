@@ -50,3 +50,35 @@
 
 	@apply max-w-none;
 }
+
+/**
+	* Post title styles
+	*
+	* These will be applied to all headings with an `entry-title` class on the
+	* frontend and to the post heading in the block editor.
+	*
+	* The supplied styles are meant to match the default `h1` classes from
+	* Tailwind Typography.
+*/
+.edit-post-visual-editor__post-title-wrapper .editor-post-title__input,
+.entry-title {
+
+	@apply max-w-content mx-auto mb-6 text-6xl font-extrabold;
+}
+
+/**
+	* Post content styles (via Tailwind Typography)
+	*
+	* These will be applied to all content blocks with an `entry-content` class on
+	* the frontend and within the block editor.
+	*
+	* For details on how to customize Tailwind Typography via its modifier
+	* classes, please see:
+	*
+	* https://tailwindcss.com/docs/typography-plugin
+*/
+.block-editor-block-list__layout,
+.entry-content {
+
+	@apply max-w-none prose;
+}

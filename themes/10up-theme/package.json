@@ -16,6 +16,9 @@
   },
   "devDependencies": {
     "@10up/stylelint-config": "^1.1.5",
+    "@tailwindcss/aspect-ratio": "^0.4.0",
+    "@tailwindcss/forms": "^0.5.1",
+    "@tailwindcss/line-clamp": "^0.4.0",
     "@tailwindcss/typography": "^0.5.2",
     "10up-toolkit": "^3.0.0",
     "stylelint": "^13.13.1",
