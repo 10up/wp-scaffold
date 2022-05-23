@@ -558,6 +558,40 @@ if ( function_exists( 'UIKit\Helpers\get_component' ) ) :
 		]
 	);
 
+	$dark_button = get_component(
+		'buttons',
+		$args = [
+			'buttons' => [
+				[
+					'label' => 'Dark',
+					'nested_class' => 'has-dark-background-color',
+				],
+				[
+					'label' => 'Dark',
+					'class' => 'has-xl-font-size has-custom-font-size',
+					'nested_class' => 'has-dark-background-color',
+				],
+			],
+		]
+	);
+
+	$light_button = get_component(
+		'buttons',
+		$args = [
+			'buttons' => [
+				[
+					'label' => 'Light',
+					'nested_class' => 'has-light-background-color',
+				],
+				[
+					'label' => 'Light',
+					'class' => 'has-xl-font-size has-custom-font-size',
+					'nested_class' => 'has-light-background-color',
+				],
+			],
+		]
+	);
+
 
 endif;
 
@@ -807,6 +841,16 @@ get_header();
 				<h3 class="heading">Tertiary Text Button</h3>
 				<?php
 					echo wp_kses_post( $text_tertiary_button );
+				?>
+
+				<h3 class="heading">Dark Button</h3>
+				<?php
+					echo wp_kses_post( $dark_button );
+				?>
+
+				<h3 class="heading">Light Button</h3>
+				<?php
+					echo wp_kses_post( $light_button );
 				?>
 			</div>
 		</section>
