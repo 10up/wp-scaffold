@@ -1,6 +1,6 @@
 {
+  "$schema": "https://schemas.wp.org/wp/6.0/theme.json",
   "version": 2,
-  "$schema": "https://schemas.wp.org/wp/5.9/theme.json",
   "settings": {
     "custom": {
       "color": {
@@ -189,7 +189,7 @@
     },
     "color": {
       "custom": false,
-      "defaultDuotones": false,
+      "defaultDuotone": false,
       "duotone": [],
       "customDuotone": false,
       "defaultGradients": false,
@@ -230,16 +230,16 @@
       "wideSize": "var(--wp--custom--content--width--wide)"
     },
     "spacing": {
-      "customMargin": false,
-      "customPadding": false,
+      "margin": false,
+      "padding": false,
       "units": []
     },
     "typography": {
       "customFontSize": false,
-      "customLineHeight": false,
+      "lineHeight": false,
       "dropCap": false,
       "textTransform": false,
-      "customFontWeight": false,
+      "fontWeight": false,
       "fontSizes": [
         {
             "slug": "sm",
