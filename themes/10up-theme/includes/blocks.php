@@ -47,8 +47,14 @@ function setup() {
  * @return void
  */
 function register_theme_blocks() {
-	// Filter the plugins URL to allow us to have blocks in themes with linked assets. i.e editorScripts
-	add_filter( 'plugins_url', __NAMESPACE__ . '\filter_plugins_url', 10, 2 );
+	global $wp_version;
+
+	$is_pre_wp_6 = version_compare( $wp_version, '6.0', '<' );
+
+	if ( $is_pre_wp_6 ) {
+		// Filter the plugins URL to allow us to have blocks in themes with linked assets. i.e editorScripts
+		add_filter( 'plugins_url', __NAMESPACE__ . '\filter_plugins_url', 10, 2 );
+	}
 
 	// Register all the blocks in the theme
 	if ( file_exists( TENUP_THEME_BLOCK_DIR ) ) {
@@ -81,8 +87,10 @@ function register_theme_blocks() {
 		};
 	};
 
-	// Remove the filter after we register the blocks
-	remove_filter( 'plugins_url', __NAMESPACE__ . '\filter_plugins_url', 10, 2 );
+	if ( $is_pre_wp_6 ) {
+		// Remove the filter after we register the blocks
+		remove_filter( 'plugins_url', __NAMESPACE__ . '\filter_plugins_url', 10, 2 );
+	}
 }
 
 /**
