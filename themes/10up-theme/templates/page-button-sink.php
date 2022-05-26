@@ -848,10 +848,24 @@ get_header();
 					echo wp_kses_post( $dark_button );
 				?>
 
+				<h3 class="heading">On light background</h3>
+				<div style="background-color: #e7e7e7; padding: 1rem;">
+					<?php
+						echo wp_kses_post( $dark_button );
+					?>
+				</div>
+
 				<h3 class="heading">Light Button</h3>
 				<?php
 					echo wp_kses_post( $light_button );
 				?>
+
+				<h3 class="heading">On dark background</h3>
+				<div class="has-dark-background-color" style="padding: 1rem;">
+					<?php
+						echo wp_kses_post( $light_button );
+					?>
+				</div>
 			</div>
 		</section>
 
