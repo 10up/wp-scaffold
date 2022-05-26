@@ -16,6 +16,7 @@ if ( function_exists( 'UIKit\Helpers\get_component' ) ) :
 			'buttons' => [
 				[
 					'label' => 'Read more',
+					'screenreader' => 'about this educational topic',
 				],
 			],
 		]
