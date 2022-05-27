@@ -1,0 +1,51 @@
+.wp-block-tenup-tabs {
+
+	& .tab-control {
+		display: flex;
+		flex-direction: column;
+
+		@media (--bp-medium) {
+			align-items: center;
+			flex-direction: row;
+			justify-content: space-between;
+		}
+	}
+
+	& .tab-list {
+		display: flex;
+		padding-left: 0;
+	}
+
+	& .tab-item {
+		align-items: center;
+		border-bottom: 0;
+		color: var(--c-black);
+		display: flex;
+		flex-direction: row;
+		margin-right: 1rem;
+		position: relative;
+		text-align: center;
+
+		&.is-active {
+
+			& [role="tab"] {
+				font-weight: 600;
+			}
+		}
+
+	}
+
+	& .tabs-content {
+
+		&[aria-hidden="true"] {
+			left: -999rem;
+			position: absolute;
+			top: -999rem;
+		}
+
+		&.is-active {
+			position: static;
+		}
+	}
+
+}

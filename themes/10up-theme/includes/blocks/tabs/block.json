@@ -1,0 +1,30 @@
+{
+  "apiVersion": 2,
+  "name": "tenup/tabs",
+  "title": "Tabs",
+  "textdomain": "tenup",
+  "supports": {
+    "html": false
+  },
+  "category": "design",
+  "example": {
+    "viewportWidth": 500,
+		"innerBlocks": [
+			{
+				"name": "tenup/tab-item",
+				"attributes": {
+					"tabLabel": "Tab Item 1"
+				}
+			},
+			{
+				"name": "tenup/tab-item",
+				"attributes": {
+					"tabLabel": "Tab Item 2"
+				}
+			}
+		]
+  },
+  "attributes": {},
+  "editorScript": "file:../../../dist/blocks/tabs-block/editor.js",
+  "viewScript": "file:../../../dist/blocks/tabs-block-view-script/editor.js"
+}

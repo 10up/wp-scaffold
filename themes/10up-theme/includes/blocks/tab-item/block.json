@@ -1,0 +1,24 @@
+{
+  "apiVersion": 2,
+  "name": "tenup/tab-item",
+  "title": "Tab Item",
+  "textdomain": "tenup",
+  "category": "design",
+  "supports": {
+    "html": false,
+    "anchor": false,
+		"reusable": false
+  },
+  "parent": ["tenup/tabs"],
+  "example": {},
+  "attributes": {
+    "label": {
+      "type": "string",
+      "default": ""
+    },
+    "identifier": {
+      "type": "string"
+    }
+  },
+  "editorScript": "file:../../../dist/blocks/tab-item-block/editor.js"
+}

@@ -18,6 +18,8 @@
     "10up-toolkit": "^3.0.0"
   },
   "dependencies": {
+    "@10up/block-components": "^1.9.0",
+    "@10up/component-tabs": "^2.0.1",
     "normalize.css": "^8.0.1"
   },
   "10up-toolkit": {
@@ -29,7 +31,10 @@
       "shared": "./assets/js/shared/shared.js",
       "styleguide": "./assets/js/styleguide/styleguide.js",
       "core-block-overrides": "./includes/core-block-overrides.js",
-      "example-block": "./includes/blocks/example-block/index.js"
+      "example-block": "./includes/blocks/example-block/index.js",
+      "tabs-block": "./includes/blocks/tabs/index.js",
+      "tabs-block-view-script": "./includes/blocks/tabs/view.js",
+      "tab-item-block": "./includes/blocks/tab-item/index.js"
     }
   }
 }
