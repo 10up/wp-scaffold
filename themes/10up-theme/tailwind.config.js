@@ -52,11 +52,6 @@ module.exports = {
 		/* Override the default theme */
 		container: {
 			center: true,
-			padding: {
-				default: '1.25rem',
-				md: '2rem',
-				lg: '2.5rem',
-			},
 		},
 		/* Define brand colors using --wp custom properties from the theme.json */
 		colors: {
