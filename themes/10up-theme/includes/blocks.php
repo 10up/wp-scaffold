@@ -26,7 +26,7 @@ function setup() {
 
 	add_action( 'init', $n( 'register_theme_blocks' ) );
 
-	add_action( 'init', $n( 'block_patterns_and_categories' ) );
+	add_action( 'init', $n( 'register_block_pattern_categories' ) );
 
 	/*
 	If you are using the block library, remove the blocks you don't need.
@@ -47,8 +47,14 @@ function setup() {
  * @return void
  */
 function register_theme_blocks() {
-	// Filter the plugins URL to allow us to have blocks in themes with linked assets. i.e editorScripts
-	add_filter( 'plugins_url', __NAMESPACE__ . '\filter_plugins_url', 10, 2 );
+	global $wp_version;
+
+	$is_pre_wp_6 = version_compare( $wp_version, '6.0', '<' );
+
+	if ( $is_pre_wp_6 ) {
+		// Filter the plugins URL to allow us to have blocks in themes with linked assets. i.e editorScripts
+		add_filter( 'plugins_url', __NAMESPACE__ . '\filter_plugins_url', 10, 2 );
+	}
 
 	// Register all the blocks in the theme
 	if ( file_exists( TENUP_THEME_BLOCK_DIR ) ) {
@@ -81,8 +87,10 @@ function register_theme_blocks() {
 		};
 	};
 
-	// Remove the filter after we register the blocks
-	remove_filter( 'plugins_url', __NAMESPACE__ . '\filter_plugins_url', 10, 2 );
+	if ( $is_pre_wp_6 ) {
+		// Remove the filter after we register the blocks
+		remove_filter( 'plugins_url', __NAMESPACE__ . '\filter_plugins_url', 10, 2 );
+	}
 }
 
 /**
@@ -144,37 +152,17 @@ function blocks_categories( $categories ) {
 }
 
 /**
- * Manage block patterns and block pattern categories
+ * Register block pattern categories
  *
  * @see https://developer.wordpress.org/block-editor/reference-guides/block-api/block-patterns/
  *
  * @return void
  */
-function block_patterns_and_categories() {
-	/*
-	## Examples
-
-	// Register block pattern
-	register_block_pattern(
-		'tenup/block-pattern',
-		array(
-			'title'       => __( 'Two buttons', 'tenup' ),
-			'description' => _x( 'Two horizontal buttons, the left button is filled in, and the right button is outlined.', 'Block pattern description', 'wpdocs-my-plugin' ),
-			'content'     => "<!-- wp:buttons {\"align\":\"center\"} -->\n<div class=\"wp-block-buttons aligncenter\"><!-- wp:button {\"backgroundColor\":\"very-dark-gray\",\"borderRadius\":0} -->\n<div class=\"wp-block-button\"><a class=\"wp-block-button__link has-background has-very-dark-gray-background-color no-border-radius\">" . esc_html__( 'Button One', 'wpdocs-my-plugin' ) . "</a></div>\n<!-- /wp:button -->\n\n<!-- wp:button {\"textColor\":\"very-dark-gray\",\"borderRadius\":0,\"className\":\"is-style-outline\"} -->\n<div class=\"wp-block-button is-style-outline\"><a class=\"wp-block-button__link has-text-color has-very-dark-gray-color no-border-radius\">" . esc_html__( 'Button Two', 'wpdocs-my-plugin' ) . "</a></div>\n<!-- /wp:button --></div>\n<!-- /wp:buttons -->",
-		)
-	);
-
-	// Unregister a block pattern
-	unregister_block_pattern( 'tenup/block-pattern' );
+function register_block_pattern_categories() {
 
 	// Register a block pattern category
 	register_block_pattern_category(
-		'client-name',
-			array( 'label' => __( 'Client Name', 'tenup' ) )
+		'10up-theme',
+		[ 'label' => __( '10up Theme', 'tenup' ) ]
 	);
-
-	// Unregister a block pattern category
-	unregister_block_pattern('client-name')
-
-	*/
 }
