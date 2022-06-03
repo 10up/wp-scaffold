@@ -9,6 +9,6 @@
 	*::before,
 	*::after {
 
-		@apply ![animation-dutation:0.001s] !transition-[0.001s];
+		@apply ![animation-duration:0.001s] ![transition-duration:0.001s];
 	}
 }
