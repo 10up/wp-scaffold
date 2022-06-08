@@ -12,10 +12,13 @@
   "minimum-stability": "dev",
   "prefer-stable": true,
   "require-dev": {
-    "10up/phpcs-composer": "dev-master"
+    "10up/phpcs-composer": "dev-master",
+    "szepeviktor/phpstan-wordpress": "^1.0",
+    "php-stubs/wp-cli-stubs": "^2.6"
   },
   "scripts": {
     "lint": "phpcs .",
-    "lint-fix": "phpcbf ."
+    "lint-fix": "phpcbf .",
+    "static": "phpstan --memory-limit=1G"
   }
 }
