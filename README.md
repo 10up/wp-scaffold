@@ -4,7 +4,7 @@ This scaffold is the starting point for all 10up WordPress projects.
 
 It contains a bare bones theme and must use plugin for you to base your development off of. Asset bundling is handled entirely by [10up Toolkit](https://github.com/10up/10up-toolkit).
 
-## Requiremnts
+## Requirements
 
 - Node >= 16
 - NPM >= 7
