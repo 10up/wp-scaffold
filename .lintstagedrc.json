@@ -10,6 +10,6 @@
     ],
     "*.php": [
       "./vendor/bin/phpcs --extensions=php --warning-severity=8 -s",
-      "./vendor/bin/phpstan --memory-limit=1G"
+      "./vendor/bin/phpstan analyse --memory-limit=1G"
     ]
 }
