@@ -14,7 +14,7 @@ define( 'TENUP_THEME_DIST_URL', TENUP_THEME_TEMPLATE_URL . '/dist/' );
 define( 'TENUP_THEME_INC', TENUP_THEME_PATH . 'includes/' );
 define( 'TENUP_THEME_BLOCK_DIR', TENUP_THEME_INC . 'blocks/' );
 
-$check_hmr =               wp_get_environment_type() === 'local' || 'development';
+$check_hmr =               in_array( wp_get_environment_type(), [ 'local', 'development' ], true );
 
 if ( $check_hmr ) {
 	$hmr_file_path       = __DIR__ . '/dist/fast-refresh.php';
