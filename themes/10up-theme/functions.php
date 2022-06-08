@@ -20,24 +20,10 @@ if ( $check_hmr ) {
 	$hmr_file_path       = __DIR__ . '/dist/fast-refresh.php';
 	// Only check for file_exist on development environments
 	$has_hmr_file        = file_exists( $hmr_file_path );
-	$is_debugging_script = defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG;
 
 	if ( $has_hmr_file ) {
-		if ( $is_debugging_script ) {
-			require_once $hmr_file_path;
-			TenUpToolkit\set_dist_url_path( basename( __DIR__ ), TENUP_THEME_DIST_URL, TENUP_THEME_DIST_PATH );
-		} else {
-			// This is development environment with a detected fast-refresh-file
-			wp_die(
-				sprintf(
-					"You're using <a href='%s' target='_blank'>10up-toolkit</a>'s
-					Hot Module Reloading but don't have <code>SCRIPT_DEBUG</code> enabled.<br/>
-					Learn more about <a href='%s' target='_blank'>enabling HMR</a>.",
-					"https://github.com/10up/10up-toolkit/tree/develop/packages/toolkit",
-					"https://github.com/10up/10up-toolkit/tree/develop/packages/toolkit#hmr-and-fast-refresh"
-				)
-			);
-		}
+		require_once $hmr_file_path;
+		TenUpToolkit\set_dist_url_path( basename( __DIR__ ), TENUP_THEME_DIST_URL, TENUP_THEME_DIST_PATH );
 	}
 }
 
