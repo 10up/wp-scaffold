@@ -13,8 +13,9 @@
   "prefer-stable": true,
   "require-dev": {
     "10up/phpcs-composer": "dev-master",
-    "szepeviktor/phpstan-wordpress": "^1.0",
-    "php-stubs/wp-cli-stubs": "^2.6"
+    "szepeviktor/phpstan-wordpress": "^1.1",
+    "php-stubs/wp-cli-stubs": "^2.6",
+    "phpstan/phpstan": "^1.7"
   },
   "scripts": {
     "lint": "phpcs .",
