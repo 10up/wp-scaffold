@@ -8,6 +8,7 @@ import {
 import { useSelect, useDispatch } from '@wordpress/data';
 import { createBlock } from '@wordpress/blocks';
 import { __ } from '@wordpress/i18n';
+import classNames from 'classnames';
 import { TabHeader } from '../tab-item/edit';
 
 export const TAB_ITEM_BLOCK = 'tenup/tab-item';
@@ -32,10 +33,12 @@ export const BlockEdit = (props) => {
 
 	const hasSelection = isSelected || isChildSelected;
 	const canAddMoreTabs = maxTabs > innerBlocks.length;
-	const showInserter = hasSelection && canAddMoreTabs;
+	const shouldShowInserter = hasSelection && canAddMoreTabs;
 
 	const blockProps = useBlockProps({
-		className: `tabs tabs--horizontal ${showInserter ? 'has-inserter' : ''}`,
+		className: classNames('tabs', 'tabs--horizontal', {
+			'has-inserter': shouldShowInserter,
+		}),
 	});
 	const innerBlockProps = useInnerBlocksProps(blockProps, {
 		orientation: 'horizontal',
@@ -47,7 +50,7 @@ export const BlockEdit = (props) => {
 	return (
 		<>
 			<TabHeader tabsClientId={clientId}>
-				{showInserter && (
+				{shouldShowInserter && (
 					<li
 						className="tab-item tab-item--inserter"
 						role="presentation"

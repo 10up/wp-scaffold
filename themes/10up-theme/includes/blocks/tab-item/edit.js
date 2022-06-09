@@ -1,6 +1,6 @@
 import { useHasSelectedInnerBlock } from '@10up/block-components';
 
-import { useSelect } from '@wordpress/data';
+import { useSelect, useDispatch } from '@wordpress/data';
 import { __ } from '@wordpress/i18n';
 import { createSlotFill } from '@wordpress/components';
 import {
@@ -12,6 +12,7 @@ import {
 } from '@wordpress/block-editor';
 import { useEffect } from '@wordpress/element';
 import { useInstanceId } from '@wordpress/compose';
+import classnames from 'classnames';
 
 const { Fill, Slot } = createSlotFill('Toolbar');
 
@@ -28,27 +29,32 @@ export const BlockEdit = (props) => {
 	const { label, identifier } = attributes;
 	const instanceId = useInstanceId(BlockEdit);
 
+	const { __unstableMarkNextChangeAsNotPersistent: markNextChangeAsNotPersistent = () => {} } =
+		useDispatch(blockEditorStore);
+
 	useEffect(() => {
 		if (!identifier) {
+			markNextChangeAsNotPersistent();
 			setAttributes({ identifier: `tab-${instanceId}` });
 		}
-	}, [identifier, instanceId, setAttributes]);
+	}, [identifier, instanceId, setAttributes, markNextChangeAsNotPersistent]);
 
 	const parentBlocks = useSelect((select) => select(blockEditorStore).getBlockParents(clientId));
-	const parentClientId = parentBlocks[parentBlocks.length - 1];
-	const parentBlock = useSelect((select) => select(blockEditorStore).getBlock(parentClientId));
-	const index = parentBlock.innerBlocks.findIndex((item) => item.clientId === clientId);
+	const parentBlockClientId = parentBlocks[parentBlocks.length - 1];
+	const parentBlock = useSelect((select) =>
+		select(blockEditorStore).getBlock(parentBlockClientId),
+	);
 	const selectedClientId = useSelect((select) =>
 		select(blockEditorStore).getSelectedBlockClientId(),
 	);
 	const hasSelectionWithinParent = useSelect((select) =>
-		select(blockEditorStore).hasSelectedInnerBlock(parentClientId, true),
+		select(blockEditorStore).hasSelectedInnerBlock(parentBlockClientId, true),
 	);
 
-	const hasChildBlockSelected = useHasSelectedInnerBlock(clientId);
+	const hasChildBlockSelected = useHasSelectedInnerBlock({ clientId });
 	const hasSelection = isSelected || hasChildBlockSelected;
 
-	const shouldShowInserter = selectedClientId === parentClientId || hasSelectionWithinParent;
+	const shouldShowInserter = selectedClientId === parentBlockClientId || hasSelectionWithinParent;
 
 	function maybeShowBlockAppender() {
 		if (shouldShowInserter) {
@@ -58,11 +64,9 @@ export const BlockEdit = (props) => {
 		return null;
 	}
 
-	const blockProps = useBlockProps();
-
 	const innerBlocksProps = useInnerBlocksProps(
 		{
-			className: `tabs__tab-item tabs-content tab-${clientId}`,
+			className: classnames('tabs__tab-item', 'tabs-content', `tab-${clientId}`),
 		},
 		{
 			template: [['core/paragraph']],
@@ -71,15 +75,20 @@ export const BlockEdit = (props) => {
 		},
 	);
 
-	const isSelectedTab = hasSelection ? true : index === 0 && !hasSelectionWithinParent;
+	const blockIndex = parentBlock.innerBlocks.findIndex((item) => item.clientId === clientId);
+	const isFirstTab = blockIndex === 0;
+	const maybeShouldShowBlockEvenIfNotSelected = isFirstTab && !hasSelectionWithinParent;
+	const isSelectedTab = hasSelection ? true : maybeShouldShowBlockEvenIfNotSelected;
+
+	const blockProps = useBlockProps({ className: classnames({ 'is-active': isSelected }) });
 
 	return (
 		<>
-			<TabHeader tabsClientId={parentClientId}>
+			<TabHeader tabsClientId={parentBlockClientId}>
 				<li
-					className={`tab-item ${isSelectedTab ? 'is-active' : ''}`}
+					className={classnames('tab-item', { 'is-active': isSelectedTab })}
 					role="presentation"
-					style={{ order: index + 1 }}
+					style={{ order: blockIndex + 1 }}
 				>
 					<RichText
 						tagName="span"
@@ -97,7 +106,7 @@ export const BlockEdit = (props) => {
 			{isSelectedTab && (
 				<div {...blockProps}>
 					<div className="tab-control">
-						<TabHeaderSlot tabsClientId={parentClientId} />
+						<TabHeaderSlot tabsClientId={parentBlockClientId} />
 					</div>
 					<div className="tab-group">
 						<div {...innerBlocksProps} />

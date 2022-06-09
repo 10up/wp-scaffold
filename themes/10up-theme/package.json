@@ -20,6 +20,7 @@
   "dependencies": {
     "@10up/block-components": "^1.9.0",
     "@10up/component-tabs": "^2.0.1",
+    "classnames": "^2.3.1",
     "normalize.css": "^8.0.1"
   },
   "10up-toolkit": {
