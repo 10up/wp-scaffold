@@ -2,7 +2,7 @@
 
 This scaffold is the starting point for all 10up WordPress projects.
 
-It contains a bare bones theme and must use plugin for you to base your development off of. Asset bundling is handled entirely by [10up Toolkit](https://github.com/10up/10up-toolkit).
+It contains a bare-bones theme and must use plugin for you to base your development off of. Asset bundling is handled entirely by [10up Toolkit](https://github.com/10up/10up-toolkit).
 
 ## Requirements
 
@@ -25,15 +25,15 @@ It contains a bare bones theme and must use plugin for you to base your developm
   ],
 ```
 6. To build plugins/themes simply run `npm install` at the root and `npm run [build|start|watch]` and npm will automatically build all themes and plugins.
-7. `npm workspaces` do not have the ability to run scripts from multiple packages in parrallel. Because of that we use the `npm-run-all` package and we define specific scripts in `package.json` so you will need to update the `watch:*` scripts in `package.json` and replace `tenup-theme` and `tenup-plugin` with the actual package names.
+7. `npm workspaces` do not have the ability to run scripts from multiple packages in parallel. Because of that we use the `npm-run-all` package and we define specific scripts in `package.json` so you will need to update the `watch:*` scripts in `package.json` and replace `tenup-theme` and `tenup-plugin` with the actual package names.
 
 ```json
 	"watch:theme": "npm run watch -w=tenup-theme",
 	"watch:plugin": "npm run watch -w=tenup-plugin",
 	"watch": "run-s watch:theme watch:plugin",
 ```
-7. To add npm dependencies to your theme and/or plugins add the `-w=package-name` flag to the `npm install` command. E.g: `npm install --save prop-types -w=tenup-plugin` **DO NOT RUN** `npm install` inside an individual workspace/package. Always run the from the root folder.
-8. If you're building Gutenberg blocks and importing `@wordpress/*` packages, **you do not** need to manually install them as `10up-toolkit` will handle these packages properly.
+7. To add npm dependencies to your theme and/or plugins add the `-w=package-name` flag to the `npm install` command. E.g: `npm install --save prop-types -w=tenup-plugin`. **DO NOT RUN** `npm install` inside an individual workspace/package. Always run it from the root folder.
+8. If you're building Gutenberg blocks and importing `@wordpress/*` packages, **you do not** need to manually install them as `10up-toolkit` will handle these packages properly. However, it might still be a good idea for intellisense and code completion.
 
 ## Scaffold Rules
 
