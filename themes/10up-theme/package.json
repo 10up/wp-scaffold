@@ -19,9 +19,10 @@
   },
   "dependencies": {
     "normalize.css": "^8.0.1",
-    "@10up/10up-ui-kit": "../plugins/10up-ui-kit"
+    "@10up/ui-kit": "../plugins/10up-ui-kit"
   },
   "10up-toolkit": {
+    "devURL": "https://uikit.test",
     "entry": {
       "admin": "./assets/js/admin/admin.js",
       "editor-style-overrides": "./assets/js/admin/editor-style-overrides.js",
