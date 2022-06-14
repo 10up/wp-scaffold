@@ -1,6 +1,7 @@
 {
   "name": "tenup-wp-scaffold",
   "version": "1.0.0",
+  "private": false,
   "description": "Project Description",
   "homepage": "https://project-domain.tld",
   "repository": {

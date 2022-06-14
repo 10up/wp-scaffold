@@ -1,6 +1,7 @@
 {
   "name": "tenup-plugin",
   "version": "1.0.0",
+  "private": false,
   "scripts": {
     "start": "npm run watch",
     "watch": "10up-toolkit watch --port=5010 --hot",
