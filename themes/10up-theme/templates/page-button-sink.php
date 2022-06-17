@@ -10,6 +10,10 @@ use function UIKit\Helpers\get_component;
 // Defining button variations
 if ( function_exists( 'UIKit\Helpers\get_component' ) ) :
 
+	$dark_mode_toggle = get_component(
+		'dark-mode-toggle'
+	);
+
 	$default_button = get_component(
 		'buttons',
 		$args = [
@@ -595,10 +599,11 @@ if ( function_exists( 'UIKit\Helpers\get_component' ) ) :
 
 endif;
 
+echo wp_kses_post( $dark_mode_toggle );
+
 get_header();
 
 ?>
-
 <div class="tui-content-container" style="max-width: 1280px; margin: 0 auto; padding: 1.5rem">
 
 <h1 class="uikit__heading">
