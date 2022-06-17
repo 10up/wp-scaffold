@@ -8,7 +8,6 @@
 	--c-uikit-color-label-bg: #fff;
 
 	@custom-media --bp-uikit-small (min-width: 40.625em);
-
 }
 
 .uikit__container {
@@ -138,7 +137,7 @@
 
 .uikit__chevron-up,
 .uikit__chevron-down {
-	fill: currentColor;
+	fill: currentcolor;
 	position: absolute;
 	right: 0;
 	top: 50%;
@@ -191,5 +190,4 @@
 	.uikit__section.-secondary > .content {
 		width: 100%;
 	}
-
 }

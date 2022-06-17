@@ -18,7 +18,7 @@
     "start": "npm run watch",
     "watch:theme": "npm run watch -w=tenup-theme",
     "watch:plugin": "npm run watch -w=tenup-plugin",
-    "watch:10up-ui-kit": "npm run watch -w=@10up/10up-ui-kit",
+    "watch:10up-ui-kit": "npm run watch -w=@10up/ui-kit",
     "watch": "run-p watch:theme watch:plugin watch:10up-ui-kit",
     "test": "npm run test --workspaces --if-present",
     "clean-dist": "npm run clean-dist --if-present"
