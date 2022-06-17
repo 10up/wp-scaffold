@@ -599,7 +599,7 @@ if ( function_exists( 'UIKit\Helpers\get_component' ) ) :
 
 endif;
 
-echo wp_kses_post( $dark_mode_toggle );
+// echo wp_kses_post( $dark_mode_toggle );
 
 get_header();
 
