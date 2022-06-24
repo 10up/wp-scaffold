@@ -6,6 +6,6 @@
  *
  * using :where to prevent the specificity increase of using :not
  */
-a:where(:not(.components-button)) {
+a:where(:not(.components-external-link)) {
 
 }
