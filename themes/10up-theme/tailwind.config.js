@@ -52,11 +52,6 @@ module.exports = {
 		/* Override the default theme */
 		container: {
 			center: true,
-			padding: {
-				default: '1.25rem',
-				md: '2rem',
-				lg: '2.5rem',
-			},
 		},
 		/* Define brand colors using --wp custom properties from the theme.json */
 		colors: {
@@ -69,7 +64,10 @@ module.exports = {
 		extend: {
 			/* Extend the default theme */
 			screens: {
-				'wp-md': '600px' /* WP Specific Breakpoint used in Gutenberg */,
+				/* WP Specific Breakpoints used in Gutenberg/Admin-bar */
+				'wp-sm': '600px',
+				'wp-md': { min: '601px', max: '783px' },
+				'wp-lg': '784px',
 			},
 			maxWidth: {
 				/* Custom width properties width from the `theme.json` file */
