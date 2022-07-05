@@ -18,7 +18,7 @@ import './editor.css';
  * @param {Function} props.setAttributes    Sets the value for block attributes.
  * @returns {Function} Render the edit screen
  */
-const ExampleBockEdit = (props) => {
+const ExampleBlockEdit = (props) => {
 	const { attributes, setAttributes } = props;
 	const { title } = attributes;
 
