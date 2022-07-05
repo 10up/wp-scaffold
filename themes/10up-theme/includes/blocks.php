@@ -7,7 +7,6 @@
 
 namespace TenUpTheme\Blocks;
 
-use TenUpTheme\Blocks\Example;
 use TenUpTheme\Utility;
 
 /**
