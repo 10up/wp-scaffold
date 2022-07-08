@@ -19,7 +19,7 @@
     "watch:plugin": "npm run watch -w=tenup-plugin",
     "watch": "run-p watch:theme watch:plugin",
     "test": "npm run test --workspaces --if-present",
-    "clean-dist": "npm run clean-dist --if-present"
+    "clean-dist": "npm run clean-dist --workspaces --if-present"
   },
   "author": {
     "name": "10up",
