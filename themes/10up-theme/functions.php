@@ -13,13 +13,17 @@ define( 'TENUP_THEME_DIST_PATH', TENUP_THEME_PATH . 'dist/' );
 define( 'TENUP_THEME_DIST_URL', TENUP_THEME_TEMPLATE_URL . '/dist/' );
 define( 'TENUP_THEME_INC', TENUP_THEME_PATH . 'includes/' );
 define( 'TENUP_THEME_BLOCK_DIR', TENUP_THEME_INC . 'blocks/' );
-
+define( 'TENUP_WEB_VITAL_TRACKING', false );
 
 if ( defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG && file_exists( __DIR__ . '/dist/fast-refresh.php' ) ) {
 	require_once __DIR__ . '/dist/fast-refresh.php';
 	TenUpToolkit\set_dist_url_path( basename( __DIR__ ), TENUP_THEME_DIST_URL, TENUP_THEME_DIST_PATH );
 }
 
+if ( defined( 'TENUP_WEB_VITAL_TRACKING' ) && TENUP_WEB_VITAL_TRACKING ) {
+	require_once TENUP_THEME_INC . 'web-vitals.php';
+	TenUpTheme\WebVitals\setup();
+}
 
 require_once TENUP_THEME_INC . 'core.php';
 require_once TENUP_THEME_INC . 'overrides.php';
@@ -30,6 +34,7 @@ require_once TENUP_THEME_INC . 'blocks.php';
 // Run the setup functions.
 TenUpTheme\Core\setup();
 TenUpTheme\Blocks\setup();
+
 
 // Require Composer autoloader if it exists.
 if ( file_exists( __DIR__ . '/vendor/autoload.php' ) ) {
