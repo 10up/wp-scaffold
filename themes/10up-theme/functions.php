@@ -14,17 +14,14 @@ define( 'TENUP_THEME_DIST_URL', TENUP_THEME_TEMPLATE_URL . '/dist/' );
 define( 'TENUP_THEME_INC', TENUP_THEME_PATH . 'includes/' );
 define( 'TENUP_THEME_BLOCK_DIR', TENUP_THEME_INC . 'blocks/' );
 
-$check_hmr =               in_array( wp_get_environment_type(), [ 'local', 'development' ], true );
 
-if ( $check_hmr ) {
-	$hmr_file_path       = __DIR__ . '/dist/fast-refresh.php';
-	// Only check for file_exist on development environments
-	$has_hmr_file        = file_exists( $hmr_file_path );
+$is_local_env = in_array( wp_get_environment_type(), [ 'local', 'development' ], true );
+$is_local_url = strpos( home_url(), '.test' ) || strpos( home_url(), '.local' );
+$is_local     = $is_local_env || $is_local_url;
 
-	if ( $has_hmr_file ) {
-		require_once $hmr_file_path;
-		TenUpToolkit\set_dist_url_path( basename( __DIR__ ), TENUP_THEME_DIST_URL, TENUP_THEME_DIST_PATH );
-	}
+if ( $is_local && file_exists( __DIR__ . '/dist/fast-refresh.php' ) ) {
+	require_once __DIR__ . '/dist/fast-refresh.php';
+	TenUpToolkit\set_dist_url_path( basename( __DIR__ ), TENUP_THEME_DIST_URL, TENUP_THEME_DIST_PATH );
 }
 
 require_once TENUP_THEME_INC . 'core.php';
