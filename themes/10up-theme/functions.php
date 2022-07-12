@@ -14,7 +14,6 @@ define( 'TENUP_THEME_DIST_URL', TENUP_THEME_TEMPLATE_URL . '/dist/' );
 define( 'TENUP_THEME_INC', TENUP_THEME_PATH . 'includes/' );
 define( 'TENUP_THEME_BLOCK_DIR', TENUP_THEME_INC . 'blocks/' );
 
-
 $is_local_env = in_array( wp_get_environment_type(), [ 'local', 'development' ], true );
 $is_local_url = strpos( home_url(), '.test' ) || strpos( home_url(), '.local' );
 $is_local     = $is_local_env || $is_local_url;
