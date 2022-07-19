@@ -10,7 +10,7 @@
   "workspaces": [
     "themes/*",
     "mu-plugins/10up-plugin",
-    "plugins/ui-kit"
+    "plugins/10up-ui-kit"
   ],
   "scripts": {
     "prepare": "husky install",
