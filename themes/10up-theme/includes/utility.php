@@ -40,6 +40,7 @@ function get_asset_info( $slug, $attribute = null ) {
  * Extract colors from a CSS or Sass file
  *
  * @param string $path the path to your CSS variables file
+ * @return string
  */
 function get_colors( $path ) {
 
@@ -52,6 +53,8 @@ function get_colors( $path ) {
 		preg_match_all( '(#([\da-f]{3}){1,2}|(rgb|hsl)a\((\d{1,3}%?,\s?){3}(1|0?\.\d+)\)|(rgb|hsl)\(\d{1,3}%?(,\s?\d{1,3}%?){2}\))', $css_vars, $matches );
 		return $matches[0];
 	}
+
+	return '';
 
 }
 
