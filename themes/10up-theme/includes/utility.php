@@ -26,7 +26,7 @@ function get_asset_info( $slug, $attribute = null ) {
 	} elseif ( file_exists( TENUP_THEME_PATH . 'dist/css/' . $slug . '.asset.php' ) ) {
 		$asset = require TENUP_THEME_PATH . 'dist/css/' . $slug . '.asset.php';
 	} else {
-		return null;
+		return '';
 	}
 
 	if ( ! empty( $attribute ) && isset( $asset[ $attribute ] ) ) {
