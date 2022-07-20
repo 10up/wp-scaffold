@@ -18,7 +18,7 @@ namespace TenUpPlugin\Utility;
  *
  * @param string $slug Asset slug as defined in build/webpack configuration
  * @param string $attribute Optional attribute to get. Can be version or dependencies
- * @return string|array
+ * @return string|array|null
  */
 function get_asset_info( $slug, $attribute = null ) {
 	if ( file_exists( TENUP_PLUGIN_PATH . 'dist/js/' . $slug . '.asset.php' ) ) {
