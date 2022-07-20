@@ -40,7 +40,7 @@ function get_asset_info( $slug, $attribute = null ) {
  * Extract colors from a CSS or Sass file
  *
  * @param string $path the path to your CSS variables file
- * @return string
+ * @return array
  */
 function get_colors( $path ) {
 
@@ -54,7 +54,7 @@ function get_colors( $path ) {
 		return $matches[0];
 	}
 
-	return '';
+	return [];
 
 }
 
