@@ -2,6 +2,7 @@ includes:
 	- ../vendor/szepeviktor/phpstan-wordpress/extension.neon
 
 parameters:
+	reportUnmatchedIgnoredErrors: false
 	level: 6
 	bootstrapFiles:
 		- constants.php
