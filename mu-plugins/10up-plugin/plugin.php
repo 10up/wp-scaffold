@@ -8,7 +8,10 @@ define( 'TENUP_PLUGIN_INC', TENUP_PLUGIN_PATH . 'includes/' );
 
 if ( defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG && file_exists( __DIR__ . '/dist/fast-refresh.php' ) ) {
 	require_once __DIR__ . '/dist/fast-refresh.php';
-	TenUpToolkit\set_dist_url_path( basename( __DIR__ ), TENUP_PLUGIN_URL . 'dist/', TENUP_PLUGIN_PATH . 'dist/' );
+
+	if ( function_exists( 'TenUpToolkit\set_dist_url_path' ) ) {
+		TenUpToolkit\set_dist_url_path( basename( __DIR__ ), TENUP_PLUGIN_URL . 'dist/', TENUP_PLUGIN_PATH . 'dist/' );
+	}
 }
 
 // Require Composer autoloader if it exists.
