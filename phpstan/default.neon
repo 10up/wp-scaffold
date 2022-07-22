@@ -1,22 +1,25 @@
+includes:
+	- ../vendor/szepeviktor/phpstan-wordpress/extension.neon
+
 parameters:
 	level: 6
 	bootstrapFiles:
-		- ../constants.php
+		- constants.php
 	excludePaths:
-		- ../../*/vendor/*
-		- ../../*/dist/*
-		- ../../*/node_modules/*
-		- ../../*/tests/*
+		- */vendor/*
+		- ../*/dist/*
+		- ../*/node_modules/*
+		- ../*/tests/*
 		- ./*
 	scanDirectories:
-		- ../../plugins
+		- ../plugins
 	scanFiles:
-		- ../../vendor/php-stubs/wordpress-stubs/wordpress-stubs.php
-		- ../../vendor/php-stubs/wp-cli-stubs/wp-cli-stubs.php
-		- ../../vendor/php-stubs/wp-cli-stubs/wp-cli-commands-stubs.php
-		- ../../vendor/php-stubs/wp-cli-stubs/wp-cli-i18n-stubs.php
+		- ../vendor/php-stubs/wordpress-stubs/wordpress-stubs.php
+		- ../vendor/php-stubs/wp-cli-stubs/wp-cli-stubs.php
+		- ../vendor/php-stubs/wp-cli-stubs/wp-cli-commands-stubs.php
+		- ../vendor/php-stubs/wp-cli-stubs/wp-cli-i18n-stubs.php
 	stubFiles:
-		- ../stubs/wp-query.stub
+		- stubs/wp-query.stub
 	ignoreErrors:
 		# Uses func_get_args()
 		- '#^Function apply_filters invoked with [34567] parameters, 2 required\.$#'

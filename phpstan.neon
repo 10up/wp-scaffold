@@ -1,6 +1,5 @@
 includes:
-	- vendor/szepeviktor/phpstan-wordpress/extension.neon
-	- phpstan/config/default.neon
+	- phpstan/default.neon
 
 parameters:
 	paths:
