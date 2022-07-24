@@ -1,4 +1,5 @@
 const colors = require('tailwindcss/colors');
+const purgecssWordpress = require('purgecss-with-wordpress');
 
 // Tailwind Plugins
 const typographyPlugin = require('@tailwindcss/typography');
@@ -45,6 +46,7 @@ module.exports = {
 	],
 	safelist: [
 		{
+			...purgecssWordpress.safelist,
 			pattern: /(bg|text)-(primary|secondary|tertiary)/,
 		},
 	],
