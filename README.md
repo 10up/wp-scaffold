@@ -1,4 +1,6 @@
-# 10up WP Scaffold
+# 10up WP Scaffold (Tailwind Edition)
+
+👋🏼 Hello! You are currently viewing the Tailwind version of wp-scaffold! We've included a nifty [TAILWIND.md](themes/10up-theme/TAILWIND.md) in the theme. Please read through it and let us know if you have any questions in the #10up-tailwind channel in Slack.
 
 This scaffold is the starting point for all 10up WordPress projects.
 
