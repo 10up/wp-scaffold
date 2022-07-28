@@ -36,4 +36,4 @@ const ExampleBlockEdit = (props) => {
 		</div>
 	);
 };
-export default ExampleBockEdit;
+export default ExampleBlockEdit;
