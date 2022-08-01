@@ -20,6 +20,6 @@
   "supports": {
     "html": false
   },
-  "editorScript": "file:../../../dist/blocks/example-block/editor.js",
-  "editorStyle": "file:../../../dist/blocks/example-block/editor.css"
+  "editorScript": "file:./index.js",
+  "editorStyle": "file:./editor.css"
 }
