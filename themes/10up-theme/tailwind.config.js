@@ -45,8 +45,8 @@ module.exports = {
 		'templates/**/*.php',
 	],
 	safelist: [
+		...purgecssWordpress.safelist,
 		{
-			...purgecssWordpress.safelist,
 			pattern: /(bg|text)-(primary|secondary|tertiary)/,
 		},
 	],
