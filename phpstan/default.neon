@@ -7,11 +7,13 @@ parameters:
 	bootstrapFiles:
 		- constants.php
 	excludePaths:
-		- */vendor/*
-		- ../*/dist/*
-		- ../*/node_modules/*
-		- ../*/tests/*
-		- ./*
+		analyseAndScan:
+			- ../../*/dist/*
+			- ../../*/node_modules/*
+			- ../../*/tests/*
+			- ./*
+		analyse:
+			- ../../*/vendor/*
 	scanDirectories:
 		- ../plugins
 	scanFiles:
