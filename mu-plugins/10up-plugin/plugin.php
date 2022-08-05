@@ -6,11 +6,15 @@ define( 'TENUP_PLUGIN_URL', plugin_dir_url( __FILE__ ) );
 define( 'TENUP_PLUGIN_PATH', plugin_dir_path( __FILE__ ) );
 define( 'TENUP_PLUGIN_INC', TENUP_PLUGIN_PATH . 'includes/' );
 
-if ( defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG && file_exists( __DIR__ . '/dist/fast-refresh.php' ) ) {
+$is_local_env = in_array( wp_get_environment_type(), [ 'local', 'development' ], true );
+$is_local_url = strpos( home_url(), '.test' ) || strpos( home_url(), '.local' );
+$is_local     = $is_local_env || $is_local_url;
+
+if ( $is_local && file_exists( __DIR__ . '/dist/fast-refresh.php' ) ) {
 	require_once __DIR__ . '/dist/fast-refresh.php';
 
 	if ( function_exists( 'TenUpToolkit\set_dist_url_path' ) ) {
-		TenUpToolkit\set_dist_url_path( basename( __DIR__ ), TENUP_PLUGIN_URL . 'dist/', TENUP_PLUGIN_PATH . 'dist/' );
+	TenUpToolkit\set_dist_url_path( basename( __DIR__ ), TENUP_THEME_DIST_URL, TENUP_THEME_DIST_PATH );
 	}
 }
 

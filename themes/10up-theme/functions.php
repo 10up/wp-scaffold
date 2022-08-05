@@ -14,14 +14,16 @@ define( 'TENUP_THEME_DIST_URL', TENUP_THEME_TEMPLATE_URL . '/dist/' );
 define( 'TENUP_THEME_INC', TENUP_THEME_PATH . 'includes/' );
 define( 'TENUP_THEME_BLOCK_DIR', TENUP_THEME_INC . 'blocks/' );
 
+$is_local_env = in_array( wp_get_environment_type(), [ 'local', 'development' ], true );
+$is_local_url = strpos( home_url(), '.test' ) || strpos( home_url(), '.local' );
+$is_local     = $is_local_env || $is_local_url;
 
-if ( defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG && file_exists( __DIR__ . '/dist/fast-refresh.php' ) ) {
+if ( $is_local && file_exists( __DIR__ . '/dist/fast-refresh.php' ) ) {
 	require_once __DIR__ . '/dist/fast-refresh.php';
 	if ( function_exists( 'TenUpToolkit\set_dist_url_path' ) ) {
 		TenUpToolkit\set_dist_url_path( basename( __DIR__ ), TENUP_THEME_DIST_URL, TENUP_THEME_DIST_PATH );
 	}
 }
-
 
 require_once TENUP_THEME_INC . 'core.php';
 require_once TENUP_THEME_INC . 'overrides.php';
