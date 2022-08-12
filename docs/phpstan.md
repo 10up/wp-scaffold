@@ -174,3 +174,60 @@ parameters:
 The changes should be committed to the repo.
 
 You can create a new baseline file as you clean up old errors. Eventually, you should get to 0 errors and be able to delete the baseline file.
+
+## My builds are failing on a VIP based project
+
+When running PHPStan on a VIP based project, you'll want to make sure that PHPStan can scan the `mu-plugins` directory. Without this, you'll get errors regarding missing VIP functions.
+
+To scan the `mu-plugins` directory, you'll want to update your `phpstan.neon` file to look like the below:
+
+```
+includes:
+	- phpstan/default.neon
+
+parameters:
+	paths:
+		- themes/10up-theme
+		- mu-plugins/10up-plugin
+		- mu-plugins/10up-plugin-loader.php
+	scanDirectories:
+		- mu-plugins
+```
+
+If you decide to run PHPStan on CircleCI, you're then likely see an error with it being unable to scan the `mu-plugins` directory.
+That's becuase the `mu-plugins` directory is git ignored and therefore doesn't exist in the CircleCI environment.
+
+To get around this, we can clone the MU plugins repo before we run PHPStan and then remove it again afterwards. This looks something like:
+
+```yaml
+version: 2
+jobs:
+  test:
+    docker:
+      - image: cimg/php:7.4-node
+    steps:
+      - checkout
+      - run:
+          name: Composer install
+          command: composer run setup
+      - run:
+          name: NPM install
+          command: npm install
+
+      # Your other build steps ...
+
+      - run:
+          name: Install VIP MU-Plugins
+          command: git clone git@github.com:Automattic/vip-go-mu-plugins.git --recursive mu-plugins/
+
+      - run:
+          name: Analyse PHP
+          command: composer run static
+
+      - run:
+          name: Remove VIP MU-Plugins
+          command: rm -rf mu-plugins/
+
+# The rest of your CircleCI config ...
+```
+With this in place, CircleCI should be able to run PHPStan properly again.
