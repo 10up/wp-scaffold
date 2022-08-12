@@ -135,6 +135,20 @@ class SiteSettings extends \TenUpPlugin\Module {
 
 ```
 
+## How do I get an instance of my registered class?
+
+The old way of doing this would be to use the `get_plugin_support()` function. As we no longer define and register our classes in the same way, this doesn't work.
+
+The best way now, is to use the `get_class()` method that's part of the `ModuleInitialization` class.
+
+```php
+$site_settings = \TenUpPlugin\ModuleInitialization::instance()->get_class( '\TenUpPlugin\Admin\SiteSettings' );
+```
+
+The ModuleInitialization class is a singleton, so you can use it to get an instance of any class that has been registered.
+If it can't find the class, it will return `false`.
+
+One major difference between the old way and the new way is that when calling the `get_class()` method, you pass in the class name as a string containing the class name with its full namespace.
 
 
 ## Known Issues
