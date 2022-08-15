@@ -20,16 +20,15 @@
     "@tailwindcss/forms": "^0.5.1",
     "@tailwindcss/line-clamp": "^0.4.0",
     "@tailwindcss/typography": "^0.5.2",
-    "10up-toolkit": "^3.0.0",
     "purgecss-with-wordpress": "^4.1.0",
     "stylelint": "^13.13.1",
-    "tailwindcss": "^3.0.24"
+    "tailwindcss": "^3.0.24",
+    "10up-toolkit": "^4.1.1"
   },
   "10up-toolkit": {
     "entry": {
       "admin": "./assets/js/admin/admin.js",
       "editor-style-overrides": "./assets/js/admin/editor-style-overrides.js",
-      "blocks": "./includes/blocks/blocks.js",
       "frontend": "./assets/js/frontend/frontend.js",
       "shared": "./assets/js/shared/shared.js",
       "styleguide": "./assets/js/styleguide/styleguide.js",
