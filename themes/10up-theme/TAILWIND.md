@@ -86,7 +86,7 @@ In many cases it can be very helpful to add default padding and centering to a c
   <div class="container mx-auto px-6 lg:px-8"> ... </div>
 ```
 
-If you want all containers to be set this way by default, you can configure that in your `tailwind.config.js` file:
+If you want all containers to be set a certain way by default, you can configure that in your `tailwind.config.js` file like the example below:
 
 ```
     module.exports = {
