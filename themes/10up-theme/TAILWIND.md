@@ -21,7 +21,7 @@ In general, Tailwind is a pretty great fit for most projects. There are a few ca
 
 - If the site is already using a framework such as Bootstrap or a design system, it may be more trouble than it’s worth to include Tailwind alongside those things. Tailwind’s styles will inevitably vary or even clash with existing styles.
 
-Overall there are very few reasons you should be looking to introduce Tailwind to an existing project alongside existing styles.
+For best results, it is recommended to use Tailwind on new projects only. This prevents conflicts or inconsistencies with other styles or frontend frameworks that might be in use.
 
 ### How Tailwind Works
 
