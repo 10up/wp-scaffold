@@ -52,7 +52,7 @@ Tailwind allows you to author custom classes that group multiple utilities toget
 If needed, you may include classes using `@apply` along with your own styles and things will output in the order you include them as well as abitrary value support. This allows you to write your styles in the way that makes the most sense while having all options available to you.
 
 
-The above exampe is the preferred way to handle styles for a component like a button, as opposed to bloating the DOM with a large amount of Tailwind classes for multiple instances of the same component.
+The above example is the preferred way to handle styles for a component like a button, as opposed to bloating the DOM with a large amount of Tailwind classes for multiple instances of the same component.
 
 Any custom classes you author that are not included inside an `@layer` rule will always be included in your CSS file’s output.
 
