@@ -1,0 +1,15 @@
+{
+	"extends": [
+		"@10up/stylelint-config"
+	],
+	"rules": {
+		"at-rule-no-unknown": [
+			true,
+			{
+				"ignoreAtRules": [
+					"screen" /* Ignore Tailwind's @screen rule */
+				]
+			}
+		]
+	}
+}
