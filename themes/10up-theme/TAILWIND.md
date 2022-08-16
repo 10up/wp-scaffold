@@ -124,16 +124,41 @@ The short answer is that Webpack (among others) doesn't support the glob option 
 Files located in subfolders can be accessed via globs and those are already included by default in the scaffold.
 
 #### How do I add the Gutenberg color palette automatically to the Tailwind config?
+
 By default the toolkit will look if `theme.json` is present and if so, attempt to `import` colors from the palette you've defined in it. You can also optionally specify that you want to bring in the color palette for blocks (all or specific ones) by passing in either `true` or an array of allowed block names to the `getThemeColors()` function called in `tailwind.config.js`.
 
-#### Why aren’t my Tailwind classes outputting?
+#### Why does the class I want not appear in my CSS file on build/watch?
+
 Tailwind’s JIT engine generates the styles you need for your project on-demand, however there may be some edge cases where extra configuration is required. Most often custom tailwind classes or dynamic classes need extra attention.
 
 By default, only the classes you actually use will be included in your production CSS file. Any files covered in your “content” settings will be scanned for classes to include in the CSS file output.
 
-If you want to have classes always included in the output, they need to be written outside of an `@layer` block or added to the safelist.
+#### I'm using a Tailwind class in the Block Editor (Gutenberg) and it's not working. Why not?
+
+Tailwind looks at your theme files (using the content setting) and the safelist configuration to determine which classes should be included in the final stylesheet. So if you've added classes to the Block Editor (which are stored in the database) Tailwind won't be able to see these on it's own.
+
+Once you've determined a set of classes you want to make available in the Block Editor, you can add these to the safelist. Typically it's helpful to use a pattern for this so you can get all utilities of a certain type.
+
+Here is an example of a custom safelist pattern that enables all of the base margin/padding utilities (without responsive variants):
+
+```
+module.exports = {
+	safelist: [
+		{
+			pattern: /(mt|mb|ml|mr|mx|my)/,
+		},
+		{
+			pattern: /(pt|pb|pl|pr|px|py)/,
+		},
+	]
+};
+```
+
 
 #### How do I ensure my custom class outputs in the JIT compiler?
+
+If you want to have classes always included in the output, they need to be written outside of an `@layer` block or added to the safelist.
+
 - Make sure your `content` configuration in your `tailwind.config.js` file is correct and matches all of the right source files.
 - Make sure you define the class without using `@layer`. Just write it in your CSS file like you normally would and include it in the appropriate folder (component, template, utility).
 - If you define a custom class in your Tailwind configuration, that class must either appear inside your content or you must include it in the `safelist` to be included.
