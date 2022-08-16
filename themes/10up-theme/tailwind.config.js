@@ -44,12 +44,7 @@ module.exports = {
 		'partials/**/*.php',
 		'templates/**/*.php',
 	],
-	safelist: [
-		...purgecssWordpress.safelist,
-		{
-			pattern: /(bg|text)-(primary|secondary|tertiary)/,
-		},
-	],
+	safelist: [...purgecssWordpress.safelist],
 	theme: {
 		/* Override the default theme */
 		container: {
