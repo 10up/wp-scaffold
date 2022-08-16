@@ -93,6 +93,7 @@ module.exports = {
 		/*
 			Add prose classes to provide sensible typography styles to longform content blocks
 			See: https://tailwindcss.com/docs/plugins#typography
+			Comment out this plugin to add project specific typography styles
 		*/
 		typographyPlugin,
 		/* Default form input styling
