@@ -7,7 +7,9 @@
 			true,
 			{
 				"ignoreAtRules": [
-					"screen" /* Ignore Tailwind's @screen rule */
+					"screen",
+					"layer",
+					"tailwind"
 				]
 			}
 		]
