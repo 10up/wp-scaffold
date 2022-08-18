@@ -1,47 +1,20 @@
-/* stylelint-disable at-rule-no-unknown */
-
-/*
- * Tailwind's global imports
- * Adds the Tailwind directives to your CSS
+/**
+ * Tailwind Custom CSS Styles
+ *
+ * The imported files add the Tailwind directives to your CSS.
+ * The `@layer` directive helps you control declaration order by automatically
+ * relocating your styles to the corresponding `@tailwind` directive in the main
+ * stylesheet, and also enables features like modifiers and tree-shaking for
+ * your own custom CSS.
+ * Any custom styles you add to the base, components, or utilities layers will
+ * only be included in your compiled CSS if those styles are
+ * actually used in your HTML.
+ *
+ * More info: https://tailwindcss.com/docs/adding-custom-styles#using-css-and-layer
  */
 
 @import url("./reset.css");
 
-/**
- *
- * This injects Tailwind's base styles and any base styles registered by
- * plugins.
- * Use the @layer base { ... } directive to add to Tailwind's base layer
- * More info: https://tailwindcss.com/docs/adding-custom-styles#adding-base-styles
- */
-@tailwind base;
+/* @import url("./components.css"); */
 
-/**
- * This injects Tailwind's component classes and any component classes
- * registered by plugins, then adds custom component classes.
- * Use @layer components { ... } for any more complicated classes you want
- * to add to your project that you’d still like to be able to override with
- * utility classes.
- * More info: https://tailwindcss.com/docs/adding-custom-styles#adding-component-classes
- */
-@tailwind components;
-
-/**
- * This injects Tailwind's utility classes and any utility classes registered
- * by plugins. Use @layer utilities { ... } to add any of your own custom
- * utility classes. This can be useful when there’s a CSS feature you’d like
- * to use in your project that Tailwind doesn’t include utilities for
- * out of the box.
- * More info: https://tailwindcss.com/docs/adding-custom-styles#adding-custom-utilities
- */
-@tailwind utilities;
-
-/**
- * Use this directive to control where Tailwind injects the hover, focus,
- * responsive, dark mode, and other variants of each class.
- *
- * If omitted, Tailwind will append these classes to the very end of
- * your stylesheet by default.
- */
-
-/* @tailwind variants; */
+/* @import url("./utilities.css"); */

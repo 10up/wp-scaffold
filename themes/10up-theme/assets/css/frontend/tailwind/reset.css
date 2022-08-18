@@ -1,8 +1,13 @@
-/*
-Custom Reset modified for WordPress based off of Tailwind's reset:
-https://unpkg.com/tailwindcss@3.1.8/src/css/preflight.css
-More info: https://tailwindcss.com/docs/preflight
+/**
+* Custom Reset modified for WordPress based off of Tailwind's reset:
+* https://unpkg.com/tailwindcss@3.1.8/src/css/preflight.css
+* Refer to the tailwind.config.js file for a more detailed explanation.
+* Tailwind official docs: https://tailwindcss.com/docs/preflight
+*
+* These styles will be imported at the @import url("tailwindcss/base") level
+* in the main stylesheet
 */
+
 @layer base {
 
 	*,

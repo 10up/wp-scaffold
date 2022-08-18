@@ -1,0 +1,14 @@
+/**
+* Tailwind Custom Components
+*
+* Add any of your own custom component classes to Tailwind’s components layer.
+* This is useful for any more complicated classes you want to add to your
+* project that you’d still like to be able to override with utility classes.
+* Traditionally these would be classes like card, btn, link etc.
+*
+* More info: https://tailwindcss.com/docs/adding-custom-styles#adding-component-classes
+*/
+
+@layer components {
+
+}
