@@ -23,8 +23,6 @@ module.exports = {
 		 * prefixed with :where(:not(.components-button)) and where(:not(.components-external-link)) respectively so the
 		 * styles don't end up leaking out of the editor.
 		 *
-		 * See themes/stanmed-theme/assets/css/frontend/tailwind/reset.css which should be a verbatim copy of Tailwind's
-		 * but with those :where applied.
 		 */
 		preflight: false,
 	},
