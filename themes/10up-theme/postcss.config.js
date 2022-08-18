@@ -1,16 +1,11 @@
 /* eslint-disable global-require */
 
-module.exports = () => {
-	const config = {
-		plugins: [],
-	};
-
+module.exports = {
 	// Only load postcss-editor-styles plugin when we're processing the editor-style.css file.
-
-	config.plugins.push(require('postcss-import'));
-	config.plugins.push(require('tailwindcss/nesting')('postcss-nesting'));
-	config.plugins.push(require('tailwindcss'));
-	config.plugins.push(
+	plugins: [
+		require('postcss-import'),
+		require('tailwindcss/nesting')('postcss-nesting'),
+		require('tailwindcss'),
 		require('postcss-preset-env')({
 			stage: 0,
 			features: {
@@ -21,7 +16,5 @@ module.exports = () => {
 				},
 			},
 		}),
-	);
-
-	return config;
+	],
 };

@@ -5,6 +5,8 @@
 * This is useful for any more complicated classes you want to add to your
 * project that you’d still like to be able to override with utility classes.
 * Traditionally these would be classes like card, btn, link etc.
+* These styles will be imported at the @import url("tailwindcss/components") level
+* in the main stylesheet
 *
 * More info: https://tailwindcss.com/docs/adding-custom-styles#adding-component-classes
 */
