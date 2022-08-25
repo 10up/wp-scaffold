@@ -16,6 +16,16 @@ module.exports = {
 	 * Any missing sections will fall back to Tailwind’s default configuration.
 	 * https://github.com/tailwindlabs/tailwindcss/blob/master/stubs/defaultConfig.stub.js
 	 */
+	corePlugins: {
+		/**
+		 * Preflight injects this file https://github.com/tailwindlabs/tailwindcss/blob/master/src/css/preflight.css which
+		 * would normally be fine but Gutenberg has issues with styles to raw buttons and anchors, and they need to be
+		 * prefixed with :where(:not(.components-button)) and where(:not(.components-external-link)) respectively so the
+		 * styles don't end up leaking out of the editor.
+		 *
+		 */
+		preflight: false,
+	},
 	content: [
 		/* Ensure changes to all PHP, JS, and JSON files rebuild your CSS */
 		'404.php',
@@ -81,6 +91,8 @@ module.exports = {
 		/*
 			Add prose classes to provide sensible typography styles to longform content blocks
 			See: https://tailwindcss.com/docs/plugins#typography
+			You may remove this plugin if you're not using the `.prose-*` tailwind classes
+			for long-form content.
 		*/
 		typographyPlugin,
 		/* Default form input styling

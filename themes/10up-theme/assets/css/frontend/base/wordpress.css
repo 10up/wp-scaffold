@@ -51,6 +51,7 @@
 	@apply max-w-none;
 }
 
+
 /**
 	* Post title styles
 	*
@@ -76,9 +77,12 @@
 	* classes, please see:
 	*
 	* https://tailwindcss.com/docs/typography-plugin
+	*
+	* To disable the richtext styling remove the `prose` class.
 */
 .block-editor-block-list__layout,
 .entry-content {
 
 	@apply max-w-none prose;
 }
+

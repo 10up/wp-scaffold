@@ -1,0 +1,20 @@
+/**
+ * Tailwind Custom CSS Styles
+ *
+ * The imported files add the Tailwind directives to your CSS.
+ * The `@layer` directive helps you control declaration order by automatically
+ * relocating your styles to the corresponding `@tailwind` directive in the main
+ * stylesheet, and also enables features like modifiers and tree-shaking for
+ * your own custom CSS.
+ * Any custom styles you add to the base, components, or utilities layers will
+ * only be included in your compiled CSS if those styles are
+ * actually used in your HTML.
+ *
+ * More info: https://tailwindcss.com/docs/adding-custom-styles#using-css-and-layer
+ */
+
+@import url("./reset.css");
+
+/* @import url("./components.css"); */
+
+/* @import url("./utilities.css"); */

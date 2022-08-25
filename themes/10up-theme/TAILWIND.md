@@ -44,8 +44,7 @@ Tailwind allows you to author custom classes that group multiple utilities toget
 		border-blue-800
 		hover:bg-blue-800
 		hover:text-white
-		rounded-lg
-		bg-white;
+		rounded-lg;
 }
 ```
 
@@ -143,48 +142,23 @@ If you want to have classes always included in the output, they need to be writt
  var postTypeClass = `article--${postType}` ❌
  var postTypeClass = postType === 'article' ? 'article-post` : `article-page` ✅
 ```
-- If you truly must use a dynamic value (common for spacing utilities) you can use the safelist to make sure those utilities are always included as appropriate
+- If you truly must use a dynamic value (common for spacing utilities) you can use the safelist to make sure those utilities are always included as appropriate.
+For example:
+```
+safelist: [
+	{
+		pattern: /grid-cols-(2|3|4|5)/,
+		variants: ['md', 'lg'],
+	},
+]
+```
 
-See [Safelisting Classes documentation](https://tailwindcss.com/docs/content-configuration#safelisting-classes) for details.
+See [Safelisting Classes documentation](https://tailwindcss.com/docs/content-configuration#safelisting-classes) for more details.
 
 Any styles defined inside of an `@layer` or inside the `tailwind.config.js` file will be purged if they are not found in your “content” targets (e.g. the files you specify in the content option).
 
 #### What about classes generated from WordPress?
 We've got your back. We've already included a safelist of WordPress classes in the `tailwind.config.js` so no need to worry!
-
-#### Do I need to use any Tailwind plugins?
-By default, the toolkit comes with all four official Tailwind plugins installed and the typography plugin enabled by default. In most cases you'll want to just enable all of these so you can leverage all of their functionality. Any classes from these plugins that you don’t use won’t be included in your project. Here is a list of the current (at the time of writing) official plugins and how they can help you in your project:
-
-### Typography
-
-Adds styles for longform typography sections so you’re not forced to add classes to every element in a content area.
-
-Typically essential on sites that have any longform rich text content (which is virtually all websites).
-
-[View the official plugin](https://tailwindcss.com/docs/plugins#typography)
-#### Forms
-
-This plugin provides a simple mechanism for styling forms on your project. If you're using a form plugin, you may need to disable it's default style output to avoid conflicts.
-
-This plugin can be used in two modes: default styles or opt-in only. Set in plugin settings.
-
-- Default: Styles are applied to all form elements automatically (recommended)
-- By default the form styles will always be in your CSS output since the compiler can’t tell if you’re actually using forms on the page somewhere or not. In general this is what you’d want anyway.
-- Opt-in: Scopes all styles to classes (e.g. form-input, form-checkbox, etc).
-
-[View the official plugin](https://tailwindcss.com/docs/plugins#forms)
-#### Aspect Ratio
-Adds utility classes to control a fixed [aspect ratio](https://css-tricks.com/almanac/properties/a/aspect-ratio/) to elements (e.g. 16:9, 4:3, etc) using the `aspect-ratio` CSS property (supported in all modern browsers).
-
-[View the official plugin](https://tailwindcss.com/docs/plugins#aspect-ratio)
-#### Line Clamp
-Adds utility classes to support the [CSS line-clamp](https://css-tricks.com/almanac/properties/l/line-clamp/) property.
-
-This allows you to truncate text to a certain number of lines via styles, which is helpful for certain layouts.
-
-[View the official plugin](https://tailwindcss.com/docs/plugins#line-clamp)
-
-See the [Tailwind Plugins page](https://tailwindcss.com/docs/plugins) for further information.
 
 #### Tailwind comes with a default theme. Do I need to remove the default values before starting my project?
 
@@ -195,3 +169,43 @@ The main reason you would want to take away defaults is to prevent those things 
 That said, there are situations where some of the default Tailwind theme options can fill in gaps in your own design. For instance, if you have a color palette, but no typography scale, using Tailwind’s typography scale would be of benefit to you. Similarly, if you have a color palette that is sparse and doesn’t include things like grays, you may want to keep the gray colors but otherwise use only the client’s color palette.
 
 The key takeaway here is that you do not need to limit the configuration for performance reasons. The JIT engine is highly optimized and automatically removes classes you aren’t using that haven’t been added to a safelist. Just think proactively about setting up other developers for success; if removing the option makes contributing to the project easier to do or learn, then it’s probably a good idea.
+
+#### Do I need to use any Tailwind plugins?
+By default, the toolkit comes with all four official Tailwind plugins installed and the typography plugin enabled by default. In most cases you'll want to just enable all of these so you can leverage all of their functionality. Any classes from these plugins that you don’t use won’t be included in your project.
+
+### Tailwind Plugins
+ Here is a list of the current (at the time of writing) official plugins and how they can help you in your project:
+
+#### Typography Plugin
+
+Adds styles for longform typography sections so you’re not forced to add classes to every element in a content area.
+
+Typically added for quick styling to longform rich text content without a highly specific typography style guide. In most cases there will be project specific sizing for headings and typography, in which case this plugin can be disabled.
+
+[View the official plugin](https://tailwindcss.com/docs/plugins#typography)
+
+#### Forms Plugin
+
+This plugin provides a simple mechanism for styling forms on your project. If you're using a form plugin, you may need to disable it's default style output to avoid conflicts.
+
+This plugin can be used in two modes: default styles or opt-in only. Set in plugin settings.
+
+- Default: Styles are applied to all form elements automatically (recommended)
+- By default the form styles will always be in your CSS output since the compiler can’t tell if you’re actually using forms on the page somewhere or not. In general this is what you’d want anyway.
+- Opt-in: Scopes all styles to classes (e.g. form-input, form-checkbox, etc).
+
+[View the official plugin](https://tailwindcss.com/docs/plugins#forms)
+
+#### Aspect Ratio Plugin
+Adds utility classes to control a fixed [aspect ratio](https://css-tricks.com/almanac/properties/a/aspect-ratio/) to elements (e.g. 16:9, 4:3, etc) using the `aspect-ratio` CSS property (supported in all modern browsers).
+
+[View the official plugin](https://tailwindcss.com/docs/plugins#aspect-ratio)
+
+#### Line Clamp Plugin
+Adds utility classes to support the [CSS line-clamp](https://css-tricks.com/almanac/properties/l/line-clamp/) property.
+
+This allows you to truncate text to a certain number of lines via styles, which is helpful for certain layouts.
+
+[View the official plugin](https://tailwindcss.com/docs/plugins#line-clamp)
+
+See the [Tailwind Plugins page](https://tailwindcss.com/docs/plugins) for further information.
