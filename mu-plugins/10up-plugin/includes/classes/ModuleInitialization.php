@@ -90,12 +90,30 @@ class ModuleInitialization {
 
 			// Initialize the class.
 			$instantiated_class = new $class();
-			// If the class can be registered, register it.
-			if ( $instantiated_class->can_register() ) {
-				// Call it's register method.
-				$instantiated_class->register();
-				// Store the class in the list of initialized classes.
-				$this->classes[ $slug ] = $instantiated_class;
+
+			// Assign the classes into the order they should be initialized.
+			$load_class_order[ intval( $instantiated_class->load_order ) ][] = [
+				'slug'  => $slug,
+				'class' => $instantiated_class,
+			];
+		}
+
+		// Sort the initialized classes by load order.
+		ksort( $load_class_order );
+
+		// Loop through the classes and initialize them.
+		foreach ( $load_class_order as $class_objects ) {
+			foreach ( $class_objects as $class_object ) {
+				$class = $class_object['class'];
+				$slug  = $class_object['slug'];
+
+				// If the class can be registered, register it.
+				if ( $class->can_register() ) {
+					// Call its register method.
+					$class->register();
+					// Store the class in the list of initialized classes.
+					$this->classes[ $slug ] = $class;
+				}
 			}
 		}
 	}
