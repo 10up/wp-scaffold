@@ -23,7 +23,7 @@ function setup() {
 	};
 
 	add_action( 'init', $n( 'i18n' ) );
-	add_action( 'init', $n( 'init' ), 8 );
+	add_action( 'init', $n( 'init' ), apply_filters( 'tenup_plugin_init_priority', 8 ) );
 	add_action( 'wp_enqueue_scripts', $n( 'scripts' ) );
 	add_action( 'wp_enqueue_scripts', $n( 'styles' ) );
 	add_action( 'admin_enqueue_scripts', $n( 'admin_scripts' ) );
