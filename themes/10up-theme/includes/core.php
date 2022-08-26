@@ -7,6 +7,7 @@
 
 namespace TenUpTheme\Core;
 
+use TenUpTheme\ModuleInitialization;
 use TenUpTheme\Utility;
 
 /**
@@ -41,6 +42,22 @@ function setup() {
  */
 function init() {
 	do_action( 'tenup_theme_before_init' );
+
+	// If the composer.json isn't found, trigger a warning.
+	if ( ! file_exists( TENUP_THEME_PATH . 'composer.json' ) ) {
+		add_action(
+			'admin_notices',
+			function() {
+				$class = 'notice notice-error';
+				/* translators: %s: the path to the plugin */
+				$message = sprintf( __( 'The composer.json file was not found within %s. No classes will be loaded.', 'tenup-theme' ), TENUP_THEME_PATH );
+
+				printf( '<div class="%1$s"><p>%2$s</p></div>', esc_attr( $class ), esc_html( $message ) );
+			}
+		);
+		return;
+	}
+
 	ModuleInitialization::instance()->init_classes();
 	do_action( 'tenup_theme_init' );
 }
