@@ -48,18 +48,50 @@ Tailwind allows you to author custom classes that group multiple utilities toget
 }
 ```
 
-If needed, you may include classes using `@apply` along with your own styles and things will output in the order you include them as well as abitrary value support. This allows you to write your styles in the way that makes the most sense while having all options available to you.
+Depending on the use case, you may include classes using `@apply` along with your own styles and things will output in the order you include them as well as abitrary value support. This allows you to write your styles in the way that makes the most sense while having all options available to you.
 
+The `@apply` example above is the preferred way to handle styles for Gutenberg block development where classes are repeated in both the block editor.js file as well as the markup.php file.
 
-The above example is the preferred way to handle styles for a component like a button, as opposed to bloating the DOM with a large amount of Tailwind classes for multiple instances of the same component.
+Tailwind's recommended approach is to add classes directly inline on DOM elements. However, the maintainability of this is not feasible for core and custom blocks. In modular areas of the site where classes do not need to be reused then inline Tailwind classes can be added directly to the markup.
 
 Any custom classes you author that are not included inside an `@layer` rule will always be included in your CSS file’s output.
 
+#### Creating your own Utilities and Components
+
+When you need to add truly custom CSS rules to a Tailwind project, the approach above is easiest to add the custom CSS to your stylesheet. For more power, you can also use the @layer directive to add styles to Tailwind’s base, components, and utilities layers.
+
+Tailwind organizes the styles it generates into three different “layers”:
+
+- The Base layer is for things like reset rules or default styles applied to plain HTML elements.
+- The Components layer is for class-based styles that you want to be able to override with utilities.
+- The Utilities layer is for small, single-purpose classes that should always take precedence over any other styles.
+
+Being explicit about this makes it easier to understand how your styles will interact with each other, and using the @layer directive lets you control the final declaration order while still organizing your actual code in whatever way you like.
+
+For example:
+```
+@layer components {
+	.card {
+		@apply
+		px-6
+		py-4
+		mb-2
+		bg-white
+		border
+		border-blue-800
+		rounded-lg;
+	}
+}
+```
+The example above will insert the `.card` class at the components layer, despite where it's inserted in your CSS, and you can still use utility classes to override it when necessary. The `/assets/css/frontend/tailwind/` folder contains optional files to organize any custom Tailwind utilities or components added to your project.
+
 ### Setting up VSCode for Tailwind
 
-The [TailwindCSS Extension for VSCode](https://marketplace.visualstudio.com/items?itemName=austenc.tailwind-docs#:~:text=VSCode%20Tailwind%20Docs&text=To%20use%20this%20extension%2C%20simply,That's%20it!) will automatically pick up your configuration changes and provide simple autocompletes that even show you the CSS output of the class you wish to use.
+The [TailwindCSS IntelliSense Extension for VSCode](https://marketplace.visualstudio.com/items?itemName=bradlc.vscode-tailwindcss) will automatically pick up your configuration changes and provide simple autocompletes that even show you the CSS output of the class you wish to use.
 
 Note: this extension has been included in a `.vscode` folder in the repo - when you first launch the project, `VSCODE` will suggest installing it for a better experience.
+
+Another handy plugin is [VSCode for Tailwind Docs](https://marketplace.visualstudio.com/items?itemName=austenc.tailwind-docs#:~:text=VSCode%20Tailwind%20Docs&text=To%20use%20this%20extension%2C%20simply,That's%20it!), used for when you can't remember a Tailwind class name. You can easily search the Tailwind Docs within VSCode's search using ` ⌘ + Shift + P`, just type "Tailwind Docs".
 
 ### Initial Setup Considerations
 
@@ -124,6 +156,59 @@ Files located in subfolders can be accessed via globs and those are already incl
 
 #### How do I add the Gutenberg color palette automatically to the Tailwind config?
 By default the toolkit will look if `theme.json` is present and if so, attempt to `import` colors from the palette you've defined in it. You can also optionally specify that you want to bring in the color palette for blocks (all or specific ones) by passing in either `true` or an array of allowed block names to the `getThemeColors()` function called in `tailwind.config.js`.
+
+#### How is writing `@apply` more efficient than writing regular CSS?
+Similar to regular CSS shorthand, in Tailwind there are several ways to more efficiently write CSS. `@apply` needs to be added once per custom class definition and can be chained with multiple utilities (there's no need to re-write `@apply` for every utility).
+
+For example:
+```
+.my-custom-class {
+	@apply m-6 p-6 bg-white hover:bg-black md:p-8;
+}
+
+\\ Writing the regular css equivalent would be something like...
+
+.my-custom-class {
+	margin: 1.5rem;
+	padding: 1.5rem;
+	background-color: white;
+
+	&:hover {
+		background-color: black;
+	}
+
+	@media (min-width: 768px) {
+		padding: 2rem;
+	}
+}
+
+.my-custom-class {
+	@apply m-6 p-6 bg-white hover:bg-black md:p-8 md:m-8 md:bg-blue;
+}
+
+```
+
+Another example with serveral media queries:
+```
+// This is getting quite long and hard to read
+
+.my-custom-class {
+	@apply m-6 p-6 bg-white hover:bg-black md:p-8 md:m-8 md:bg-blue md:hover:bg-white;
+}
+
+// A cleaner way to write this in Tailwind would be
+
+.my-custom-class {
+	@apply m-6 p-6 bg-white hover:bg-black;
+
+	@screen md {
+		@apply p-8 m-8 bg-blue hover:bg-white;
+	}
+}
+
+```
+
+Once you get a hang of the Tailwind class names (and are using Intellisence Vscode plugin),the Tailwind options can be much more efficient to write. But, of course use your best judgement, as you would for regular CSS.
 
 #### Why aren’t my Tailwind classes outputting?
 Tailwind’s JIT engine generates the styles you need for your project on-demand, however there may be some edge cases where extra configuration is required. Most often custom tailwind classes or dynamic classes need extra attention.

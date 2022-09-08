@@ -1,16 +1,32 @@
 /**
 * Tailwind Custom Components
 *
-* Add any of your own custom component classes to Tailwind’s components layer.
-* This is useful for any more complicated classes you want to add to your
+* Adds any of your own custom component classes to Tailwind’s components layer.
+*
+* These styles will be automatically imported at the @import url("tailwindcss/components")
+* level in the main stylesheet. The specificity order of components come
+* after @layer base and before @layer utilities, however Tailwind will take care
+* of this for you so you don't need to worry about authoring your CSS in a
+* specific order. Infact, @layer components {...} can be inserted anywhere in
+* your CSS files, this file is optional for the sake or component organization.
+*
+* Components are useful for any more complicated classes you want to add to your
 * project that you’d still like to be able to override with utility classes.
 * Traditionally these would be classes like card, btn, link etc.
-* These styles will be imported at the @import url("tailwindcss/components") level
-* in the main stylesheet
 *
 * More info: https://tailwindcss.com/docs/adding-custom-styles#adding-component-classes
 */
 
 @layer components {
+
+	/*
+	.my-component-1 {
+	 	add component styles here...
+	}
+
+	.my-component-2 {
+	 	...
+	}
+	*/
 
 }
