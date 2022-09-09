@@ -181,11 +181,6 @@ For example:
 		padding: 2rem;
 	}
 }
-
-.my-custom-class {
-	@apply m-6 p-6 bg-white hover:bg-black md:p-8 md:m-8 md:bg-blue;
-}
-
 ```
 
 Another example with serveral media queries:
