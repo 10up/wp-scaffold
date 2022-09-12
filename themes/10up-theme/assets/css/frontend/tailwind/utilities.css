@@ -1,15 +1,29 @@
 /**
 * Tailwind Custom Utilities
 *
-* Add any of your own custom utility classes to Tailwind’s utilities layer.
-* This can be useful when there’s a CSS feature you’d like to use in your
+* Adds any of your own custom utility classes to Tailwind’s utilities layer.
+*
+* These styles will be automatically imported at the @import url("tailwindcss/utilities")
+* level in the main stylesheet. The specificity order of utilities come last,
+* so anything added in this layer while have the highest specificity in your CSS
+* Note that @layer utilities {...} can be inserted anywhere in your CSS files,
+* this file is optional and exists to keep utilities organized in one place.
+*
+* Utilities are useful when there’s a CSS feature you’d like to use in your
 * project that Tailwind doesn’t include utilities for out of the box.
-* These styles will be imported at the @import url("tailwindcss/utilities") level
-* in the main stylesheet
 *
 * More info: https://tailwindcss.com/docs/adding-custom-styles#adding-custom-utilities
 */
 
 @layer utilities {
 
+	/*
+	.my-utility-1 {
+	 	Add utility styles here...
+	}
+
+	.my-utility-2 {
+	 	...
+	}
+	*/
 }

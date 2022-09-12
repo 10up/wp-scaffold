@@ -11,6 +11,36 @@ The `theme.json` file allows you to take control of your blocks in both the edit
 
 The values that you provide in the `theme.json` file will be added both on the frontend and in the editor as [CSS custom properties following a fixed naming scheme](https://developer.wordpress.org/block-editor/how-to-guides/themes/theme-json/#css-custom-properties-presets-custom).
 
+### Using the `theme.json` with Tailwind
+Using Tailwind does not mean there is no need for the theme.json. Tailwind is a powerful tool that can be used to enhance the properties of the theme.json file. As the theme.json gets more powerful, we will need to adapt and change which tokens are controlled by the theme.json vs. Tailwind.
+
+As a general rule of thumb the theme.json should be the starting point for design tokens coming from WordPress, and then imported in to the tailwind.config.js for entire site use.
+
+For example,
+in the theme.json we create custom widths and then use these within the layout via css custom properties:
+```
+"custom": {
+      "width": {
+        "content": "800px",
+        "wide": "1000px"
+      }
+},
+"layout": {
+      "contentSize": "var(--wp--custom--width--content)",
+      "wideSize": "var(--wp--custom--width--wide)"
+},
+```
+Then in the tailwind.config.js file we can extend our maxWidth values using the same custom properties:
+```
+extend: {
+		maxWidth: {
+			/* Custom properties from the `theme.json` file */
+			content: 'var(--wp--custom--width--content)',
+			wide: 'var(--wp--custom--width--wide)',
+		},
+	},
+```
+Now you can use `max-w-content` or `max-w-wide` utility classes in your CSS that are still generated from the theme.json.
 ### 🙋 FAQ
 <details>
 <summary>Where has the `.wp-block-group__inner-container` gone?</summary>
