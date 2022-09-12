@@ -48,11 +48,11 @@ Tailwind allows you to author custom classes that group multiple utilities toget
 }
 ```
 
-Depending on the use case, you may include classes using `@apply` along with your own styles and things will output in the order you include them as well as abitrary value support. This allows you to write your styles in the way that makes the most sense while having all options available to you.
+Depending on the use case, you may include classes using `@apply` along with your own styles and rules/properties will output in the order you include them as well as abitrary value support. This allows you to write your styles in the way that makes the most sense while having all options available to you.
 
 The `@apply` example above is the preferred way to handle styles for Gutenberg block development where classes are repeated in both the block editor.js file as well as the markup.php file.
 
-Tailwind's recommended approach is to add classes directly inline on DOM elements. However, the maintainability of this is not feasible for core and custom blocks. In modular areas of the site where classes do not need to be reused then inline Tailwind classes can be added directly to the markup.
+Tailwind's recommended approach is to add classes directly inline on DOM elements. However, the maintainability of this is not feasible when we attempt to scale core and custom blocks. In modular areas of the site where classes do not need to be reused then inline Tailwind classes can be added directly to the markup.
 
 Any custom classes you author that are not included inside an `@layer` rule will always be included in your CSS file’s output.
 
