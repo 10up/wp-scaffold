@@ -110,7 +110,7 @@ Considering we do not want to load script everywhere throughout the theme, we ha
 
 # UI Component Generation
 The theme now includes a micro-generator framework [plop](https://plopjs.com/documentation/) to rapidly create UI components.
-From the theme root `npm run new`
+From /wp-content `npm run new -w=tenup-theme` (replacing tenup-theme with your theme workspace as appropriate)
 Follow the guided menu to generate component files in a consistent manner:
 
 - component partial
@@ -119,7 +119,9 @@ Follow the guided menu to generate component files in a consistent manner:
 - component JS
 
 All files are optional so you can be as granular as you like.
+
 Including the generated files needs to be done manually in the respective index files and/or styleguide template.
 
-Plop uses [handlebars](https://handlebarsjs.com/) template files, if you're not a fan of the opinions set in the defaults, these can be altered in *[theme]/plop-templates*.
-If you would like to extend the generator, the config files lives at *[theme]/plopfile.js*.
+Plop uses [handlebars](https://handlebarsjs.com/) template files to format the output, if you're not a fan of the opinions set in the defaults, these can be altered in *[theme]/plop-templates*.
+
+If you would like to extend the generator (perhaps to alter optional atom structure options), the config files lives at *[theme]/plopfile.js*.
