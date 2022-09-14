@@ -7,14 +7,12 @@
  * @var array    $attributes         Block attributes.
  * @var string   $content            Block content.
  * @var WP_Block $block              Block instance.
- * @var array    $context            BLock context.
- * @var string   $class_name         Generated class name for concatenation.
- * @var string   $wrapper_attributes Block Wrapper Attributes. To be applied to the outermost element.
+ * @var array    $context            Block context.
  */
 
 ?>
-<div <?php echo wp_kses_post( $wrapper_attributes ); ?>">
-	<h2 class="<?php echo sanitize_html_class( $class_name ); ?>__title">
+<div <?php echo get_block_wrapper_attributes(); // phpcs:ignore ?>>
+	<h2 class="wp-block-tenup-example__title">
 		<?php echo wp_kses_post( $attributes['title'] ); ?>
 	</h2>
 </div>
