@@ -5,7 +5,7 @@ import FindExampleUiComponent from './find-example-ui-component';
  *
  * Add a description here
  *
- * @return {void}
+ * @returns {void}
  */
 const ExampleUiComponent = () => {
 	if (!FindExampleUiComponent()) {

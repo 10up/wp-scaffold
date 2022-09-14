@@ -11,7 +11,7 @@ export const EXAMPLE_UI_COMPONENT_CLASSNAME = 'example-ui-component';
  * - e.g. DRY selectors for dynamic imports
  * - e.g. DRY selectors for initialisation checks
  *
- * @return {HTMLElement} the DOM element we are looking for
+ * @returns {HTMLElement} the DOM element we are looking for
  */
 const FindExampleUiComponent = () => {
 	$elementRef = $elementRef ?? document.querySelector(`.example-ui-component`);
