@@ -126,4 +126,4 @@ Including the generated files needs to be done manually in the respective index 
 
 Plop uses [handlebars](https://handlebarsjs.com/) template files to format the output, if you're not a fan of the opinions set in the defaults, these can be altered in *[theme]/plop-templates*.
 
-If you would like to extend the generator (perhaps to alter optional atom structure options), the config files lives at *[theme]/plopfile.js*.
+If you would like to extend the generator (perhaps to alter optional atomic structure options), the config files lives at *[theme]/plopfile.js*.
