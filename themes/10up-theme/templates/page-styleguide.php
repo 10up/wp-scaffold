@@ -258,6 +258,8 @@ get_header();
 			</div><!--/.content-->
 		</section><!--/.uikit__section-->
 
+		<?php // get_template_part('partials/example-ui-component/styleguide/examples'); ?>
+
 	</div><!--/.uikit__content-->
 
 </div><!--/.uikit__container-->

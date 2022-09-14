@@ -106,3 +106,24 @@ You can activate `ct.css` on any page load by including `?debug_perf=1` in the U
 Considering we do not want to load script everywhere throughout the theme, we have provided engineeers with a way to trigger the `ct.css` output by using a query param.
 
 <sub>* for 10uppers, reach out to Daine for any questions / guidance / support in regards to `ct.css`</sub>
+
+
+# UI Component Generation
+The theme now includes a micro-generator framework [plop](https://plopjs.com/documentation/) to rapidly create UI components.
+
+From /wp-content `npm run new -w=tenup-theme` (replacing tenup-theme with your theme workspace as appropriate)
+
+Follow the guided menu to generate component files in a consistent manner:
+
+- component partial
+- styleguide example(s) of the partial
+- component CSS
+- component JS
+
+All files are optional so you can be as granular as you like.
+
+Including the generated files needs to be done manually in the respective index files and/or styleguide template.
+
+Plop uses [handlebars](https://handlebarsjs.com/) template files to format the output, if you're not a fan of the opinions set in the defaults, these can be altered in *[theme]/plop-templates*.
+
+If you would like to extend the generator (perhaps to alter optional atomic structure options), the config files lives at *[theme]/plopfile.js*.
