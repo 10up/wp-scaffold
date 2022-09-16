@@ -185,6 +185,13 @@
           "default": "50rem",
           "wide": "62.5rem"
         }
+      },
+      "image": {
+        "ratio": {
+          "auto": "auto",
+          "default": "16 / 9",
+          "square": "1 / 1"
+        }
       }
     },
     "color": {
