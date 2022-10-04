@@ -48,8 +48,10 @@ function get_colors( $path ) {
 	if ( file_exists( $dir . $path ) ) {
 		$css_vars = file_get_contents( $dir . $path ); // phpcs:ignore WordPress.WP.AlternativeFunctions
 		// HEX(A) | RGB(A) | HSL(A) - rgba & hsla alpha as decimal or percentage
-		// https://regex101.com/r/FEtzDu/5
-		preg_match_all( '(#(?:[\da-f]{3}){1}\b|#(?:[\da-f]{2}){3,4}\b|(rgb|hsl)a?\((\s*-?\d+%?\s*,){2}(\s*-?\d+%?\s*)\)|(rgb|hsl)a?\((\s*-?\d+%?\s*,){3}\s*(0|(0?\.\d+)|1|(\s*\d{1,3}%\s*))\))', $css_vars, $matches );
+		// https://regex101.com/r/l7AZ8R/
+		// this is a loose match and will accept almost anything within () for rgb(a) & hsl(a)
+		// a more optinionated solution is WIP here if you can improve on it https://regex101.com/r/FEtzDu/
+		preg_match_all( '(#(?:[\da-f]{3}){1}\b|#(?:[\da-f]{2}){3,4}\b|(rgb|hsl)a?\((\s|\d|[a-zA-Z]+|,|-|%|\.|\/)+\))', $css_vars, $matches );
 
 		return $matches[0];
 	}
