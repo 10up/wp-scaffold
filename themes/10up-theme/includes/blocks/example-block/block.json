@@ -6,7 +6,7 @@
   "textdomain": "tenup-theme",
   "name": "tenup/example",
   "icon": "feedback",
-  "category": "tenup-theme-blocks",
+  "category": "formatting",
   "attributes":{
     "title": {
       "type" : "string"
