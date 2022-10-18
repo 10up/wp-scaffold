@@ -183,7 +183,8 @@
       "content": {
         "width": {
           "default": "50rem",
-          "wide": "62.5rem"
+          "medium": "62.5rem",
+          "wide": "90rem"
         }
       },
       "image": {
