@@ -54,8 +54,8 @@ function register_theme_blocks() {
 	}
 
 	// Register all the blocks in the theme
-	if ( file_exists( TENUP_THEME_BLOCK_DIR ) ) {
-		$block_json_files = glob( TENUP_THEME_BLOCK_DIR . '*/block.json' );
+	if ( file_exists( TENUP_THEME_BLOCK_DIST_DIR ) ) {
+		$block_json_files = glob( TENUP_THEME_BLOCK_DIST_DIR . '*/block.json' );
 
 		// auto register all blocks that were found.
 		foreach ( $block_json_files as $filename ) {
