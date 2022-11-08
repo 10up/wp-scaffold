@@ -14,7 +14,7 @@
   "require-dev": {
     "10up/phpcs-composer": "dev-master",
     "szepeviktor/phpstan-wordpress": "^1.1",
-    "php-stubs/wp-cli-stubs": "^2.6",
+    "php-stubs/wp-cli-stubs": "dev-master",
     "phpstan/phpstan": "^1.7"
   },
   "scripts": {
