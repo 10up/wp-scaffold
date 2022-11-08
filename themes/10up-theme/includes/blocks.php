@@ -21,8 +21,6 @@ function setup() {
 
 	add_action( 'enqueue_block_editor_assets', $n( 'blocks_editor_styles' ) );
 
-	add_filter( 'block_categories_all', $n( 'blocks_categories' ), 10, 2 );
-
 	add_action( 'init', $n( 'register_theme_blocks' ) );
 
 	add_action( 'init', $n( 'register_block_pattern_categories' ) );
@@ -56,8 +54,8 @@ function register_theme_blocks() {
 	}
 
 	// Register all the blocks in the theme
-	if ( file_exists( TENUP_THEME_BLOCK_DIR ) ) {
-		$block_json_files = glob( TENUP_THEME_BLOCK_DIR . '*/block.json' );
+	if ( file_exists( TENUP_THEME_BLOCK_DIST_DIR ) ) {
+		$block_json_files = glob( TENUP_THEME_BLOCK_DIST_DIR . '*/block.json' );
 
 		// auto register all blocks that were found.
 		foreach ( $block_json_files as $filename ) {
@@ -129,25 +127,6 @@ function blocks_editor_styles() {
 		);
 	}
 
-}
-
-/**
- * Filters the registered block categories.
- *
- * @param array $categories Registered categories.
- *
- * @return array Filtered categories.
- */
-function blocks_categories( $categories ) {
-	return array_merge(
-		$categories,
-		array(
-			array(
-				'slug'  => 'tenup-theme-blocks',
-				'title' => __( 'Custom Blocks', 'tenup-theme' ),
-			),
-		)
-	);
 }
 
 /**
