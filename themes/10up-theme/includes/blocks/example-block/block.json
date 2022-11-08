@@ -6,7 +6,7 @@
   "textdomain": "tenup-theme",
   "name": "tenup/example",
   "icon": "feedback",
-  "category": "tenup-theme-blocks",
+  "category": "formatting",
   "attributes":{
     "title": {
       "type" : "string"
@@ -20,6 +20,5 @@
   "supports": {
     "html": false
   },
-  "editorScript": "file:../../../dist/blocks/example-block/editor.js",
-  "editorStyle": "file:../../../dist/blocks/example-block/editor.css"
+  "editorScript": "file:./index.js"
 }

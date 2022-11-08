@@ -13,6 +13,7 @@ define( 'TENUP_THEME_DIST_PATH', TENUP_THEME_PATH . 'dist/' );
 define( 'TENUP_THEME_DIST_URL', TENUP_THEME_TEMPLATE_URL . '/dist/' );
 define( 'TENUP_THEME_INC', TENUP_THEME_PATH . 'includes/' );
 define( 'TENUP_THEME_BLOCK_DIR', TENUP_THEME_INC . 'blocks/' );
+define( 'TENUP_THEME_BLOCK_DIST_DIR', TENUP_THEME_PATH . 'dist/blocks/' );
 
 $is_local_env = in_array( wp_get_environment_type(), [ 'local', 'development' ], true );
 $is_local_url = strpos( home_url(), '.test' ) || strpos( home_url(), '.local' );
