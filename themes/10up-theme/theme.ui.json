@@ -2,6 +2,44 @@
   "$schema": "https://schemas.wp.org/wp/6.0/theme.json",
   "version": 2,
   "settings": {
+    "color": {
+      "custom": false,
+      "customDuotone": false,
+      "customGradient": false,
+      "defaultDuotone": false,
+      "defaultGradients": false,
+      "defaultPalette": false,
+      "duotone": [],
+      "gradients": [],
+      "link": false,
+      "palette": [
+        {
+          "name": "Primary",
+          "slug": "primary",
+          "color": "var(--wp--custom--color--base--primary--medium)"
+        },
+        {
+          "name": "Secondary",
+          "slug": "secondary",
+          "color": "var(--wp--custom--color--base--secondary--medium)"
+        },
+        {
+          "name": "Tertiary",
+          "slug": "Tertiary",
+          "color": "var(--wp--custom--color--base--tertiary--medium)"
+        },
+        {
+          "name": "Dark",
+          "slug": "dark",
+          "color": "var(--wp--custom--color--base--dark)"
+        },
+        {
+          "name": "Light",
+          "slug": "light",
+          "color": "var(--wp--custom--color--base--light)"
+        }
+      ]
+    },
     "custom": {
       "color": {
         "base": {
@@ -194,44 +232,6 @@
           "square": "1 / 1"
         }
       }
-    },
-    "color": {
-      "custom": false,
-      "defaultDuotone": false,
-      "duotone": [],
-      "customDuotone": false,
-      "defaultGradients": false,
-      "gradients": [],
-      "customGradient": false,
-      "link": false,
-      "defaultPalette": false,
-      "palette": [
-        {
-          "name": "Primary",
-          "slug": "primary",
-          "color": "var(--wp--custom--color--base--primary--medium)"
-        },
-        {
-          "name": "Secondary",
-          "slug": "secondary",
-          "color": "var(--wp--custom--color--base--secondary--medium)"
-        },
-        {
-          "name": "Tertiary",
-          "slug": "Tertiary",
-          "color": "var(--wp--custom--color--base--tertiary--medium)"
-        },
-        {
-          "name": "Dark",
-          "slug": "dark",
-          "color": "var(--wp--custom--color--base--dark)"
-        },
-        {
-          "name": "Light",
-          "slug": "light",
-          "color": "var(--wp--custom--color--base--light)"
-        }
-      ]
     },
     "layout": {
       "contentSize": "var(--wp--custom--content--width--default)",
