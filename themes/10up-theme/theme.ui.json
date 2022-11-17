@@ -167,7 +167,7 @@
           "hover": "underline",
           "focus": "underline"
         },
-        "interactive" : {
+        "interactive": {
           "default": "none",
           "hover": "none",
           "focus": "none"
