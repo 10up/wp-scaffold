@@ -239,9 +239,7 @@
       "wideSize": "var(--wp--custom--content--width--wide)"
     },
     "spacing": {
-      "margin": false,
-      "padding": false,
-      "units": []
+      "margin": false
     },
     "typography": {
       "customFontSize": false,
