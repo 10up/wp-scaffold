@@ -7,6 +7,7 @@
 
 namespace TenUpPlugin\Core;
 
+use TenUpPlugin\ModuleInitialization;
 use \WP_Error;
 use TenUpPlugin\Utility;
 
@@ -22,7 +23,7 @@ function setup() {
 	};
 
 	add_action( 'init', $n( 'i18n' ) );
-	add_action( 'init', $n( 'init' ) );
+	add_action( 'init', $n( 'init' ), apply_filters( 'tenup_plugin_init_priority', 8 ) );
 	add_action( 'wp_enqueue_scripts', $n( 'scripts' ) );
 	add_action( 'wp_enqueue_scripts', $n( 'styles' ) );
 	add_action( 'admin_enqueue_scripts', $n( 'admin_scripts' ) );
@@ -53,6 +54,24 @@ function i18n() {
  * @return void
  */
 function init() {
+	do_action( 'tenup_plugin_before_init' );
+
+	// If the composer.json isn't found, trigger a warning.
+	if ( ! file_exists( TENUP_PLUGIN_PATH . 'composer.json' ) ) {
+		add_action(
+			'admin_notices',
+			function() {
+				$class = 'notice notice-error';
+				/* translators: %s: the path to the plugin */
+				$message = sprintf( __( 'The composer.json file was not found within %s. No classes will be loaded.', 'tenup-plugin' ), TENUP_PLUGIN_PATH );
+
+				printf( '<div class="%1$s"><p>%2$s</p></div>', esc_attr( $class ), esc_html( $message ) );
+			}
+		);
+		return;
+	}
+
+	ModuleInitialization::instance()->init_classes();
 	do_action( 'tenup_plugin_init' );
 }
 
