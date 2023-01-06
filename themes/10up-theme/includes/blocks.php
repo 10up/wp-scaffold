@@ -73,7 +73,7 @@ function register_theme_blocks() {
 			 */
 			$editor_style_file_path = $block_folder . '/editor.css';
 			if ( file_exists( $editor_style_file_path ) ) {
-				$style_url = TENUP_THEME_TEMPLATE_URL . '/dist/css/' . $block_name . '.css';
+				$style_url = TENUP_THEME_TEMPLATE_URL . '/dist/blocks/' . $block_name . '/index.css';
 				wp_register_style( $block_name, $style_url, array(), filemtime( $editor_style_file_path ) );
 			}
 
