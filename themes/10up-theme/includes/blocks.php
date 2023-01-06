@@ -61,8 +61,21 @@ function register_theme_blocks() {
 		foreach ( $block_json_files as $filename ) {
 
 			$block_folder = dirname( $filename );
+			$block_name   = basename( $block_folder );
 
 			$block_options = [];
+
+			/**
+			 * Register block editor style with automated versioning
+			 * It can be used in block.json as "editorStyle" property using the style handler which is the name of the block folder
+			 * If the style isn't registered it'll be enqueued using the WordPress Core version
+			 * causing a long term caching
+			 */
+			$editor_style_file_path = $block_folder . '/editor.css';
+			if ( file_exists( $editor_style_file_path ) ) {
+				$style_url = TENUP_THEME_TEMPLATE_URL . '/dist/css/' . $block_name . '.css';
+				wp_register_style( $block_name, $style_url, array(), filemtime( $editor_style_file_path ) );
+			}
 
 			$markup_file_path = $block_folder . '/markup.php';
 			if ( file_exists( $markup_file_path ) ) {
