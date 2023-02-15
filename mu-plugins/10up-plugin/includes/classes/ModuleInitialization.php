@@ -56,7 +56,9 @@ class ModuleInitialization {
 	 * @return array
 	 */
 	protected function get_classes() {
-		return ClassFinder::getClassesInNamespace( 'TenUpPlugin', ClassFinder::RECURSIVE_MODE );
+		$class_finder = new ClassFinder();
+		$class_finder::setAppRoot( TENUP_PLUGIN_PATH );
+		return $class_finder::getClassesInNamespace( 'TenUpPlugin', ClassFinder::RECURSIVE_MODE );
 	}
 
 	/**
