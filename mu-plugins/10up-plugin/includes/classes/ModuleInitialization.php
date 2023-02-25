@@ -65,6 +65,7 @@ class ModuleInitialization {
 	 * @return void
 	 */
 	public function init_classes() {
+		$load_class_order = [];
 		foreach ( $this->get_classes() as $class ) {
 			// Create a slug for the class name.
 			$slug = $this->slugify_class_name( $class );
