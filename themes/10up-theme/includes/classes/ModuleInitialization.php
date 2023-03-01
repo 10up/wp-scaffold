@@ -1,6 +1,6 @@
 <?php
 /**
- * Auto-initialize all Module based clases in the theme.
+ * Auto-initialize all Module based classes in the theme.
  *
  * @package TenUpTheme
  */
