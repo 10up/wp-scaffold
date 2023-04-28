@@ -31,6 +31,7 @@ require_once TENUP_THEME_INC . 'overrides.php';
 require_once TENUP_THEME_INC . 'template-tags.php';
 require_once TENUP_THEME_INC . 'utility.php';
 require_once TENUP_THEME_INC . 'blocks.php';
+require_once TENUP_THEME_INC . 'helpers.php';
 
 // Run the setup functions.
 TenUpTheme\Core\setup();
@@ -44,7 +45,7 @@ if ( file_exists( __DIR__ . '/vendor/autoload.php' ) ) {
 if ( ! function_exists( 'wp_body_open' ) ) {
 
 	/**
-	 * Shim for the the new wp_body_open() function that was added in 5.2
+	 * Shim for the new wp_body_open() function that was added in 5.2
 	 *
 	 * @return void
 	 */
