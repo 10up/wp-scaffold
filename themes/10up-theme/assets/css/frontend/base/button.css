@@ -8,4 +8,5 @@
  */
 button:where(:not(.components-button)) {
 
+	/* Ignore error */
 }

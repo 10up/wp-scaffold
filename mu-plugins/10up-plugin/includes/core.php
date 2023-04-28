@@ -131,7 +131,7 @@ function script_url( $script, $context ) {
  * @param string $stylesheet Stylesheet file name (no .css extension)
  * @param string $context Context for the script ('admin', 'frontend', or 'shared')
  *
- * @return string URL
+ * @return string|WP_Error URL
  */
 function style_url( $stylesheet, $context ) {
 

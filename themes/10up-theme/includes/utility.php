@@ -18,7 +18,7 @@ namespace TenUpTheme\Utility;
  *
  * @param string $slug Asset slug as defined in build/webpack configuration
  * @param string $attribute Optional attribute to get. Can be version or dependencies
- * @return string|array
+ * @return string|array|null
  */
 function get_asset_info( $slug, $attribute = null ) {
 	if ( file_exists( TENUP_THEME_PATH . 'dist/js/' . $slug . '.asset.php' ) ) {
@@ -40,6 +40,7 @@ function get_asset_info( $slug, $attribute = null ) {
  * Extract colors from a CSS or Sass file
  *
  * @param string $path the path to your CSS variables file
+ * @return array
  */
 function get_colors( $path ) {
 
@@ -55,6 +56,8 @@ function get_colors( $path ) {
 
 		return $matches[0];
 	}
+
+	return [];
 
 }
 
