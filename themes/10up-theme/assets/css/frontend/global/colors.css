@@ -1,7 +1,12 @@
 /*
  * Colors
+ * Use theme.json to establish colors
+ * https://developer.wordpress.org/block-editor/developers/themes/theme-json/
+ * This file can be used to establish color overrides
+ * or exceptions to the theme.json use case
  */
-:root {
+
+/* :root {
 	--c-black: #000;
 	--c-white: #fff;
-}
+} */
