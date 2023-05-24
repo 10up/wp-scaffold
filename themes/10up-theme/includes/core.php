@@ -29,7 +29,6 @@ function setup() {
 	add_action( 'enqueue_block_editor_assets', $n( 'core_block_overrides' ) );
 	add_action( 'wp_enqueue_scripts', $n( 'styles' ) );
 	add_action( 'wp_head', $n( 'js_detection' ), 0 );
-	add_action( 'wp_head', $n( 'add_manifest' ), 10 );
 	add_action( 'wp_head', $n( 'embed_ct_css' ), 0 );
 
 	add_filter( 'script_loader_tag', $n( 'script_loader_tag' ), 10, 2 );
@@ -294,15 +293,6 @@ function script_loader_tag( $tag, $handle ) {
 	}
 
 	return $tag;
-}
-
-/**
- * Appends a link tag used to add a manifest.json to the head
- *
- * @return void
- */
-function add_manifest() {
-	echo "<link rel='manifest' href='" . esc_url( TENUP_THEME_TEMPLATE_URL . '/manifest.json' ) . "' />";
 }
 
 /**
