@@ -7,7 +7,6 @@ phpunit.xml
 uploads
 upgrade
 cache
-package-lock.json
 
 # Project Files
 dist
