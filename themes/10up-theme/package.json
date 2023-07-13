@@ -18,7 +18,7 @@
     "10up-toolkit": "^4.3.0"
   },
   "dependencies": {
-    "normalize.css": "^8.0.1"
+    "modern-normalize": "^2.0.0"
   },
   "10up-toolkit": {
     "useBlockAssets": true,
