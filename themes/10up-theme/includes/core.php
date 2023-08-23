@@ -189,7 +189,7 @@ function enqueue_block_editor_scripts() {
 	wp_enqueue_script(
 		'block-editor-script',
 		TENUP_THEME_DIST_URL . 'js/block-editor-script.js',
-		UTility\get_asset_info( 'block-editor-script', 'dependencies' ),
+		Utility\get_asset_info( 'block-editor-script', 'dependencies' ),
 		Utility\get_asset_info( 'block-editor-script', 'version' ),
 		true
 	);
