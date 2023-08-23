@@ -28,7 +28,7 @@
       "frontend": "./assets/js/frontend/frontend.js",
       "shared": "./assets/js/shared/shared.js",
       "styleguide": "./assets/js/styleguide/styleguide.js",
-      "core-block-overrides": "./includes/core-block-overrides.js"
+      "block-editor-script": "./includes/block-editor-script.js"
     }
   }
 }
