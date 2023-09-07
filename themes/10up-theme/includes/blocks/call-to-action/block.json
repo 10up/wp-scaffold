@@ -1,0 +1,41 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"name": "tenup/call-to-action",
+	"title": "Call to Action",
+	"category": "design",
+	"description": "A simple CTA",
+	"attributes": {
+		"title": {
+			"type": "string",
+			"default": "",
+			"fakerType": "text.short"
+		},
+		"ctaText": {
+			"type": "string",
+			"default": "",
+			"fakerType": "text.short"
+		},
+		"ctaLink": {
+			"type": "string",
+			"default": "",
+			"fakerType": "url"
+		},
+		"ctaTarget": {
+			"type": "string",
+			"default": "_self"
+		},
+		"imageId": {
+			"type": "number",
+			"default": 0,
+			"fakerType": "wp.attachment.id"
+		}
+	},
+	"supports": {
+		"html": false
+	},
+	"textdomain": "tenup",
+	"editorScript": "file:./index.js",
+	"style": "file:./style.css",
+	"render": "file:./markup.php"
+}
