@@ -15,4 +15,18 @@ get_header(); ?>
 	<?php endif; ?>
 
 <?php
+
+echo render_block( // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+	[
+		'blockName' => 'tenup/call-to-action',
+		'attrs'     => [
+			'title'     => 'Call to Action',
+			'ctaText'   => 'Click Me',
+			'ctaLink'   => 'https://10up.com',
+			'ctaTarget' => '_blank',
+			'imageId'   => 0,
+		],
+	]
+);
+
 get_footer();

@@ -27,7 +27,6 @@
 		},
 		"imageId": {
 			"type": "number",
-			"default": 0,
 			"fakerType": "wp.attachment.id"
 		}
 	},
