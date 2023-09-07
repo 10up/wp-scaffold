@@ -33,9 +33,10 @@
     "npm": ">=7.0.0"
   },
   "devDependencies": {
-    "prettier": "2.6.2",
+    "@wordpress/create-block": "^4.25.0",
     "husky": "^8.0.1",
     "lint-staged": "^13.0.1",
-    "npm-run-all": "^4.1.5"
+    "npm-run-all": "^4.1.5",
+    "prettier": "2.6.2"
   }
 }
