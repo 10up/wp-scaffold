@@ -28,6 +28,9 @@ module.exports = {
 	variants: {
 		default: {},
 		innerBlocks: {},
+		withViewScript: {
+			viewScript: 'file:./view.js',
+		},
 	},
 	blockTemplatesPath: join(__dirname, 'block-templates'),
 };
