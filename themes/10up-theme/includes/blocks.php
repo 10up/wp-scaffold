@@ -67,7 +67,7 @@ function register_theme_blocks() {
 			$markup_file_path = $block_folder . '/markup.php';
 			if ( file_exists( $markup_file_path ) ) {
 
-				// only add the render callback if the block has a file called markdown.php in it's directory
+				// only add the render callback if the block has a file called markup.php in it's directory
 				$block_options['render_callback'] = function( $attributes, $content, $block ) use ( $block_folder ) {
 
 					// create helpful variables that will be accessible in markup.php file
