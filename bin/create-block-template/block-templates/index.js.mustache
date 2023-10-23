@@ -1,0 +1,17 @@
+import { registerBlockType } from '@wordpress/blocks';
+{{#isInnerBlocksVariant}}
+import { InnerBlocks } from '@wordpress/block-editor';
+{{/isInnerBlocksVariant}}
+
+import { BlockEdit } from './edit';
+import metadata from './block.json';
+
+registerBlockType(metadata, {
+	edit: BlockEdit,
+	{{#isDefaultVariant}}
+	save: () => null,
+	{{/isDefaultVariant}}
+	{{#isInnerBlocksVariant}}
+	save: () => <InnerBlocks.Content />,
+	{{/isInnerBlocksVariant}}
+});
