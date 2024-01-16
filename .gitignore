@@ -21,6 +21,8 @@ tmtags
 *.un~
 Session.vim
 *.swp
+.vscode/launch.json
+tasks.json
 
 # Mac OSX
 .DS_Store
