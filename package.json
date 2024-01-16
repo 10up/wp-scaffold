@@ -18,6 +18,9 @@
     "watch:theme": "npm run watch -w=tenup-theme",
     "watch:plugin": "npm run watch -w=tenup-plugin",
     "watch": "run-p watch:theme watch:plugin",
+    "lint-js": "npm run lint-js --workspaces --if-present",
+    "format-js": "npm run format-js --workspaces --if-present",
+    "lint-css": "npm run lint-css --workspaces --if-present",
     "test": "npm run test --workspaces --if-present",
     "clean-dist": "npm run clean-dist --if-present"
   },

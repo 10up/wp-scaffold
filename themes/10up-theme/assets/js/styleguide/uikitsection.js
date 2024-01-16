@@ -76,7 +76,7 @@ export default class UIKitSection {
 	/**
 	 * Toggles a section
 	 *
-	 * @param   {Object} e        The click event
+	 * @param   {object} e        The click event
 	 * @param   {Element} wrapper The UI Kit section content
 	 * @param   {Element} button  The UI Kit section toggle button
 	 *
