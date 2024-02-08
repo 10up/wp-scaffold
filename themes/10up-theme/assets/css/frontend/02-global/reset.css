@@ -53,6 +53,13 @@ video {
 }
 
 p {
+
+	/*
+	 * Adding a readable max width to all paragraphs to prevent
+	 * long lines of text.
+	 *
+	 * NOTE: if using the lobomized owl technique - this style may be overridden
+	 */
 	max-width: 75ch; /* 75 characters - may wish to replace with custom property */
 	text-wrap: pretty;
 }
