@@ -22,18 +22,6 @@ function setup() {
 	add_action( 'enqueue_block_editor_assets', $n( 'blocks_editor_styles' ) );
 	add_action( 'init', $n( 'register_theme_blocks' ) );
 	add_action( 'init', $n( 'register_block_pattern_categories' ) );
-
-	/*
-	If you are using the block library, remove the blocks you don't need.
-
-	add_filter( 'tenup_available_blocks', function ( $blocks ) {
-		if ( ! empty( $blocks['integrated-hero'] ) ) {
-			unset( $blocks['integrated-hero'] );
-		}
-
-		return $blocks;
-	} );
-	*/
 }
 
 /**
