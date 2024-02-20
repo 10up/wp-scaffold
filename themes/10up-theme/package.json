@@ -13,7 +13,7 @@
     "scaffold:block": "cd includes/blocks/ && wp-create-block --no-plugin --template ../../../../bin/create-block-template"
   },
   "engines": {
-    "node": ">=12.0.0"
+    "node": ">=18.0.0"
   },
   "devDependencies": {
     "10up-toolkit": "^5.2.2"
