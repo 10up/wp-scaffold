@@ -44,15 +44,6 @@ function setup() {
  * @return void
  */
 function register_theme_blocks() {
-	global $wp_version;
-
-	$is_pre_wp_6 = version_compare( $wp_version, '6.0', '<' );
-
-	if ( $is_pre_wp_6 ) {
-		// Filter the plugins URL to allow us to have blocks in themes with linked assets. i.e editorScripts
-		add_filter( 'plugins_url', __NAMESPACE__ . '\filter_plugins_url', 10, 2 );
-	}
-
 	// Register all the blocks in the theme
 	if ( file_exists( TENUP_THEME_BLOCK_DIST_DIR ) ) {
 		$block_json_files = glob( TENUP_THEME_BLOCK_DIST_DIR . '*/block.json' );
@@ -83,26 +74,7 @@ function register_theme_blocks() {
 			register_block_type_from_metadata( $block_folder, $block_options );
 		};
 	};
-
-	if ( $is_pre_wp_6 ) {
-		// Remove the filter after we register the blocks
-		remove_filter( 'plugins_url', __NAMESPACE__ . '\filter_plugins_url', 10, 2 );
-	}
 }
-
-/**
- * Filter the plugins_url to allow us to use assets from theme.
- *
- * @param string $url  The plugins url
- * @param string $path The path to the asset.
- *
- * @return string The overridden url to the block asset.
- */
-function filter_plugins_url( $url, $path ) {
-	$file = preg_replace( '/\.\.\//', '', $path );
-	return trailingslashit( get_stylesheet_directory_uri() ) . $file;
-}
-
 
 /**
  * Enqueue editor-only JavaScript/CSS for blocks.
