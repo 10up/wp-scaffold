@@ -6,16 +6,36 @@
       "email": "info@10up.com"
     }
   ],
+  "repositories": [
+    {
+      "type": "composer",
+      "url": "https://wpackagist.org",
+      "only": [
+        "wpackagist-plugin/*",
+        "wpackagist-theme/*"
+      ]
+    }
+  ],
   "require": {
     "php": ">=7.0"
   },
   "minimum-stability": "dev",
   "prefer-stable": true,
   "require-dev": {
-    "10up/phpcs-composer": "dev-master"
+    "10up/phpcs-composer": "dev-master",
+    "wpackagist-plugin/debug-bar": "*",
+    "wpackagist-plugin/query-monitor":"*",
+    "wpackagist-plugin/debug-bar-slow-actions":"*"
   },
   "scripts": {
     "lint": "phpcs .",
     "lint-fix": "phpcbf ."
+  },
+  "extra": {
+    "installer-paths": {
+      "plugins/{$name}/": [
+        "type:wordpress-plugin"
+      ]
+    }
   }
 }
