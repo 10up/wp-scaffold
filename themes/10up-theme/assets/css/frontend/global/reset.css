@@ -1,0 +1,13 @@
+/**
+* Reset.css
+* Custom reset enhancments.
+* Primary reset is modern-normalize (by default)
+* imported in ../style.css
+*/
+
+/*
+ * Create a root stacking context
+ */
+.wp-site-blocks {
+	isolation: isolate;
+}

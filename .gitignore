@@ -7,6 +7,7 @@ phpunit.xml
 uploads
 upgrade
 cache
+plugins
 
 # Project Files
 dist
@@ -21,7 +22,8 @@ tmtags
 *.un~
 Session.vim
 *.swp
-.vscode
+.vscode/launch.json
+tasks.json
 
 # Mac OSX
 .DS_Store
@@ -32,3 +34,4 @@ Session.vim
 # Windows
 Thumbs.db
 Desktop.ini
+/debug.log

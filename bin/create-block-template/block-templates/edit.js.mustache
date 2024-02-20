@@ -1,0 +1,21 @@
+{{#isDefaultVariant}}
+import { useBlockProps } from '@wordpress/block-editor';
+{{/isDefaultVariant}}
+{{#isInnerBlocksVariant}}
+import { useBlockProps, useInnerBlocksProps } from '@wordpress/block-editor';
+{{/isInnerBlocksVariant}}
+
+export const BlockEdit = (props) => {
+	const { attributes, setAttributes } = props;
+	const blockProps = useBlockProps();
+	{{#isInnerBlocksVariant}}
+	const innerBlocksProps = useInnerBlocksProps({}, {});
+	{{/isInnerBlocksVariant}}
+	return (
+		<div {...blockProps}>
+			{{#isInnerBlocksVariant}}
+			<ul {...innerBlocksProps} />
+			{{/isInnerBlocksVariant}}
+		</div>
+	);
+};

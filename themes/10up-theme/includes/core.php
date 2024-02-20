@@ -7,6 +7,7 @@
 
 namespace TenUpTheme\Core;
 
+use TenUpTheme\ModuleInitialization;
 use TenUpTheme\Utility;
 
 /**
@@ -19,18 +20,45 @@ function setup() {
 		return __NAMESPACE__ . "\\$function";
 	};
 
+	add_action( 'init', $n( 'init' ), apply_filters( 'tenup_theme_init_priority', 8 ) );
 	add_action( 'after_setup_theme', $n( 'i18n' ) );
 	add_action( 'after_setup_theme', $n( 'theme_setup' ) );
 	add_action( 'wp_enqueue_scripts', $n( 'scripts' ) );
 	add_action( 'admin_enqueue_scripts', $n( 'admin_styles' ) );
 	add_action( 'admin_enqueue_scripts', $n( 'admin_scripts' ) );
-	add_action( 'enqueue_block_editor_assets', $n( 'core_block_overrides' ) );
+	add_action( 'enqueue_block_editor_assets', $n( 'enqueue_block_editor_scripts' ) );
 	add_action( 'wp_enqueue_scripts', $n( 'styles' ) );
 	add_action( 'wp_head', $n( 'js_detection' ), 0 );
-	add_action( 'wp_head', $n( 'add_manifest' ), 10 );
 	add_action( 'wp_head', $n( 'embed_ct_css' ), 0 );
 
 	add_filter( 'script_loader_tag', $n( 'script_loader_tag' ), 10, 2 );
+}
+
+/**
+ * Initializes the theme classes and fires an action plugins can hook into.
+ *
+ * @return void
+ */
+function init() {
+	do_action( 'tenup_theme_before_init' );
+
+	// If the composer.json isn't found, trigger a warning.
+	if ( ! file_exists( TENUP_THEME_PATH . 'composer.json' ) ) {
+		add_action(
+			'admin_notices',
+			function() {
+				$class = 'notice notice-error';
+				/* translators: %s: the path to the plugin */
+				$message = sprintf( __( 'The composer.json file was not found within %s. No classes will be loaded.', 'tenup-theme' ), TENUP_THEME_PATH );
+
+				printf( '<div class="%1$s"><p>%2$s</p></div>', esc_attr( $class ), esc_html( $message ) );
+			}
+		);
+		return;
+	}
+
+	ModuleInitialization::instance()->init_classes();
+	do_action( 'tenup_theme_init' );
 }
 
 /**
@@ -53,15 +81,16 @@ function theme_setup() {
 	add_theme_support( 'automatic-feed-links' );
 	add_theme_support( 'title-tag' );
 	add_theme_support( 'post-thumbnails' );
-	add_theme_support( 'editor-styles' );
 	add_theme_support(
 		'html5',
 		array(
 			'search-form',
 			'gallery',
+			'navigation-widgets',
 		)
 	);
 
+	add_theme_support( 'editor-styles' );
 	add_editor_style( 'dist/css/frontend.css' );
 
 	remove_theme_support( 'core-block-patterns' );
@@ -157,18 +186,14 @@ function admin_scripts() {
  *
  * @return void
  */
-function core_block_overrides() {
-	$overrides = TENUP_THEME_DIST_PATH . 'js/core-block-overrides.asset.php';
-	if ( file_exists( $overrides ) ) {
-		$dep = require_once $overrides;
-		wp_enqueue_script(
-			'core-block-overrides',
-			TENUP_THEME_DIST_URL . 'js/core-block-overrides.js',
-			$dep['dependencies'],
-			$dep['version'],
-			true
-		);
-	}
+function enqueue_block_editor_scripts() {
+	wp_enqueue_script(
+		'block-editor-script',
+		TENUP_THEME_DIST_URL . 'js/block-editor-script.js',
+		Utility\get_asset_info( 'block-editor-script', 'dependencies' ),
+		Utility\get_asset_info( 'block-editor-script', 'version' ),
+		true
+	);
 }
 
 /**
@@ -265,15 +290,6 @@ function script_loader_tag( $tag, $handle ) {
 	}
 
 	return $tag;
-}
-
-/**
- * Appends a link tag used to add a manifest.json to the head
- *
- * @return void
- */
-function add_manifest() {
-	echo "<link rel='manifest' href='" . esc_url( TENUP_THEME_TEMPLATE_URL . '/manifest.json' ) . "' />";
 }
 
 /**

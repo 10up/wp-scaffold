@@ -9,33 +9,30 @@
     "lint-js": "10up-toolkit lint-js",
     "lint-style": "10up-toolkit lint-style",
     "test": "10up-toolkit test-unit-jest",
-    "clean-dist": "rm -rf ./dist"
+    "clean-dist": "rm -rf ./dist",
+    "scaffold:block": "cd includes/blocks/ && wp-create-block --no-plugin --template ../../../../bin/create-block-template"
   },
   "engines": {
-    "node": ">=12.0.0"
+    "node": ">=18.0.0"
   },
   "devDependencies": {
-    "10up-toolkit": "^3.0.0"
+    "10up-toolkit": "^5.2.2"
   },
   "dependencies": {
     "@10up/block-components": "^1.9.0",
     "@10up/component-tabs": "^2.0.1",
     "classnames": "^2.3.1",
-    "normalize.css": "^8.0.1"
+    "modern-normalize": "^2.0.0"
   },
   "10up-toolkit": {
+    "useBlockAssets": true,
     "entry": {
       "admin": "./assets/js/admin/admin.js",
       "editor-style-overrides": "./assets/js/admin/editor-style-overrides.js",
-      "blocks": "./includes/blocks/blocks.js",
       "frontend": "./assets/js/frontend/frontend.js",
       "shared": "./assets/js/shared/shared.js",
       "styleguide": "./assets/js/styleguide/styleguide.js",
-      "core-block-overrides": "./includes/core-block-overrides.js",
-      "example-block": "./includes/blocks/example-block/index.js",
-      "tabs-block": "./includes/blocks/tabs/index.js",
-      "tabs-block-view-script": "./includes/blocks/tabs/view.js",
-      "tab-item-block": "./includes/blocks/tab-item/index.js"
+      "block-editor-script": "./includes/block-editor-script.js"
     }
   }
 }

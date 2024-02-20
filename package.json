@@ -18,8 +18,11 @@
     "watch:theme": "npm run watch -w=tenup-theme",
     "watch:plugin": "npm run watch -w=tenup-plugin",
     "watch": "run-p watch:theme watch:plugin",
+    "lint-js": "npm run lint-js --workspaces --if-present",
+    "format-js": "npm run format-js --workspaces --if-present",
+    "lint-css": "npm run lint-css --workspaces --if-present",
     "test": "npm run test --workspaces --if-present",
-    "clean-dist": "npm run clean-dist --if-present"
+    "clean-dist": "npm run clean-dist --workspaces --if-present"
   },
   "author": {
     "name": "10up",
@@ -29,12 +32,14 @@
   },
   "engineStrict": true,
   "engines": {
-    "node": ">=16.0.0",
-    "npm": ">=7.0.0"
+    "node": ">=18.0.0",
+    "npm": ">=9.0.0"
   },
   "devDependencies": {
-    "husky": "^6.0.0",
-    "lint-staged": "^10.5.4",
-    "npm-run-all": "^4.1.5"
+    "@wordpress/create-block": "^4.25.0",
+    "husky": "^8.0.3",
+    "lint-staged": "^15.2.0",
+    "npm-run-all": "^4.1.5",
+    "prettier": "2.6.2"
   }
 }

@@ -4,7 +4,7 @@ This scaffold is the starting point for all 10up WordPress projects.
 
 It contains a bare bones theme and must use plugin for you to base your development off of. Asset bundling is handled entirely by [10up Toolkit](https://github.com/10up/10up-toolkit).
 
-## Requiremnts
+## Requirements
 
 - Node >= 16
 - NPM >= 7
@@ -24,7 +24,7 @@ It contains a bare bones theme and must use plugin for you to base your developm
 		"mu-plugins/my-other-awesome-10up-plugin",
   ],
 ```
-6. To build plugins/themes simply run `npm install` at the root and `npm run [build|start|watch]` and npm will automatically build all themes and plugins.
+6. To build plugins/themes simply run `npm install` at the root and `npm run [build|start|watch]` and npm will automatically build all themes and plugins. If a WordPress critical error is received run `composer install` in all locations that have an existing `composer.lock` file; example locations: `root`, `/mu-plugins/10up-plugin`, `/themes/10up-theme`. Upon build completion set the `10up-theme` as active within WordPress admin by running `wp theme activate 10up-theme`.
 7. `npm workspaces` do not have the ability to run scripts from multiple packages in parrallel. Because of that we use the `npm-run-all` package and we define specific scripts in `package.json` so you will need to update the `watch:*` scripts in `package.json` and replace `tenup-theme` and `tenup-plugin` with the actual package names.
 
 ```json

@@ -8,7 +8,8 @@
     }
   ],
   "require": {
-    "php": ">=7.0"
+    "php": ">=7.0",
+    "haydenpierce/class-finder": "^0.4.3"
   },
   "autoload": {
     "psr-4": {
