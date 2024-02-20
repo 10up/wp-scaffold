@@ -7,6 +7,7 @@
 
 namespace TenUpTheme\Core;
 
+use TenUpTheme\ModuleInitialization;
 use TenUpTheme\Utility;
 
 /**
@@ -19,17 +20,45 @@ function setup() {
 		return __NAMESPACE__ . "\\$function";
 	};
 
+	add_action( 'init', $n( 'init' ), apply_filters( 'tenup_theme_init_priority', 8 ) );
 	add_action( 'after_setup_theme', $n( 'i18n' ) );
 	add_action( 'after_setup_theme', $n( 'theme_setup' ) );
 	add_action( 'wp_enqueue_scripts', $n( 'scripts' ) );
 	add_action( 'admin_enqueue_scripts', $n( 'admin_styles' ) );
 	add_action( 'admin_enqueue_scripts', $n( 'admin_scripts' ) );
-	add_action( 'enqueue_block_editor_assets', $n( 'core_block_overrides' ) );
+	add_action( 'enqueue_block_editor_assets', $n( 'enqueue_block_editor_scripts' ) );
 	add_action( 'wp_enqueue_scripts', $n( 'styles' ) );
 	add_action( 'wp_head', $n( 'js_detection' ), 0 );
-	add_action( 'wp_head', $n( 'add_manifest' ), 10 );
+	add_action( 'wp_head', $n( 'embed_ct_css' ), 0 );
 
 	add_filter( 'script_loader_tag', $n( 'script_loader_tag' ), 10, 2 );
+}
+
+/**
+ * Initializes the theme classes and fires an action plugins can hook into.
+ *
+ * @return void
+ */
+function init() {
+	do_action( 'tenup_theme_before_init' );
+
+	// If the composer.json isn't found, trigger a warning.
+	if ( ! file_exists( TENUP_THEME_PATH . 'composer.json' ) ) {
+		add_action(
+			'admin_notices',
+			function() {
+				$class = 'notice notice-error';
+				/* translators: %s: the path to the plugin */
+				$message = sprintf( __( 'The composer.json file was not found within %s. No classes will be loaded.', 'tenup-theme' ), TENUP_THEME_PATH );
+
+				printf( '<div class="%1$s"><p>%2$s</p></div>', esc_attr( $class ), esc_html( $message ) );
+			}
+		);
+		return;
+	}
+
+	ModuleInitialization::instance()->init_classes();
+	do_action( 'tenup_theme_init' );
 }
 
 /**
@@ -57,8 +86,19 @@ function theme_setup() {
 		array(
 			'search-form',
 			'gallery',
+			'navigation-widgets',
 		)
 	);
+
+	add_theme_support( 'editor-styles' );
+	add_editor_style( 'dist/css/frontend.css' );
+
+	remove_theme_support( 'core-block-patterns' );
+
+	// by adding the `theme.json` file block templates automatically get enabled.
+	// because the template editor will need additional QA and work to get right
+	// the default is to disable this feature.
+	remove_theme_support( 'block-templates' );
 
 	// This theme uses wp_nav_menu() in three locations.
 	register_nav_menus(
@@ -75,6 +115,10 @@ function theme_setup() {
  */
 function scripts() {
 
+	/**
+	 * Enqueuing frontend.js is required to get css hot reloading working in the frontend
+	 * If you're not shipping any front-end js wrap this enqueue in a SCRIPT_DEBUG check.
+	 */
 	wp_enqueue_script(
 		'frontend',
 		TENUP_THEME_TEMPLATE_URL . '/dist/js/frontend.js',
@@ -93,15 +137,22 @@ function scripts() {
 		);
 	}
 
+	/**
+	 * Enqueuing shared.js is required to get css hot reloading working in the frontend
+	 * If you're not shipping any shared js wrap this enqueue in a SCRIPT_DEBUG check.
+	 */
+
 	/*
-	wp_enqueue_script(
-		'shared',
-		TENUP_THEME_TEMPLATE_URL . '/dist/js/shared.js',
-		Utility\get_asset_info( 'shared', 'dependencies' ),
-		Utility\get_asset_info( 'shared', 'version' ),
-		true
-	);
+	 * Uncoment this to use the shared.js file.
+		wp_enqueue_script(
+			'shared',
+			TENUP_THEME_TEMPLATE_URL . '/dist/js/shared.js',
+			Utility\get_asset_info( 'shared', 'dependencies' ),
+			Utility\get_asset_info( 'shared', 'version' ),
+			true
+		);
 	*/
+
 }
 
 /**
@@ -119,13 +170,14 @@ function admin_scripts() {
 	);
 
 	/*
-	wp_enqueue_script(
-		'shared',
-		TENUP_THEME_TEMPLATE_URL . '/dist/js/shared.js',
-		Utility\get_asset_info( 'shared', 'dependencies' ),
-		Utility\get_asset_info( 'shared', 'version' ),
-		true
-	);
+	 * Uncoment this to use the shared.js file.
+		wp_enqueue_script(
+			'shared',
+			TENUP_THEME_TEMPLATE_URL . '/dist/js/shared.js',
+			Utility\get_asset_info( 'shared', 'dependencies' ),
+			Utility\get_asset_info( 'shared', 'version' ),
+			true
+		);
 	*/
 }
 
@@ -134,18 +186,14 @@ function admin_scripts() {
  *
  * @return void
  */
-function core_block_overrides() {
-	$overrides = TENUP_THEME_DIST_PATH . 'js/core-block-overrides.asset.php';
-	if ( file_exists( $overrides ) ) {
-		$dep = require_once $overrides;
-		wp_enqueue_script(
-			'core-block-overrides',
-			TENUP_THEME_DIST_URL . 'js/core-block-overrides.js',
-			$dep['dependencies'],
-			$dep['version'],
-			true
-		);
-	}
+function enqueue_block_editor_scripts() {
+	wp_enqueue_script(
+		'block-editor-script',
+		TENUP_THEME_DIST_URL . 'js/block-editor-script.js',
+		Utility\get_asset_info( 'block-editor-script', 'dependencies' ),
+		Utility\get_asset_info( 'block-editor-script', 'version' ),
+		true
+	);
 }
 
 /**
@@ -157,18 +205,19 @@ function admin_styles() {
 
 	wp_enqueue_style(
 		'admin-style',
-		TENUP_THEME_TEMPLATE_URL . '/dist/css/admin-style.css',
+		TENUP_THEME_TEMPLATE_URL . '/dist/css/admin.css',
 		[],
 		Utility\get_asset_info( 'admin-style', 'version' )
 	);
 
 	/*
-	wp_enqueue_style(
-		'shared-style',
-		TENUP_THEME_TEMPLATE_URL . '/dist/css/shared-style.css',
-		[],
-		Utility\get_asset_info( 'shared-style', 'version' )
-	);
+	 * Uncoment this to use the shared.css file.
+		wp_enqueue_style(
+			'shared-style',
+			TENUP_THEME_TEMPLATE_URL . '/dist/css/shared.css',
+			[],
+			Utility\get_asset_info( 'shared', 'version' )
+		);
 	*/
 }
 
@@ -181,19 +230,20 @@ function styles() {
 
 	wp_enqueue_style(
 		'styles',
-		TENUP_THEME_TEMPLATE_URL . '/dist/css/style.css',
+		TENUP_THEME_TEMPLATE_URL . '/dist/css/frontend.css',
 		[],
-		Utility\get_asset_info( 'style', 'version' )
+		Utility\get_asset_info( 'frontend', 'version' )
 	);
 
 	if ( is_page_template( 'templates/page-styleguide.php' ) ) {
 		wp_enqueue_style(
 			'styleguide',
-			TENUP_THEME_TEMPLATE_URL . '/dist/css/styleguide-style.css',
+			TENUP_THEME_TEMPLATE_URL . '/dist/css/styleguide.css',
 			[],
 			Utility\get_asset_info( 'styleguide-style', 'version' )
 		);
 	}
+
 }
 
 /**
@@ -243,10 +293,28 @@ function script_loader_tag( $tag, $handle ) {
 }
 
 /**
- * Appends a link tag used to add a manifest.json to the head
+ * Inlines ct.css in the head
  *
+ * Embeds a diagnostic CSS file written by Harry Roberts
+ * that helps diagnose render blocking resources and other
+ * performance bottle necks.
+ *
+ * The CSS is inlined in the head of the document, only when requesting
+ * a page with the query param ?debug_perf=1
+ *
+ * @link https://csswizardry.com/ct/
  * @return void
  */
-function add_manifest() {
-	echo "<link rel='manifest' href='" . esc_url( TENUP_THEME_TEMPLATE_URL . '/manifest.json' ) . "' />";
+function embed_ct_css() {
+
+	$debug_performance = rest_sanitize_boolean( filter_input( INPUT_GET, 'debug_perf', FILTER_SANITIZE_NUMBER_INT ) );
+
+	if ( ! $debug_performance ) {
+		return;
+	};
+
+	wp_register_style( 'ct', false ); // phpcs:ignore
+	wp_enqueue_style( 'ct' );
+	wp_add_inline_style( 'ct', 'head{--ct-is-problematic:solid;--ct-is-affected:dashed;--ct-notify:#0bce6b;--ct-warn:#ffa400;--ct-error:#ff4e42}head,head [rel=stylesheet],head script,head script:not([src])[async],head script:not([src])[defer],head script~meta[http-equiv=content-security-policy],head style,head>meta[charset]:not(:nth-child(-n+5)){display:block}head [rel=stylesheet],head script,head script~meta[http-equiv=content-security-policy],head style,head title,head>meta[charset]:not(:nth-child(-n+5)){margin:5px;padding:5px;border-width:5px;background-color:#fff;color:#333}head ::before,head script,head style{font:16px/1.5 monospace,monospace;display:block}head ::before{font-weight:700}head link[rel=stylesheet],head script[src]{border-style:var(--ct-is-problematic);border-color:var(--ct-warn)}head script[src]::before{content:"[Blocking Script – " attr(src) "]"}head link[rel=stylesheet]::before{content:"[Blocking Stylesheet – " attr(href) "]"}head script:not(:empty),head style:not(:empty){max-height:5em;overflow:auto;background-color:#ffd;white-space:pre;border-color:var(--ct-notify);border-style:var(--ct-is-problematic)}head script:not(:empty)::before{content:"[Inline Script] "}head style:not(:empty)::before{content:"[Inline Style] "}head script:not(:empty)~title,head script[src]:not([async]):not([defer]):not([type=module])~title{display:block;border-style:var(--ct-is-affected);border-color:var(--ct-error)}head script:not(:empty)~title::before,head script[src]:not([async]):not([defer]):not([type=module])~title::before{content:"[<title> blocked by JS] "}head [rel=stylesheet]:not([media=print]):not(.ct)~script,head style:not(:empty)~script{border-style:var(--ct-is-affected);border-color:var(--ct-warn)}head [rel=stylesheet]:not([media=print]):not(.ct)~script::before,head style:not(:empty)~script::before{content:"[JS blocked by CSS – " attr(src) "]"}head script[src][src][async][defer]{display:block;border-style:var(--ct-is-problematic);border-color:var(--ct-warn)}head script[src][src][async][defer]::before{content:"[async and defer is redundant: prefer defer – " attr(src) "]"}head script:not([src])[async],head script:not([src])[defer]{border-style:var(--ct-is-problematic);border-color:var(--ct-warn)}head script:not([src])[async]::before{content:"The async attribute is redundant on inline scripts"}head script:not([src])[defer]::before{content:"The defer attribute is redundant on inline scripts"}head [rel=stylesheet][href^="//"],head [rel=stylesheet][href^=http],head script[src][src][src^="//"],head script[src][src][src^=http]{border-style:var(--ct-is-problematic);border-color:var(--ct-error)}head script[src][src][src^="//"]::before,head script[src][src][src^=http]::before{content:"[Third Party Blocking Script – " attr(src) "]"}head [rel=stylesheet][href^="//"]::before,head [rel=stylesheet][href^=http]::before{content:"[Third Party Blocking Stylesheet – " attr(href) "]"}head script~meta[http-equiv=content-security-policy]{border-style:var(--ct-is-problematic);border-color:var(--ct-error)}head script~meta[http-equiv=content-security-policy]::before{content:"[Meta CSP defined after JS]"}head>meta[charset]:not(:nth-child(-n+5)){border-style:var(--ct-is-problematic);border-color:var(--ct-warn)}head>meta[charset]:not(:nth-child(-n+5))::before{content:"[Charset should appear as early as possible]"}link[rel=stylesheet].ct,link[rel=stylesheet][media=print],script[async],script[defer],script[type=module],style.ct{display:none}' );
+
 }

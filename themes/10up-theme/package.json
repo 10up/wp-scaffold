@@ -2,39 +2,34 @@
   "name": "tenup-theme",
   "version": "1.0.0",
   "scripts": {
-    "start": "10up-toolkit start",
-    "watch": "10up-toolkit watch",
+    "start": "npm run watch",
+    "watch": "10up-toolkit watch --port=5000 --hot",
     "build": "10up-toolkit build",
     "format-js": "10up-toolkit format-js",
     "lint-js": "10up-toolkit lint-js",
     "lint-style": "10up-toolkit lint-style",
     "test": "10up-toolkit test-unit-jest",
-    "clean-dist": "rm -rf ./dist"
+    "clean-dist": "rm -rf ./dist",
+    "scaffold:block": "cd includes/blocks/ && wp-create-block --no-plugin --template ../../../../bin/create-block-template"
   },
   "engines": {
-    "node": ">=12.0.0"
+    "node": ">=18.0.0"
   },
   "devDependencies": {
-    "10up-toolkit": "^1.0.0"
+    "10up-toolkit": "^5.2.2"
   },
   "dependencies": {
-    "normalize.css": "^8.0.1"
+    "modern-normalize": "^2.0.0"
   },
   "10up-toolkit": {
-    "devURL": "https://my-project.test",
+    "useBlockAssets": true,
     "entry": {
       "admin": "./assets/js/admin/admin.js",
-      "blocks": "./includes/blocks/blocks.js",
+      "editor-style-overrides": "./assets/js/admin/editor-style-overrides.js",
       "frontend": "./assets/js/frontend/frontend.js",
       "shared": "./assets/js/shared/shared.js",
       "styleguide": "./assets/js/styleguide/styleguide.js",
-      "admin-style": "./assets/css/admin/admin-style.css",
-      "editor-style": "./assets/css/frontend/editor-style.css",
-      "shared-style": "./assets/css/shared/shared-style.css",
-      "style": "./assets/css/frontend/style.css",
-      "styleguide-style": "./assets/css/styleguide/styleguide.css",
-      "core-block-overrides": "./includes/core-block-overrides.js",
-      "example-block": "./includes/blocks/example-block/index.js"
+      "block-editor-script": "./includes/block-editor-script.js"
     }
   }
 }

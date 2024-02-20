@@ -4,8 +4,15 @@
  *
  */
 
-/* Resets - installed via NPM */
-@import url("normalize.css");
+/**
+ * Resets - installed via NPM
+ * modern-normalize - https://github.com/sindresorhus/modern-normalize
+ * Replaced normalize.css with modern-normalize
+ * If you want to use a custom normalize or reset,
+ * you can remove this import and add your own.
+ * If replacing, be sure to provide clear guidance for engineering team.
+ */
+@import url("modern-normalize/modern-normalize.css");
 
 /* Global - global pieces like media queries, mixins and placholders */
 @import url("global/index.css");
@@ -23,7 +30,7 @@
 
 /* Components */
 
-/* @import url("components/index.css"); */
+@import url("components/index.css");
 
 /* Gutenberg blocks */
 

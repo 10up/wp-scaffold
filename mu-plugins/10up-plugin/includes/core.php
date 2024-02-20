@@ -7,7 +7,10 @@
 
 namespace TenUpPlugin\Core;
 
+use TenUpPlugin\ModuleInitialization;
 use \WP_Error;
+use TenUpPlugin\Utility;
+
 
 /**
  * Default setup routine
@@ -20,7 +23,7 @@ function setup() {
 	};
 
 	add_action( 'init', $n( 'i18n' ) );
-	add_action( 'init', $n( 'init' ) );
+	add_action( 'init', $n( 'init' ), apply_filters( 'tenup_plugin_init_priority', 8 ) );
 	add_action( 'wp_enqueue_scripts', $n( 'scripts' ) );
 	add_action( 'wp_enqueue_scripts', $n( 'styles' ) );
 	add_action( 'admin_enqueue_scripts', $n( 'admin_scripts' ) );
@@ -51,6 +54,24 @@ function i18n() {
  * @return void
  */
 function init() {
+	do_action( 'tenup_plugin_before_init' );
+
+	// If the composer.json isn't found, trigger a warning.
+	if ( ! file_exists( TENUP_PLUGIN_PATH . 'composer.json' ) ) {
+		add_action(
+			'admin_notices',
+			function() {
+				$class = 'notice notice-error';
+				/* translators: %s: the path to the plugin */
+				$message = sprintf( __( 'The composer.json file was not found within %s. No classes will be loaded.', 'tenup-plugin' ), TENUP_PLUGIN_PATH );
+
+				printf( '<div class="%1$s"><p>%2$s</p></div>', esc_attr( $class ), esc_html( $message ) );
+			}
+		);
+		return;
+	}
+
+	ModuleInitialization::instance()->init_classes();
 	do_action( 'tenup_plugin_init' );
 }
 
@@ -100,7 +121,7 @@ function script_url( $script, $context ) {
 		return new WP_Error( 'invalid_enqueue_context', 'Invalid $context specified in TenUpPlugin script loader.' );
 	}
 
-	return TENUP_PLUGIN_URL . "dist/js/${script}.js";
+	return TENUP_PLUGIN_URL . "dist/js/{$script}.js";
 
 }
 
@@ -118,7 +139,7 @@ function style_url( $stylesheet, $context ) {
 		return new WP_Error( 'invalid_enqueue_context', 'Invalid $context specified in TenUpPlugin stylesheet loader.' );
 	}
 
-	return TENUP_PLUGIN_URL . "dist/css/${stylesheet}.css";
+	return TENUP_PLUGIN_URL . "dist/css/{$stylesheet}.css";
 
 }
 
@@ -132,16 +153,16 @@ function scripts() {
 	wp_enqueue_script(
 		'tenup_plugin_shared',
 		script_url( 'shared', 'shared' ),
-		[],
-		TENUP_PLUGIN_VERSION,
+		Utility\get_asset_info( 'shared', 'dependencies' ),
+		Utility\get_asset_info( 'shared', 'version' ),
 		true
 	);
 
 	wp_enqueue_script(
 		'tenup_plugin_frontend',
 		script_url( 'frontend', 'frontend' ),
-		[],
-		TENUP_PLUGIN_VERSION,
+		Utility\get_asset_info( 'frontend', 'dependencies' ),
+		Utility\get_asset_info( 'frontend', 'version' ),
 		true
 	);
 
@@ -157,16 +178,16 @@ function admin_scripts() {
 	wp_enqueue_script(
 		'tenup_plugin_shared',
 		script_url( 'shared', 'shared' ),
-		[],
-		TENUP_PLUGIN_VERSION,
+		Utility\get_asset_info( 'shared', 'dependencies' ),
+		Utility\get_asset_info( 'shared', 'version' ),
 		true
 	);
 
 	wp_enqueue_script(
 		'tenup_plugin_admin',
 		script_url( 'admin', 'admin' ),
-		[],
-		TENUP_PLUGIN_VERSION,
+		Utility\get_asset_info( 'admin', 'dependencies' ),
+		Utility\get_asset_info( 'admin', 'version' ),
 		true
 	);
 
@@ -181,24 +202,24 @@ function styles() {
 
 	wp_enqueue_style(
 		'tenup_plugin_shared',
-		style_url( 'shared-style', 'shared' ),
+		style_url( 'shared', 'shared' ),
 		[],
-		TENUP_PLUGIN_VERSION
+		Utility\get_asset_info( 'shared', 'version' ),
 	);
 
 	if ( is_admin() ) {
 		wp_enqueue_style(
 			'tenup_plugin_admin',
-			style_url( 'admin-style', 'admin' ),
+			style_url( 'admin', 'admin' ),
 			[],
-			TENUP_PLUGIN_VERSION
+			Utility\get_asset_info( 'admin', 'version' ),
 		);
 	} else {
 		wp_enqueue_style(
 			'tenup_plugin_frontend',
-			style_url( 'style', 'frontend' ),
+			style_url( 'frontend', 'frontend' ),
 			[],
-			TENUP_PLUGIN_VERSION
+			Utility\get_asset_info( 'frontend', 'version' ),
 		);
 	}
 
@@ -213,16 +234,16 @@ function admin_styles() {
 
 	wp_enqueue_style(
 		'tenup_plugin_shared',
-		style_url( 'shared-style', 'shared' ),
+		style_url( 'shared', 'shared' ),
 		[],
-		TENUP_PLUGIN_VERSION
+		Utility\get_asset_info( 'shared', 'version' ),
 	);
 
 	wp_enqueue_style(
 		'tenup_plugin_admin',
-		style_url( 'admin-style', 'admin' ),
+		style_url( 'admin', 'admin' ),
 		[],
-		TENUP_PLUGIN_VERSION
+		Utility\get_asset_info( 'admin', 'version' ),
 	);
 
 }

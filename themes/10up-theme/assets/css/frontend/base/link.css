@@ -1,0 +1,11 @@
+/*
+ * Ensure that we are not overriding the editor styles of the
+ * WordPress Components.
+ *
+ * This is a workaround for: https://github.com/WordPress/gutenberg/issues/10178
+ *
+ * using :where to prevent the specificity increase of using :not
+ */
+a:where(:not(.components-external-link)) {
+
+}

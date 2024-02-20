@@ -7,14 +7,22 @@
     "type": "git",
     "url": "https://project-git-repo.tld"
   },
+  "workspaces": [
+    "themes/*",
+    "mu-plugins/10up-plugin"
+  ],
   "scripts": {
-    "prepare": "lerna bootstrap --hoist && husky install",
-    "build": "lerna run build --stream",
-    "start": "lerna run start --parallel",
-    "watch": "lerna run watch --parallel",
-    "test": "lerna run test --stream",
-    "clean": "lerna clean",
-    "clean-dist": "lerna run clean-dist --stream"
+    "prepare": "husky install",
+    "build": "npm run build --workspaces --if-present",
+    "start": "npm run watch",
+    "watch:theme": "npm run watch -w=tenup-theme",
+    "watch:plugin": "npm run watch -w=tenup-plugin",
+    "watch": "run-p watch:theme watch:plugin",
+    "lint-js": "npm run lint-js --workspaces --if-present",
+    "format-js": "npm run format-js --workspaces --if-present",
+    "lint-css": "npm run lint-css --workspaces --if-present",
+    "test": "npm run test --workspaces --if-present",
+    "clean-dist": "npm run clean-dist --workspaces --if-present"
   },
   "author": {
     "name": "10up",
@@ -22,12 +30,16 @@
     "url": "https://10up.com",
     "role": "developer"
   },
+  "engineStrict": true,
   "engines": {
-    "node": ">=12.0.0"
+    "node": ">=18.0.0",
+    "npm": ">=9.0.0"
   },
   "devDependencies": {
-    "husky": "^6.0.0",
-    "lerna": "^4.0.0",
-    "lint-staged": "^10.5.4"
+    "@wordpress/create-block": "^4.25.0",
+    "husky": "^8.0.3",
+    "lint-staged": "^15.2.0",
+    "npm-run-all": "^4.1.5",
+    "prettier": "2.6.2"
   }
 }
