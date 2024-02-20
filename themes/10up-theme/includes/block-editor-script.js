@@ -1,5 +1,5 @@
 /**
- * Entry point for all core block overrides
+ * Entry point for all block editor specific scripts.
  */
 
 import './block-collection';

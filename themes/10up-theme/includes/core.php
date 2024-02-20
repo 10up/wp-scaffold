@@ -26,7 +26,7 @@ function setup() {
 	add_action( 'wp_enqueue_scripts', $n( 'scripts' ) );
 	add_action( 'admin_enqueue_scripts', $n( 'admin_styles' ) );
 	add_action( 'admin_enqueue_scripts', $n( 'admin_scripts' ) );
-	add_action( 'enqueue_block_editor_assets', $n( 'core_block_overrides' ) );
+	add_action( 'enqueue_block_editor_assets', $n( 'enqueue_block_editor_scripts' ) );
 	add_action( 'wp_enqueue_scripts', $n( 'styles' ) );
 	add_action( 'wp_head', $n( 'js_detection' ), 0 );
 	add_action( 'wp_head', $n( 'embed_ct_css' ), 0 );
@@ -185,18 +185,14 @@ function admin_scripts() {
  *
  * @return void
  */
-function core_block_overrides() {
-	$overrides = TENUP_THEME_DIST_PATH . 'js/core-block-overrides.asset.php';
-	if ( file_exists( $overrides ) ) {
-		$dep = require_once $overrides;
-		wp_enqueue_script(
-			'core-block-overrides',
-			TENUP_THEME_DIST_URL . 'js/core-block-overrides.js',
-			$dep['dependencies'],
-			$dep['version'],
-			true
-		);
-	}
+function enqueue_block_editor_scripts() {
+	wp_enqueue_script(
+		'block-editor-script',
+		TENUP_THEME_DIST_URL . 'js/block-editor-script.js',
+		Utility\get_asset_info( 'block-editor-script', 'dependencies' ),
+		Utility\get_asset_info( 'block-editor-script', 'version' ),
+		true
+	);
 }
 
 /**
