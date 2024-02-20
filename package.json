@@ -22,7 +22,7 @@
     "format-js": "npm run format-js --workspaces --if-present",
     "lint-css": "npm run lint-css --workspaces --if-present",
     "test": "npm run test --workspaces --if-present",
-    "clean-dist": "npm run clean-dist --if-present"
+    "clean-dist": "npm run clean-dist --workspaces --if-present"
   },
   "author": {
     "name": "10up",
