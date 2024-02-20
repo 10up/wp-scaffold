@@ -86,6 +86,7 @@ function theme_setup() {
 		array(
 			'search-form',
 			'gallery',
+			'navigation-widgets',
 		)
 	);
 
