@@ -20,9 +20,7 @@ function setup() {
 	};
 
 	add_action( 'enqueue_block_editor_assets', $n( 'blocks_editor_styles' ) );
-
 	add_action( 'init', $n( 'register_theme_blocks' ) );
-
 	add_action( 'init', $n( 'register_block_pattern_categories' ) );
 
 	/*
