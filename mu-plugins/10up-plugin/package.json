@@ -15,7 +15,7 @@
     "node": ">=18.0.0"
   },
   "devDependencies": {
-    "10up-toolkit": "^5.2.2"
+    "10up-toolkit": "^6.0.0"
   },
   "dependencies": {
     "prop-types": "^15.7.2"
