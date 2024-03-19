@@ -9,6 +9,6 @@
       "10up-toolkit lint-js"
     ],
     "*.php": [
-      "./vendor/bin/phpcs --extensions=php --warning-severity=8 -s"
+      "../../vendor/bin/phpcs"
     ]
 }

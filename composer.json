@@ -1,5 +1,7 @@
 {
   "name": "10up/wp-scaffold",
+  "description": "The starting point for all 10up WordPress projects.",
+  "license": "MIT",
   "authors": [
     {
       "name": "10up",
@@ -22,10 +24,11 @@
   "minimum-stability": "dev",
   "prefer-stable": true,
   "require-dev": {
-    "10up/phpcs-composer": "dev-master",
+    "10up/phpcs-composer": "^3.0",
     "wpackagist-plugin/debug-bar": "*",
     "wpackagist-plugin/query-monitor":"*",
-    "wpackagist-plugin/debug-bar-slow-actions":"*"
+    "wpackagist-plugin/debug-bar-slow-actions":"*",
+    "phpcompatibility/php-compatibility": "dev-develop as 9.99.99"
   },
   "scripts": {
     "lint": "phpcs .",
@@ -36,6 +39,12 @@
       "plugins/{$name}/": [
         "type:wordpress-plugin"
       ]
+    }
+  },
+  "config": {
+    "allow-plugins": {
+      "composer/installers": true,
+      "dealerdirect/phpcodesniffer-composer-installer": true
     }
   }
 }

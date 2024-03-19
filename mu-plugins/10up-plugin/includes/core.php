@@ -8,7 +8,7 @@
 namespace TenUpPlugin\Core;
 
 use TenUpPlugin\ModuleInitialization;
-use \WP_Error;
+use WP_Error;
 use TenUpPlugin\Utility;
 
 
@@ -18,7 +18,7 @@ use TenUpPlugin\Utility;
  * @return void
  */
 function setup() {
-	$n = function( $function ) {
+	$n = function ( $function ) {
 		return __NAMESPACE__ . "\\$function";
 	};
 
@@ -60,7 +60,7 @@ function init() {
 	if ( ! file_exists( TENUP_PLUGIN_PATH . 'composer.json' ) ) {
 		add_action(
 			'admin_notices',
-			function() {
+			function () {
 				$class = 'notice notice-error';
 				/* translators: %s: the path to the plugin */
 				$message = sprintf( __( 'The composer.json file was not found within %s. No classes will be loaded.', 'tenup-plugin' ), TENUP_PLUGIN_PATH );
@@ -94,7 +94,6 @@ function activate() {
  * @return void
  */
 function deactivate() {
-
 }
 
 
@@ -122,7 +121,6 @@ function script_url( $script, $context ) {
 	}
 
 	return TENUP_PLUGIN_URL . "dist/js/{$script}.js";
-
 }
 
 /**
@@ -140,7 +138,6 @@ function style_url( $stylesheet, $context ) {
 	}
 
 	return TENUP_PLUGIN_URL . "dist/css/{$stylesheet}.css";
-
 }
 
 /**
@@ -165,7 +162,6 @@ function scripts() {
 		Utility\get_asset_info( 'frontend', 'version' ),
 		true
 	);
-
 }
 
 /**
@@ -190,7 +186,6 @@ function admin_scripts() {
 		Utility\get_asset_info( 'admin', 'version' ),
 		true
 	);
-
 }
 
 /**
@@ -222,7 +217,6 @@ function styles() {
 			Utility\get_asset_info( 'frontend', 'version' ),
 		);
 	}
-
 }
 
 /**
@@ -245,7 +239,6 @@ function admin_styles() {
 		[],
 		Utility\get_asset_info( 'admin', 'version' ),
 	);
-
 }
 
 /**
