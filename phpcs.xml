@@ -11,6 +11,12 @@
 	<exclude-pattern>vendor/</exclude-pattern>
 	<exclude-pattern>dist/</exclude-pattern>
 
+	<!-- Exclude the specific plugins we don't want to scan -->
+	<exclude-pattern>./plugins/debug-bar/</exclude-pattern>
+	<exclude-pattern>./plugins/debug-bar-slow-actions/</exclude-pattern>
+	<exclude-pattern>./plugins/query-monitor/</exclude-pattern>
+
+	<!-- Use the 10up rulset -->
 	<rule ref="10up-Default" />
 
 	<!-- Ignore filecomment for the plugin loader -->
