@@ -157,5 +157,4 @@ class ModuleInitialization {
 	public function get_all_classes() {
 		return $this->classes;
 	}
-
 }

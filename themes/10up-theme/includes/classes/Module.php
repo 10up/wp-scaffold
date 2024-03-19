@@ -36,5 +36,4 @@ abstract class Module {
 	 * @return void
 	 */
 	abstract public function register();
-
 }
