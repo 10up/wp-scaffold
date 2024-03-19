@@ -1,5 +1,7 @@
 {
   "name": "10up/wp-scaffold",
+  "description": "The starting point for all 10up WordPress projects.",
+  "license": "MIT",
   "authors": [
     {
       "name": "10up",
