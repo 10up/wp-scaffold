@@ -215,5 +215,4 @@ abstract class AbstractPostType extends Module {
 	public function after_register() {
 		// Do nothing.
 	}
-
 }

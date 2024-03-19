@@ -81,6 +81,4 @@ class Demo extends AbstractPostType {
 	public function after_register() {
 		// Register any hooks/filters you need.
 	}
-
-
 }
