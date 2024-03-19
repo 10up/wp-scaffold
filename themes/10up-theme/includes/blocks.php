@@ -15,7 +15,7 @@ use TenUpTheme\Utility;
  * @return void
  */
 function setup() {
-	$n = function( $function ) {
+	$n = function ( $function ) {
 		return __NAMESPACE__ . "\\$function";
 	};
 
@@ -68,7 +68,7 @@ function register_theme_blocks() {
 			if ( file_exists( $markup_file_path ) ) {
 
 				// only add the render callback if the block has a file called markup.php in it's directory
-				$block_options['render_callback'] = function( $attributes, $content, $block ) use ( $block_folder ) {
+				$block_options['render_callback'] = function ( $attributes, $content, $block ) use ( $block_folder ) {
 
 					// create helpful variables that will be accessible in markup.php file
 					$context = $block->context;
@@ -78,11 +78,11 @@ function register_theme_blocks() {
 					include $block_folder . '/markup.php';
 					return ob_get_clean();
 				};
-			};
+			}
 
 			register_block_type_from_metadata( $block_folder, $block_options );
-		};
-	};
+		}
+	}
 
 	if ( $is_pre_wp_6 ) {
 		// Remove the filter after we register the blocks
@@ -126,7 +126,6 @@ function blocks_editor_styles() {
 			true
 		);
 	}
-
 }
 
 /**

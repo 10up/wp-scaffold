@@ -55,7 +55,6 @@ function get_colors( $path ) {
 
 		return $matches[0];
 	}
-
 }
 
 /**
@@ -87,5 +86,4 @@ function adjust_brightness( $hex, $steps ) {
 	}
 
 	return $return;
-
 }

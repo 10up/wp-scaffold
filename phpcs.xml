@@ -1,9 +1,31 @@
 <?xml version="1.0"?>
 <ruleset name="10up PHPCS">
 	<description>10up PHPCS extended.</description>
+
+	<!-- Scan these directories -->
+	<file>./themes/*</file>
+	<file>./mu-plugins/*</file>
+
+	<!-- Don't scan these directories -->
+	<exclude-pattern>node_modules/</exclude-pattern>
+	<exclude-pattern>vendor/</exclude-pattern>
 	<exclude-pattern>dist/</exclude-pattern>
-	<exclude-pattern>plugins/*</exclude-pattern>
+
+	<!-- Exclude the specific plugins we don't want to scan -->
+	<exclude-pattern>./plugins/debug-bar/</exclude-pattern>
+	<exclude-pattern>./plugins/debug-bar-slow-actions/</exclude-pattern>
+	<exclude-pattern>./plugins/query-monitor/</exclude-pattern>
+
+	<!-- Use the 10up rulset -->
 	<rule ref="10up-Default" />
 
-	<arg name="colors"/>
+	<!-- Ignore filecomment for the plugin loader -->
+	<rule ref="Squiz.Commenting.FileComment.Missing">
+		<exclude-pattern>./mu-plugins/10up-plugin-loader.php</exclude-pattern>
+	</rule>
+
+	<arg value="sp"/> <!-- Show sniff and progress -->
+	<arg name="colors"/> <!-- Show results with colors. Disable if working on Windows -->
+	<arg name="basepath" value="."/> <!-- Strip the file paths down to the relevant bit -->
+	<arg name="extensions" value="php"/> <!-- Limit to PHP -->
 </ruleset>
