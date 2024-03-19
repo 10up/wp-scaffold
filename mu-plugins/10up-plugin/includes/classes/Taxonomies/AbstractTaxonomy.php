@@ -66,6 +66,15 @@ abstract class AbstractTaxonomy extends Module {
 	abstract public function get_plural_label();
 
 	/**
+	 * Is the taxonomy hierarchical?
+	 *
+	 * @return bool
+	 */
+	public function is_hierarchical() {
+		return false;
+	}
+
+	/**
 	 * Register hooks and actions.
 	 *
 	 * @uses $this->get_name() to get the taxonomy's slug.
@@ -89,7 +98,7 @@ abstract class AbstractTaxonomy extends Module {
 	public function get_options() {
 		return array(
 			'labels'            => $this->get_labels(),
-			'hierarchical'      => false,
+			'hierarchical'      => $this->is_hierarchical(),
 			'show_ui'           => true,
 			'show_admin_column' => true,
 			'query_var'         => true,

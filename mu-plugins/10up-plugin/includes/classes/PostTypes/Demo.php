@@ -40,6 +40,19 @@ class Demo extends AbstractPostType {
 	}
 
 	/**
+	 * Get the menu icon for the post type.
+	 *
+	 * This can be a base64 encoded SVG, a dashicons class or 'none' to leave it empty so it can be filled with CSS.
+	 *
+	 * @see https://developer.wordpress.org/resource/dashicons/
+	 *
+	 * @return string
+	 */
+	public function get_menu_icon() {
+		return 'dashicons-chart-pie';
+	}
+
+	/**
 	 * Can the class be registered?
 	 *
 	 * @return bool
@@ -68,4 +81,6 @@ class Demo extends AbstractPostType {
 	public function after_register() {
 		// Register any hooks/filters you need.
 	}
+
+
 }

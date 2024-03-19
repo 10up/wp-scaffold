@@ -36,6 +36,35 @@ abstract class AbstractPostType extends Module {
 	abstract public function get_plural_label();
 
 	/**
+	 * Get the menu icon for the post type.
+	 *
+	 * This can be a base64 encoded SVG, a dashicons class or 'none' to leave it empty so it can be filled with CSS.
+	 *
+	 * @see https://developer.wordpress.org/resource/dashicons/
+	 *
+	 * @return string
+	 */
+	abstract public function get_menu_icon();
+
+	/**
+	 * Get the menu position for the post type.
+	 *
+	 * @return int|null
+	 */
+	public function get_menu_position() {
+		return null;
+	}
+
+	/**
+	 * Is the post type hierarchical?
+	 *
+	 * @return bool
+	 */
+	public function is_hierarchical() {
+		return false;
+	}
+
+	/**
 	 * Default post type supported feature names.
 	 *
 	 * @return array
@@ -68,6 +97,9 @@ abstract class AbstractPostType extends Module {
 			'show_in_nav_menus' => false,
 			'show_in_rest'      => true,
 			'supports'          => $this->get_editor_supports(),
+			'menu_icon'         => $this->get_menu_icon(),
+			'menu_position'     => $this->get_menu_position(),
+			'hierarchical'      => $this->is_hierarchical(),
 		];
 
 		return $options;
