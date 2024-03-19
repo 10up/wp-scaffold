@@ -12,6 +12,11 @@
 
 	<rule ref="10up-Default" />
 
+	<!-- Ignore filecomment for the plugin loader -->
+	<rule ref="Squiz.Commenting.FileComment.Missing">
+		<exclude-pattern>./mu-plugins/10up-plugin-loader.php</exclude-pattern>
+	</rule>
+
 	<arg value="sp"/> <!-- Show sniff and progress -->
 	<arg name="colors"/> <!-- Show results with colors. Disable if working on Windows -->
 	<arg name="basepath" value="."/> <!-- Strip the file paths down to the relevant bit -->

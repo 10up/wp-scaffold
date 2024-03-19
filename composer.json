@@ -22,10 +22,11 @@
   "minimum-stability": "dev",
   "prefer-stable": true,
   "require-dev": {
-    "10up/phpcs-composer": "dev-master",
+    "10up/phpcs-composer": "^3.0",
     "wpackagist-plugin/debug-bar": "*",
     "wpackagist-plugin/query-monitor":"*",
-    "wpackagist-plugin/debug-bar-slow-actions":"*"
+    "wpackagist-plugin/debug-bar-slow-actions":"*",
+    "phpcompatibility/php-compatibility": "dev-develop as 9.99.99"
   },
   "scripts": {
     "lint": "phpcs .",
