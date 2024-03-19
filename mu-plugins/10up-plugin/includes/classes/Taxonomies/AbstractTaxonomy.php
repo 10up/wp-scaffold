@@ -87,6 +87,8 @@ abstract class AbstractTaxonomy extends Module {
 			$this->get_options()
 		);
 
+		$this->after_register();
+
 		return true;
 	}
 
@@ -147,5 +149,14 @@ abstract class AbstractTaxonomy extends Module {
 	 */
 	public function get_post_types() {
 		return null;
+	}
+
+	/**
+	 * Run any code after the taxonomy has been registered.
+	 *
+	 * @return void
+	 */
+	public function after_register() {
+		// Do nothing.
 	}
 }
