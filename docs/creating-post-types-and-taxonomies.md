@@ -19,9 +19,9 @@ Once you've extended the class (or copied the `Demo` class), you will need to de
 
 Once those are defined, ensure that `can_register()` is returning `true` and you should be able to see your post type within the admin.
 
-### Heirarchical Post Types
+### Hierarchical Post Types
 
-Should you need to create a heirarchical post type, you can override the `is_hierarchical()` method and return `true`.
+Should you need to create a hierarchical post type, you can override the `is_hierarchical()` method and return `true`.
 
 ```php
 /**
@@ -181,9 +181,9 @@ Once you've extended the class (or copied the `Demo` class), you will need to de
 
 Once those are defined, ensure that `can_register()` is returning `true` and that you've [registered the taxonomy with a post type](#adding-taxonomies-to-a-post-type), then you should be able to see your taxonomy within the admin.
 
-### Heirarchical Taxonomies
+### Hierarchical Taxonomies
 
-Should you need to create a heirarchical taxonomy, you can override the `is_hierarchical()` method and return `true`.
+Should you need to create a hierarchical taxonomy, you can override the `is_hierarchical()` method and return `true`.
 
 ```php
 /**
