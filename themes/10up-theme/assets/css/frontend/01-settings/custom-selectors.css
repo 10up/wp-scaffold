@@ -1,0 +1,7 @@
+/*
+ * Custom Selectors
+ * ...grouping of selectors to make life easier to manage
+ */
+
+/* All heading levels supported */
+@custom-selector :--headings h1, h2, h3, h4, h5, h6;

@@ -1,0 +1,18 @@
+/*
+ * Mixins
+ * Use mixins to keep code DRY where viable
+ */
+
+/*
+	@define-mixin icon $name {
+		padding-left: 16px;
+		&::after {
+			content: "";
+			background: url(/icons/$(name).png);
+		}
+	}
+
+	.search {
+		@mixin icon search;
+	}
+} */

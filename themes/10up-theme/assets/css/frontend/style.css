@@ -14,23 +14,26 @@
  */
 @import url("modern-normalize/modern-normalize.css");
 
+/* Settings - settings like mixins, custom selectors, and custom properties */
+@import url("01-settings/index.css");
+
 /* Global - global pieces like media queries, mixins and placholders */
-@import url("global/index.css");
+@import url("02-global/index.css");
 
 /* Base - base styles such as fonts, typography, and wordpress overrides */
-@import url("base/index.css");
+@import url("03-base/index.css");
 
 /* Layout - styles specific to layout */
 
-/* @import url("layout/index.css"); */
+/* @import url("04-layout/index.css"); */
 
 /* Templates */
 
-/* @import url("templates/index.css"); */
+/* @import url("05-templates/index.css"); */
 
 /* Components */
 
-@import url("components/index.css");
+@import url("06-components/index.css");
 
 /* Gutenberg blocks */
 

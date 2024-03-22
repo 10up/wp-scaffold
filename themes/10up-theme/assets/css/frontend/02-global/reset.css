@@ -1,0 +1,83 @@
+/**
+* Reset.css
+* Custom reset enhancments.
+* Primary reset is modern-normalize (by default)
+* imported in ../style.css
+*/
+
+/*
+ * Reset spacing & font inheritance
+ *
+ * Font iheriance: We add intentional font inheritence as there are browser
+ * inconstencies as well as some instances where lacking implecit inheritence
+ * can cause challenges
+ *
+ * Margin & Padding reset: We reset margin and padding to 0 to ensure a
+ * consistentstarting point for all elements
+ */
+* {
+	font: inherit;
+	margin: 0;
+	padding: 0;
+}
+
+html {
+
+	/* enable dark and light color schemes by default */
+	color-scheme: dark light; /* stylelint-disable-line scale-unlimited/declaration-strict-value */
+
+	/* enable hanging punctuation */
+	hanging-punctuation: first last; /* stylelint-disable-line scale-unlimited/declaration-strict-value */
+}
+
+/*
+ * Ensure body is at least 100% of viewport height
+ */
+body {
+	min-height: 100svh;
+}
+
+/*
+ * Responsive media
+ */
+img,
+picture,
+svg,
+video {
+	display: block;
+	max-width: 100%;
+}
+
+:--headings {
+	text-wrap: balance;
+}
+
+p {
+
+	/*
+	 * Adding a readable max width to all paragraphs to prevent
+	 * long lines of text.
+	 *
+	 * NOTE: if using the lobomized owl technique - this style may be overridden
+	 */
+	max-width: 75ch; /* 75 characters - may wish to replace with custom property */
+	text-wrap: pretty;
+}
+
+/*
+ * Enable mooth scrolling by default
+ */
+@media (prefers-reduced-motion: no-preference) {
+
+	:has(:target) { /* include all elements with a target (i.e. html only will not include dialogs) */
+		scroll-behavior: smooth;
+		scroll-padding-top: var(--scroll-padding-default,); /* empty fallback if property doesn't exist */
+	}
+}
+
+/*
+ * Create a root stacking context
+ */
+.wp-site-blocks {
+	isolation: isolate;
+}
