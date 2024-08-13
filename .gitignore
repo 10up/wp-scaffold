@@ -8,6 +8,7 @@ uploads
 upgrade
 cache
 plugins
+.phpunit.result.cache
 
 # Project Files
 dist

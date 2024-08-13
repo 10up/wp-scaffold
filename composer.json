@@ -28,11 +28,15 @@
     "wpackagist-plugin/debug-bar": "*",
     "wpackagist-plugin/query-monitor":"*",
     "wpackagist-plugin/debug-bar-slow-actions":"*",
-    "phpcompatibility/php-compatibility": "dev-develop as 9.99.99"
+    "phpcompatibility/php-compatibility": "dev-develop as 9.99.99",
+    "phpunit/phpunit": "^9.5",
+    "yoast/phpunit-polyfills": "^2.0"
   },
   "scripts": {
     "lint": "phpcs .",
-    "lint-fix": "phpcbf ."
+    "lint-fix": "phpcbf .",
+    "install-tests": "./bin/install-wp-tests.sh",
+    "test": "phpunit"
   },
   "extra": {
     "installer-paths": {
