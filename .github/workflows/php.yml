@@ -40,7 +40,7 @@ jobs:
 
       - name: Setup WP Tests
         run: |
-          bash bin/install-wp-tests.sh wordpress_test root root 127.0.0.1
+          bash bin/install-wp-tests.sh wordpress-unit-tests root root 127.0.0.1 latest false
           sleep 10
 
       - name: Run PHPUnit
