@@ -2,7 +2,7 @@
 
 The MU-Plugin and the theme utilize a system to uniformly, auto-register classes that lie within their namespaces. Whilst there are a few constraints, it eases the requirements for engineers to add their classes to multiple locations each time they add one to the system.
 
-To do this, it uses the [haydenpierce/class-finder](https://packagist.org/packages/haydenpierce/class-finder) package, which reads the `composer.json` file to help locate files that belong in certain namespaces.
+To do this, it uses the [spatie/php-structure-discoverer](https://github.com/spatie/php-structure-discoverer) package, which recursively locates files that belong in certain namespaces.
 
 ## How do I define a class to be auto-registered?
 
@@ -148,7 +148,7 @@ $a_theme_class = \TenUpTheme\get_module( '\TenUpTheme\Some\Theme\Class' );
 
 If it can't find the class, it will return `false`.
 
-One major difference between the old way and the new way is that when calling the `get_module()` function, you pass in the class name as a string containing the class name with its full namespace.
+One major difference between the old way and the new way is that when calling the `get_module()` function, you pass in ~~~~the class name as a string containing the class name with its full namespace.
 
 ## I need to control the order that my classes load
 
@@ -189,16 +189,3 @@ class PostTypeFactory extends \TenUpPlugin\Module {
 We've defined two classes, one using the default load order (`10`) and another with a custom load order (`9`).
 
 Because of this, the `TaxonomyFactory` class will always be loaded before the `PostTypeFactory` class.
-
-
-## Known Issues
-
-### Could not locate `composer.json`
-
-During deployment, we must deploy the `composer.json` file. This is how the class finder works, so if it doesn't exist you'll get an exception that states:
-
-```
-Could not locate composer.json. You can get around this by setting ClassFinder::$appRoot manually.
-```
-
-More information on this issue is available [here](https://gitlab.com/hpierce1102/ClassFinder/-/blob/master/docs/exceptions/missingComposerConfig.md).
