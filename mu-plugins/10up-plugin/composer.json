@@ -9,7 +9,7 @@
   ],
   "require": {
     "php": ">=7.0",
-    "haydenpierce/class-finder": "^0.4.3"
+    "spatie/php-structure-discoverer": "^2.1"
   },
   "autoload": {
     "psr-4": {
