@@ -7,8 +7,10 @@
 
 namespace TenUpPlugin;
 
-use HaydenPierce\ClassFinder\ClassFinder;
 use ReflectionClass;
+use Spatie\StructureDiscoverer\Cache\FileDiscoverCacheDriver;
+use Spatie\StructureDiscoverer\Data\DiscoveredStructure;
+use Spatie\StructureDiscoverer\Discover;
 
 /**
  * ModuleInitialization class.
@@ -56,9 +58,25 @@ class ModuleInitialization {
 	 * @return array
 	 */
 	protected function get_classes() {
-		$class_finder = new ClassFinder();
-		$class_finder::setAppRoot( TENUP_PLUGIN_PATH );
-		return $class_finder::getClassesInNamespace( 'TenUpPlugin', ClassFinder::RECURSIVE_MODE );
+		// Get all classes from this directory and its subdirectories.
+		$class_finder = Discover::in( __DIR__ );
+		// Only fetch classes.
+		$class_finder->classes();
+		// Only fetch classes in the current namespace.
+		$class_finder->custom(
+			fn( DiscoveredStructure $structure ) => str_starts_with( $structure->namespace, __NAMESPACE__ )
+		);
+
+		// If we are in production or staging, cache the class loader to improve performance.
+		if ( in_array( wp_get_environment_type(), [ 'production', 'staging' ] ) ) {
+			$class_finder->withCache(
+				__NAMESPACE__,
+				new FileDiscoverCacheDriver( __DIR__ . '/class-loader-cache' )
+			);
+		}
+
+		// Return the classes
+		return $class_finder->get();
 	}
 
 	/**
@@ -87,7 +105,7 @@ class ModuleInitialization {
 			}
 
 			// Make sure the class is a subclass of Module, so we can initialize it.
-			if ( ! $reflection_class->isSubclassOf( '\TenUpPlugin\Module' ) ) {
+			if ( ! $reflection_class->isSubclassOf( sprintf( '\%s\Module', __NAMESPACE__ ) ) ) {
 				continue;
 			}
 
