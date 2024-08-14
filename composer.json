@@ -31,6 +31,16 @@
     "phpcompatibility/php-compatibility": "dev-develop as 9.99.99"
   },
   "scripts": {
+    "check-deps": [
+      "composer validate --strict",
+      "composer validate --strict --working-dir=mu-plugins/10up-plugin",
+      "composer validate --strict --working-dir=themes/10up-theme"
+    ],
+    "setup": [
+      "composer install",
+      "composer install --working-dir=mu-plugins/10up-plugin",
+      "composer install --working-dir=themes/10up-theme"
+    ],
     "lint": "phpcs .",
     "lint-fix": "phpcbf .",
     "install-tests": "./bin/install-wp-tests.sh",
