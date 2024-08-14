@@ -13,6 +13,7 @@ define( 'TEST_DIR', __DIR__ );
 define( 'PHPUNIT_RUNNER', true );
 define( 'FIXTURES_DIR', TEST_DIR . '/fixtures/' );
 define( 'SAVEQUERIES', false );
+define( 'WP_ENVIRONMENT_TYPE', 'development' );
 
 if ( ! $_tests_dir ) {
 	$_tests_dir = rtrim( sys_get_temp_dir(), '/\\' ) . '/wordpress-tests-lib';

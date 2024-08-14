@@ -9,6 +9,7 @@ upgrade
 cache
 plugins
 .phpunit.result.cache
+class-loader-cache/*
 
 # Project Files
 dist
