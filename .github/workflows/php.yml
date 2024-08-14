@@ -36,8 +36,9 @@ jobs:
   phpunit:
     runs-on: ubuntu-latest
 
-    matrix:
-      php: [ '8.2' ]
+    strategy:
+      matrix:
+        php: [ '8.2' ]
 
     services:
       mysql:
