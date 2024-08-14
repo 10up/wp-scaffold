@@ -10,10 +10,8 @@ permissions:
   contents: read
 
 jobs:
-  build:
-
+  phpcs:
     runs-on: ubuntu-latest
-
     steps:
       - uses: actions/checkout@v3
 
@@ -35,13 +33,46 @@ jobs:
       - name: Run PHPCS
         run: composer lint
 
-      - name: Start MySQL
-        run: sudo systemctl start mysql.service
+  phpunit:
+    runs-on: ubuntu-latest
+
+    matrix:
+      php: [ '8.2' ]
+
+    services:
+      mysql:
+        image: mysql:5.7
+        env:
+          MYSQL_ROOT_PASSWORD: root
+          MYSQL_DATABASE: wordpress_test
+        ports:
+          - 3306
+        options: --health-cmd="mysqladmin ping" --health-interval=10s --health-timeout=5s --health-retries=3
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Validate composer.json and composer.lock
+        run: composer validate --strict
+
+      - name: Cache Composer packages
+        id: composer-cache
+        uses: actions/cache@v3
+        with:
+          path: vendor
+          key: ${{ runner.os }}-php-${{ hashFiles('**/composer.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-php-
+
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v1
+        with:
+          php-version: ${{ matrix.php }}
+          extensions: dom, curl, libxml, mbstring, zip, pcntl, pdo, sqlite, pdo_sqlite, mysql, mysqli, pdo_mysql, bcmath, soap, intl, gd, exif, iconv, imagick
+          coverage: none
 
       - name: Setup WP Tests
-        run: |
-          bash bin/install-wp-tests.sh wordpress-unit-tests root root 127.0.0.1 latest false
-          sleep 10
+        run: bin/install-wp-tests.sh wordpress_test root root 127.0.0.1:${{ job.services.mysql.ports['3306'] }} latest true
 
       - name: Run PHPUnit
         run: composer run test
