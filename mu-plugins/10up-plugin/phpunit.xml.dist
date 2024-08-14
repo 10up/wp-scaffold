@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <phpunit
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	bootstrap="phpunit-bootstrap.php"
+	bootstrap="tests/bootstrap.php"
 	backupGlobals="false"
 	colors="true"
 	convertErrorsToExceptions="true"
@@ -9,19 +9,14 @@
 	convertWarningsToExceptions="true"
 	xsi:noNamespaceSchemaLocation="https://schema.phpunit.de/9.3/phpunit.xsd"
 >
-	<php>
-		<const name="WP_TESTS_MULTISITE" value="1" />
-	</php>
 	<coverage>
 		<include>
-			<directory suffix=".php">./themes/10up-theme/includes</directory>
-			<directory suffix=".php">./mu-plugins/10up-plugin/includes</directory>
+			<directory suffix=".php">./includes</directory>
 		</include>
 	</coverage>
 	<testsuites>
 		<testsuite name="All">
-			<directory suffix="Test.php">./themes/10up-theme/tests/</directory>
-			<directory suffix="Test.php">./mu-plugins/10up-plugin/tests/</directory>
+			<directory suffix="Test.php">./tests/</directory>
 		</testsuite>
 	</testsuites>
 </phpunit>

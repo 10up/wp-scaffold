@@ -2,10 +2,10 @@
 /**
  * Test Class
  *
- * @package TenUpTheme
+ * @package TenUpPlugin
  */
 
-namespace TenUpTheme;
+namespace includes\classes;
 
 /**
  * Test Class
@@ -27,7 +27,7 @@ class ModuleInitializationTest extends \WP_UnitTestCase {
 	public function set_up() {
 		parent::set_up();
 
-		$this->class = \TenUpTheme\ModuleInitialization::instance();
+		$this->class = \TenUpPlugin\ModuleInitialization::instance();
 	}
 
 	/**
@@ -42,6 +42,19 @@ class ModuleInitializationTest extends \WP_UnitTestCase {
 		$method = $class->getMethod( 'get_classes' );
 
 		$classes = $method->invoke( $this->class );
+		$this->assertCount( 9, $classes );
+	}
+
+	/**
+	 * Ensure we can find the right classes.
+	 *
+	 * @return void
+	 */
+	public function test_it_can_find_classes_to_register() {
+		$this->class->init_classes();
+		$classes = $this->class->get_all_classes();
+
+		// We should only be finding post and page.
 		$this->assertCount( 2, $classes );
 	}
 }

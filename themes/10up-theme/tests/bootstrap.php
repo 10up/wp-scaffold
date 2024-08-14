@@ -2,16 +2,17 @@
 /**
  * PHPUnit bootstrap file
  *
- * @package PublixCollectivePlugin
+ * @package 10upTheme
  */
 
 $_tests_dir = getenv( 'WP_TESTS_DIR' );
 
 // Added so we can target the WP content directory from our tests
 define( 'CONTENT_DIR', dirname( __DIR__, 3 ) );
+define( 'TEST_DIR', __DIR__ );
 define( 'PHPUNIT_RUNNER', true );
+define( 'FIXTURES_DIR', TEST_DIR . '/fixtures/' );
 define( 'SAVEQUERIES', false );
-define( 'WP_ENVIRONMENT_TYPE', 'development' );
 
 if ( ! $_tests_dir ) {
 	$_tests_dir = rtrim( sys_get_temp_dir(), '/\\' ) . '/wordpress-tests-lib';
@@ -25,9 +26,15 @@ if ( ! file_exists( $_tests_dir . '/includes/functions.php' ) ) {
 // Give access to tests_add_filter() function.
 require_once $_tests_dir . '/includes/functions.php';
 
+/**
+ * Manually load the theme being tested.
+ */
+function _manually_load_theme() {
+	return '10up-theme';
+}
+
+tests_add_filter( 'template', '_manually_load_theme' );
+tests_add_filter( 'stylesheet', '_manually_load_theme' );
+
 // Start up the WP testing environment.
 require $_tests_dir . '/includes/bootstrap.php';
-
-require __DIR__ . '/vendor/autoload.php';
-require __DIR__ . '/mu-plugins/10up-plugin/vendor/autoload.php';
-require __DIR__ . '/themes/10up-theme/vendor/autoload.php';

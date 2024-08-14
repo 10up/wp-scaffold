@@ -28,15 +28,15 @@
     "wpackagist-plugin/debug-bar": "*",
     "wpackagist-plugin/query-monitor":"*",
     "wpackagist-plugin/debug-bar-slow-actions":"*",
-    "phpcompatibility/php-compatibility": "dev-develop as 9.99.99",
-    "phpunit/phpunit": "^9.5",
-    "yoast/phpunit-polyfills": "^2.0"
+    "phpcompatibility/php-compatibility": "dev-develop as 9.99.99"
   },
   "scripts": {
     "lint": "phpcs .",
     "lint-fix": "phpcbf .",
     "install-tests": "./bin/install-wp-tests.sh",
-    "test": "phpunit"
+    "test": "composer run test:plugin && composer run test:theme",
+    "test:plugin": "cd ./mu-plugins/10up-plugin/ && composer run test",
+    "test:theme": "cd ./themes/10up-theme/ && composer run test"
   },
   "extra": {
     "installer-paths": {
