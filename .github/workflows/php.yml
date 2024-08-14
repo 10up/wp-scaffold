@@ -75,5 +75,8 @@ jobs:
       - name: Setup WP Tests
         run: bin/install-wp-tests.sh wordpress_test root root 127.0.0.1:${{ job.services.mysql.ports['3306'] }} latest true
 
-      - name: Run PHPUnit
-        run: composer run test
+      - name: Run PHPUnit on Plugin
+        run: composer run test:plugin
+
+      - name: Run PHPUnit on Theme
+        run: composer run test:theme
