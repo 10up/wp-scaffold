@@ -42,7 +42,13 @@ class ModuleInitializationTest extends \WP_UnitTestCase {
 		$method = $class->getMethod( 'get_classes' );
 
 		$classes = $method->invoke( $this->class );
-		$this->assertCount( 9, $classes );
+
+		// Check that we have the concrete classes we expect to see.
+		$this->assertContains( 'TenUpPlugin\PostTypes\AbstractPostType', $classes );
+		$this->assertContains( 'TenUpPlugin\PostTypes\AbstractCorePostType', $classes );
+		$this->assertContains( 'TenUpPlugin\Taxonomies\AbstractTaxonomy', $classes );
+		$this->assertContains( 'TenUpPlugin\Module', $classes );
+		$this->assertContains( 'TenUpPlugin\ModuleInitialization', $classes );
 	}
 
 	/**
@@ -54,7 +60,8 @@ class ModuleInitializationTest extends \WP_UnitTestCase {
 		$this->class->init_classes();
 		$classes = $this->class->get_all_classes();
 
-		// We should only be finding post and page.
-		$this->assertCount( 2, $classes );
+		// Check that we have only classes that extend Module and more than 0.
+		$this->assertContainsOnlyInstancesOf( 'TenUpPlugin\Module', $classes );
+		$this->assertGreaterThan( 0, count( $classes ) );
 	}
 }

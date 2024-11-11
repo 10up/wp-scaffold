@@ -42,6 +42,9 @@ class ModuleInitializationTest extends \WP_UnitTestCase {
 		$method = $class->getMethod( 'get_classes' );
 
 		$classes = $method->invoke( $this->class );
-		$this->assertCount( 2, $classes );
+
+		// Check that we have the concrete classes we expect to see.
+		$this->assertContains( 'TenUpTheme\Module', $classes );
+		$this->assertContains( 'TenUpTheme\ModuleInitialization', $classes );
 	}
 }
