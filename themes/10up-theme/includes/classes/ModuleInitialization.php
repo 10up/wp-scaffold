@@ -68,14 +68,14 @@ class ModuleInitialization {
 		);
 
 		// If we are in production or staging, cache the class loader to improve performance.
-		if ( in_array( wp_get_environment_type(), [ 'production', 'staging' ] ) ) {
+		if ( in_array( wp_get_environment_type(), [ 'production', 'staging' ], true ) ) {
 			$class_finder->withCache(
 				__NAMESPACE__,
 				new FileDiscoverCacheDriver( __DIR__ . '/class-loader-cache' )
 			);
 		}
 
-		$classes = array_filter($class_finder->get(), fn( $class ) => is_string( $class ) );
+		$classes = array_filter( $class_finder->get(), fn( $cl ) => is_string( $cl ) );
 
 		// Return the classes
 		return $classes;
