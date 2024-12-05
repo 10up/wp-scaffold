@@ -1,0 +1,8 @@
+includes:
+	- phpstan/default.neon
+
+parameters:
+	paths:
+		- themes/10up-theme
+		- mu-plugins/10up-plugin
+		- mu-plugins/10up-plugin-loader.php

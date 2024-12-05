@@ -28,7 +28,7 @@ class Page extends AbstractCorePostType {
 	 * Returns the default supported taxonomies. The subclass should declare the
 	 * Taxonomies that it supports here if required.
 	 *
-	 * @return array
+	 * @return array<string>
 	 */
 	public function get_supported_taxonomies() {
 		return [];

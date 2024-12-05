@@ -52,8 +52,8 @@ function setup() {
  *
  * @link https://developer.wordpress.org/reference/hooks/tiny_mce_plugins/
  *
- * @param  array $plugins An array of default TinyMCE plugins.
- * @return array          An array of TinyMCE plugins, without wpemoji.
+ * @param  array<string> $plugins An array of default TinyMCE plugins.
+ * @return array<string>          An array of TinyMCE plugins, without wpemoji.
  */
 function disable_emojis_tinymce( $plugins ) {
 	if ( is_array( $plugins ) && in_array( 'wpemoji', $plugins, true ) ) {
@@ -68,9 +68,9 @@ function disable_emojis_tinymce( $plugins ) {
  *
  * @link https://developer.wordpress.org/reference/hooks/emoji_svg_url/
  *
- * @param  array  $urls          URLs to print for resource hints.
- * @param  string $relation_type The relation type the URLs are printed for.
- * @return array                 Difference betwen the two arrays.
+ * @param  array<string> $urls          URLs to print for resource hints.
+ * @param  string        $relation_type The relation type the URLs are printed for.
+ * @return array<string>                 Difference betwen the two arrays.
  */
 function disable_emoji_dns_prefetch( $urls, $relation_type ) {
 	if ( 'dns-prefetch' === $relation_type ) {

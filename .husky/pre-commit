@@ -1,6 +1,3 @@
-#!/bin/bash
-. "$(dirname "$0")/_/husky.sh"
-
 PARENT_DIR="$(git rev-parse --show-toplevel)"
 SCAFFOLD_PATH=$(grep hooksPath "${PARENT_DIR}"/.git/config | awk '{print $3}')
 

@@ -95,7 +95,40 @@ abstract class AbstractTaxonomy extends Module {
 	/**
 	 * Get the options for the taxonomy.
 	 *
-	 * @return array
+	 * @return array{
+	 *       labels?: array<string, string>,
+	 *       description?: string,
+	 *       public?: bool,
+	 *       publicly_queryable?: bool,
+	 *       hierarchical?: bool,
+	 *       show_ui?: bool,
+	 *       show_in_menu?: bool,
+	 *       show_in_nav_menus?: bool,
+	 *       show_tagcloud?: bool,
+	 *       show_in_quick_edit?: bool,
+	 *       show_admin_column?: bool,
+	 *       meta_box_cb?: bool|callable,
+	 *       show_in_rest?: bool,
+	 *       rest_base?: string,
+	 *       rest_namespace?: string,
+	 *       rest_controller_class?: string,
+	 *       capabilities?: array<string, string>,
+	 *       rewrite?: bool|array{
+	 *           slug?: string,
+	 *           with_front?: bool,
+	 *           hierarchical?: bool,
+	 *           ep_mask?: int,
+	 *       },
+	 *       query_var?: string|bool,
+	 *       update_count_callback?: callable,
+	 *       default_term?: string|array{
+	 *           name: string,
+	 *           slug?: string,
+	 *           description?: string,
+	 *       },
+	 *       sort?: bool,
+	 *       _builtin?: bool,
+	 *  }
 	 */
 	public function get_options() {
 		return [
@@ -112,7 +145,7 @@ abstract class AbstractTaxonomy extends Module {
 	/**
 	 * Get the labels for the taxonomy.
 	 *
-	 * @return array
+	 * @return array<string, string>
 	 */
 	public function get_labels() {
 		$plural_label   = $this->get_plural_label();
@@ -145,10 +178,10 @@ abstract class AbstractTaxonomy extends Module {
 	 * Setting the post types to null to ensure no post type is registered with
 	 * this taxonomy. Post Type classes declare their supported taxonomies.
 	 *
-	 * @return array|null
+	 * @return array<string>
 	 */
 	public function get_post_types() {
-		return null;
+		return [];
 	}
 
 	/**

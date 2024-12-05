@@ -18,7 +18,7 @@ namespace TenUpTheme\Utility;
  *
  * @param string $slug Asset slug as defined in build/webpack configuration
  * @param string $attribute Optional attribute to get. Can be version or dependencies
- * @return string|array
+ * @return ($attribute is null ? array{version: string, dependencies: array<string>} : $attribute is 'dependencies' ? array<string> : string)
  */
 function get_asset_info( $slug, $attribute = null ) {
 	if ( file_exists( TENUP_THEME_PATH . 'dist/js/' . $slug . '.asset.php' ) ) {
@@ -26,7 +26,10 @@ function get_asset_info( $slug, $attribute = null ) {
 	} elseif ( file_exists( TENUP_THEME_PATH . 'dist/css/' . $slug . '.asset.php' ) ) {
 		$asset = require TENUP_THEME_PATH . 'dist/css/' . $slug . '.asset.php';
 	} else {
-		return null;
+		$asset = [
+			'version'      => TENUP_THEME_VERSION,
+			'dependencies' => [],
+		];
 	}
 
 	if ( ! empty( $attribute ) && isset( $asset[ $attribute ] ) ) {
@@ -40,6 +43,10 @@ function get_asset_info( $slug, $attribute = null ) {
  * Extract colors from a CSS or Sass file
  *
  * @param string $path the path to your CSS variables file
+ *
+ * @throws \RuntimeException If the file is not found or could not be read
+ *
+ * @return array<string>
  */
 function get_colors( $path ) {
 
@@ -47,6 +54,11 @@ function get_colors( $path ) {
 
 	if ( file_exists( $dir . $path ) ) {
 		$css_vars = file_get_contents( $dir . $path ); // phpcs:ignore WordPress.WP.AlternativeFunctions
+
+		if ( false === $css_vars ) {
+			throw new \RuntimeException( 'Could not read CSS variables file.' );
+		}
+
 		// HEX(A) | RGB(A) | HSL(A) - rgba & hsla alpha as decimal or percentage
 		// https://regex101.com/r/l7AZ8R/
 		// this is a loose match and will accept almost anything within () for rgb(a) & hsl(a)
@@ -55,6 +67,8 @@ function get_colors( $path ) {
 
 		return $matches[0];
 	}
+
+	throw new \RuntimeException( 'CSS variables file not found.' );
 }
 
 /**
@@ -82,7 +96,7 @@ function adjust_brightness( $hex, $steps ) {
 	foreach ( $color_parts as $color ) {
 		$color   = hexdec( $color ); // Convert to decimal
 		$color   = max( 0, min( 255, $color + $steps ) ); // Adjust color
-		$return .= str_pad( dechex( $color ), 2, '0', STR_PAD_LEFT ); // Make two char hex code
+		$return .= str_pad( dechex( intval( $color ) ), 2, '0', STR_PAD_LEFT ); // Make two char hex code
 	}
 
 	return $return;

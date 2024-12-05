@@ -16,22 +16,18 @@ use TenUpTheme\Utility;
  * @return void
  */
 function setup() {
-	$n = function ( $function ) {
-		return __NAMESPACE__ . "\\$function";
-	};
+	add_action( 'init', 'TenUpTheme\Core\init', apply_filters( 'tenup_theme_init_priority', 8 ) );
+	add_action( 'after_setup_theme', 'TenUpTheme\Core\i18n' );
+	add_action( 'after_setup_theme', 'TenUpTheme\Core\theme_setup' );
+	add_action( 'wp_enqueue_scripts', 'TenUpTheme\Core\scripts' );
+	add_action( 'admin_enqueue_scripts', 'TenUpTheme\Core\admin_styles' );
+	add_action( 'admin_enqueue_scripts', 'TenUpTheme\Core\admin_scripts' );
+	add_action( 'enqueue_block_editor_assets', 'TenUpTheme\Core\enqueue_block_editor_scripts' );
+	add_action( 'wp_enqueue_scripts', 'TenUpTheme\Core\styles' );
+	add_action( 'wp_head', 'TenUpTheme\Core\js_detection', 0 );
+	add_action( 'wp_head', 'TenUpTheme\Core\embed_ct_css', 0 );
 
-	add_action( 'init', $n( 'init' ), apply_filters( 'tenup_theme_init_priority', 8 ) );
-	add_action( 'after_setup_theme', $n( 'i18n' ) );
-	add_action( 'after_setup_theme', $n( 'theme_setup' ) );
-	add_action( 'wp_enqueue_scripts', $n( 'scripts' ) );
-	add_action( 'admin_enqueue_scripts', $n( 'admin_styles' ) );
-	add_action( 'admin_enqueue_scripts', $n( 'admin_scripts' ) );
-	add_action( 'enqueue_block_editor_assets', $n( 'enqueue_block_editor_scripts' ) );
-	add_action( 'wp_enqueue_scripts', $n( 'styles' ) );
-	add_action( 'wp_head', $n( 'js_detection' ), 0 );
-	add_action( 'wp_head', $n( 'embed_ct_css' ), 0 );
-
-	add_filter( 'script_loader_tag', $n( 'script_loader_tag' ), 10, 2 );
+	add_filter( 'script_loader_tag', 'TenUpTheme\Core\script_loader_tag', 10, 2 );
 }
 
 /**
@@ -76,6 +72,8 @@ function i18n() {
 
 /**
  * Sets up theme defaults and registers support for various WordPress features.
+ *
+ * @return void
  */
 function theme_setup() {
 	add_theme_support( 'automatic-feed-links' );
@@ -262,7 +260,7 @@ function js_detection() {
  * @link https://core.trac.wordpress.org/ticket/12009
  * @param string $tag    The script tag.
  * @param string $handle The script handle.
- * @return string
+ * @return string|null
  */
 function script_loader_tag( $tag, $handle ) {
 	$script_execution = wp_scripts()->get_data( $handle, 'script_execution' );
@@ -305,7 +303,7 @@ function script_loader_tag( $tag, $handle ) {
  */
 function embed_ct_css() {
 
-	$debug_performance = rest_sanitize_boolean( filter_input( INPUT_GET, 'debug_perf', FILTER_SANITIZE_NUMBER_INT ) );
+	$debug_performance = rest_sanitize_boolean( boolval( filter_input( INPUT_GET, 'debug_perf', FILTER_SANITIZE_NUMBER_INT ) ) );
 
 	if ( ! $debug_performance ) {
 		return;

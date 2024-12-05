@@ -15,7 +15,7 @@
     "node": ">=18.0.0"
   },
   "devDependencies": {
-    "10up-toolkit": "^6.2.0"
+    "10up-toolkit": "^6.3.0"
   },
   "dependencies": {
     "prop-types": "^15.7.2"
@@ -25,6 +25,10 @@
       "admin": "./assets/js/admin/admin.js",
       "frontend": "./assets/js/frontend/frontend.js",
       "shared": "./assets/js/shared/shared.js"
+    },
+    "paths": {
+      "globalStylesDir": "../../themes/10up-theme/assets/css/globals/",
+      "globalMixinsDir": "../../themes/10up-theme/assets/css/globals/mixins/"
     }
   }
 }

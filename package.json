@@ -12,7 +12,7 @@
     "mu-plugins/10up-plugin"
   ],
   "scripts": {
-    "prepare": "TEN=\"$(pwd)\"; UP=\"$(git rev-parse --show-toplevel)\"; TENUP=\"${TEN#\"$UP\"}\"; cd \"$(git rev-parse --show-toplevel)\"; husky install .\"${TENUP}\"/.husky",
+    "prepare": "TEN=\"$(pwd)\"; UP=\"$(git rev-parse --show-toplevel)\"; TENUP=\"${TEN#\"$UP\"}\"; cd \"$(git rev-parse --show-toplevel)\"; husky .\"${TENUP}\"/.husky",
     "build": "npm run build --workspaces --if-present",
     "start": "npm run watch",
     "watch:theme": "npm run watch -w=tenup-theme",
@@ -32,15 +32,15 @@
   },
   "engineStrict": true,
   "engines": {
-    "node": ">=18.0.0",
+    "node": ">=20.0.0",
     "npm": ">=9.0.0"
   },
   "devDependencies": {
-    "@wordpress/create-block": "4.39.0",
-    "husky": "^8.0.3",
+    "@wordpress/create-block": "4.55.0",
+    "10up-toolkit": "^6.0.0",
+    "husky": "^9.1.7",
     "lint-staged": "^15.2.0",
     "npm-run-all": "^4.1.5",
-    "prettier": "3.2.5",
-    "10up-toolkit": "^6.0.0"
+    "prettier": "3.3.3"
   }
 }

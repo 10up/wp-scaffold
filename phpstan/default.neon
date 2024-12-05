@@ -1,0 +1,32 @@
+includes:
+	- ../vendor/szepeviktor/phpstan-wordpress/extension.neon
+	- ../vendor/phpstan/phpstan-deprecation-rules/rules.neon
+
+parameters:
+	reportUnmatchedIgnoredErrors: false
+	level: 9
+	bootstrapFiles:
+		- constants.php
+	excludePaths:
+		analyseAndScan:
+			- ../../*/dist/*
+			- ../../*/node_modules/*
+			- ../../*/tests/*
+			- ./*
+		analyse:
+			- ../../*/vendor/*
+	scanDirectories:
+		- ../plugins
+	scanFiles:
+		- ../vendor/php-stubs/wordpress-stubs/wordpress-stubs.php
+		- ../vendor/php-stubs/wp-cli-stubs/wp-cli-stubs.php
+		- ../vendor/php-stubs/wp-cli-stubs/wp-cli-commands-stubs.php
+		- ../vendor/php-stubs/wp-cli-stubs/wp-cli-i18n-stubs.php
+	stubFiles:
+		- stubs/wp-query.stub
+	ignoreErrors:
+		# Uses func_get_args()
+		- '#^Function apply_filters invoked with [34567] parameters, 2 required\.$#'
+		- '#^Function remove_filter invoked with [34567] parameters, 2-3 required\.$#'
+		# Remove issues that come from using array as a type rather than string[] or array<string> etc.
+		- '#no value type specified in iterable type array#'

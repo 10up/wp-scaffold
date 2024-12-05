@@ -30,7 +30,7 @@ class Post extends AbstractCorePostType {
 	 *
 	 * Note: This will not remove the default taxonomies that are registered by core.
 	 *
-	 * @return array
+	 * @return array<string>
 	 */
 	public function get_supported_taxonomies() {
 		return [];

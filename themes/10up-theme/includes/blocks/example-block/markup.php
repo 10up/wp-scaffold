@@ -11,7 +11,7 @@
  */
 
 ?>
-<div <?php echo get_block_wrapper_attributes(); // phpcs:ignore ?>>
+<div <?php echo get_block_wrapper_attributes(); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>>
 	<h2 class="wp-block-tenup-example__title">
 		<?php echo wp_kses_post( $attributes['title'] ); ?>
 	</h2>

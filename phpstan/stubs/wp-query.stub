@@ -1,0 +1,32 @@
+<?php
+
+/**
+ * Whether current WordPress query has results to loop over.
+ *
+ * @since 1.5.0
+ *
+ * @global WP_Query $wp_query Global WP_Query instance.
+ *
+ * @return bool
+ * @phpstan-impure
+ */
+function have_posts()
+{
+}
+
+class WP_Query
+{
+    /**
+     * Determines whether there are more posts available in the loop.
+     *
+     * Calls the {@see 'loop_end'} action when the loop is complete.
+     *
+     * @since 1.5.0
+     *
+     * @return bool True if posts are available, false if end of loop.
+     * @phpstan-impure
+     */
+    public function have_posts()
+    {
+    }
+}
