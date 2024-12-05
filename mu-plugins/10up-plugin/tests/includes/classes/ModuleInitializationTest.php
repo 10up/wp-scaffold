@@ -5,7 +5,7 @@
  * @package TenUpPlugin
  */
 
-namespace includes\classes;
+namespace TenUpPluginTests;
 
 /**
  * Test Class

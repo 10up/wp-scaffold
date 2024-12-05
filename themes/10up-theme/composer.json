@@ -24,5 +24,10 @@
     "psr-4": {
       "TenUpTheme\\": "includes/classes/"
     }
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "TenUpThemeTests\\": "tests/include/classes/"
+    }
   }
 }

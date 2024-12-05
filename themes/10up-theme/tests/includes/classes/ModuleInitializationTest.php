@@ -5,7 +5,7 @@
  * @package TenUpTheme
  */
 
-namespace includes\classes;
+namespace TenUpThemeTests;
 
 /**
  * Test Class
