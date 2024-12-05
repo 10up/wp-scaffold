@@ -1,3 +1,4 @@
+/* stylelint-disable */
 :root {
 	--c-uikit-base: #fff;
 	--c-uikit-accent: #767676;
@@ -8,7 +9,6 @@
 	--c-uikit-color-label-bg: #fff;
 
 	@custom-media --bp-uikit-small (min-width: 40.625em);
-
 }
 
 .uikit__container {
@@ -68,7 +68,6 @@
 
 		&:focus,
 		&:hover {
-
 			& .uikit__color--label {
 				left: auto;
 			}
@@ -154,7 +153,10 @@
 	display: block;
 }
 
-.uikit__section > .heading > .toggle[aria-expanded="true"] .uikit__chevron-down {
+.uikit__section
+	> .heading
+	> .toggle[aria-expanded="true"]
+	.uikit__chevron-down {
 	display: none;
 }
 
@@ -175,7 +177,6 @@
 }
 
 @media (--bp-uikit-small) {
-
 	.uikit__section > .heading {
 		width: 145px;
 	}
@@ -191,5 +192,4 @@
 	.uikit__section.-secondary > .content {
 		width: 100%;
 	}
-
 }

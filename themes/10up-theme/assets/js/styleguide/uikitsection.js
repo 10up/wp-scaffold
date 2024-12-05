@@ -23,7 +23,7 @@ export default class UIKitSection {
 	init() {
 		// Stop if there's no section heading
 		if (!this.sectionHeadings) {
-			console.error( 'Styleguide: No sections detected.' ); // eslint-disable-line
+			console.error("Styleguide: No sections detected."); // eslint-disable-line
 			return;
 		}
 

@@ -7,13 +7,13 @@
   "name": "tenup/example",
   "icon": "feedback",
   "category": "formatting",
-  "attributes":{
+  "attributes": {
     "title": {
-      "type" : "string"
+      "type": "string"
     }
   },
   "example": {
-    "attributes":{
+    "attributes": {
       "title": "Example Block"
     }
   },

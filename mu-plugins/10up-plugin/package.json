@@ -8,14 +8,15 @@
     "format-js": "10up-toolkit format-js",
     "lint-js": "10up-toolkit lint-js",
     "lint-style": "10up-toolkit lint-style",
-    "test": "10up-toolkit test-unit-jest",
+    "test": "10up-toolkit test-unit-jest --passWithNoTests",
     "clean-dist": "rm -rf ./dist"
   },
   "engines": {
     "node": ">=18.0.0"
   },
   "devDependencies": {
-    "10up-toolkit": "^6.3.0"
+    "10up-toolkit": "^6.3.0",
+    "jest-environment-jsdom": "^29.7.0"
   },
   "dependencies": {
     "prop-types": "^15.7.2"

@@ -4,7 +4,6 @@ The MU plugin contains abstract classses that can be extended to easily register
 
 If you want to jump right in, take a look at the `TenUpPlugin\PostTypes\Demo::class` and `TenUpPlugin\Taxonomies\Demo::class` classes.
 
-
 ## Post Types
 
 To create a new post type, you will need to create a new class that extends the `TenUpPlugin\PostTypes\AbstractPostType` class. This class will contain the configuration for the new post type.
@@ -57,6 +56,7 @@ public function get_editor_supports() {
 	return $supports;
 }
 ```
+
 b. Merge your additional supports into the base version
 
 ```php
@@ -103,6 +103,7 @@ public function get_options() {
 	return $options;
 }
 ```
+
 b. Merge your additional options into the base version
 
 ```php
@@ -222,6 +223,7 @@ public function get_options() {
 	return $options;
 }
 ```
+
 b. Merge your additional options into the base version
 
 ```php

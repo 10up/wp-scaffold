@@ -1,14 +1,17 @@
 # 10up Theme
 
 ## Working with `theme.json`
+
 The default theme scaffold now ships with a very basic version of the `theme.json` file. This is to ensure all the side-affects of introducing this file are there from the beginning of a project and therefore set projects up for success if they want to adopt more features through the `theme.json` mechanism.
 
 ### Basics of `theme.json`
+
 The `theme.json` file allows you to take control of your blocks in both the editor and the frontend. The file is structured in a `settings` and a `styles` section where you can define options on a global level and then override them / adjust them on a block level.
 
 The values that you provide in the `theme.json` file will be added both on the frontend and in the editor as [CSS custom properties following a fixed naming scheme](https://developer.wordpress.org/block-editor/how-to-guides/themes/theme-json/#css-custom-properties-presets-custom).
 
 ### 🙋 FAQ
+
 <details>
 <summary>Where has the `.wp-block-group__inner-container` gone?</summary>
 <br />
@@ -21,13 +24,13 @@ For new builds it is suggested that we use the `settings.layout.contentWidth` an
 
 ```json
 {
-    "version": 1,
-    "settings": {
-        "layout": {
-            "contentSize": "800px",
-            "wideSize": "900px"
-        }
-    }
+	"version": 1,
+	"settings": {
+		"layout": {
+			"contentSize": "800px",
+			"wideSize": "900px"
+		}
+	}
 }
 ```
 
@@ -36,12 +39,11 @@ For this, there isn't even any custom CSS needed.
 There isn't the best story for responsive overrides in here but the recommendation at this point in time would be using `clamp` as we have officially dropped the IE11 support and that would allow us to have a fluid with scale here for the elements.
 [https://caniuse.com/css-math-functions](https://caniuse.com/css-math-functions)
 
-
 If we need to use different content widths here we can stick to the core way and apply the `max-width` settings to the children of the group block instead of the wrapper element.
 
 ```css
 .wp-block-group > * {
-    max-width: var(--site-max-width);
+	max-width: var(--site-max-width);
 }
 ```
 
@@ -68,36 +70,39 @@ function remove_layout_support_from_editor_settings( $settings ) {
 	return $settings;
 }
 ```
+
 </details>
 
 <details>
 <summary>Where can I find documentation for `theme.json`</summary>
 
 ### Core Handbook
+
 You can find the Core Documentation here: [https://developer.wordpress.org/block-editor/how-to-guides/themes/theme-json/](https://developer.wordpress.org/block-editor/how-to-guides/themes/theme-json/). This should give you an overview of the options that are available and be a starting point for you to explore. In the Code examples you will get ones for `WordPress` and ones for `Gutenberg`. The ones for WordPress always are for the version in Core and therefore what we would want to look at.
 
 ### Code completion and validation
+
 Additionally you can add inline documentation & code completion to your editor by adding the `JSON Schema` to your editor.
 
 For VSCode you can add the following to your Settings. But other editors also support this and you can find more information on the topic here: [https://json.schemastore.org](https://json.schemastore.org)
+
 ```json
 {
 	"json.schemas": [
 		{
-			"fileMatch": [
-				"/theme.json"
-			],
+			"fileMatch": ["/theme.json"],
 			"url": "https://json.schemastore.org/theme-v1.json"
 		}
-	],
+	]
 }
 ```
 
 </details>
 
-<sub>* for 10uppers, reach out to Fabian for any questions / guidance / support in regards to `theme.json`</sub>
+<sub>\* for 10uppers, reach out to Fabian for any questions / guidance / support in regards to `theme.json`</sub>
 
 # Performance Utilities
+
 The theme now supports `ct.css`. Uh what?
 `ct.css` is a diagnostic stylesheet that exposes potential performance issues in your pages `<head>` element. `ct.css` will return color-coded visual cues with regards to render blocking elements in the theme. This provides a great way for engineers to debug and identify problem resources.
 
@@ -105,4 +110,4 @@ You can activate `ct.css` on any page load by including `?debug_perf=1` in the U
 
 Considering we do not want to load script everywhere throughout the theme, we have provided engineeers with a way to trigger the `ct.css` output by using a query param.
 
-<sub>* for 10uppers, reach out to Daine for any questions / guidance / support in regards to `ct.css`</sub>
+<sub>\* for 10uppers, reach out to Daine for any questions / guidance / support in regards to `ct.css`</sub>

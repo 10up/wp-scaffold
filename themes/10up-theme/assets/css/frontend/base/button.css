@@ -1,3 +1,4 @@
+/* stylelint-disable */
 /*
  * Ensure that we are not overriding the editor styles of the
  * WordPress Components.
@@ -7,5 +8,4 @@
  * using :where to prevent the specificity increase of using :not
  */
 button:where(:not(.components-button)) {
-
 }

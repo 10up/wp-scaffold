@@ -2,7 +2,7 @@
   "extends": "@10up/eslint-config/wordpress",
   "rules": {},
   "globals": {
-	  "module": true,
-	  "process": true
+    "module": true,
+    "process": true
   }
 }

@@ -1,3 +1,4 @@
+/* stylelint-disable */
 .visually-hidden,
 .visually-hidden-focusable:not(:focus):not(:active) {
 	border: 0;

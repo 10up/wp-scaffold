@@ -144,7 +144,6 @@ jobs:
       - run:
           name: Remove VIP MU-Plugins
           command: rm -rf mu-plugins/
-
 # The rest of your CircleCI config ...
 ```
 

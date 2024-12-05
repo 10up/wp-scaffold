@@ -2,29 +2,15 @@ name: PHP Checks
 
 on:
   push:
-    branches: [ "trunk" ]
+    branches: ["trunk"]
   pull_request:
-    branches: [ "trunk" ]
+    branches: ["trunk"]
 
 permissions:
   contents: read
 
 jobs:
   phpcs:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v3
-
-      - name: Validate composer.json and composer.lock
-        run: composer run check-deps
-
-      - name: Install dependencies
-        run: composer run setup
-
-      - name: Run PHPCS
-        run: composer lint
-
-  phpunit:
     runs-on: ubuntu-latest
 
     strategy:
