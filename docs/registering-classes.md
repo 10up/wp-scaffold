@@ -148,7 +148,7 @@ $a_theme_class = \TenUpTheme\get_module( '\TenUpTheme\Some\Theme\Class' );
 
 If it can't find the class, it will return `false`.
 
-One major difference between the old way and the new way is that when calling the `get_module()` function, you pass in ~~~~the class name as a string containing the class name with its full namespace.
+One major difference between the old way and the new way is that when calling the `get_module()` function, you pass in the class name as a string containing the class name with its full namespace.
 
 ## I need to control the order that my classes load
 
