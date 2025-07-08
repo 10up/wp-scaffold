@@ -44,6 +44,7 @@ class Blocks implements ModuleInterface {
 		add_action( 'init', [ $this, 'enqueue_block_specific_styles' ] );
 		add_action( 'init', [ $this, 'register_theme_blocks' ] );
 		add_action( 'init', [ $this, 'register_block_pattern_categories' ] );
+		add_filter( 'should_load_separate_core_block_assets', '__return_true' );
 	}
 
 	/**
