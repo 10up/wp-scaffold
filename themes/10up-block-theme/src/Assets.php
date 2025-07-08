@@ -40,20 +40,27 @@ class Assets implements ModuleInterface {
 			dist_path: TENUP_BLOCK_THEME_DIST_PATH,
 			fallback_version: TENUP_BLOCK_THEME_VERSION
 		);
-		add_action( 'init', [ $this, 'scripts' ] );
 		add_action( 'init', [ $this, 'register_all_icons' ], 10 );
-		add_action( 'wp_enqueue_scripts', [ $this, 'styles' ] );
-		add_action( 'enqueue_block_editor_assets', [ $this, 'editor_style_overrides' ] );
+		add_action( 'wp_enqueue_scripts', [ $this, 'enqueue_frontend_assets' ] );
+		add_action( 'enqueue_block_editor_assets', [ $this, 'enqueue_block_editor_assets' ] );
+		add_action( 'enqueue_block_assets', [ $this, 'enqueue_block_editor_iframe_assets' ] );
 	}
 
 	/**
-	 * Enqueue scripts for front-end.
+	 * Enqueue assets for the front-end.
 	 *
 	 * @return void
 	 */
-	public function scripts() {
+	public function enqueue_frontend_assets() {
+		wp_enqueue_style(
+			'tenup-theme-styles',
+			TENUP_BLOCK_THEME_TEMPLATE_URL . '/dist/css/frontend.css',
+			[],
+			$this->get_asset_info( 'frontend', 'version' )
+		);
+
 		wp_enqueue_script(
-			'frontend',
+			'tenup-theme-frontend',
 			TENUP_BLOCK_THEME_TEMPLATE_URL . '/dist/js/frontend.js',
 			$this->get_asset_info( 'frontend', 'dependencies' ),
 			$this->get_asset_info( 'frontend', 'version' ),
@@ -64,28 +71,16 @@ class Assets implements ModuleInterface {
 	}
 
 	/**
-	 * Enqueue styles for front-end.
+	 * Enqueue assets for the block editor.
+	 *
+	 * These assets are enqueued in the editor outside of the editor canvas iframe.
 	 *
 	 * @return void
 	 */
-	public function styles() {
+	public function enqueue_block_editor_assets() {
 		wp_enqueue_style(
-			'tenup-theme-styles',
-			TENUP_BLOCK_THEME_TEMPLATE_URL . '/dist/css/frontend.css',
-			[],
-			$this->get_asset_info( 'frontend', 'version' )
-		);
-	}
-
-	/**
-	 * Enqueue styles for editor only.
-	 *
-	 * @return void
-	 */
-	public function editor_style_overrides() {
-		wp_enqueue_style(
-			'tenup-theme-editor-style-overrides',
-			TENUP_BLOCK_THEME_TEMPLATE_URL . '/dist/css/editor-style-overrides.css',
+			'tenup-theme-editor-frame-style-overrides',
+			TENUP_BLOCK_THEME_TEMPLATE_URL . '/dist/css/editor-frame-style-overrides.css',
 			[],
 			TENUP_BLOCK_THEME_VERSION
 		);
@@ -96,6 +91,27 @@ class Assets implements ModuleInterface {
 			$this->get_asset_info( 'block-extensions', 'dependencies' ),
 			$this->get_asset_info( 'block-extensions', 'version' ),
 			true
+		);
+	}
+
+	/**
+	 * Enqueue styles inside the editor canvas iFrame only.
+	 *
+	 * @return void
+	 */
+	public function enqueue_block_editor_iframe_assets() {
+
+		// The `enqueue_block_assets` action is triggered both on the front-end and in the editor iframe.
+		// We only want to enqueue these styles inside the editor iframe.
+		if ( ! is_admin() ) {
+			return;
+		}
+
+		wp_enqueue_style(
+			'tenup-theme-editor-canvas-style-overrides',
+			TENUP_BLOCK_THEME_TEMPLATE_URL . '/dist/css/editor-canvas-style-overrides.css',
+			[],
+			TENUP_BLOCK_THEME_VERSION
 		);
 	}
 
