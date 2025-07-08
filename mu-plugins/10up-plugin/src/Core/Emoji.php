@@ -83,7 +83,7 @@ class Emoji implements ModuleInterface {
 	 *
 	 * @param  array  $urls          URLs to print for resource hints.
 	 * @param  string $relation_type The relation type the URLs are printed for.
-	 * @return array                 Difference betwen the two arrays.
+	 * @return array                 Difference between the two arrays.
 	 */
 	public function disable_emoji_dns_prefetch( array $urls, string $relation_type ): array {
 		if ( 'dns-prefetch' === $relation_type ) {

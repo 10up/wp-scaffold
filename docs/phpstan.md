@@ -112,7 +112,7 @@ parameters:
 ```
 
 If you decide to run PHPStan on CircleCI, you're then likely see an error with it being unable to scan the `mu-plugins` directory.
-That's becuase the `mu-plugins` directory is git ignored and therefore doesn't exist in the CircleCI environment.
+That's because the `mu-plugins` directory is git ignored and therefore doesn't exist in the CircleCI environment.
 
 To get around this, we can clone the MU plugins repo before we run PHPStan and then remove it again afterwards. This looks something like:
 

@@ -94,7 +94,7 @@ class ThemeCore {
 						wp_kses_post(
 							__(
 								'Please ensure the <a href="https://github.com/10up/wp-framework"><code>10up/wp-framework</code></a> composer package is installed.',
-								'tenup-plugin'
+								'tenup-theme'
 							)
 						)
 					);

@@ -140,7 +140,7 @@ class Blocks implements ModuleInterface {
 			$block_type = str_replace( '.css', '', $block_type );
 			$asset_file = TENUP_THEME_DIST_PATH . 'blocks/autoenqueue/' . $block_type . '.asset.php';
 
-			if ( ! file_exists( $asset_file ) ) {
+			if ( file_exists( $asset_file ) ) {
 				$asset_file = require $asset_file;
 			} else {
 				$asset_file = [
@@ -154,8 +154,8 @@ class Blocks implements ModuleInterface {
 			wp_register_style(
 				"tenup-theme-{$block_namespace}-{$block_name}",
 				TENUP_THEME_DIST_URL . 'blocks/autoenqueue/' . $block_type . '.css',
-				$asset_file['version'],
 				$asset_file['dependencies'],
+				$asset_file['version']
 			);
 
 			wp_enqueue_block_style(

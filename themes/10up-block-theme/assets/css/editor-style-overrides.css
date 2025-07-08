@@ -65,7 +65,7 @@
 /*
  * Small editor blocks like the footer social nav are hard to click
  * Setting a min-height so that elements can be selected to edit
- * Prior to this scrollbars overlaped small elements
+ * Prior to this scrollbars overlapped small elements
 */
 .block-editor-iframe__container {
 	min-height: 70px;

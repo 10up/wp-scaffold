@@ -30,7 +30,7 @@ You can also use the scaffold manually by doing the following:
 ```
 
 6. To build plugins/themes simply run `npm install` at the root and `npm run [build|start|watch]` and npm will automatically build all themes and plugins. If a WordPress critical error is received run `composer install` in all locations that have an existing `composer.lock` file; example locations: `root`, `/mu-plugins/10up-plugin`, `/themes/10up-theme`. Upon build completion set the `10up-theme` as active within WordPress admin by running `wp theme activate 10up-theme`.
-7. `npm workspaces` do not have the ability to run scripts from multiple packages in parrallel. Because of that we use the `npm-run-all` package and we define specific scripts in `package.json` so you will need to update the `watch:*` scripts in `package.json` and replace `tenup-theme` and `tenup-plugin` with the actual package names.
+7. `npm workspaces` do not have the ability to run scripts from multiple packages in parallel. Because of that we use the `npm-run-all` package and we define specific scripts in `package.json` so you will need to update the `watch:*` scripts in `package.json` and replace `tenup-theme` and `tenup-plugin` with the actual package names.
 
 ```json
 	"watch:theme": "npm run watch -w=tenup-theme",

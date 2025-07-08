@@ -44,7 +44,7 @@ public function can_register() {
 }
 ```
 
-As you can hopfully see, it's easy enough to do everything we could previously with this approach.
+As you can hopefully see, it's easy enough to do everything we could previously with this approach.
 
 ### `register()`
 
@@ -56,7 +56,7 @@ public function register() {
 }
 ```
 
-One thing worth noting is that the `register()` method will be called at the priority of `8`. This means that you can use the priorty default of `10` or hook in earlier at `9` if you need to.
+One thing worth noting is that the `register()` method will be called at the priority of `8`. This means that you can use the priority default of `10` or hook in earlier at `9` if you need to.
 
 ### Putting it all together
 
@@ -173,7 +173,7 @@ class TaxonomyFactory implements \TenupFramework\ModuleInterface {
 	use \TenupFramework\Module;
 
 	/**
-	 * Used to alter the order in which clases are initialized.
+	 * Used to alter the order in which classes are initialized.
 	 *
 	 * Lower number will be initialized first.
 	 *
