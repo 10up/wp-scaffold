@@ -1,0 +1,33 @@
+/*
+ * This file is used to override the styling of the block editor canvas.
+ * It is enqueued in the editor iframe only.
+ */
+
+/*
+ * Override the styling of the post title in the post editor
+ * to make it look as though it's part of the editor frame instead
+ * of the post content.
+ */
+.edit-post-visual-editor__post-title-wrapper {
+	align-items: center;
+	background-color: #fff; /* stylelint-disable-line scale-unlimited/declaration-strict-value */
+	border-bottom: 1px solid #e0e0e0;
+	display: flex;
+	justify-content: flex-start;
+	margin-bottom: 0;
+	margin-top: 0 !important;
+	max-width: none;
+	min-height: 48px;
+	overflow: hidden;
+	width: 100%;
+
+	& .editor-post-title__input {
+		color: #000; /* stylelint-disable-line scale-unlimited/declaration-strict-value */
+		font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
+		font-size: 16px;
+		height: auto;
+		line-height: 1.2;
+		padding: 2px 0;
+		width: 100%;
+	}
+}

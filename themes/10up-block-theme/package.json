@@ -28,7 +28,8 @@
 		"useScriptModules": true,
 		"loadBlockSpecificStyles": true,
 		"entry": {
-			"editor-style-overrides": "./assets/css/editor-style-overrides.css",
+			"editor-frame-style-overrides": "./assets/css/editor-frame-style-overrides.css",
+			"editor-canvas-style-overrides": "./assets/css/editor-canvas-style-overrides.css",
 			"frontend": "./assets/js/frontend.js",
 			"block-extensions": "./assets/js/block-extensions.js"
 		},
