@@ -148,3 +148,4 @@ jobs:
 ```
 
 With this in place, CircleCI should be able to run PHPStan properly again.
+

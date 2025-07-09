@@ -1,8 +1,8 @@
 # Creating Post Types and Taxonomies in the MU-Plugin
 
-The MU plugin contains abstract classes that can be extended to easily register new post types and taxonomies. This document will explain how to use these classes to create new post types and taxonomies.
+The MU plugin extends abstract classes from the WP-Framework to easily register new post types and taxonomies. This document will explain how to use these classes to create new post types and taxonomies.
 
-If you want to jump right in, take a look at the `TenUpPlugin\PostTypes\Demo::class` and `TenUpPlugin\Taxonomies\Demo::class` classes.
+If you want to jump right in, take a look at the `TenUpPlugin\PostTypes\Demo` and `TenUpPlugin\Taxonomies\Demo` classes.
 
 ## Post Types
 
