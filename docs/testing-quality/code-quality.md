@@ -1,5 +1,3 @@
-
-
 # Code Quality
 
 This document outlines the code quality tools and practices used in a WP Scaffold project to ensure consistent, maintainable, and high-quality code.
