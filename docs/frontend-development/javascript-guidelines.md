@@ -190,7 +190,7 @@ const UserProfile = ({ user }) => {
 
 Extract reusable logic into custom hooks:
 
-```javascript
+```jsx
 // hooks/useLocalStorage.js
 import { useState, useEffect } from 'react';
 
