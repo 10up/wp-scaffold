@@ -189,7 +189,7 @@ Each class should have a single responsibility:
 }
 
 .card__title {
-  font-size: 18px;
+  font-size: 1.125rem
 }
 
 /* Avoid */
