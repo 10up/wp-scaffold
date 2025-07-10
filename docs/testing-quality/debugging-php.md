@@ -110,3 +110,4 @@ Setting this to true will always display exceptions, regardless of the `WP_DEBUG
 
 * [Spatie Ignition Documentation](https://github.com/spatie/ignition)
 * [WordPress Debugging Guide](https://developer.wordpress.org/advanced-administration/debug/debug-wordpress/)
+

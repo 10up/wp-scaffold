@@ -1,6 +1,6 @@
 # Registering Classes in the MU-Plugin
 
-The MU-Plugin and the themes utilize a system to uniformly, auto-register classes that lie within their namespaces. Whilst there are a few constraints, it eases the requirements for engineers to add their classes to multiple locations each time they add one to the system.
+The MU-Plugin and the themes utilize a system from the WP-Framework to uniformly auto-register classes that lie within their namespaces. While there are a few constraints, it eases the requirements for engineers to add their classes to multiple locations each time they add one to the system.
 
 To learn more about this, check out the class within TenUpFramework that handles this: [`TenupFramework\ModuleInitialization`](https://github.com/10up/wp-framework/blob/trunk/src/ModuleInitialization.php).
 
