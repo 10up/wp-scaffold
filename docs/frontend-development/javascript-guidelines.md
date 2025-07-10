@@ -277,7 +277,7 @@ export const Button = ({ variant = 'primary', onClick, children }) => {
 
 Use Gutenberg components when building block editor interfaces:
 
-```javascript
+```jsx
 import { Button, Panel, PanelBody, TextControl } from '@wordpress/components';
 import { useSelect, useDispatch } from '@wordpress/data';
 import { __ } from '@wordpress/i18n';
