@@ -175,7 +175,9 @@ export const MyBlockEdit = (props) => {
 
 ## Server-Side Rendering
 
-The WP Scaffold uses server-side rendering for blocks. The save.js file returns null, and the actual rendering is done in the markup.php file:
+The WP Scaffold uses server-side rendering for blocks. The save.js file returns null, and the actual rendering is done in the markup.php file. Only when we are including inner blocks in our block, we need to add the return <InnerBlocks.Content /> in the save.js file so that the inner blocks are saved.
+
+We are using dynamic blocks instead of saving the HTML to the database via the save.js file because it allows us to make modifications to the markup of any block down the line without having to worry about deprecation issues or about how we need to update older instances of the block. For the type of work we are doing, where clients have new requests and we need to make changes to the block, it's much easier to do so with dynamic blocks.
 
 ```javascript
 // save.js
