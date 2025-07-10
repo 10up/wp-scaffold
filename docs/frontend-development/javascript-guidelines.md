@@ -170,7 +170,7 @@ const count = value !== null && value !== undefined ? value : 0;
 
 Use functional components with hooks instead of class components:
 
-```javascript
+```jsx
 // Good
 import React, { useState, useEffect } from 'react';
 
