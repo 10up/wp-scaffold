@@ -8,7 +8,6 @@ This document outlines the standards and best practices for writing JavaScript i
 - [Project Structure](#project-structure)
 - [Modern JavaScript Features](#modern-javascript-features)
 - [React Best Practices](#react-best-practices)
-- [Performance Considerations](#performance-considerations)
 - [Documentation](#documentation)
 - [WordPress Integration](#wordpress-integration)
 
@@ -218,25 +217,6 @@ export const useLocalStorage = (key, initialValue) => {
 
 // Usage
 const [theme, setTheme] = useLocalStorage('theme', 'light');
-```
-
-## Performance Considerations
-
-### Memoization
-
-Use memoization to prevent unnecessary re-renders:
-
-```javascript
-// Memoize component
-const MemoizedComponent = React.memo(ExpensiveComponent);
-
-// Memoize callback
-const memoizedCallback = useCallback(() => {
-  doSomething(a, b);
-}, [a, b]);
-
-// Memoize computed value
-const memoizedValue = useMemo(() => computeExpensiveValue(a, b), [a, b]);
 ```
 
 ## Documentation

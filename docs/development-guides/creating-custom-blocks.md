@@ -93,7 +93,7 @@ The block.json file defines your block's metadata:
 
 The index.js file registers your block with WordPress:
 
-```javascript
+```jsx
 /**
  * WordPress dependencies
  */
@@ -136,7 +136,7 @@ Attributes define the data stored by your block. Define them in your `block.json
 
 The edit function defines how your block appears in the editor:
 
-```javascript
+```jsx
 /**
  * WordPress dependencies
  */
@@ -268,17 +268,17 @@ To test your block:
 
 Allow nested blocks within your block:
 
-```javascript
+```jsx
 // edit.js
 import { useBlockProps, useInnerBlocksProps } from '@wordpress/block-editor';
 
 export default function Edit() {
   const blockProps = useBlockProps();
   const innerBlocksProps = useInnerBlocksProps( blockProps, {
-	template: [
-		['core/paragraph', { placeholder: 'Add content...' }]
-	],
-	allowedBlocks: ['core/paragraph', 'core/image']
+    template: [
+      ['core/paragraph', { placeholder: 'Add content...' }]
+    ],
+    allowedBlocks: ['core/paragraph', 'core/image']
   });
 
   return (
@@ -298,7 +298,7 @@ export default function Edit() {
 
 Add controls to your block:
 
-```javascript
+```jsx
 // edit.js
 import {
   useBlockProps,
@@ -321,11 +321,11 @@ export default function Edit({ attributes, setAttributes }) {
   return (
     <>
       <BlockControls group="block">
-		<ToolbarButton
-		icon={alignLeft}
-		title={__('Align Left', 'tenup-theme')}
-		onClick={() => setAttributes({ alignment: 'left' })}
-		/>
+        <ToolbarButton
+          icon={alignLeft}
+          title={__('Align Left', 'tenup-theme')}
+          onClick={() => setAttributes({ alignment: 'left' })}
+        />
       </BlockControls>
       <InspectorControls group="settings">
         <PanelBody title={__('Block Settings', 'tenup-theme')}>
