@@ -197,7 +197,7 @@ Each class should have a single responsibility:
   border: 1px solid #ddd;
 
   h2 {
-    font-size: 18px;
+    font-size: 1.125rem
   }
 }
 ```
