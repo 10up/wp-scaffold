@@ -30,6 +30,8 @@ Welcome to the WP Scaffold! This guide will help you get up and running quickly 
 ## Prerequisites
 - Local WP (https://localwp.com/)
 - Git
+- Composer (for PHP dependencies)
+- Node.js & npm (for JS dependencies)
 
 ## Quick Start with Local WP
 1. **Open Local WP and create a new site:**

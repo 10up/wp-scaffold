@@ -134,8 +134,8 @@ External dependencies are managed through Composer and installed in the `vendor`
 ```json
 {
   "require": {
-    "php": ">=7.4",
-    "psr/container": "^1.0"
+    "php": ">=8.2",
+    "10up/wp-framework": "~1.2.0"
   },
   "require-dev": {
     "phpunit/phpunit": "^9.0",

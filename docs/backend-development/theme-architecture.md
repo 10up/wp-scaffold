@@ -1,5 +1,3 @@
-
-
 # Theme Architecture
 
 This document outlines the architecture, organization, and features of the WordPress themes included in the WP Scaffold project.

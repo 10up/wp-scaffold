@@ -174,26 +174,7 @@ Use functional components with hooks instead of class components:
 // Good
 import React, { useState, useEffect } from 'react';
 
-const UserProfile = ({ userId }) => {
-  const [user, setUser] = useState(null);
-  const [loading, setLoading] = useState(true);
-
-  useEffect(() => {
-    const fetchUser = async () => {
-      try {
-        const data = await fetchUserData(userId);
-        setUser(data);
-      } catch (error) {
-        console.error('Error fetching user:', error);
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchUser();
-  }, [userId]);
-
-  if (loading) return <Loading />;
+const UserProfile = ({ user }) => {
   if (!user) return <Error message="User not found" />;
 
   return (

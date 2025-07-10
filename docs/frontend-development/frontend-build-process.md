@@ -92,78 +92,9 @@ The project includes several npm scripts to streamline the build process. These 
 - `npm test`: Run JavaScript tests
 
 ## Webpack Configuration
+The WP Scaffold project uses [10up Toolkit](https://github.com/10up/10up-toolkit/) for Webpack configuration, which provides a standardized setup for building WordPress themes.
 
-The Webpack configuration is defined in `webpack.config.js`. Here's a simplified example of the configuration:
-
-```javascript
-const path = require('path');
-const MiniCssExtractPlugin = require('mini-css-extract-plugin');
-const { CleanWebpackPlugin } = require('clean-webpack-plugin');
-
-module.exports = (env, argv) => {
-  const isProduction = argv.mode === 'production';
-
-  return {
-    entry: {
-      main: './assets/js/src/main.js',
-      // Add additional entry points as needed
-    },
-    output: {
-      path: path.resolve(__dirname, 'assets/js/dist'),
-      filename: '[name].js',
-    },
-    devtool: isProduction ? false : 'source-map',
-    module: {
-      rules: [
-        // JavaScript
-        {
-          test: /\.js$/,
-          exclude: /node_modules/,
-          use: {
-            loader: 'babel-loader',
-            options: {
-              presets: ['@babel/preset-env']
-            }
-          }
-        },
-        // CSS with PostCSS
-        {
-          test: /\.css$/,
-          use: [
-            MiniCssExtractPlugin.loader,
-            'css-loader',
-            'postcss-loader',
-          ],
-        },
-        // Images
-        {
-          test: /\.(png|jpg|gif|svg)$/,
-          use: [
-            {
-              loader: 'file-loader',
-              options: {
-                name: '[name].[ext]',
-                outputPath: '../images/dist/',
-              },
-            },
-          ],
-        },
-      ],
-    },
-    plugins: [
-      new CleanWebpackPlugin({
-        cleanStaleWebpackAssets: false,
-      }),
-      new MiniCssExtractPlugin({
-        filename: '../css/dist/[name].css',
-      }),
-    ],
-    optimization: {
-      minimize: isProduction,
-    },
-  };
-};
-```
+This configuration can be overridden if needed. Please see the [10up Toolkit documentation](https://github.com/10up/10up-toolkit/blob/develop/packages/toolkit/README.md#customizations) for more details on how to customize the Webpack setup.
 
 ## Asset Optimization
 

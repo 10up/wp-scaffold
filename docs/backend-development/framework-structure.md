@@ -1,5 +1,3 @@
-
-
 # WP-Framework Structure
 
 This document outlines the structure, purpose, and usage of the WP-Framework within a WP Scaffold project.
