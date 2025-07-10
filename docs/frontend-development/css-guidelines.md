@@ -67,11 +67,9 @@ CSS imports with PostCSS are typically organized in the following order:
 /* Templates/Pages */
 @import 'frontend/templates/home.css';
 @import 'frontend/templates/single.css';
-
-/* Blocks */
-@import 'blocks/core-blocks.css';
-@import 'blocks/custom-blocks.css';
 ```
+
+The block styles in the `blocks` directory are treated specially. They don't need to be imported in the main CSS file, but they will be automatically loaded and compiled into individual block stylesheets that are only loaded when that block is actually rendered on the frontend.
 
 ## Naming Conventions
 
@@ -205,11 +203,11 @@ Use media queries with PostCSS:
 .container {
   width: 100%;
 
-  @media (min-width: 768px) {
+  @media (--bp-medium) {
     width: 50%;
   }
 
-  @media (min-width: 992px) {
+  @media (--bp-large) {
     width: 33.333%;
   }
 }
@@ -242,21 +240,16 @@ Use custom selectors to create reusable selector patterns:
 
 ### Component-Based Approach
 
-Follow a component-based approach where each UI component has its own SCSS file:
+Follow a component-based approach where each UI component has its own CSS file:
 
-```scss
+```css
 /* Example component files */
-// _card.scss
+// card.css
 .card {
-  &__header {}
-  &__body {}
-  &__footer {}
 }
 
-// _button.scss
+// button.css
 .button {
-  &--primary {}
-  &--secondary {}
 }
 ```
 
@@ -264,7 +257,7 @@ Follow a component-based approach where each UI component has its own SCSS file:
 
 Each class should have a single responsibility:
 
-```scss
+```css
 /* Good */
 .card {
   border: 1px solid #ddd;
@@ -341,7 +334,7 @@ Always style focus states for interactive elements:
 ```scss
 /* Example focus state */
 .button {
-  &:focus {
+  &:focus-visible {
     outline: 2px solid #007bff;
     outline-offset: 2px;
   }

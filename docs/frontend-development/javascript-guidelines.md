@@ -302,13 +302,14 @@ import { useSelect, useDispatch } from '@wordpress/data';
 import { __ } from '@wordpress/i18n';
 
 const MyBlockEdit = ({ attributes, setAttributes }) => {
+  const { title } = attributes;
   return (
     <Panel>
       <PanelBody title={__('Settings', 'text-domain')}>
         <TextControl
           label={__('Title', 'text-domain')}
-          value={attributes.title}
-          onChange={(title) => setAttributes({ title })}
+          value={title}
+          onChange={(value) => setAttributes({ title: value })}
         />
         <Button isPrimary onClick={() => console.log('Clicked')}>
           {__('Apply', 'text-domain')}

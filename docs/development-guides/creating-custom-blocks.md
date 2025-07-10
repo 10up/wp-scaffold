@@ -47,7 +47,7 @@ The recommended workflow for developing custom blocks is:
 The WP Scaffold includes a convenient npm command to generate a new block:
 
 ```bash
-npm run scaffold:block my-block-name
+npm run scaffold:block -w=tenup-theme
 ```
 
 This command will create a new block in the `blocks` directory with all the necessary files.
@@ -153,7 +153,7 @@ import { RichText, useBlockProps } from '@wordpress/block-editor';
  * @param {Function} props.setAttributes    Sets the value for block attributes.
  * @returns {Function} Render the edit screen
  */
-const MyBlockEdit = (props) => {
+export const MyBlockEdit = (props) => {
   const { attributes, setAttributes } = props;
   const { title } = attributes;
 
@@ -171,7 +171,6 @@ const MyBlockEdit = (props) => {
     </div>
   );
 };
-export default MyBlockEdit;
 ```
 
 ## Server-Side Rendering
@@ -181,13 +180,11 @@ The WP Scaffold uses server-side rendering for blocks. The save.js file returns 
 ```javascript
 // save.js
 /**
- * Dynamic blocks do not save the HTML.
+ * Dynamic blocks do not save the HTML unless for saving inner blocks.
  *
  * @returns {null} Dynamic blocks do not save the HTML.
  */
-const MyBlockSave = () => null;
-
-export default MyBlockSave;
+export const MyBlockSave = () => null;
 ```
 
 ```php
@@ -224,25 +221,24 @@ dist/blocks/autoenqueue/tenup/my-block.css
 
 ## Block Patterns
 
-You can register block patterns to provide pre-designed layouts using your blocks:
+You can register block patterns to provide pre-designed layouts by creating a pattern file inside the theme's `patterns` directory. Any pattern file will be automatically loaded and registered. It needs to contain some metadata in the header to be properly registered.
 
 ```php
-// This is handled in the Blocks.php file
-register_block_pattern_category(
-  '10up-theme',
-  [ 'label' => __( '10up Theme', 'tenup-theme' ) ]
-);
+// patterns/my-pattern.php
+<?php
+/**
+ * Title: My Pattern
+ * Slug: tenup-theme/my-pattern
+ * Description: A custom pattern
+ * Inserter: true
+ *
+ * @package TenupBlockTheme
+ */
 
-// You can add your own patterns
-register_block_pattern(
-  'tenup-theme/my-pattern',
-  array(
-    'title'       => __('My Pattern', 'tenup-theme'),
-    'description' => __('A custom pattern', 'tenup-theme'),
-    'categories'  => array('10up-theme'),
-    'content'     => '<!-- wp:tenup/my-block {"title":"Pattern Title"} /-->'
-  )
-);
+?>
+<!-- wp:paragraph -->
+<p>My pattern content</p>
+<!-- /wp:paragraph -->
 ```
 
 ## Testing Your Block
@@ -272,20 +268,19 @@ Allow nested blocks within your block:
 
 ```javascript
 // edit.js
-import { useBlockProps, InnerBlocks } from '@wordpress/block-editor';
+import { useBlockProps, useInnerBlocksProps } from '@wordpress/block-editor';
 
 export default function Edit() {
   const blockProps = useBlockProps();
+  const innerBlocksProps = useInnerBlocksProps( blockProps, {
+	template: [
+		['core/paragraph', { placeholder: 'Add content...' }]
+	],
+	allowedBlocks: ['core/paragraph', 'core/image']
+  });
 
   return (
-    <div {...blockProps}>
-      <InnerBlocks
-        allowedBlocks={['core/paragraph', 'core/image']}
-        template={[
-          ['core/paragraph', { placeholder: 'Add content...' }]
-        ]}
-      />
-    </div>
+    <div {...innerBlocksProps} />
   );
 }
 ```
@@ -315,6 +310,7 @@ import {
   ToolbarButton
 } from '@wordpress/components';
 import { __ } from '@wordpress/i18n';
+import { alignLeft } from '@wordpress/icons';
 
 export default function Edit({ attributes, setAttributes }) {
   const { title } = attributes;
@@ -322,16 +318,14 @@ export default function Edit({ attributes, setAttributes }) {
 
   return (
     <>
-      <BlockControls>
-        <ToolbarGroup>
-          <ToolbarButton
-            icon="editor-alignleft"
-            title={__('Align Left', 'tenup-theme')}
-            onClick={() => setAttributes({ alignment: 'left' })}
-          />
-        </ToolbarGroup>
+      <BlockControls group="block">
+		<ToolbarButton
+		icon={alignLeft}
+		title={__('Align Left', 'tenup-theme')}
+		onClick={() => setAttributes({ alignment: 'left' })}
+		/>
       </BlockControls>
-      <InspectorControls>
+      <InspectorControls group="settings">
         <PanelBody title={__('Block Settings', 'tenup-theme')}>
           {/* Add your controls here */}
         </PanelBody>
