@@ -45,6 +45,9 @@ class Blocks implements ModuleInterface {
 		add_action( 'init', [ $this, 'register_theme_blocks' ] );
 		add_action( 'init', [ $this, 'register_block_pattern_categories' ] );
 		add_filter( 'should_load_separate_core_block_assets', '__return_true' );
+
+		// Prevents third-party blocks from being suggested in the block inserter.
+		remove_action( 'enqueue_block_editor_assets', 'wp_enqueue_editor_block_directory_assets' );
 	}
 
 	/**
