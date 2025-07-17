@@ -30,7 +30,6 @@
     "url": "https://10up.com",
     "role": "developer"
   },
-  "engineStrict": true,
   "engines": {
     "node": ">=20.0.0",
     "npm": ">=9.0.0"
