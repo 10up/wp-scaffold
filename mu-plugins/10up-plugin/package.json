@@ -11,9 +11,6 @@
     "test": "10up-toolkit test-unit-jest --passWithNoTests",
     "clean-dist": "rm -rf ./dist"
   },
-  "engines": {
-    "node": ">=18.0.0"
-  },
   "devDependencies": {
     "jest-environment-jsdom": "^29.7.0"
   },
