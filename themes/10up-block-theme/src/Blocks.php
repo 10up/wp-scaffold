@@ -42,6 +42,9 @@ class Blocks implements ModuleInterface {
 		);
 		add_action( 'init', [ $this, 'register_theme_blocks' ], 10, 0 );
 		add_action( 'init', [ $this, 'enqueue_theme_block_styles' ], 10, 0 );
+
+		// Prevents third-party blocks from being suggested in the block inserter.
+		remove_action( 'enqueue_block_editor_assets', 'wp_enqueue_editor_block_directory_assets' );
 	}
 
 
