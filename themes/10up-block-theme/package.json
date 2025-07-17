@@ -16,11 +16,9 @@
 	"engines": {
 		"node": ">=18.0.0"
 	},
-	"devDependencies": {
-		"10up-toolkit": "^6.3.0"
-	},
 	"dependencies": {
 		"@10up/block-components": "^1.19.4",
+		"10up-toolkit": "^6.3.0",
 		"clsx": "^2.1.1"
 	},
 	"10up-toolkit": {

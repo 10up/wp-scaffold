@@ -16,10 +16,10 @@
     "node": ">=18.0.0"
   },
   "devDependencies": {
-    "10up-toolkit": "^6.3.0",
-    "jest-environment-jsdom": "^29.7.0"
+	"jest-environment-jsdom": "^29.7.0"
   },
   "dependencies": {
+	"10up-toolkit": "^6.3.0",
     "modern-normalize": "^3.0.0"
   },
   "10up-toolkit": {
