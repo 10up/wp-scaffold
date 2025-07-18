@@ -86,17 +86,7 @@ class ThemeCore {
 		do_action( 'tenup_block_theme_init' );
 	}
 
-	/**
-	 * Handles JavaScript detection.
-	 *
-	 * Adds a `js` class to the root `<html>` element when JavaScript is detected.
-	 *
-	 * @return void
-	 */
-	public function js_detection() {
-
-		echo "<script>(function(html){html.className = html.className.replace(/\bno-js\b/,'js')})(document.documentElement);</script>\n";
-	}
+	
 
 	/**
 	 * Handles scrollbar width detection.
