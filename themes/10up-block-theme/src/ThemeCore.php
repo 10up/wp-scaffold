@@ -26,9 +26,6 @@ class ThemeCore {
 		add_action( 'after_setup_theme', [ $this, 'i18n' ] );
 		add_action( 'after_setup_theme', [ $this, 'theme_setup' ] );
 
-		add_action( 'wp_head', [ $this, 'js_detection' ], 0 );
-		add_action( 'wp_head', [ $this, 'scrollbar_detection' ], 0 );
-
 		do_action( 'tenup_block_theme_loaded' );
 	}
 
@@ -84,22 +81,6 @@ class ThemeCore {
 
 		ModuleInitialization::instance()->init_classes( TENUP_BLOCK_THEME_INC );
 		do_action( 'tenup_block_theme_init' );
-	}
-
-	
-
-	/**
-	 * Handles scrollbar width detection.
-	 *
-	 * Adds a JavaScript event listener to the DOMContentLoaded event. When the DOM is fully loaded,
-	 * it calculates the width of the scrollbar and sets a CSS variable `--wp--custom--scrollbar-width` with the width.
-	 * It also adds an event listener to the window resize event to update the scrollbar width when the window is
-	 * resized.
-	 *
-	 * @return void
-	 */
-	public function scrollbar_detection() {
-		echo '<script>window.addEventListener("DOMContentLoaded",()=>{const t=()=>window.innerWidth-document.body.clientWidth;const e=()=>{document.documentElement.style.setProperty("--wp--custom--scrollbar-width",`${t()}px`)};e();});</script>' . "\n";
 	}
 
 	/**
