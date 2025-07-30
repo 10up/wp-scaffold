@@ -43,7 +43,6 @@ class Assets implements ModuleInterface {
 		add_action( 'wp_enqueue_scripts', [ $this, 'scripts' ] );
 		add_action( 'enqueue_block_editor_assets', [ $this, 'enqueue_block_editor_scripts' ] );
 		add_action( 'wp_enqueue_scripts', [ $this, 'styles' ] );
-		add_action( 'wp_head', [ $this, 'js_detection' ], 0 );
 	}
 
 
@@ -93,16 +92,5 @@ class Assets implements ModuleInterface {
 			[],
 			$this->get_asset_info( 'frontend', 'version' )
 		);
-	}
-
-	/**
-	 * Handles JavaScript detection.
-	 *
-	 * Adds a `js` class to the root `<html>` element when JavaScript is detected.
-	 *
-	 * @return void
-	 */
-	public function js_detection() {
-		echo "<script>(function(html){html.className = html.className.replace(/\bno-js\b/,'js')})(document.documentElement);</script>\n";
 	}
 }
