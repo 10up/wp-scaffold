@@ -10,10 +10,13 @@ on:
         required: true
         type: string
 
+permissions:
+  contents: read
+
 jobs:
   deploy:
     runs-on: ubuntu-latest
-    
+
     environment:
       name: ${{ inputs.name }}
       url: ${{ inputs.url }}

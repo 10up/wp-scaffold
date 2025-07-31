@@ -3,6 +3,9 @@ name: Secret Scanning
 on:
   workflow_call:
 
+permissions:
+  contents: read
+
 jobs:
   trufflehog:
     runs-on: ubuntu-latest

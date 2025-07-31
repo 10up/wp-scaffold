@@ -3,6 +3,9 @@ name: JavaScript Unit Tests
 on:
   workflow_call:
 
+permissions:
+  contents: read
+
 jobs:
   jest:
     runs-on: ubuntu-latest

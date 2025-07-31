@@ -3,6 +3,9 @@ name: CSS Coding Standards
 on:
   workflow_call:
 
+permissions:
+  contents: read
+
 jobs:
   stylelint:
     runs-on: ubuntu-latest

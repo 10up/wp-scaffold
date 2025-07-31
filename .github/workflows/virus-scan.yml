@@ -3,6 +3,9 @@ name: Virus Scan
 on:
   workflow_call:
 
+permissions:
+  contents: read
+
 jobs:
   virus-scan:
     runs-on: ubuntu-latest

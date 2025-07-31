@@ -3,6 +3,9 @@ name: PHP Static Analysis
 on:
   workflow_call:
 
+permissions:
+  contents: read
+
 jobs:
   phpstan:
     runs-on: ubuntu-latest

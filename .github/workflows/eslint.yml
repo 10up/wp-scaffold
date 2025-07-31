@@ -3,6 +3,9 @@ name: JavaScript Coding Standards
 on:
   workflow_call:
 
+permissions:
+  contents: read
+
 jobs:
   eslint:
     runs-on: ubuntu-latest
