@@ -1,0 +1,22 @@
+name: Deploy to Production
+
+on:
+  push:
+    branches:
+    - trunk
+
+jobs:
+  lint:
+    uses: ./.github/workflows/jobs/coding-standards.yml
+
+  test:
+    uses: ./.github/workflows/jobs/code-quality.yml
+
+  build:
+    uses: ./.github/workflows/jobs/build.yml
+
+  deploy:
+    uses: ./.github/workflows/jobs/deploy.yml
+    with:
+      name: production
+      url: https://www.fueled.com

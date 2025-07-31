@@ -1,4 +1,4 @@
-name: JavaScript Coding Standards
+name: JavaScript Unit Tests
 
 on:
   workflow_call:
@@ -7,7 +7,7 @@ permissions:
   contents: read
 
 jobs:
-  eslint:
+  jest:
     runs-on: ubuntu-latest
 
     steps:
@@ -20,10 +20,14 @@ jobs:
           node-version-file: .nvmrc
           cache: "npm"
 
-      - name: Cache node modules
+      - name: Get npm cache directory
+        id: npm-cache-dir
+        run: echo "dir=$(npm config get cache)" >> ${GITHUB_OUTPUT}
+
+      - name: Cache npm dependencies
         uses: actions/cache@v4
         with:
-          path: ~/.npm
+          path: ${{ steps.npm-cache-dir.outputs.dir }}
           key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
           restore-keys: |
             ${{ runner.os }}-node-
@@ -40,5 +44,5 @@ jobs:
       - name: Install dependencies
         run: npm install
 
-      - name: Run Lint JS
-        run: npm run lint-js
+      - name: Run Jest
+        run: npm run test

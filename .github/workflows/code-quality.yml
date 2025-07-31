@@ -5,7 +5,7 @@ on:
 
 jobs:
   trufflehog:
-    uses: ./.github/workflows/truffle-hog.yml
+    uses: ./.github/workflows/jobs/truffle-hog.yml
 
   virus-scan:
-    uses: ./.github/workflows/virus-scan.yml
+    uses: ./.github/workflows/jobs/virus-scan.yml

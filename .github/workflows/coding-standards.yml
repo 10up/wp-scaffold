@@ -5,13 +5,13 @@ on:
 
 jobs:
   stylelint:
-    uses: ./.github/workflows/stylelint.yml
+    uses: ./.github/workflows/jobs/stylelint.yml
 
   eslint:
-    uses: ./.github/workflows/eslint.yml
+    uses: ./.github/workflows/jobs/eslint.yml
 
   phpcs:
-    uses: ./.github/workflows/phpcs.yml
+    uses: ./.github/workflows/jobs/phpcs.yml
 
   phpstan:
-    uses: ./.github/workflows/phpstan.yml
+    uses: ./.github/workflows/jobs/phpstan.yml
