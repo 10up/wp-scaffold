@@ -5,6 +5,13 @@ on:
     branches:
     - develop
 
+permissions:
+  contents: read
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
 jobs:
   lint:
     uses: ./.github/workflows/coding-standards.yml
@@ -14,11 +21,11 @@ jobs:
     needs: lint
 
   build:
-    uses: ./.github/workflows/jobs/build.yml
+    uses: ./.github/workflows/build.yml
     needs: test
 
   deploy:
-    uses: ./.github/workflows/jobs/deploy.yml
+    uses: ./.github/workflows/deploy.yml
     needs: build
     with:
       name: develop

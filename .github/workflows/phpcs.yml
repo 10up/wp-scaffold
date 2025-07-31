@@ -3,9 +3,6 @@ name: PHP Coding Standards
 on:
   workflow_call:
 
-permissions:
-  contents: read
-
 jobs:
   phpcs:
     runs-on: ubuntu-latest

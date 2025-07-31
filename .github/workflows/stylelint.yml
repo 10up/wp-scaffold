@@ -1,13 +1,10 @@
-name: JavaScript Coding Standards
+name: CSS Coding Standards
 
 on:
   workflow_call:
 
-permissions:
-  contents: read
-
 jobs:
-  eslint:
+  stylelint:
     runs-on: ubuntu-latest
 
     steps:
@@ -44,5 +41,6 @@ jobs:
       - name: Install dependencies
         run: npm install
 
-      - name: Run Lint JS
-        run: npm run lint-js
+      - name: Run Lint Style
+        run: npm run lint-style
+
