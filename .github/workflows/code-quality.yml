@@ -1,0 +1,11 @@
+name: Code Quality
+
+on:
+  pull_request:
+
+jobs:
+  trufflehog:
+    uses: ./.github/workflows/truffle-hog.yml
+
+  virus-scan:
+    uses: ./.github/workflows/virus-scan.yml

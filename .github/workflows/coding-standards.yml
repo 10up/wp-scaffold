@@ -1,0 +1,17 @@
+name: Coding Standards
+
+on:
+  pull_request:
+
+jobs:
+  stylelint:
+    uses: ./.github/workflows/stylelint.yml
+
+  eslint:
+    uses: ./.github/workflows/eslint.yml
+
+  phpcs:
+    uses: ./.github/workflows/phpcs.yml
+
+  phpstan:
+    uses: ./.github/workflows/phpstan.yml

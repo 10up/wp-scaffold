@@ -1,20 +1,18 @@
-name: PHP Checks
+name: PHP Static Analysis
 
 on:
-  push:
-    branches: ["trunk"]
-  pull_request:
-    branches: ["trunk"]
+  workflow_call:
 
 permissions:
   contents: read
 
 jobs:
-  build:
+  phpstan:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v3
+      - name: Checkout
+        uses: actions/checkout@v4
 
       - name: Setup PHP with composer v2
         uses: shivammathur/setup-php@v2
@@ -33,7 +31,7 @@ jobs:
 
       - name: Cache Composer packages
         id: composer-cache
-        uses: actions/cache@v3
+        uses: actions/cache@v4
         with:
           path: vendor
           key: ${{ runner.os }}-php-${{ hashFiles('**/composer.lock') }}
@@ -48,9 +46,6 @@ jobs:
 
       - name: Install Theme dependencies
         run: composer install --prefer-dist --no-progress --working-dir=themes/10up-theme
-
-      - name: Run PHPCS
-        run: composer lint
 
       - name: Run PHPStan
         run: composer static

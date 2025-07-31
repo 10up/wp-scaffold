@@ -1,0 +1,51 @@
+name: PHP Coding Standards
+
+on:
+  workflow_call:
+
+permissions:
+  contents: read
+
+jobs:
+  phpcs:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup PHP with composer v2
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: "8.3"
+          tools: composer:v2
+
+      - name: Validate Root composer.json and composer.lock
+        run: composer validate --strict
+
+      - name: Validate Plugin composer.json and composer.lock
+        run: composer validate --strict --working-dir=mu-plugins/10up-plugin
+
+      - name: Validate Theme composer.json and composer.lock
+        run: composer validate --strict --working-dir=themes/10up-theme
+
+      - name: Cache Composer packages
+        id: composer-cache
+        uses: actions/cache@v3
+        with:
+          path: vendor
+          key: ${{ runner.os }}-php-${{ hashFiles('**/composer.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-php-
+
+      - name: Install Root dependencies
+        run: composer install --prefer-dist --no-progress
+
+      - name: Install Plugin dependencies
+        run: composer install --prefer-dist --no-progress --working-dir=mu-plugins/10up-plugin
+
+      - name: Install Theme dependencies
+        run: composer install --prefer-dist --no-progress --working-dir=themes/10up-theme
+
+      - name: Run PHPCS
+        run: composer lint
