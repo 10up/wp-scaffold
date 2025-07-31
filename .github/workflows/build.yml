@@ -35,14 +35,11 @@ jobs:
       - name: Check Node version
         run: node -v
 
-      - name: Setup NPM
-        run: npm install -g npm@latest
-
       - name: Check Node version
         run: npm -v
 
       - name: Install Node dependencies
-        run: npm install
+        run: npm ci
 
       - name: Build JavaScript
         run: npm run build

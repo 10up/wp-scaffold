@@ -29,4 +29,4 @@ jobs:
     needs: build
     with:
       name: production
-      url: https://www.fueled.com
+      url: https://www.example.com

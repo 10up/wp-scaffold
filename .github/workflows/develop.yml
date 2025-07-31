@@ -29,4 +29,4 @@ jobs:
     needs: build
     with:
       name: develop
-      url: https://develop.fueled.com
+      url: https://develop.example.com
