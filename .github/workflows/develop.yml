@@ -7,10 +7,10 @@ on:
 
 jobs:
   lint:
-    uses: ./.github/workflows/jobs/coding-standards.yml
+    uses: ./.github/workflows/coding-standards.yml
 
   test:
-    uses: ./.github/workflows/jobs/code-quality.yml
+    uses: ./.github/workflows/code-quality.yml
     needs: lint
 
   build:
