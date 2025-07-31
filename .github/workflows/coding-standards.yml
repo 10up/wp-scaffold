@@ -10,6 +10,9 @@ jobs:
   eslint:
     uses: ./.github/workflows/jobs/eslint.yml
 
+  jest:
+    uses: ./.github/workflows/jobs/jest.yml
+
   phpcs:
     uses: ./.github/workflows/jobs/phpcs.yml
 

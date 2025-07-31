@@ -11,12 +11,15 @@ jobs:
 
   test:
     uses: ./.github/workflows/jobs/code-quality.yml
+    needs: lint
 
   build:
     uses: ./.github/workflows/jobs/build.yml
+    needs: test
 
   deploy:
     uses: ./.github/workflows/jobs/deploy.yml
+    needs: build
     with:
       name: staging
       url: https://staging.fueled.com
