@@ -12,7 +12,7 @@ concurrency:
 
 jobs:
   trufflehog:
-    uses: ./.github/workflows/jobs/truffle-hog.yml
+    uses: ./.github/workflows/truffle-hog.yml
 
   virus-scan:
-    uses: ./.github/workflows/jobs/virus-scan.yml
+    uses: ./.github/workflows/virus-scan.yml
