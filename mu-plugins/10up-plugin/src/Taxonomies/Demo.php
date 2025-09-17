@@ -19,7 +19,7 @@ class Demo extends AbstractTaxonomy {
 	 *
 	 * @return string
 	 */
-	public function get_name() {
+	public function get_name(): string {
 		return 'tenup-tax-demo';
 	}
 
@@ -28,7 +28,7 @@ class Demo extends AbstractTaxonomy {
 	 *
 	 * @return string
 	 */
-	public function get_singular_label() {
+	public function get_singular_label(): string {
 		return esc_html__( 'Demo Term', 'tenup-plugin' );
 	}
 
@@ -37,7 +37,7 @@ class Demo extends AbstractTaxonomy {
 	 *
 	 * @return string
 	 */
-	public function get_plural_label() {
+	public function get_plural_label(): string {
 		return esc_html__( 'Demo Terms', 'tenup-plugin' );
 	}
 
@@ -46,7 +46,7 @@ class Demo extends AbstractTaxonomy {
 	 *
 	 * @return bool
 	 */
-	public function can_register() {
+	public function can_register(): bool {
 		return false;
 	}
 }

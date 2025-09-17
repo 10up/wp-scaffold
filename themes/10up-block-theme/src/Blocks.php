@@ -26,7 +26,7 @@ class Blocks implements ModuleInterface {
 	 *
 	 * @return bool
 	 */
-	public function can_register() {
+	public function can_register(): bool {
 		return true;
 	}
 
@@ -35,7 +35,7 @@ class Blocks implements ModuleInterface {
 	 *
 	 * @return void
 	 */
-	public function register() {
+	public function register(): void {
 		$this->setup_asset_vars(
 			dist_path: TENUP_BLOCK_THEME_DIST_PATH,
 			fallback_version: TENUP_BLOCK_THEME_VERSION
@@ -53,7 +53,7 @@ class Blocks implements ModuleInterface {
 	 *
 	 * @return void
 	 */
-	public function register_theme_blocks() {
+	public function register_theme_blocks(): void {
 		// Register all the blocks in the theme.
 		if ( file_exists( TENUP_BLOCK_THEME_BLOCK_DIST_DIR ) ) {
 			$block_json_files = glob( TENUP_BLOCK_THEME_BLOCK_DIST_DIR . '*/block.json' );
@@ -91,7 +91,7 @@ class Blocks implements ModuleInterface {
 	 *
 	 * @return void
 	 */
-	public function enqueue_theme_block_styles() {
+	public function enqueue_theme_block_styles(): void {
 		$stylesheets = glob( TENUP_BLOCK_THEME_DIST_PATH . '/blocks/autoenqueue/**/*.css' );
 
 		if ( empty( $stylesheets ) ) {

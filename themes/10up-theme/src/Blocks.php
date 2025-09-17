@@ -26,7 +26,7 @@ class Blocks implements ModuleInterface {
 	 *
 	 * @return bool
 	 */
-	public function can_register() {
+	public function can_register(): bool {
 		return true;
 	}
 
@@ -35,7 +35,7 @@ class Blocks implements ModuleInterface {
 	 *
 	 * @return void
 	 */
-	public function register() {
+	public function register(): void {
 		$this->setup_asset_vars(
 			dist_path: TENUP_THEME_DIST_PATH,
 			fallback_version: TENUP_THEME_VERSION
@@ -55,7 +55,7 @@ class Blocks implements ModuleInterface {
 	 *
 	 * @return void
 	 */
-	public function register_theme_blocks() {
+	public function register_theme_blocks(): void {
 		// Register all the blocks in the theme
 		if ( file_exists( TENUP_THEME_BLOCK_DIST_DIR ) ) {
 			$block_json_files = glob( TENUP_THEME_BLOCK_DIST_DIR . '*/block.json' );
@@ -97,7 +97,7 @@ class Blocks implements ModuleInterface {
 	 *
 	 * @return void
 	 */
-	public function blocks_editor_styles() {
+	public function blocks_editor_styles(): void {
 		wp_enqueue_style(
 			'editor-style-overrides',
 			TENUP_THEME_TEMPLATE_URL . '/dist/css/editor-style-overrides.css',
@@ -132,7 +132,7 @@ class Blocks implements ModuleInterface {
 	 *
 	 * @return void
 	 */
-	public function enqueue_block_specific_styles() {
+	public function enqueue_block_specific_styles(): void {
 		$stylesheets = glob( TENUP_THEME_DIST_PATH . 'blocks/autoenqueue/**/*.css' );
 
 		if ( empty( $stylesheets ) ) {
@@ -179,7 +179,7 @@ class Blocks implements ModuleInterface {
 	 *
 	 * @return void
 	 */
-	public function register_block_pattern_categories() {
+	public function register_block_pattern_categories(): void {
 		// Register a block pattern category
 		register_block_pattern_category(
 			'10up-theme',
