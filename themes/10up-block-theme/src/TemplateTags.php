@@ -5,6 +5,8 @@
  * @package TenupBlockTheme
  */
 
+declare( strict_types = 1 );
+
 namespace TenupBlockTheme;
 
 use TenupFramework\Module;

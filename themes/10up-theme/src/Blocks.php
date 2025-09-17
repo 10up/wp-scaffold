@@ -5,6 +5,8 @@
  * @package TenUpTheme
  */
 
+declare( strict_types = 1 );
+
 namespace TenUpTheme;
 
 use TenupFramework\Assets\GetAssetInfo;

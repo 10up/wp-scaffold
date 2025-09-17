@@ -16,6 +16,8 @@
  * @package           TenUpPlugin
  */
 
+declare( strict_types = 1 );
+
 // Useful global constants.
 define( 'TENUP_PLUGIN_VERSION', '0.1.0' );
 define( 'TENUP_PLUGIN_URL', plugin_dir_url( __FILE__ ) );
