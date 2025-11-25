@@ -1,0 +1,94 @@
+name: Build
+
+on:
+  workflow_call:
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Install Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version-file: .nvmrc
+          cache: "npm"
+
+      - name: Get npm cache directory
+        id: npm-cache-dir
+        run: echo "dir=$(npm config get cache)" >> ${GITHUB_OUTPUT}
+
+      - name: Cache npm dependencies
+        uses: actions/cache@v4
+        with:
+          path: ${{ steps.npm-cache-dir.outputs.dir }}
+          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-node-
+
+      - name: Check Node version
+        run: node -v
+
+      - name: Check Node version
+        run: npm -v
+
+      - name: Install Node dependencies
+        run: npm ci
+
+      - name: Build JavaScript
+        run: npm run build
+
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: "8.4"
+          coverage: none
+          tools: composer:v2
+
+      - name: Validate Root composer.json and composer.lock
+        run: composer validate --strict
+
+      - name: Validate Plugin composer.json and composer.lock
+        run: composer validate --strict --working-dir=mu-plugins/10up-plugin
+
+      - name: Validate Theme composer.json and composer.lock
+        run: composer validate --strict --working-dir=themes/10up-theme
+
+      - name: Get Composer cache directory
+        id: composer-cache
+        run: echo "dir=$(composer config cache-files-dir)" >> ${GITHUB_OUTPUT}
+
+      - name: Cache Composer dependencies
+        uses: actions/cache@v4
+        with:
+          path: ${{ steps.composer-cache.outputs.dir }}
+          key: ${{ runner.os }}-php-${{ hashFiles('**/composer.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-php-
+
+      - name: PHP Version
+        run: php -v
+
+      - name: Install Root dependencies
+        run: composer install --no-dev --prefer-dist --no-progress
+
+      - name: Install Plugin dependencies
+        run: composer install --no-dev --prefer-dist --no-progress --working-dir=mu-plugins/10up-plugin
+
+      - name: Install Theme dependencies
+        run: composer install --no-dev --prefer-dist --no-progress --working-dir=themes/10up-theme
+
+      - name: Upload build artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: ${{ inputs.name }}-payload
+          retention-days: 7
+          include-hidden-files: true
+          path: .
+

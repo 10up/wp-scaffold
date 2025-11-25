@@ -1,0 +1,31 @@
+name: Deploy
+
+on:
+  workflow_call:
+    inputs:
+      name:
+        required: true
+        type: string
+      url:
+        required: true
+        type: string
+
+permissions:
+  contents: read
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    environment:
+      name: ${{ inputs.name }}
+      url: ${{ inputs.url }}
+      
+    steps:
+      - name: Download build artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: ${{ inputs.name }}-payload
+
+      # TODO: Implement deployment
+      

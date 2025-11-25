@@ -1,0 +1,32 @@
+name: Deploy to Staging
+
+on:
+  push:
+    branches:
+    - staging
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  lint:
+    uses: ./.github/workflows/coding-standards.yml
+
+  test:
+    uses: ./.github/workflows/code-quality.yml
+    needs: lint
+
+  build:
+    uses: ./.github/workflows/build.yml
+    needs: test
+
+  deploy:
+    uses: ./.github/workflows/deploy.yml
+    needs: build
+    with:
+      name: staging
+      url: https://staging.example.com
