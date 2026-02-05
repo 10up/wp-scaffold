@@ -5,4 +5,4 @@
 import './block-collection';
 // import './block-filters';
 // import './block-styles';
-// import './block-variations';
+import './block-variations';
