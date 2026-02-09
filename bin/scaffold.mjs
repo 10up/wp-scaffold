@@ -21,6 +21,7 @@ import {
 	mkdirSync,
 } from 'node:fs';
 import { join, resolve, extname } from 'node:path';
+import { parseArgs } from 'node:util';
 
 // ---------------------------------------------------------------------------
 // Constants
@@ -136,36 +137,144 @@ function walkFiles(dir, results = []) {
 }
 
 // ---------------------------------------------------------------------------
-// Main
+// CLI argument parsing
 // ---------------------------------------------------------------------------
 
+const CLI_OPTIONS = {
+	// Core
+	hosting: { type: 'string', short: 'h' },
+	theme: { type: 'string', short: 't' },
+	'project-name': { type: 'string', short: 'n' },
+
+	// Plugin
+	'plugin-slug': { type: 'string' },
+	'plugin-namespace': { type: 'string' },
+	'plugin-constant': { type: 'string' },
+	'plugin-text-domain': { type: 'string' },
+	'plugin-hook-prefix': { type: 'string' },
+	'plugin-human-name': { type: 'string' },
+	'plugin-npm-name': { type: 'string' },
+
+	// Theme
+	'theme-slug': { type: 'string' },
+	'theme-namespace': { type: 'string' },
+	'theme-constant': { type: 'string' },
+	'theme-text-domain': { type: 'string' },
+	'theme-hook-prefix': { type: 'string' },
+	'theme-human-name': { type: 'string' },
+	'theme-npm-name': { type: 'string' },
+
+	// Metadata
+	'author-name': { type: 'string' },
+	'author-email': { type: 'string' },
+	'author-uri': { type: 'string' },
+	description: { type: 'string' },
+	'composer-vendor': { type: 'string' },
+	'homepage-url': { type: 'string' },
+	'repo-url': { type: 'string' },
+
+	// Flags
+	yes: { type: 'boolean', short: 'y', default: false },
+	help: { type: 'boolean', default: false },
+};
+
+function printHelp() {
+	console.log(`
+  Usage: npm run scaffold -- [options]
+
+  Options:
+    -n, --project-name <name>       Project name (e.g. "Acme Corp")
+    -h, --hosting <type>            Hosting platform: "standard" or "vip"
+    -t, --theme <type>              Theme type: "block" or "classic"
+    -y, --yes                       Skip confirmation prompt
+
+  Plugin overrides:
+    --plugin-slug <slug>            Plugin directory and slug
+    --plugin-namespace <ns>         PHP namespace (e.g. AcmeCorpPlugin)
+    --plugin-constant <prefix>      Constant prefix (e.g. ACME_CORP_PLUGIN)
+    --plugin-text-domain <domain>   Text domain
+    --plugin-hook-prefix <prefix>   Hook prefix (e.g. acme_corp_plugin)
+    --plugin-human-name <name>      Human-readable name
+    --plugin-npm-name <name>        npm package name
+
+  Theme overrides:
+    --theme-slug <slug>             Theme directory and slug
+    --theme-namespace <ns>          PHP namespace (e.g. AcmeCorpTheme)
+    --theme-constant <prefix>       Constant prefix (e.g. ACME_CORP_THEME)
+    --theme-text-domain <domain>    Text domain
+    --theme-hook-prefix <prefix>    Hook prefix (e.g. acme_corp_theme)
+    --theme-human-name <name>       Human-readable name
+    --theme-npm-name <name>         npm package name
+
+  Metadata:
+    --author-name <name>            Author name
+    --author-email <email>          Author email
+    --author-uri <uri>              Author URI
+    --description <text>            Project description
+    --composer-vendor <vendor>      Composer vendor slug
+    --homepage-url <url>            Project homepage URL
+    --repo-url <url>                Repository URL
+
+  Examples:
+    npm run scaffold
+    npm run scaffold -- -n "Acme Corp" -t block -h standard -y
+    npm run scaffold -- --project-name "Acme Corp" --theme block --hosting vip --yes
+`);
+}
+
+function parseCli() {
+	try {
+		const { values } = parseArgs({ options: CLI_OPTIONS, strict: true });
+		return values;
+	} catch (err) {
+		console.error(`\n  Error: ${err.message}\n`);
+		printHelp();
+		process.exit(1);
+	}
+}
+
 async function main() {
+	const args = parseCli();
+
+	if (args.help) {
+		printHelp();
+		process.exit(0);
+	}
+
 	console.log('\n  WordPress Project Scaffold\n');
 
 	// -----------------------------------------------------------------------
-	// 1. Prompts
+	// 1. Prompts (skipped for any value provided via CLI flags)
 	// -----------------------------------------------------------------------
 
-	const hosting = await select({
-		message: 'What hosting platform will this project use?',
-		choices: [
-			{ name: 'Standard WordPress', value: 'standard' },
-			{ name: 'WordPress VIP', value: 'vip' },
-		],
-	});
+	const hosting =
+		args.hosting && ['standard', 'vip'].includes(args.hosting)
+			? args.hosting
+			: await select({
+					message: 'What hosting platform will this project use?',
+					choices: [
+						{ name: 'Standard WordPress', value: 'standard' },
+						{ name: 'WordPress VIP', value: 'vip' },
+					],
+				});
 
-	const themeType = await select({
-		message: 'Which theme type would you like to use?',
-		choices: [
-			{ name: 'Block Theme (Recommended)', value: 'block' },
-			{ name: 'Classic Theme', value: 'classic' },
-		],
-	});
+	const themeType =
+		args.theme && ['block', 'classic'].includes(args.theme)
+			? args.theme
+			: await select({
+					message: 'Which theme type would you like to use?',
+					choices: [
+						{ name: 'Block Theme (Recommended)', value: 'block' },
+						{ name: 'Classic Theme', value: 'classic' },
+					],
+				});
 
-	const projectName = await input({
-		message: 'Project name (human-readable, e.g. "Acme Corp"):',
-		validate: (v) => (v.trim().length > 0 ? true : 'Project name is required.'),
-	});
+	const projectName = args['project-name']
+		? args['project-name']
+		: await input({
+				message: 'Project name (human-readable, e.g. "Acme Corp"):',
+				validate: (v) => (v.trim().length > 0 ? true : 'Project name is required.'),
+			});
 
 	const isVip = hosting === 'vip';
 	const isBlock = themeType === 'block';
@@ -176,148 +285,164 @@ async function main() {
 	const gitOrg = getGitOrgFromUrl(gitRemoteUrl);
 
 	// -----------------------------------------------------------------------
-	// 2. Derive values
+	// 2. Derive values (CLI flags override auto-derived defaults)
 	// -----------------------------------------------------------------------
 
 	const defaults = {
 		// Plugin
-		pluginSlug: `${slug}-plugin`,
-		pluginNamespace: `${toPascal(slug)}Plugin`,
-		pluginConstant: `${toConstant(slug)}_PLUGIN`,
-		pluginTextDomain: `${slug}-plugin`,
-		pluginHookPrefix: `${toSnake(slug)}_plugin`,
-		pluginHumanName: `${toTitle(slug)} Plugin`,
-		pluginNpmName: `${slug}-plugin`,
+		pluginSlug: args['plugin-slug'] || `${slug}-plugin`,
+		pluginNamespace: args['plugin-namespace'] || `${toPascal(slug)}Plugin`,
+		pluginConstant: args['plugin-constant'] || `${toConstant(slug)}_PLUGIN`,
+		pluginTextDomain: args['plugin-text-domain'] || `${slug}-plugin`,
+		pluginHookPrefix: args['plugin-hook-prefix'] || `${toSnake(slug)}_plugin`,
+		pluginHumanName: args['plugin-human-name'] || `${toTitle(slug)} Plugin`,
+		pluginNpmName: args['plugin-npm-name'] || `${slug}-plugin`,
 
 		// Theme
-		themeSlug: `${slug}-theme`,
-		themeNamespace: `${toPascal(slug)}Theme`,
-		themeConstant: `${toConstant(slug)}_THEME`,
-		themeTextDomain: `${slug}-theme`,
-		themeHookPrefix: `${toSnake(slug)}_theme`,
-		themeHumanName: `${toTitle(slug)} Theme`,
-		themeNpmName: `${slug}-theme`,
+		themeSlug: args['theme-slug'] || `${slug}-theme`,
+		themeNamespace: args['theme-namespace'] || `${toPascal(slug)}Theme`,
+		themeConstant: args['theme-constant'] || `${toConstant(slug)}_THEME`,
+		themeTextDomain: args['theme-text-domain'] || `${slug}-theme`,
+		themeHookPrefix: args['theme-hook-prefix'] || `${toSnake(slug)}_theme`,
+		themeHumanName: args['theme-human-name'] || `${toTitle(slug)} Theme`,
+		themeNpmName: args['theme-npm-name'] || `${slug}-theme`,
 
 		// Metadata
-		authorName: '',
-		authorEmail: '',
-		authorUri: '',
-		description: '',
-		composerVendor: gitOrg || slug,
-		homepageUrl: '',
-		repoUrl: gitRemoteUrl || '',
+		authorName: args['author-name'] || '',
+		authorEmail: args['author-email'] || '',
+		authorUri: args['author-uri'] || '',
+		description: args.description || '',
+		composerVendor: args['composer-vendor'] || gitOrg || slug,
+		homepageUrl: args['homepage-url'] || '',
+		repoUrl: args['repo-url'] || gitRemoteUrl || '',
 	};
+
+	// Determine if we are running fully non-interactive (all three required
+	// flags were provided via CLI). When non-interactive, skip customization
+	// and metadata prompts entirely, using defaults for anything not provided.
+	const isNonInteractive = args['project-name'] && args.hosting && args.theme;
 
 	// -----------------------------------------------------------------------
 	// 3. Show summary and allow customization
 	// -----------------------------------------------------------------------
 
-	console.log('\n  Derived values:\n');
-	console.log(`  Plugin directory:     ${defaults.pluginSlug}`);
-	console.log(`  Plugin namespace:     ${defaults.pluginNamespace}`);
-	console.log(`  Plugin constants:     ${defaults.pluginConstant}_*`);
-	console.log(`  Plugin text domain:   ${defaults.pluginTextDomain}`);
-	console.log(`  Plugin human name:    ${defaults.pluginHumanName}`);
-	console.log('');
-	console.log(`  Theme directory:      ${defaults.themeSlug}`);
-	console.log(`  Theme namespace:      ${defaults.themeNamespace}`);
-	console.log(`  Theme constants:      ${defaults.themeConstant}_*`);
-	console.log(`  Theme text domain:    ${defaults.themeTextDomain}`);
-	console.log(`  Theme human name:     ${defaults.themeHumanName}`);
-	console.log('');
-	console.log(`  Composer vendor:      ${defaults.composerVendor}`);
-	if (defaults.repoUrl) {
-		console.log(`  Repository URL:       ${defaults.repoUrl}`);
-	}
-	console.log('');
-
-	const customize = await select({
-		message: 'How would you like to proceed?',
-		choices: [
-			{ name: 'Accept all derived values and continue to metadata', value: 'accept' },
-			{ name: 'Customize each value individually', value: 'customize' },
-		],
-	});
-
 	const values = { ...defaults };
 
-	if (customize === 'customize') {
-		console.log('\n  Plugin configuration:\n');
-		values.pluginSlug = await input({
-			message: 'Plugin slug / directory:',
-			default: defaults.pluginSlug,
-		});
-		values.pluginNamespace = await input({
-			message: 'Plugin PHP namespace:',
-			default: defaults.pluginNamespace,
-		});
-		values.pluginConstant = await input({
-			message: 'Plugin constant prefix:',
-			default: defaults.pluginConstant,
-		});
-		values.pluginTextDomain = await input({
-			message: 'Plugin text domain:',
-			default: defaults.pluginTextDomain,
-		});
-		values.pluginHookPrefix = await input({
-			message: 'Plugin hook prefix:',
-			default: defaults.pluginHookPrefix,
-		});
-		values.pluginHumanName = await input({
-			message: 'Plugin human name:',
-			default: defaults.pluginHumanName,
-		});
-		values.pluginNpmName = await input({
-			message: 'Plugin npm package name:',
-			default: defaults.pluginNpmName,
+	if (!isNonInteractive) {
+		console.log('\n  Derived values:\n');
+		console.log(`  Plugin directory:     ${defaults.pluginSlug}`);
+		console.log(`  Plugin namespace:     ${defaults.pluginNamespace}`);
+		console.log(`  Plugin constants:     ${defaults.pluginConstant}_*`);
+		console.log(`  Plugin text domain:   ${defaults.pluginTextDomain}`);
+		console.log(`  Plugin human name:    ${defaults.pluginHumanName}`);
+		console.log('');
+		console.log(`  Theme directory:      ${defaults.themeSlug}`);
+		console.log(`  Theme namespace:      ${defaults.themeNamespace}`);
+		console.log(`  Theme constants:      ${defaults.themeConstant}_*`);
+		console.log(`  Theme text domain:    ${defaults.themeTextDomain}`);
+		console.log(`  Theme human name:     ${defaults.themeHumanName}`);
+		console.log('');
+		console.log(`  Composer vendor:      ${defaults.composerVendor}`);
+		if (defaults.repoUrl) {
+			console.log(`  Repository URL:       ${defaults.repoUrl}`);
+		}
+		console.log('');
+
+		const customize = await select({
+			message: 'How would you like to proceed?',
+			choices: [
+				{ name: 'Accept all derived values and continue to metadata', value: 'accept' },
+				{ name: 'Customize each value individually', value: 'customize' },
+			],
 		});
 
-		console.log('\n  Theme configuration:\n');
-		values.themeSlug = await input({
-			message: 'Theme slug / directory:',
-			default: defaults.themeSlug,
+		if (customize === 'customize') {
+			console.log('\n  Plugin configuration:\n');
+			values.pluginSlug = await input({
+				message: 'Plugin slug / directory:',
+				default: defaults.pluginSlug,
+			});
+			values.pluginNamespace = await input({
+				message: 'Plugin PHP namespace:',
+				default: defaults.pluginNamespace,
+			});
+			values.pluginConstant = await input({
+				message: 'Plugin constant prefix:',
+				default: defaults.pluginConstant,
+			});
+			values.pluginTextDomain = await input({
+				message: 'Plugin text domain:',
+				default: defaults.pluginTextDomain,
+			});
+			values.pluginHookPrefix = await input({
+				message: 'Plugin hook prefix:',
+				default: defaults.pluginHookPrefix,
+			});
+			values.pluginHumanName = await input({
+				message: 'Plugin human name:',
+				default: defaults.pluginHumanName,
+			});
+			values.pluginNpmName = await input({
+				message: 'Plugin npm package name:',
+				default: defaults.pluginNpmName,
+			});
+
+			console.log('\n  Theme configuration:\n');
+			values.themeSlug = await input({
+				message: 'Theme slug / directory:',
+				default: defaults.themeSlug,
+			});
+			values.themeNamespace = await input({
+				message: 'Theme PHP namespace:',
+				default: defaults.themeNamespace,
+			});
+			values.themeConstant = await input({
+				message: 'Theme constant prefix:',
+				default: defaults.themeConstant,
+			});
+			values.themeTextDomain = await input({
+				message: 'Theme text domain:',
+				default: defaults.themeTextDomain,
+			});
+			values.themeHookPrefix = await input({
+				message: 'Theme hook prefix:',
+				default: defaults.themeHookPrefix,
+			});
+			values.themeHumanName = await input({
+				message: 'Theme human name:',
+				default: defaults.themeHumanName,
+			});
+			values.themeNpmName = await input({
+				message: 'Theme npm package name:',
+				default: defaults.themeNpmName,
+			});
+		}
+
+		// Prompt for metadata
+		console.log('\n  Project metadata:\n');
+		values.authorName = await input({
+			message: 'Author name:',
+			default: defaults.authorName,
 		});
-		values.themeNamespace = await input({
-			message: 'Theme PHP namespace:',
-			default: defaults.themeNamespace,
+		values.authorEmail = await input({
+			message: 'Author email:',
+			default: defaults.authorEmail,
 		});
-		values.themeConstant = await input({
-			message: 'Theme constant prefix:',
-			default: defaults.themeConstant,
+		values.authorUri = await input({ message: 'Author URI:', default: defaults.authorUri });
+		values.description = await input({
+			message: 'Project description:',
+			default: defaults.description,
 		});
-		values.themeTextDomain = await input({
-			message: 'Theme text domain:',
-			default: defaults.themeTextDomain,
+		values.composerVendor = await input({
+			message: 'Composer vendor slug:',
+			default: defaults.composerVendor,
 		});
-		values.themeHookPrefix = await input({
-			message: 'Theme hook prefix:',
-			default: defaults.themeHookPrefix,
+		values.homepageUrl = await input({
+			message: 'Homepage URL:',
+			default: defaults.homepageUrl,
 		});
-		values.themeHumanName = await input({
-			message: 'Theme human name:',
-			default: defaults.themeHumanName,
-		});
-		values.themeNpmName = await input({
-			message: 'Theme npm package name:',
-			default: defaults.themeNpmName,
-		});
+		values.repoUrl = await input({ message: 'Repository URL:', default: defaults.repoUrl });
 	}
-
-	// Always prompt for metadata
-	console.log('\n  Project metadata:\n');
-	values.authorName = await input({ message: 'Author name:', default: defaults.authorName });
-	values.authorEmail = await input({ message: 'Author email:', default: defaults.authorEmail });
-	values.authorUri = await input({ message: 'Author URI:', default: defaults.authorUri });
-	values.description = await input({
-		message: 'Project description:',
-		default: defaults.description,
-	});
-	values.composerVendor = await input({
-		message: 'Composer vendor slug:',
-		default: defaults.composerVendor,
-	});
-	values.homepageUrl = await input({ message: 'Homepage URL:', default: defaults.homepageUrl });
-	values.repoUrl = await input({ message: 'Repository URL:', default: defaults.repoUrl });
 
 	// -----------------------------------------------------------------------
 	// 4. Confirm
@@ -334,10 +459,12 @@ async function main() {
 
 	const muDir = isVip ? 'client-mu-plugins' : 'mu-plugins';
 
-	const ok = await confirm({ message: 'Apply these changes?', default: true });
-	if (!ok) {
-		console.log('\n  Aborted. No changes were made.\n');
-		process.exit(0);
+	if (!args.yes) {
+		const ok = await confirm({ message: 'Apply these changes?', default: true });
+		if (!ok) {
+			console.log('\n  Aborted. No changes were made.\n');
+			process.exit(0);
+		}
 	}
 
 	// -----------------------------------------------------------------------
