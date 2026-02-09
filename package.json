@@ -35,7 +35,7 @@
     "npm": ">=9.0.0"
   },
   "dependencies": {
-    "10up-toolkit": "^6.5.0"
+    "10up-toolkit": "^6.5.1"
   },
   "devDependencies": {
     "@wordpress/create-block": "4.55.0",
