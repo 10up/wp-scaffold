@@ -175,6 +175,7 @@ const CLI_OPTIONS = {
 
 	// Flags
 	yes: { type: 'boolean', short: 'y', default: false },
+	'self-destruct': { type: 'boolean', default: false },
 	help: { type: 'boolean', default: false },
 };
 
@@ -187,6 +188,7 @@ function printHelp() {
     -h, --hosting <type>            Hosting platform: "standard" or "vip"
     -t, --theme <type>              Theme type: "block" or "classic"
     -y, --yes                       Skip confirmation prompt
+    --self-destruct                 Remove the scaffold script and bin/ directory after running
 
   Plugin overrides:
     --plugin-slug <slug>            Plugin directory and slug
@@ -218,7 +220,7 @@ function printHelp() {
   Examples:
     npm run scaffold
     npm run scaffold -- -n "Acme Corp" -t block -h standard -y
-    npm run scaffold -- --project-name "Acme Corp" --theme block --hosting vip --yes
+    npm run scaffold -- --project-name "Acme Corp" --theme block --hosting vip --yes --self-destruct
 `);
 }
 
@@ -458,6 +460,15 @@ async function main() {
 	console.log('');
 
 	const muDir = isVip ? 'client-mu-plugins' : 'mu-plugins';
+
+	// Determine whether to remove the scaffold script after running.
+	let selfDestruct = args['self-destruct'] === true;
+	if (!selfDestruct && !isNonInteractive) {
+		selfDestruct = await confirm({
+			message: 'Remove the scaffold script and its dependencies after running?',
+			default: true,
+		});
+	}
 
 	if (!args.yes) {
 		const ok = await confirm({ message: 'Apply these changes?', default: true });
@@ -810,18 +821,34 @@ async function main() {
 		}
 	}
 
-	// Remove scaffold-related entries from package.json
-	const rootPkgPath = join(ROOT, 'package.json');
-	if (existsSync(rootPkgPath)) {
-		const rootPkg = JSON.parse(readFileSync(rootPkgPath, 'utf-8'));
-		if (rootPkg.scripts?.scaffold) {
-			delete rootPkg.scripts.scaffold;
+	// -- Self-destruct: remove scaffold script and dependencies --
+	if (selfDestruct) {
+		const rootPkgPath = join(ROOT, 'package.json');
+		if (existsSync(rootPkgPath)) {
+			const rootPkg = JSON.parse(readFileSync(rootPkgPath, 'utf-8'));
+			if (rootPkg.scripts?.scaffold) {
+				delete rootPkg.scripts.scaffold;
+			}
+			if (rootPkg.devDependencies?.['@inquirer/prompts']) {
+				delete rootPkg.devDependencies['@inquirer/prompts'];
+			}
+			writeFileSync(rootPkgPath, `${JSON.stringify(rootPkg, null, '  ')}\n`);
+			console.log('  Removed scaffold script and @inquirer/prompts from package.json');
 		}
-		if (rootPkg.devDependencies?.['@inquirer/prompts']) {
-			delete rootPkg.devDependencies['@inquirer/prompts'];
+
+		// Delete the scaffold script file
+		const scriptPath = resolve(ROOT, 'bin', 'scaffold.mjs');
+		if (existsSync(scriptPath)) {
+			rmSync(scriptPath);
+			console.log('  Deleted bin/scaffold.mjs');
 		}
-		writeFileSync(rootPkgPath, `${JSON.stringify(rootPkg, null, '  ')}\n`);
-		console.log('  Removed scaffold script and @inquirer/prompts from package.json');
+
+		// Remove the bin/ directory if it is now empty
+		const binDir = resolve(ROOT, 'bin');
+		if (existsSync(binDir) && readdirSync(binDir).length === 0) {
+			rmSync(binDir, { recursive: true });
+			console.log('  Deleted empty bin/ directory');
+		}
 	}
 
 	// -- Done! --
