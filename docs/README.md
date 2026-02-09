@@ -5,6 +5,7 @@ Welcome to the documentation for the WP Scaffold! This is your starting point fo
 ## Table of Contents
 - [Getting Started](#getting-started)
 - [Installation](./installation.md)
+- [Scaffold CLI](./installation.md#running-the-scaffold-cli)
 - [Architecture Overview](./backend-development/architecture-overview.md)
 - [Contributing Guidelines](./contributing-community/contributing-guidelines.md)
 - [Troubleshooting Guide](./troubleshooting-faq/troubleshooting-guide.md)

@@ -11,9 +11,50 @@ It contains a bare bones theme and must use plugin for you to base your developm
 
 ## How to Use
 
-_The best way to use the scaffold is to simply run `npx 10up-toolkit project init` in your terminal._
+### Quick Start (Recommended)
 
-You can also use the scaffold manually by doing the following:
+The fastest way to get started is to run the scaffold CLI. It walks you through a few questions, then renames every placeholder string, directory, config reference, and translation file in the project so it matches your new project name.
+
+1. Clone or download the scaffold into your `wp-content` directory.
+2. Install dependencies:
+
+```bash
+npm install
+```
+
+3. Run the scaffold:
+
+```bash
+npm run scaffold
+```
+
+The CLI will ask you to choose a hosting platform (Standard or VIP), a theme type (Block or Classic), and a project name. It then derives all the namespaces, constants, slugs, text domains, and other naming conventions from the project name automatically. You can accept the defaults or customize each value individually.
+
+When it finishes, the unused theme is deleted, all placeholder strings are replaced, directories are renamed, and lock files are cleaned up so you can start fresh.
+
+#### Non-interactive mode
+
+If you already know what you want, you can pass everything as flags and skip the prompts entirely:
+
+```bash
+npm run scaffold -- \
+  --project-name "Acme Corp" \
+  --theme block \
+  --hosting standard \
+  --author-name "Acme Inc" \
+  --description "The Acme Corp website" \
+  --yes
+```
+
+Run `npm run scaffold -- --help` to see all available options, including individual overrides for plugin/theme slugs, namespaces, constants, and metadata.
+
+#### Self-destruct
+
+By default the script will ask whether you want to remove it after scaffolding is complete. You can also pass the `--self-destruct` flag to do this automatically. When enabled, the script removes the `bin/scaffold.mjs` file, the `scaffold` npm script, and the `@inquirer/prompts` dependency from `package.json`.
+
+### Manual Setup
+
+You can also set up the scaffold manually without the CLI:
 
 1. [Download a zip](https://github.com/10up/wp-scaffold/archive/trunk.zip) of the repository into your project. At 10up, by default we version control the `wp-content` directory (ignoring obvious things like `uploads`). This enables us to have plugins, theme, etc. all in one repository. Having separate repositories for each plugin and theme only happens in rare circumstances that are outside of our control.
 2. Take what you need. If your project doesn't have a theme, remove the theme. If your project doesn't need any plugin functionality, remove the MU plugin. If your plugin doesn't need CSS/JS, remove it. If your plugin doesn't need to be translated, remove all the translation functionality.
@@ -38,8 +79,8 @@ You can also use the scaffold manually by doing the following:
 	"watch": "run-s watch:theme watch:plugin",
 ```
 
-7. To add npm dependencies to your theme and/or plugins add the `-w=package-name` flag to the `npm install` command. E.g: `npm install --save prop-types -w=tenup-plugin` **DO NOT RUN** `npm install` inside an individual workspace/package. Always run the from the root folder.
-8. If you're building Gutenberg blocks and importing `@wordpress/*` packages, **you do not** need to manually install them as `10up-toolkit` will handle these packages properly.
+8. To add npm dependencies to your theme and/or plugins add the `-w=package-name` flag to the `npm install` command. E.g: `npm install --save prop-types -w=tenup-plugin` **DO NOT RUN** `npm install` inside an individual workspace/package. Always run the from the root folder.
+9. If you're building Gutenberg blocks and importing `@wordpress/*` packages, **you do not** need to manually install them as `10up-toolkit` will handle these packages properly.
 
 ## Scaffold Rules
 
