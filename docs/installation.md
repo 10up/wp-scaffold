@@ -128,6 +128,78 @@ npm run build
 
 You will also need to run `composer install` inside the mu-plugin and theme directories where `composer.json` files exist.
 
+## Adding a New Plugin
+
+After your project is scaffolded and underway, you may need to add additional plugins. The `scaffold:plugin` command downloads the reference 10up-plugin from GitHub and integrates it into your existing project.
+
+### Interactive mode
+
+```bash
+npm run scaffold:plugin
+```
+
+The CLI walks you through:
+
+1. **Plugin name** - A human-readable name like "Content Syndication". All other naming conventions are derived automatically.
+2. **Metadata** - Author name, email, URI, description, and Composer vendor slug. The vendor slug is auto-detected from your existing `composer.json`.
+
+The script automatically detects whether your project uses `mu-plugins/` or `client-mu-plugins/` (for VIP projects).
+
+### Non-interactive mode
+
+```bash
+npm run scaffold:plugin -- \
+  --name "Content Syndication" \
+  --composer-vendor acme \
+  --yes
+```
+
+### All available flags
+
+| Flag | Short | Description |
+|------|-------|-------------|
+| `--name` | `-n` | Plugin name (e.g. "Content Syndication") |
+| `--mu-dir` | | MU plugins directory (auto-detected if not provided) |
+| `--ref` | | GitHub ref to download from (default: trunk) |
+| `--yes` | `-y` | Skip confirmation prompt |
+| `--plugin-slug` | | Plugin directory and slug |
+| `--plugin-namespace` | | PHP namespace (e.g. ContentSyndicationPlugin) |
+| `--plugin-constant` | | Constant prefix (e.g. CONTENT_SYNDICATION_PLUGIN) |
+| `--plugin-text-domain` | | Text domain |
+| `--plugin-hook-prefix` | | Hook prefix (e.g. content_syndication_plugin) |
+| `--plugin-human-name` | | Human-readable name |
+| `--plugin-npm-name` | | npm package name |
+| `--author-name` | | Author name |
+| `--author-email` | | Author email |
+| `--author-uri` | | Author URI |
+| `--description` | | Plugin description |
+| `--composer-vendor` | | Composer vendor slug |
+
+### What it does
+
+When you run the command, it:
+
+1. Auto-detects your project's mu-plugins directory (`mu-plugins/` or `client-mu-plugins/`)
+2. Downloads the reference plugin from the 10up/wp-scaffold GitHub repository
+3. Applies all string replacements (namespaces, constants, slugs, text domains, metadata)
+4. Places the plugin and loader file in the correct directory
+5. Updates project config files:
+   - `package.json` - adds workspace, adds watch script
+   - `phpstan.neon` - adds plugin paths
+   - `phpstan/constants.php` - adds plugin constants
+   - `phpcs.xml` - adds loader file exclusion
+   - `.github/workflows/php.yml` - adds CI steps
+
+### After adding a plugin
+
+Run the following to integrate the new plugin:
+
+```bash
+npm install
+composer install --working-dir=mu-plugins/your-plugin-slug
+npm run build
+```
+
 ## Database Setup
 - Local WP will create a database for your site automatically.
 - If you have a database dump (e.g., `local.sql`), import it using Local WP's database tools or via the command line.
