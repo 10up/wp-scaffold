@@ -13,6 +13,8 @@
   ],
   "scripts": {
     "prepare": "TEN=\"$(pwd)\"; UP=\"$(git rev-parse --show-toplevel)\"; TENUP=\"${TEN#\"$UP\"}\"; cd \"$(git rev-parse --show-toplevel)\"; husky .\"${TENUP}\"/.husky",
+    "setup": "npm install --omit=dev && composer setup",
+    "setup:local": "npm install && composer setup:local",
     "build": "npm run build --workspaces --if-present",
     "start": "npm run watch",
     "watch:theme": "npm run watch -w=tenup-theme",

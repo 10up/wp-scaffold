@@ -34,6 +34,16 @@
     "phpstan/phpstan-deprecation-rules": "^1.2"
   },
   "scripts": {
+    "setup": [
+      "composer install --no-dev",
+      "@composer install --no-dev --working-dir=themes/10up-block-theme",
+      "@composer install --no-dev --working-dir=mu-plugins/10up-plugin"
+    ],
+    "setup:local": [
+      "composer install",
+      "@composer install --working-dir=themes/10up-block-theme",
+      "@composer install --working-dir=mu-plugins/10up-plugin"
+    ],
     "lint": "./vendor/bin/phpcs --standard=./phpcs.xml",
     "lint-fix": "./vendor/bin/phpcbf --standard=./phpcs.xml",
     "static": [

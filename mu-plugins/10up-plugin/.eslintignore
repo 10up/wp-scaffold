@@ -2,4 +2,7 @@ assets/js/vendor
 assets/js/admin/vendor
 assets/js/frontend/vendor
 tests
-dist
+dist/
+build/
+node_modules/
+*.min.js
