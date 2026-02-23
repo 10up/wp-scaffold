@@ -10,131 +10,32 @@
  */
 
 import { select, input, confirm } from '@inquirer/prompts';
-import { execSync } from 'node:child_process';
 import {
 	existsSync,
-	readdirSync,
 	readFileSync,
 	writeFileSync,
 	renameSync,
 	rmSync,
 	mkdirSync,
 } from 'node:fs';
-import { join, resolve, extname } from 'node:path';
+import { join, resolve } from 'node:path';
 import { parseArgs } from 'node:util';
+import {
+	toKebab,
+	toPascal,
+	toConstant,
+	toSnake,
+	toTitle,
+	getGitRemoteUrl,
+	getGitOrgFromUrl,
+	walkFiles,
+} from './scaffold-helpers.mjs';
 
 // ---------------------------------------------------------------------------
 // Constants
 // ---------------------------------------------------------------------------
 
 const ROOT = resolve(import.meta.dirname, '..');
-
-const BINARY_EXTENSIONS = new Set([
-	'.png',
-	'.jpg',
-	'.jpeg',
-	'.gif',
-	'.webp',
-	'.ico',
-	'.svg',
-	'.woff',
-	'.woff2',
-	'.eot',
-	'.ttf',
-	'.otf',
-	'.zip',
-	'.gz',
-	'.tar',
-	'.bz2',
-	'.mp4',
-	'.mp3',
-	'.mov',
-	'.avi',
-	'.pdf',
-	'.doc',
-	'.docx',
-	'.lock',
-]);
-
-const SKIP_DIRS = new Set(['node_modules', 'vendor', '.git', 'plugins']);
-
-// ---------------------------------------------------------------------------
-// Utility helpers
-// ---------------------------------------------------------------------------
-
-/** Convert "Acme Corp" to "acme-corp" */
-function toKebab(name) {
-	return name
-		.replace(/([a-z])([A-Z])/g, '$1-$2')
-		.replace(/[\s_]+/g, '-')
-		.replace(/[^a-z0-9-]/gi, '')
-		.toLowerCase();
-}
-
-/** Convert "acme-corp" to "AcmeCorp" */
-function toPascal(slug) {
-	return slug
-		.split('-')
-		.map((w) => w.charAt(0).toUpperCase() + w.slice(1))
-		.join('');
-}
-
-/** Convert "acme-corp" to "ACME_CORP" */
-function toConstant(slug) {
-	return slug.replace(/-/g, '_').toUpperCase();
-}
-
-/** Convert "acme-corp" to "acme_corp" */
-function toSnake(slug) {
-	return slug.replace(/-/g, '_');
-}
-
-/** Convert "acme-corp" to "Acme Corp" */
-function toTitle(slug) {
-	return slug
-		.split('-')
-		.map((w) => w.charAt(0).toUpperCase() + w.slice(1))
-		.join(' ');
-}
-
-/** Try to read the git remote origin URL */
-function getGitRemoteUrl() {
-	try {
-		const url = execSync('git remote get-url origin', { cwd: ROOT, encoding: 'utf-8' }).trim();
-		// Normalize git@github.com:org/repo.git to https://github.com/org/repo
-		if (url.startsWith('git@')) {
-			return url.replace(/^git@([^:]+):/, 'https://$1/').replace(/\.git$/, '');
-		}
-		return url.replace(/\.git$/, '');
-	} catch {
-		return '';
-	}
-}
-
-/** Extract the org/user from a GitHub URL */
-function getGitOrgFromUrl(url) {
-	const match = url.match(/github\.com\/([^/]+)/);
-	return match ? match[1].toLowerCase() : '';
-}
-
-// ---------------------------------------------------------------------------
-// File-walking helpers
-// ---------------------------------------------------------------------------
-
-function walkFiles(dir, results = []) {
-	for (const entry of readdirSync(dir, { withFileTypes: true })) {
-		const fullPath = join(dir, entry.name);
-		if (entry.isDirectory()) {
-			if (SKIP_DIRS.has(entry.name)) continue;
-			walkFiles(fullPath, results);
-		} else if (entry.isFile()) {
-			if (BINARY_EXTENSIONS.has(extname(entry.name).toLowerCase())) continue;
-			if (entry.name === 'package-lock.json') continue;
-			results.push(fullPath);
-		}
-	}
-	return results;
-}
 
 // ---------------------------------------------------------------------------
 // CLI argument parsing
@@ -283,7 +184,7 @@ async function main() {
 	const slug = toKebab(projectName.trim());
 
 	// Auto-detect git remote
-	const gitRemoteUrl = getGitRemoteUrl();
+	const gitRemoteUrl = getGitRemoteUrl(ROOT);
 	const gitOrg = getGitOrgFromUrl(gitRemoteUrl);
 
 	// -----------------------------------------------------------------------

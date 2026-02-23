@@ -52,6 +52,16 @@ Run `npm run scaffold -- --help` to see all available options, including individ
 
 By default the script will ask whether you want to remove it after scaffolding is complete. You can also pass the `--self-destruct` flag to do this automatically. When enabled, the script removes the `bin/scaffold.mjs` file, the `scaffold` npm script, and the `@inquirer/prompts` dependency from `package.json`.
 
+### Adding New Plugins
+
+After your project is scaffolded, you can add additional plugins using the `scaffold:plugin` command. It downloads the reference 10up-plugin from GitHub and integrates it into your project:
+
+```bash
+npm run scaffold:plugin
+```
+
+The command auto-detects your project structure (standard or VIP), prompts for the plugin name and metadata, applies all replacements, and updates your project config files (`package.json`, `phpstan.neon`, `phpcs.xml`, CI workflows). See the [full documentation](docs/installation.md#adding-a-new-plugin) for all available options and flags.
+
 ### Manual Setup
 
 You can also set up the scaffold manually without the CLI:
