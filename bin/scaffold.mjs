@@ -10,9 +10,11 @@
  */
 
 import { select, input, confirm } from '@inquirer/prompts';
+import { execSync } from 'node:child_process';
 import {
 	existsSync,
 	readFileSync,
+	readdirSync,
 	writeFileSync,
 	renameSync,
 	rmSync,
@@ -78,6 +80,11 @@ const CLI_OPTIONS = {
 	yes: { type: 'boolean', short: 'y', default: false },
 	'self-destruct': { type: 'boolean', default: false },
 	help: { type: 'boolean', default: false },
+
+	// Ignite
+	fueled: { type: 'boolean', default: false },
+	ignite: { type: 'boolean', default: false },
+	'skip-ignite': { type: 'boolean', default: false },
 };
 
 function printHelp() {
@@ -117,6 +124,11 @@ function printHelp() {
     --composer-vendor <vendor>      Composer vendor slug
     --homepage-url <url>            Project homepage URL
     --repo-url <url>                Repository URL
+
+  Ignite:
+    --fueled                        Mark as a Fueled/10up project (defaults to block theme + Ignite)
+    --ignite                        Install Ignite WP plugins after scaffolding
+    --skip-ignite                   Skip Ignite installation (useful with --fueled)
 
   Examples:
     npm run scaffold
@@ -171,6 +183,44 @@ async function main() {
 						{ name: 'Classic Theme', value: 'classic' },
 					],
 				});
+
+	// -- Fueled / Ignite prompts --
+	// Early non-interactive check: if all three required flags are present,
+	// skip interactive prompts for Fueled/Ignite (they have sensible defaults).
+	const isNonInteractiveEarly = args['project-name'] && args.hosting && args.theme;
+
+	const isFueled =
+		args.fueled === true
+			? true
+			: isNonInteractiveEarly
+				? false
+				: await confirm({
+						message: 'Is this a Fueled / 10up project?',
+						default: true,
+					});
+
+	if (isFueled && themeType === 'classic' && !args.theme) {
+		console.log(
+			'\n  Note: Block themes are recommended for Fueled/10up projects.\n',
+		);
+	}
+
+	const installIgnite = args['skip-ignite']
+		? false
+		: args.ignite === true || (isFueled && isNonInteractiveEarly)
+			? true
+			: isNonInteractiveEarly
+				? false
+				: isFueled
+					? await confirm({
+							message:
+								'Install Ignite WP plugins? (Recommended for Fueled/10up projects)',
+							default: true,
+						})
+					: await confirm({
+							message: 'Would you like to install Ignite WP plugins?',
+							default: false,
+						});
 
 	const projectName = args['project-name']
 		? args['project-name']
@@ -356,6 +406,8 @@ async function main() {
 	console.log(`  Theme type:           ${isBlock ? 'Block Theme' : 'Classic Theme'}`);
 	console.log(`  Plugin:               ${values.pluginSlug} (${values.pluginNamespace})`);
 	console.log(`  Theme:                ${values.themeSlug} (${values.themeNamespace})`);
+	console.log(`  Fueled project:       ${isFueled ? 'Yes' : 'No'}`);
+	if (installIgnite) console.log(`  Ignite WP:            Will install after scaffolding`);
 	if (values.authorName) console.log(`  Author:               ${values.authorName}`);
 	if (values.repoUrl) console.log(`  Repository:           ${values.repoUrl}`);
 	console.log('');
@@ -754,12 +806,31 @@ async function main() {
 
 	// -- Done! --
 	console.log('\n  Done! Your project has been scaffolded.\n');
+
+	// -- Run Ignite CLI if requested --
+	if (installIgnite) {
+		console.log('  Installing Ignite WP plugins...\n');
+		try {
+			execSync('npx @10up/ignite-cli install', {
+				cwd: ROOT,
+				stdio: 'inherit',
+			});
+			console.log('\n  Ignite WP plugins installed successfully.\n');
+		} catch {
+			console.log('\n  Ignite WP plugin installation failed or was cancelled.');
+			console.log('  You can run it manually later: npx @10up/ignite-cli install\n');
+		}
+	}
+
 	console.log('  Next steps:\n');
 	console.log('    1. Run npm install');
 	console.log(
 		`    2. Run composer install in the root, ${muDir}/${values.pluginSlug}, and themes/${values.themeSlug}`,
 	);
 	console.log('    3. Run npm run build');
+	if (installIgnite) {
+		console.log('    4. Activate the Ignite plugins you installed');
+	}
 	console.log('');
 }
 
