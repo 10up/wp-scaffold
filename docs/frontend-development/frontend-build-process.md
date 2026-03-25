@@ -22,7 +22,7 @@ The WP Scaffold project uses a modern frontend build process to compile, optimiz
 
 Before working with the frontend build process, ensure you have:
 
-- [Node.js](https://nodejs.org/) (version 16 or later)
+- [Node.js](https://nodejs.org/) (version 24 or later)
 - [npm](https://www.npmjs.com/) (usually comes with Node.js)
 - Basic understanding of JavaScript, CSS, and build tools
 - Local development environment set up (see [Local Development](../testing-quality/local-development.md))
