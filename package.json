@@ -26,7 +26,8 @@
     "test": "npm run test --workspaces --if-present",
     "clean-dist": "npm run clean-dist --workspaces --if-present",
     "scaffold": "node bin/scaffold.mjs",
-    "scaffold:plugin": "node bin/scaffold-plugin.mjs"
+    "scaffold:plugin": "node bin/scaffold-plugin.mjs",
+    "scaffold:vip": "node bin/scaffold-vip.mjs"
   },
   "author": {
     "name": "10up",

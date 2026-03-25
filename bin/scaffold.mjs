@@ -31,6 +31,7 @@ import {
 	getGitRemoteUrl,
 	getGitOrgFromUrl,
 	walkFiles,
+	buildReplacementMap,
 } from './scaffold-helpers.mjs';
 
 // ---------------------------------------------------------------------------
@@ -539,117 +540,7 @@ async function main() {
 	}
 
 	// -- Step 4: Build replacement map --
-	// Order: longest match first to avoid partial matches.
-	// Also include path prefix replacements for VIP.
-
-	const replacements = [];
-
-	// Theme replacements (chosen theme)
-	if (isBlock) {
-		// The block theme uses both "tenup-block-theme" (directory/style.css) AND
-		// "tenup-theme" (internal handles, text domain, pattern slugs). We need
-		// to replace both. Longer strings first to avoid partial matches.
-		replacements.push(
-			['TenUpBlockTheme', values.themeNamespace],
-			['TenupBlockTheme', values.themeNamespace],
-			['TENUP_BLOCK_THEME', values.themeConstant],
-			['tenup-block-theme', values.themeSlug],
-			['tenup_block_theme', values.themeHookPrefix],
-			['10up-block-theme', values.themeSlug],
-			['10up Block Theme', values.themeHumanName],
-			['TenUpTheme', values.themeNamespace],
-			['TENUP_THEME', values.themeConstant],
-			['tenup-theme', values.themeNpmName],
-			['tenup_theme', values.themeHookPrefix],
-			['10up-theme', values.themeSlug],
-			['10up Theme', values.themeHumanName],
-		);
-	} else {
-		replacements.push(
-			['TenUpTheme', values.themeNamespace],
-			['TENUP_THEME', values.themeConstant],
-			['tenup-theme', values.themeSlug],
-			['tenup_theme', values.themeHookPrefix],
-			['10up-theme', values.themeSlug],
-			['10up Theme', values.themeHumanName],
-		);
-	}
-
-	// Plugin replacements
-	replacements.push(
-		['TenUpPlugin', values.pluginNamespace],
-		['TENUP_PLUGIN', values.pluginConstant],
-		['tenup-plugin', values.pluginSlug],
-		['tenup_plugin', values.pluginHookPrefix],
-		['10up-plugin', values.pluginSlug],
-		['10up Plugin Scaffold', values.pluginHumanName],
-	);
-
-	// VIP: mu-plugins -> client-mu-plugins path replacement.
-	// Use targeted patterns to avoid changing generic "mu-plugins" WordPress references.
-	if (isVip) {
-		replacements.push(
-			['mu-plugins/10up-plugin', 'client-mu-plugins/10up-plugin'],
-			['<file>mu-plugins</file>', '<file>client-mu-plugins</file>'],
-		);
-	}
-
-	// Composer package names
-	replacements.push(
-		['10up/wp-scaffold', `${values.composerVendor}/${slug}`],
-		['10up/wp-plugin', `${values.composerVendor}/${values.pluginSlug}`],
-		['10up/wp-theme', `${values.composerVendor}/${values.themeSlug}`],
-		['10up/tenup-theme', `${values.composerVendor}/${values.themeSlug}`],
-	);
-
-	// npm root package name
-	replacements.push(['tenup-wp-scaffold', slug]);
-
-	// Author / metadata
-	if (values.authorEmail) {
-		replacements.push(['info@10up.com', values.authorEmail]);
-	}
-	if (values.authorUri) {
-		replacements.push(['https://10up.com', values.authorUri]);
-	}
-
-	// Description strings (longer matches first)
-	if (values.description) {
-		replacements.push(
-			['The starting point for all 10up WordPress projects.', values.description],
-			['The starting point for all 10up WordPress themes.', values.description],
-			['The starting point for all 10up WordPress plugins.', values.description],
-			['A brief description of the plugin.', values.description],
-			['Project description.', values.description],
-			['Project Description', values.description],
-		);
-	}
-
-	// URLs
-	if (values.repoUrl) {
-		replacements.push(
-			['https://github.com/10up/wp-scaffold', values.repoUrl],
-			['https://project-git-repo.tld', values.repoUrl],
-		);
-	}
-	if (values.homepageUrl) {
-		replacements.push(['https://project-domain.tld', values.homepageUrl]);
-	}
-
-	// Author name replacement (must be last / most targeted to avoid over-matching).
-	// We only replace the exact author patterns to avoid mangling things like
-	// "10up-toolkit" or "10up/phpcs-composer".
-	if (values.authorName) {
-		replacements.push(
-			['"name": "10up"', `"name": "${values.authorName}"`],
-			['Author:            10up', `Author:            ${values.authorName}`],
-			['Author:      10up', `Author:      ${values.authorName}`],
-			['Author:        10up', `Author:        ${values.authorName}`],
-		);
-	}
-
-	// Sort by length of search string descending to prevent partial matches.
-	replacements.sort((a, b) => b[0].length - a[0].length);
+	const replacements = buildReplacementMap({ isBlock, isVip, values, slug });
 
 	// -- Step 4: Apply string replacements across all files --
 	const files = walkFiles(ROOT);
