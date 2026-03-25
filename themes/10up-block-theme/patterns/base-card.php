@@ -1,7 +1,7 @@
 <?php
 /**
  * Title: Base Card
- * Slug: tenup-theme/base-card
+ * Slug: tenup-block-theme/base-card
  * Description: A card pattern with a featured image, title, date, and category.
  * Inserter: false
  *

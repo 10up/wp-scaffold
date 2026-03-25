@@ -103,7 +103,7 @@ class Blocks implements ModuleInterface {
 			$block_type = str_replace( '.css', '', $block_type );
 
 			wp_register_style(
-				"tenup-theme-{$block_type}",
+				"tenup-block-theme-{$block_type}",
 				TENUP_BLOCK_THEME_DIST_URL . 'blocks/autoenqueue/' . $block_type . '.css',
 				$this->get_asset_info( 'blocks/autoenqueue/' . $block_type, 'dependencies' ),
 				$this->get_asset_info( 'blocks/autoenqueue/' . $block_type, 'version' ),
@@ -112,7 +112,7 @@ class Blocks implements ModuleInterface {
 			wp_enqueue_block_style(
 				$block_type,
 				[
-					'handle' => "tenup-theme-{$block_type}",
+					'handle' => "tenup-block-theme-{$block_type}",
 					'path'   => $stylesheet_path,
 				]
 			);

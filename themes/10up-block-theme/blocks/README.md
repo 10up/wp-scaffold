@@ -1,20 +1,16 @@
 # blocks/
 
-Contains block-specific files and support assets used by custom or core block functionality in this theme.
+Library of custom blocks for a theme
 
 ## Purpose
-- Hold block templates and related assets used in block pattern construction
-- Store block extensions/variations registration code under `assets/js/block-*`
+- Create custom blocks for a theme
 
-## Recommended workflow
-1. Add or update block style partials in `assets/css/blocks/`
-2. Register block styles or variations in `assets/js/block-styles` / `assets/js/block-variations`
-3. Keep block-specific template HTML in `blocks/` when providing reusable block-based fragments.
-
-## If adding new custom blocks
-- Keep block-specific logic outside of the theme in a plugin if when possible (best practice)
-- If theme-level block registration is required, do it in `src/Blocks.php` and use proper `register_block_type()` actions.
-
-## Example
-To add a new block variation, create `blocks/hero.html` with block markup, then set up registration in `assets/js/block-variations/index.js` and ensure `10up-toolkit` picks it up from `blocks/`.
-
+## Example block: `example-block` (hello world)
+1. Create `blocks/example-block/block.json` with metadata
+2. Add `blocks/example-block/edit.tsx` and `blocks/example-block/index.ts`:
+   - `BlockEdit` renders editor UI
+   - `registerBlockType(metadata, { edit: BlockEdit, save: () => null })`
+3. Add `blocks/example-block/markup.php` to output frontend markup:
+   - Simple output: `<div class="wp-block-tenup-block-theme-example-block">Hello world</div>`
+4. Add `blocks/example-block/style.css` for block style
+5. Build the block bundle with `npm run build`

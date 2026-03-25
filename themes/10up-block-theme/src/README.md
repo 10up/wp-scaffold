@@ -15,10 +15,6 @@ PHP core theme classes and wrapper logic.
 ## Best practice
 - Add new features as single-responsibility classes or methods.
 - Keep public API in ThemeCore and specific feature classes.
-- Unit tests (if implemented) should target these classes for behavior consistency.
-
-## Example
-Add `src/Performance.php` with `add_action('wp_head', ... )` for preload headers, then wire it in `ThemeCore::init()`.
 
 ## Loading
 - `functions.php` should instantiate `ThemeCore` (or similar) and call init actions.

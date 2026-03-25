@@ -38,7 +38,7 @@ class ThemeCore {
 	 * @return void
 	 */
 	public function i18n() {
-		load_theme_textdomain( 'tenup-theme', TENUP_BLOCK_THEME_PATH . '/languages' );
+		load_theme_textdomain( 'tenup-block-theme', TENUP_BLOCK_THEME_PATH . '/languages' );
 	}
 
 	/**
