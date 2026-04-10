@@ -9,7 +9,7 @@ Full-site editing templates for the theme.
 - `singular.html`
 
 ## How it works
-- These templates are used by WordPress FSE to render core view routes.
+- These templates are used by WordPress Block Themes to render core view routes.
 - Use block markup in these files and include `template-part` blocks for reusable sections.
 
 ## Customization
