@@ -1,6 +1,6 @@
 # parts/
 
-Reusable theme parts used in FSE templates and patterns.
+Reusable theme parts used in block templates and patterns.
 
 ## Contents
 - `header.html`, `footer.html`, and area-specific part files like `site-header-navigation-area.html` and `site-footer-legal-navigation-area.html`.
