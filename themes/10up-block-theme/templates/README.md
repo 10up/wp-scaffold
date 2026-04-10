@@ -1,6 +1,6 @@
 # templates/
 
-Full-site editing templates for the theme.
+Block Based templates for the theme.
 
 ## Files
 - `404.html`
