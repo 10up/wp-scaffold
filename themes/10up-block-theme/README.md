@@ -253,7 +253,7 @@ These are block theme templates in Full Site Editing model.
 
 ## 13. Maintenance tasks
 
-- PHP lint: `composer exec phpcs -- --standard=WordPress`
+- PHP lint: `composer lint`
 - JS lint: `npm run lint` / `npm run lint-js`
 - Style lint: `npm run lint-style`
 - Format JS: `npm run format-js`
