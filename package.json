@@ -35,8 +35,8 @@
     "role": "developer"
   },
   "engines": {
-    "node": ">=20.0.0",
-    "npm": ">=9.0.0"
+    "node": ">=24.0.0",
+    "npm": ">=10.0.0"
   },
   "dependencies": {
     "10up-toolkit": "^6.5.1"
