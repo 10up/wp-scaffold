@@ -5,8 +5,7 @@ import { BlockEdit } from './edit';
 const blockMeta = metadata as unknown as BlockConfiguration<Record<string, unknown>>;
 const blockName = blockMeta.name as string;
 
-registerBlockType(blockName, {
-	...blockMeta,
+registerBlockType(blockMeta, {
 	edit: BlockEdit,
 	save: () => null,
 });
