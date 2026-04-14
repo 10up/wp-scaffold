@@ -35,3 +35,6 @@ tasks.json
 Thumbs.db
 Desktop.ini
 /debug.log
+
+# Package Files
+package-lock.json
