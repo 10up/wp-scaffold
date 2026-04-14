@@ -64,76 +64,43 @@ Main root files:
 
 ## 4. Developer workflow
 
-### 4.1 Quick start (repeat for copy/paste)
+Use the commands below for local development, linting, testing, and building the theme.
 
-```bash
-cd /path/to/themes/10up-block-theme
-composer install
-npm install
-npm run build
-```
+## 5. Commands
 
-### 4.2 Local development
-
-- `npm run watch` (or `npm start`) → 10up-toolkit watch with HMR/hot-refresh
-- `composer exec phpcs -- --standard=WordPress` → PHP lint
-- `npm run lint` → JS lint
-- `npm run lint-style` → CSS lint
-- `npm run test` → unit tests
-- `npm run clean-dist` → remove generated assets
+- `composer install` — install PHP dependencies for the theme.
+- `npm install` — install JavaScript dependencies.
+- `npm run build` — compile theme assets into `dist/`.
+- `npm run watch` — start 10up-toolkit in watch mode with HMR/hot-refresh.
+- `npm run scaffold:block` — generate a new block scaffold in `blocks/` using the local template.
+- `composer lint` — run PHP, JS, and CSS linting across the theme.
+- `npm run lint` — run JS linting only.
+- `npm run lint-style` — run CSS/style linting only.
+- `npm run test` — run unit tests.
+- `npm run clean-dist` — remove generated `dist/` assets.
+- `npm run wp-compat` — analyze installed `@wordpress/*` package versions against the theme's minimum WordPress requirement.
+- `npm run wp-compat:fix` — install compatible `@wordpress/*` package versions when they are too new.
+- `npm run wp-compat:info` — show compatibility metadata for installed `@wordpress/*` packages.
+- `npm run format-js` — format JavaScript sources.
+- `composer lint-fix` — auto-fix PHP lint issues using `phpcbf`.
 
 ---
 
-## 5. Working with the theme
+## 6. Working with the theme
 
 - Update editor and global styles in `theme.json`.
 - Add frontend styles in `assets/css/` and scripts in `assets/js/`.
+- Block behavior logic lives in `assets/js/`, including `block-extensions.ts`, `block-filters/index.ts`, `block-variations/index.ts`, and `block-variations/unregister-variations.ts`.
 - Define theme style variations in `styles/` and activate them from the Site Editor styles panel.
 - Use `npm run scaffold:block` to create new blocks, then update the generated files under `blocks/<block-name>/`.
 - Register template parts in `parts/`, and templates in `templates/`.
 
 ### Style variations
+- https://ignitewp.10uplabs.com/block-styling-and-css/
 
-The theme supports block theme style variations via JSON files in `styles/`.
-Create a file like `styles/my-style.json` with a `title`, `slug`, and `styles` section.
-Once added, open the Site Editor and select the style variation from the Styles panel.
+## 7. Notes for new engineers
 
-## 6. Adding a block
-
-1. Create a new folder under `blocks/<block-name>/`.
-2. Add `block.json`, `index.ts`, `edit.tsx`, and `style.css`.
-3. Run `npm run build`.
-4. The theme auto-registers blocks from `dist/blocks/*`.
-
-## 8. Useful commands
-
-- `composer install`
-- `npm install`
-- `npm run build`
-- `npm run watch`
-- `composer run lint`
-- `npm run lint`
-- `npm run lint-style`
-- `npm run test`
-- `npm run clean-dist`
-- `npm run wp-compat` — scan installed WordPress package versions for compatibility with the declared WordPress requirement
-- `npm run wp-compat:fix` — install compatible `@wordpress/*` package versions if any are too new
-- `npm run wp-compat:info` — inspect installed `@wordpress/*` package compatibility metadata
-
-## 9. Notes for new engineers
-
-- This theme is built to keep PHP minimal and put layout, styles, and block logic into the theme files.
-- Use `theme.json` for most editor and global style settings.
+- This theme is built to be minimal and extendable.
 - If you add or change blocks, always rebuild with `npm run build` before testing in WordPress.
-- Keep one README here at the theme root; nested feature READMEs were removed to reduce confusion.
-
----
-
-## 10. Maintenance tasks
-
-- PHP lint: `composer exec phpcs -- --standard=WordPress`
-- JS lint: `npm run lint`
-- Style lint: `npm run lint-style`
-- Format JS: `npm run format-js`
-- Clean dist: `npm run clean-dist`
+- Please go through the Gutenberg Training if you have questions on using: https://gutenberg.10up.com/training/
 

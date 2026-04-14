@@ -8,7 +8,7 @@
     }
   ],
   "require": {
-    "php": ">=8.2",
+    "php": ">=8.4",
     "10up/wp-framework": "~1.3.1"
   },
   "require-dev": {
