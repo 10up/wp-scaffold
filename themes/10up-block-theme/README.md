@@ -111,7 +111,7 @@ Once added, open the Site Editor and select the style variation from the Styles 
 - `npm install`
 - `npm run build`
 - `npm run watch`
-- `composer exec phpcs -- --standard=WordPress`
+- `composer run lint`
 - `npm run lint`
 - `npm run lint-style`
 - `npm run test`
