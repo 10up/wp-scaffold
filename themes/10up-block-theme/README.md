@@ -8,16 +8,9 @@ This is a lightweight starter theme for WordPress block themes. It provides the 
 - `blocks/`: custom blocks
 - `parts/`: reusable theme parts for header, footer, etc.
 - `patterns/`: block pattern PHP registration / markup
+- `styles/`: block theme style variations in JSON format
 - `src/`: PHP classes for theme setup, block registration, asset loading
 - `templates/`: full-site editing template files
-
-Comprehensive developer guide:
-- Architecture
-- Build tools
-- WordPress connections
-- Blocks
-- Templates
-- Runtime behavior
 
 ---
 
@@ -98,23 +91,21 @@ npm run build
 
 ---
 
-## 5. Theme structure
-
-- `assets/`: source CSS, JS, images, fonts
-- `blocks/`: custom block packages
-- `parts/`: reusable template parts for header, footer, etc.
-- `patterns/`: registered pattern markup and helpers
-- `src/`: small PHP classes for theme setup and registration
-- `templates/`: full-site editing templates
-
-## 6. Working with the theme
+## 5. Working with the theme
 
 - Update editor and global styles in `theme.json`.
 - Add frontend styles in `assets/css/` and scripts in `assets/js/`.
-- Add or extend blocks in `blocks/<block-name>/`.
+- Define theme style variations in `styles/` and activate them from the Site Editor styles panel.
+- Use `npm run scaffold:block` to create new blocks, then update the generated files under `blocks/<block-name>/`.
 - Register template parts in `parts/`, and templates in `templates/`.
 
-## 7. Adding a block
+### Style variations
+
+The theme supports block theme style variations via JSON files in `styles/`.
+Create a file like `styles/my-style.json` with a `title`, `slug`, and `styles` section.
+Once added, open the Site Editor and select the style variation from the Styles panel.
+
+## 6. Adding a block
 
 1. Create a new folder under `blocks/<block-name>/`.
 2. Add `block.json`, `index.ts`, `edit.tsx`, and `style.css`.
@@ -132,6 +123,9 @@ npm run build
 - `npm run lint-style`
 - `npm run test`
 - `npm run clean-dist`
+- `npm run wp-compat` — scan installed WordPress package versions for compatibility with the declared WordPress requirement
+- `npm run wp-compat:fix` — install compatible `@wordpress/*` package versions if any are too new
+- `npm run wp-compat:info` — inspect installed `@wordpress/*` package compatibility metadata
 
 ## 9. Notes for new engineers
 

@@ -11,6 +11,9 @@
 		"lint-style": "10up-toolkit lint-style",
 		"test": "10up-toolkit test-unit-jest --passWithNoTests",
 		"clean-dist": "rm -rf ./dist",
+		"wp-compat": "wp-gutenberg-compat analyze",
+		"wp-compat:fix": "wp-gutenberg-compat install",
+		"wp-compat:info": "wp-gutenberg-compat info",
 		"scaffold:block": "cd blocks/ && wp-create-block --no-plugin --template ../../../../bin/create-block-template"
 	},
 	"10up-toolkit": {
@@ -49,6 +52,7 @@
 	},
 	"devDependencies": {
 		"@types/wordpress__block-editor": "^15.0.5",
-		"@types/wordpress__blocks": "^15.10.2"
+		"@types/wordpress__blocks": "^15.10.2",
+		"@ravi.nder/wp-gutenberg-compat": "^0.5.1"
 	}
 }

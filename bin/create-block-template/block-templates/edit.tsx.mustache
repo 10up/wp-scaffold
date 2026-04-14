@@ -5,7 +5,7 @@ import { useBlockProps } from '@wordpress/block-editor';
 import { useBlockProps, useInnerBlocksProps } from '@wordpress/block-editor';
 {{/isInnerBlocksVariant}}
 
-export const BlockEdit = (props) => {
+export const BlockEdit = (props: any) => {
 	const { attributes, setAttributes } = props;
 	const blockProps = useBlockProps();
 	{{#isInnerBlocksVariant}}
