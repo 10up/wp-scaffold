@@ -44,12 +44,33 @@ Main root files:
 
 ## 3. First-time setup
 
-1. Clone the repository:
+### Preferred: full repository install
+
+1. Clone the repo and open the root:
    ```bash
-   git clone <repo-url> 10up-block-theme
-   cd 10up-block-theme
+   git clone git@github.com:10up/wp-scaffold.git
+   cd wp-scaffold
    ```
-2. Install dependencies:
+2. Install dependencies from the repo root:
+   ```bash
+   composer install
+   npm install
+   ```
+3. Build the theme assets from root:
+   ```bash
+   npm run build
+   ```
+4. Activate the theme in WordPress admin: Appearance → Themes → "10up Block Theme"
+
+### Theme-only install
+
+If you only have `themes/10up-block-theme` installed, use the theme folder directly:
+
+1. Change into the theme directory:
+   ```bash
+   cd /path/to/wordpress/wp-content/themes/10up-block-theme
+   ```
+2. Install theme-specific dependencies:
    ```bash
    composer install
    npm install
@@ -58,15 +79,11 @@ Main root files:
    ```bash
    npm run build
    ```
-4. Activate theme in WordPress admin: Appearance → Themes → "10up Block Theme"
+4. Activate the theme in WordPress admin: Appearance → Themes → "10up Block Theme"
 
 ---
 
-## 4. Developer workflow
-
-Use the commands below for local development, linting, testing, and building the theme.
-
-## 5. Commands
+## 4. Commands
 
 - `composer install` — install PHP dependencies for the theme.
 - `npm install` — install JavaScript dependencies.
@@ -86,7 +103,7 @@ Use the commands below for local development, linting, testing, and building the
 
 ---
 
-## 6. Working with the theme
+## 5. Working with the theme
 
 - Update editor and global styles in `theme.json`.
 - Add frontend styles in `assets/css/` and scripts in `assets/js/`.
@@ -97,6 +114,18 @@ Use the commands below for local development, linting, testing, and building the
 
 ### Style variations
 - https://ignitewp.10uplabs.com/block-styling-and-css/
+
+---
+
+## 6. Extending with IgniteWP
+
+- https://ignitewp.10uplabs.com/
+- npx @10up/ignite-cli install
+- npx @10up/ignite-cli install core accordion carousel
+- Activate the plugins in WordPress and configure them to match your project requirements. Most plugins work out of the box with sensible defaults.
+- https://ignitewp.10uplabs.com/installing-ignite-plugins/
+
+---
 
 ## 7. Notes for new engineers
 
