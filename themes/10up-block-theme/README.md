@@ -82,13 +82,6 @@ npm run build
 - `npm run test` → unit tests
 - `npm run clean-dist` → remove generated assets
 
-### 4.3 Common gotchas
-
-- Always build `dist/` after changing source assets (`assets/`, `blocks/`, `src/`).
-- If using a check-in strategy for `dist/`, ensure CI runs `npm run build` before release.
-- `theme.json` is the source of truth for editor styles, palette, and layout. Adjust there for global styles.
-- Some references may still use legacy naming in older helper docs; prefer 10up-block-theme naming in code changes.
-
 ---
 
 ## 5. Working with the theme
