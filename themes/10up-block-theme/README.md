@@ -53,8 +53,8 @@ Main root files:
    ```
 2. Install dependencies from the repo root:
    ```bash
-   composer install
-   npm install
+   npm run setup:local
+   npm run setup
    ```
 3. Build the theme assets from root:
    ```bash
@@ -62,9 +62,9 @@ Main root files:
    ```
 4. Activate the theme in WordPress admin: Appearance → Themes → "10up Block Theme"
 
-### Theme-only install
+### Theme-only install (rare instances)
 
-If you only have `themes/10up-block-theme` installed, use the theme folder directly:
+If you can only have `themes/10up-block-theme` installed and are not able to use the full WP Scaffold:
 
 1. Change into the theme directory:
    ```bash
@@ -103,20 +103,24 @@ If you only have `themes/10up-block-theme` installed, use the theme folder direc
 
 ---
 
-## 6. Recommended WordPress packages
+## 5. Recommended WordPress packages
 
 This theme does not install every `@wordpress/*` package by default. `10up-toolkit` only bundles the packages you actually import in source, so keep your dependencies curated to what your blocks and editor extensions use.
 
 When you need WordPress block packages, this is a good starting list:
 
-- `@wordpress/blocks`
+- `@wordpress/api-fetch`
 - `@wordpress/block-editor`
+- `@wordpress/blocks`
 - `@wordpress/components`
+- `@wordpress/compose`
+- `@wordpress/core-data`
 - `@wordpress/data`
 - `@wordpress/dom-ready`
-- `@wordpress/i18n`
 - `@wordpress/hooks`
-- `@wordpress/api-fetch`
+- `@wordpress/i18n`
+- `@wordpress/interactivity`
+- `@wordpress/plugins`
 - `@wordpress/server-side-render`
 
 Install only the ones you need for your block or editor code:
@@ -125,30 +129,11 @@ Install only the ones you need for your block or editor code:
 npm install --save-dev @wordpress/blocks @wordpress/block-editor @wordpress/components @wordpress/data @wordpress/i18n
 ```
 
-If you want the full common set, use this list:
-
-```bash
-npm install --save-dev \
-  @wordpress/api-fetch \
-  @wordpress/block-editor \
-  @wordpress/blocks \
-  @wordpress/components \
-  @wordpress/compose \
-  @wordpress/core-data \
-  @wordpress/data \
-  @wordpress/dom-ready \
-  @wordpress/hooks \
-  @wordpress/i18n \
-  @wordpress/interactivity \
-  @wordpress/plugins \
-  @wordpress/server-side-render
-```
-
 These packages are useful to keep available when developing blocks, but they do not need to be bundled into `package.json` unless your theme consumes them directly.
 
 ---
 
-## 7. Working with the theme
+## 6. Working with the theme
 
 - Update editor and global styles in `theme.json`.
 - Add frontend styles in `assets/css/` and scripts in `assets/js/`.
@@ -162,7 +147,7 @@ These packages are useful to keep available when developing blocks, but they do 
 
 ---
 
-## 6. Extending with IgniteWP
+## 7. Extending with IgniteWP
 
 - https://ignitewp.10uplabs.com/
 - npx @10up/ignite-cli install
@@ -172,7 +157,7 @@ These packages are useful to keep available when developing blocks, but they do 
 
 ---
 
-## 7. Notes for new engineers
+## 8. Notes for new engineers
 
 - This theme is built to be minimal and extendable.
 - If you add or change blocks, always rebuild with `npm run build` before testing in WordPress.
