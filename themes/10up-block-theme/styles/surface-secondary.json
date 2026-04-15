@@ -1,0 +1,12 @@
+{
+	"$schema": "https://schemas.wp.org/wp/6.9/theme.json",
+	"version": 3,
+	"title": "Secondary",
+	"slug": "secondary",
+	"blockTypes": [
+		"core/group"
+	],
+	"styles": {
+		"color": {}
+	}
+}
