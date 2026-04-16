@@ -10,6 +10,7 @@
 		"jsx": "react-jsx",
 		"isolatedModules": true,
 		"skipLibCheck": true,
+		"rootDir": ".",
 		"typeRoots": ["./types", "./node_modules/@types"]
 	},
 	"include": ["blocks/**/*.ts", "blocks/**/*.tsx", "src/**/*.ts", "src/**/*.tsx", "types/**/*.d.ts"]
