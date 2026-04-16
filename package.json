@@ -25,6 +25,7 @@
     "lint-style": "npm run lint-style --workspaces --if-present",
     "test": "npm run test --workspaces --if-present",
     "clean-dist": "npm run clean-dist --workspaces --if-present",
+    "clean": "rm -rf node_modules package-lock.json",
     "scaffold": "node bin/scaffold.mjs",
     "scaffold:plugin": "node bin/scaffold-plugin.mjs"
   },

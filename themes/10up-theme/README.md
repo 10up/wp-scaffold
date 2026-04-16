@@ -1,113 +1,129 @@
 # 10up Theme
 
-## Working with `theme.json`
+## Overview
 
-The default theme scaffold now ships with a very basic version of the `theme.json` file. This is to ensure all the side-affects of introducing this file are there from the beginning of a project and therefore set projects up for success if they want to adopt more features through the `theme.json` mechanism.
+This is a lightweight starter WordPress theme scaffold built with modern PHP, Composer, and NPM tooling. It provides a simple base for classic templates, block support, and reusable theme patterns while keeping the project easy to extend.
 
-### Basics of `theme.json`
+## Project Structure
 
-The `theme.json` file allows you to take control of your blocks in both the editor and the frontend. The file is structured in a `settings` and a `styles` section where you can define options on a global level and then override them / adjust them on a block level.
+- `assets/`: CSS, JavaScript, images, and frontend asset sources
+- `blocks/`: custom block definitions and block-related code
+- `partials/`: reusable theme templates and layout fragments
+- `patterns/`: registered block patterns and pattern markup
+- `src/`: PHP classes for theme setup, asset loading, and block registration
+- `theme.json`: editor and frontend style settings
+- `functions.php`: theme bootstrap and support registration
+- `header.php`, `footer.php`, `search.php`: classic theme templates stored at the theme root
 
-The values that you provide in the `theme.json` file will be added both on the frontend and in the editor as [CSS custom properties following a fixed naming scheme](https://developer.wordpress.org/block-editor/how-to-guides/themes/theme-json/#css-custom-properties-presets-custom).
+---
 
-### 🙋 FAQ
+## 1. Theme overview
 
-<details>
-<summary>Where has the `.wp-block-group__inner-container` gone?</summary>
-<br />
+This theme is designed to work with WordPress modern theme tooling and 10up conventions. It includes:
 
-Core has made the decision to drop the additional inner container of the group block. The rationale behind that decision is that the additional `div` semantically isn't necessary and modern layout techniques don't rely on it anymore. The container is still present for _legacy_ themes (themes without a `theme.json` file).
+- `theme.json` for editor defaults and frontend styling
+- Composer-managed PHP dependencies and PSR-4 autoloading
+- NPM tooling for asset building, linting, and local development
+- Classic and block-friendly templates with reusable partials
 
-For new builds it is suggested that we use the `settings.layout.contentWidth` and `settings.layout.wideWidth` options of the `theme.json` for this. The group block has an option in the editor to allow editors to inherit the width for its inner elements.
+Root files:
+- `style.css` — WordPress theme header and base stylesheet
+- `theme.json` — global settings, styles, color palettes, and editor options
+- `functions.php` — theme initialization, asset registration, and support setup
+- `header.php` — theme header template
+- `footer.php` — theme footer template
+- `search.php` — search results template
+- `index.php` — base fallback template
+- `composer.json` — PHP dependency management and autoload configuration
+- `package.json` — JS tooling, build scripts, and package configuration
 
-<img width="1904" alt="Screen Shot 2021-10-20 at 12 45 15" src="https://user-images.githubusercontent.com/20684594/138079160-44a28c10-417b-4769-905d-cd5c104e78c0.png">
+---
 
-```json
-{
-	"version": 1,
-	"settings": {
-		"layout": {
-			"contentSize": "800px",
-			"wideSize": "900px"
-		}
-	}
-}
-```
+## 2. Requirements
 
-For this, there isn't even any custom CSS needed.
+- PHP >= 8.4
+- Node >= 24
+- NPM >= 10
+- Composer 2
+- WordPress >= 6.9
 
-There isn't the best story for responsive overrides in here but the recommendation at this point in time would be using `clamp` as we have officially dropped the IE11 support and that would allow us to have a fluid with scale here for the elements.
-[https://caniuse.com/css-math-functions](https://caniuse.com/css-math-functions)
+---
 
-If we need to use different content widths here we can stick to the core way and apply the `max-width` settings to the children of the group block instead of the wrapper element.
+## 3. First-time setup
 
-```css
-.wp-block-group > * {
-	max-width: var(--site-max-width);
-}
-```
+### Preferred: full repository install
 
-If there are instances where we really cannot get by with styling the child blocks directly there is a hook in PHP that allows us to filter the block editor settings and therefore allows us to override the underlying `supportsLayout` property:
+1. Clone the repo and open the root:
+   ```bash
+   git clone git@github.com:10up/wp-scaffold.git
+   cd wp-scaffold
+   ```
+2. Install dependencies from the repo root:
+   ```bash
+   npm run setup:local
+   npm run setup
+   ```
+3. Build theme assets from root:
+   ```bash
+   npm run build
+   ```
+4. Activate the theme in WordPress admin: Appearance → Themes → "10up Theme"
 
-```php
-add_filter(
-	'block_editor_settings_all',
-	'remove_layout_support_from_editor_settings'
-);
+### Theme-only install (rare instances)
 
-/**
- * This function sets the `supportsLayout` option in the editor settings to false
- * Therefore it adds back the `wp-block-group__inner-container` element
- *
- * As a side effect of this change the `contentWidth` and `wideWidth` defined in the theme.json
- * no longer have any effect and all the blocks in the editor won't have any width restrictions
- * applied to them. So that needs to do be manually done by the theme.
- *
- * @param array $settings block editor settings
- */
-function remove_layout_support_from_editor_settings( $settings ) {
-	$settings['supportsLayout'] = false;
-	return $settings;
-}
-```
+1. Change into the theme directory:
+   ```bash
+   cd /path/to/wordpress/wp-content/themes/10up-theme
+   ```
+2. Install theme-specific dependencies:
+   ```bash
+   composer install
+   npm install
+   ```
+3. Build assets:
+   ```bash
+   npm run build
+   ```
+4. Activate the theme in WordPress admin: Appearance → Themes → "10up Theme"
 
-</details>
+---
 
-<details>
-<summary>Where can I find documentation for `theme.json`</summary>
+## 4. Commands
 
-### Core Handbook
+- `composer install` — install PHP dependencies for the theme
+- `npm install` — install JavaScript dependencies
+- `npm run build` — compile theme assets
+- `npm run watch` — start watch mode for frontend assets
+- `npm run clean-dist` — remove generated build assets
+- `npm run lint` — run JS linting
+- `npm run lint-style` — run style/CSS linting
+- `npm run test` — run unit tests
+- `npm run format-js` — format JavaScript source files
+- `composer lint-fix` — auto-fix PHP lint issues using `phpcbf`
 
-You can find the Core Documentation here: [https://developer.wordpress.org/block-editor/how-to-guides/themes/theme-json/](https://developer.wordpress.org/block-editor/how-to-guides/themes/theme-json/). This should give you an overview of the options that are available and be a starting point for you to explore. In the Code examples you will get ones for `WordPress` and ones for `Gutenberg`. The ones for WordPress always are for the version in Core and therefore what we would want to look at.
+---
 
-### Code completion and validation
+## 5. Working with the theme
 
-Additionally you can add inline documentation & code completion to your editor by adding the `JSON Schema` to your editor.
+- Update editor and frontend styles in `theme.json`
+- Add frontend styles in `assets/css/` and scripts in `assets/js/`
+- Keep reusable template fragments in `partials/`
+- Define patterns in `patterns/` and register them in theme setup
+- Use `src/` for theme-specific PHP classes and bootstrap logic
+- Rebuild assets after changing block or asset source files before testing in WordPress
 
-For VSCode you can add the following to your Settings. But other editors also support this and you can find more information on the topic here: [https://json.schemastore.org](https://json.schemastore.org)
+---
 
-```json
-{
-	"json.schemas": [
-		{
-			"fileMatch": ["/theme.json"],
-			"url": "https://json.schemastore.org/theme-v1.json"
-		}
-	]
-}
-```
+## 6. Notes for new engineers
 
-</details>
+- This theme is intended to be minimal, easy to extend, and compatible with 10up tooling.
+- If you add or change assets, run `npm run build` before verifying in WordPress.
+- Keep theme-specific PHP logic in `src/` rather than `functions.php` when possible.
+- Prefer `theme.json` configuration before adding custom block CSS or editor styles.
 
-<sub>\* for 10uppers, reach out to Fabian for any questions / guidance / support in regards to `theme.json`</sub>
+---
 
-# Performance Utilities
+## 7. References
 
-The theme now supports `ct.css`. Uh what?
-`ct.css` is a diagnostic stylesheet that exposes potential performance issues in your pages `<head>` element. `ct.css` will return color-coded visual cues with regards to render blocking elements in the theme. This provides a great way for engineers to debug and identify problem resources.
-
-You can activate `ct.css` on any page load by including `?debug_perf=1` in the URL.
-
-Considering we do not want to load script everywhere throughout the theme, we have provided engineeers with a way to trigger the `ct.css` output by using a query param.
-
-<sub>\* for 10uppers, reach out to Daine for any questions / guidance / support in regards to `ct.css`</sub>
+- Theme JSON Handbook: https://developer.wordpress.org/block-editor/how-to-guides/themes/theme-json/
+- Gutenberg Training: https://gutenberg.10up.com/training/

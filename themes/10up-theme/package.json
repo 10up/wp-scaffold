@@ -12,23 +12,26 @@
     "clean-dist": "rm -rf ./dist",
     "scaffold:block": "cd blocks/ && wp-create-block --no-plugin --template ../../../../bin/create-block-template"
   },
-  "devDependencies": {
-    "jest-environment-jsdom": "^29.7.0"
-  },
   "dependencies": {
     "10up-toolkit": "^6.5.1",
     "modern-normalize": "^3.0.0"
   },
   "10up-toolkit": {
     "useBlockAssets": true,
+    "useScriptModules": true,
     "loadBlockSpecificStyles": true,
     "entry": {
-      "editor-style-overrides": "./assets/js/frontend/editor-style-overrides.js",
-      "frontend": "./assets/js/frontend/frontend.js",
-      "block-editor-script": "./assets/js/block-editor/block-editor-script.js"
+      "editor-style-overrides": "./assets/js/frontend/editor-style-overrides.ts",
+      "frontend": "./assets/js/frontend/frontend.ts",
+      "block-editor-script": "./assets/js/block-editor/block-editor-script.ts"
     },
     "paths": {
       "blocksDir": "./blocks"
     }
+  },
+  "devDependencies": {
+    "@types/wordpress__block-editor": "^15.0.5",
+    "@types/wordpress__blocks": "^15.10.2",
+    "jest-environment-jsdom": "^29.7.0"
   }
 }

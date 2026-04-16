@@ -23,8 +23,8 @@
 		"entry": {
 			"editor-frame-style-overrides": "./assets/css/editor-frame-style-overrides.css",
 			"editor-canvas-style-overrides": "./assets/css/editor-canvas-style-overrides.css",
-			"frontend": "./assets/js/frontend.js",
-			"block-extensions": "./assets/js/block-extensions.js"
+			"frontend": "./assets/js/frontend.ts",
+			"block-extensions": "./assets/js/block-extensions.ts"
 		},
 		"paths": {
 			"blocksDir": "./blocks"
