@@ -10,9 +10,11 @@
  */
 
 import { select, input, confirm } from '@inquirer/prompts';
+import { execSync } from 'node:child_process';
 import {
 	existsSync,
 	readFileSync,
+	readdirSync,
 	writeFileSync,
 	readdirSync,
 	renameSync,
@@ -30,6 +32,7 @@ import {
 	getGitRemoteUrl,
 	getGitOrgFromUrl,
 	walkFiles,
+	buildReplacementMap,
 } from './scaffold-helpers.mjs';
 
 // ---------------------------------------------------------------------------
@@ -79,6 +82,11 @@ const CLI_OPTIONS = {
 	yes: { type: 'boolean', short: 'y', default: false },
 	'self-destruct': { type: 'boolean', default: false },
 	help: { type: 'boolean', default: false },
+
+	// Ignite
+	fueled: { type: 'boolean', default: false },
+	ignite: { type: 'boolean', default: false },
+	'skip-ignite': { type: 'boolean', default: false },
 };
 
 function printHelp() {
@@ -118,6 +126,11 @@ function printHelp() {
     --composer-vendor <vendor>      Composer vendor slug
     --homepage-url <url>            Project homepage URL
     --repo-url <url>                Repository URL
+
+  Ignite:
+    --fueled                        Mark as a Fueled/10up project (defaults to block theme + Ignite)
+    --ignite                        Install Ignite WP plugins after scaffolding
+    --skip-ignite                   Skip Ignite installation (useful with --fueled)
 
   Examples:
     npm run scaffold
@@ -172,6 +185,44 @@ async function main() {
 						{ name: 'Classic Theme', value: 'classic' },
 					],
 				});
+
+	// -- Fueled / Ignite prompts --
+	// Early non-interactive check: if all three required flags are present,
+	// skip interactive prompts for Fueled/Ignite (they have sensible defaults).
+	const isNonInteractiveEarly = args['project-name'] && args.hosting && args.theme;
+
+	const isFueled =
+		args.fueled === true
+			? true
+			: isNonInteractiveEarly
+				? false
+				: await confirm({
+						message: 'Is this a Fueled / 10up project?',
+						default: true,
+					});
+
+	if (isFueled && themeType === 'classic' && !args.theme) {
+		console.log(
+			'\n  Note: Block themes are recommended for Fueled/10up projects.\n',
+		);
+	}
+
+	const installIgnite = args['skip-ignite']
+		? false
+		: args.ignite === true || (isFueled && isNonInteractiveEarly)
+			? true
+			: isNonInteractiveEarly
+				? false
+				: isFueled
+					? await confirm({
+							message:
+								'Install Ignite WP plugins? (Recommended for Fueled/10up projects)',
+							default: true,
+						})
+					: await confirm({
+							message: 'Would you like to install Ignite WP plugins?',
+							default: false,
+						});
 
 	const projectName = args['project-name']
 		? args['project-name']
@@ -357,6 +408,8 @@ async function main() {
 	console.log(`  Theme type:           ${isBlock ? 'Block Theme' : 'Classic Theme'}`);
 	console.log(`  Plugin:               ${values.pluginSlug} (${values.pluginNamespace})`);
 	console.log(`  Theme:                ${values.themeSlug} (${values.themeNamespace})`);
+	console.log(`  Fueled project:       ${isFueled ? 'Yes' : 'No'}`);
+	if (installIgnite) console.log(`  Ignite WP:            Will install after scaffolding`);
 	if (values.authorName) console.log(`  Author:               ${values.authorName}`);
 	if (values.repoUrl) console.log(`  Repository:           ${values.repoUrl}`);
 	console.log('');
@@ -488,117 +541,7 @@ async function main() {
 	}
 
 	// -- Step 4: Build replacement map --
-	// Order: longest match first to avoid partial matches.
-	// Also include path prefix replacements for VIP.
-
-	const replacements = [];
-
-	// Theme replacements (chosen theme)
-	if (isBlock) {
-		// The block theme uses both "tenup-block-theme" (directory/style.css) AND
-		// "tenup-theme" (internal handles, text domain, pattern slugs). We need
-		// to replace both. Longer strings first to avoid partial matches.
-		replacements.push(
-			['TenUpBlockTheme', values.themeNamespace],
-			['TenupBlockTheme', values.themeNamespace],
-			['TENUP_BLOCK_THEME', values.themeConstant],
-			['tenup-block-theme', values.themeSlug],
-			['tenup_block_theme', values.themeHookPrefix],
-			['10up-block-theme', values.themeSlug],
-			['10up Block Theme', values.themeHumanName],
-			['TenUpTheme', values.themeNamespace],
-			['TENUP_THEME', values.themeConstant],
-			['tenup-theme', values.themeNpmName],
-			['tenup_theme', values.themeHookPrefix],
-			['10up-theme', values.themeSlug],
-			['10up Theme', values.themeHumanName],
-		);
-	} else {
-		replacements.push(
-			['TenUpTheme', values.themeNamespace],
-			['TENUP_THEME', values.themeConstant],
-			['tenup-theme', values.themeSlug],
-			['tenup_theme', values.themeHookPrefix],
-			['10up-theme', values.themeSlug],
-			['10up Theme', values.themeHumanName],
-		);
-	}
-
-	// Plugin replacements
-	replacements.push(
-		['TenUpPlugin', values.pluginNamespace],
-		['TENUP_PLUGIN', values.pluginConstant],
-		['tenup-plugin', values.pluginSlug],
-		['tenup_plugin', values.pluginHookPrefix],
-		['10up-plugin', values.pluginSlug],
-		['10up Plugin Scaffold', values.pluginHumanName],
-	);
-
-	// VIP: mu-plugins -> client-mu-plugins path replacement.
-	// Use targeted patterns to avoid changing generic "mu-plugins" WordPress references.
-	if (isVip) {
-		replacements.push(
-			['mu-plugins/10up-plugin', 'client-mu-plugins/10up-plugin'],
-			['<file>mu-plugins</file>', '<file>client-mu-plugins</file>'],
-		);
-	}
-
-	// Composer package names
-	replacements.push(
-		['10up/wp-scaffold', `${values.composerVendor}/${slug}`],
-		['10up/wp-plugin', `${values.composerVendor}/${values.pluginSlug}`],
-		['10up/wp-theme', `${values.composerVendor}/${values.themeSlug}`],
-		['10up/tenup-theme', `${values.composerVendor}/${values.themeSlug}`],
-	);
-
-	// npm root package name
-	replacements.push(['tenup-wp-scaffold', slug]);
-
-	// Author / metadata
-	if (values.authorEmail) {
-		replacements.push(['info@10up.com', values.authorEmail]);
-	}
-	if (values.authorUri) {
-		replacements.push(['https://10up.com', values.authorUri]);
-	}
-
-	// Description strings (longer matches first)
-	if (values.description) {
-		replacements.push(
-			['The starting point for all 10up WordPress projects.', values.description],
-			['The starting point for all 10up WordPress themes.', values.description],
-			['The starting point for all 10up WordPress plugins.', values.description],
-			['A brief description of the plugin.', values.description],
-			['Project description.', values.description],
-			['Project Description', values.description],
-		);
-	}
-
-	// URLs
-	if (values.repoUrl) {
-		replacements.push(
-			['https://github.com/10up/wp-scaffold', values.repoUrl],
-			['https://project-git-repo.tld', values.repoUrl],
-		);
-	}
-	if (values.homepageUrl) {
-		replacements.push(['https://project-domain.tld', values.homepageUrl]);
-	}
-
-	// Author name replacement (must be last / most targeted to avoid over-matching).
-	// We only replace the exact author patterns to avoid mangling things like
-	// "10up-toolkit" or "10up/phpcs-composer".
-	if (values.authorName) {
-		replacements.push(
-			['"name": "10up"', `"name": "${values.authorName}"`],
-			['Author:            10up', `Author:            ${values.authorName}`],
-			['Author:      10up', `Author:      ${values.authorName}`],
-			['Author:        10up', `Author:        ${values.authorName}`],
-		);
-	}
-
-	// Sort by length of search string descending to prevent partial matches.
-	replacements.sort((a, b) => b[0].length - a[0].length);
+	const replacements = buildReplacementMap({ isBlock, isVip, values, slug });
 
 	// -- Step 4: Apply string replacements across all files --
 	const files = walkFiles(ROOT);
@@ -755,12 +698,31 @@ async function main() {
 
 	// -- Done! --
 	console.log('\n  Done! Your project has been scaffolded.\n');
+
+	// -- Run Ignite CLI if requested --
+	if (installIgnite) {
+		console.log('  Installing Ignite WP plugins...\n');
+		try {
+			execSync('npx @10up/ignite-cli install', {
+				cwd: ROOT,
+				stdio: 'inherit',
+			});
+			console.log('\n  Ignite WP plugins installed successfully.\n');
+		} catch {
+			console.log('\n  Ignite WP plugin installation failed or was cancelled.');
+			console.log('  You can run it manually later: npx @10up/ignite-cli install\n');
+		}
+	}
+
 	console.log('  Next steps:\n');
 	console.log('    1. Run npm install');
 	console.log(
 		`    2. Run composer install in the root, ${muDir}/${values.pluginSlug}, and themes/${values.themeSlug}`,
 	);
 	console.log('    3. Run npm run build');
+	if (installIgnite) {
+		console.log('    4. Activate the Ignite plugins you installed');
+	}
 	console.log('');
 }
 

@@ -27,7 +27,8 @@
     "clean-dist": "npm run clean-dist --workspaces --if-present",
     "clean": "rm -rf node_modules package-lock.json",
     "scaffold": "node bin/scaffold.mjs",
-    "scaffold:plugin": "node bin/scaffold-plugin.mjs"
+    "scaffold:plugin": "node bin/scaffold-plugin.mjs",
+    "scaffold:vip": "node bin/scaffold-vip.mjs"
   },
   "author": {
     "name": "10up",
