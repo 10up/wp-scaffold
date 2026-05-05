@@ -1,0 +1,13 @@
+{{#isWithViewScriptVariant}}
+/**
+ * setup an instance of the block
+ *
+ * @param element DOM Node of the block
+ */
+function setup{{slugPascalCase}}Block(element: HTMLElement): void {
+	
+}
+
+const all{{slugPascalCase}}Blocks = document.querySelectorAll<HTMLElement>('.wp-block-{{namespace}}-{{slug}}');
+all{{slugPascalCase}}Blocks.forEach(setup{{slugPascalCase}}Block);
+{{/isWithViewScriptVariant}}

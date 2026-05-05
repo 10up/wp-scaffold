@@ -1,15 +1,14 @@
 <?php
 /**
  * Title: Base Card
- * Slug: tenup-theme/base-card
+ * Slug: tenup-block-theme/base-card
  * Description: A card pattern with a featured image, title, date, and category.
  * Inserter: false
  *
- * @package TenupBlockTheme
+ * @package TenUpTheme
  */
 
 ?>
-
 <!-- wp:group {"align":"wide","style":{"spacing":{"blockGap":"0"},"border":{"radius":"8px","width":"1px"}},"layout":{"type":"flex","orientation":"vertical","justifyContent":"stretch","flexWrap":"nowrap"}} -->
 <div class="wp-block-group alignwide" style="border-width:1px;border-radius:8px">
 
@@ -34,3 +33,4 @@
 
 </div>
 <!-- /wp:group -->
+

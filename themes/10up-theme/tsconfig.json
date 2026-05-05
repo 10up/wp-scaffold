@@ -1,0 +1,17 @@
+{
+	"compilerOptions": {
+		"target": "ESNext",
+		"module": "ESNext",
+		"moduleResolution": "Node",
+		"ignoreDeprecations": "6.0",
+		"strict": true,
+		"esModuleInterop": true,
+		"resolveJsonModule": true,
+		"jsx": "react-jsx",
+		"isolatedModules": true,
+		"skipLibCheck": true,
+		"rootDir": ".",
+		"typeRoots": ["./types", "./node_modules/@types"]
+	},
+	"include": ["assets/js/**/*.ts", "assets/js/**/*.tsx", "blocks/**/*.ts", "blocks/**/*.tsx", "src/**/*.ts", "src/**/*.tsx", "types/**/*.d.ts"]
+}

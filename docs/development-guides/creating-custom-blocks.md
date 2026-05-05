@@ -87,11 +87,11 @@ The block.json file defines your block's metadata:
   "supports": {
     "html": false
   },
-  "editorScript": "file:./index.js"
+  "editorScript": "file:./index.tsx"
 }
 ```
 
-The index.js file registers your block with WordPress:
+The `index.tsx` file registers your block with WordPress:
 
 ```jsx
 /**

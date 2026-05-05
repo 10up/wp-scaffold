@@ -53,14 +53,14 @@ class Assets implements ModuleInterface {
 	 */
 	public function enqueue_frontend_assets() {
 		wp_enqueue_style(
-			'tenup-theme-styles',
+			'tenup-block-theme-styles',
 			TENUP_BLOCK_THEME_TEMPLATE_URL . '/dist/css/frontend.css',
 			[],
 			$this->get_asset_info( 'frontend', 'version' )
 		);
 
 		wp_enqueue_script(
-			'tenup-theme-frontend',
+			'tenup-block-theme-frontend',
 			TENUP_BLOCK_THEME_TEMPLATE_URL . '/dist/js/frontend.js',
 			$this->get_asset_info( 'frontend', 'dependencies' ),
 			$this->get_asset_info( 'frontend', 'version' ),
@@ -79,14 +79,14 @@ class Assets implements ModuleInterface {
 	 */
 	public function enqueue_block_editor_assets() {
 		wp_enqueue_style(
-			'tenup-theme-editor-frame-style-overrides',
+			'tenup-block-theme-editor-frame-style-overrides',
 			TENUP_BLOCK_THEME_TEMPLATE_URL . '/dist/css/editor-frame-style-overrides.css',
 			[],
 			TENUP_BLOCK_THEME_VERSION
 		);
 
 		wp_enqueue_script(
-			'tenup-theme-block-extensions',
+			'tenup-block-theme-block-extensions',
 			TENUP_BLOCK_THEME_TEMPLATE_URL . '/dist/js/block-extensions.js',
 			$this->get_asset_info( 'block-extensions', 'dependencies' ),
 			$this->get_asset_info( 'block-extensions', 'version' ),
@@ -108,7 +108,7 @@ class Assets implements ModuleInterface {
 		}
 
 		wp_enqueue_style(
-			'tenup-theme-editor-canvas-style-overrides',
+			'tenup-block-theme-editor-canvas-style-overrides',
 			TENUP_BLOCK_THEME_TEMPLATE_URL . '/dist/css/editor-canvas-style-overrides.css',
 			[],
 			TENUP_BLOCK_THEME_VERSION

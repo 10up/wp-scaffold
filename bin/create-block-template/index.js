@@ -20,7 +20,8 @@ module.exports = {
 		wpScripts: false,
 		wpEnv: false,
 		version: false,
-		folderName: './src/blocks/example-block',
+		folderName: './example-block',
+		editorScript: 'file:./index.tsx',
 		render: 'file:./markup.php',
 		editorStyle: false,
 		style: 'file:./style.css',
@@ -29,7 +30,7 @@ module.exports = {
 		default: {},
 		innerBlocks: {},
 		withViewScript: {
-			viewScript: 'file:./view.js',
+			viewScript: 'file:./view.ts',
 		},
 	},
 	blockTemplatesPath: join(__dirname, 'block-templates'),

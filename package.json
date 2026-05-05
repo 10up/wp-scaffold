@@ -25,6 +25,7 @@
     "lint-style": "npm run lint-style --workspaces --if-present",
     "test": "npm run test --workspaces --if-present",
     "clean-dist": "npm run clean-dist --workspaces --if-present",
+    "clean": "rm -rf node_modules package-lock.json",
     "scaffold": "node bin/scaffold.mjs",
     "scaffold:plugin": "node bin/scaffold-plugin.mjs"
   },
@@ -37,6 +38,9 @@
   "engines": {
     "node": ">=24.0.0",
     "npm": ">=10.0.0"
+  },
+  "overrides": {
+    "webpackbar": "^7.0.0"
   },
   "dependencies": {
     "10up-toolkit": "^6.5.1"
