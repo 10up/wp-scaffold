@@ -150,7 +150,7 @@ class ThemeCore {
 	 * @return string
 	 */
 	public function add_ltr_language_attribute( $output ) {
-		if ( ! is_rtl() ) {
+		if ( ! is_rtl() && ! preg_match( '/\bdir\s*=/i', $output ) ) {
 			$output .= ' dir="ltr"';
 		}
 
