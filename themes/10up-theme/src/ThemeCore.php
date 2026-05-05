@@ -29,6 +29,8 @@ class ThemeCore {
 		add_action( 'wp_head', [ $this, 'js_detection' ], 0 );
 		add_action( 'wp_head', [ $this, 'scrollbar_detection' ], 0 );
 
+		add_filter( 'language_attributes', [ $this, 'add_ltr_language_attribute' ] );
+
 		do_action( 'tenup_theme_loaded' );
 	}
 
@@ -135,6 +137,24 @@ class ThemeCore {
 	 */
 	public function scrollbar_detection() {
 		echo '<script>window.addEventListener("DOMContentLoaded",()=>{const t=()=>window.innerWidth-document.body.clientWidth;const e=()=>{document.documentElement.style.setProperty("--wp--custom--scrollbar-width",`${t()}px`)};e();});</script>' . "\n";
+	}
+
+	/**
+	 * Adds an explicit `dir="ltr"` attribute to the `<html>` tag for LTR languages.
+	 *
+	 * WordPress core only outputs the `dir` attribute when the site is RTL, but
+	 * `postcss-logical` scopes generated rules to both `html[dir="ltr"]` and
+	 * `html[dir="rtl"]`. Without this filter, LTR rules never match.
+	 *
+	 * @param string $output A space-separated string of attributes.
+	 * @return string
+	 */
+	public function add_ltr_language_attribute( $output ) {
+		if ( ! is_rtl() ) {
+			$output .= ' dir="ltr"';
+		}
+
+		return $output;
 	}
 
 	/**
