@@ -2,6 +2,9 @@ PARENT_DIR="$(git rev-parse --show-toplevel)"
 SCAFFOLD_PATH=$(grep hooksPath "${PARENT_DIR}"/.git/config | awk '{print $3}')
 
 if [ ! -z "${SCAFFOLD_PATH}" ]; then
+  # Husky v9+ sets hooksPath to `<scaffold>/.husky/_`; strip the trailing `/_`
+  # so we cd to the scaffold root (where .lintstagedrc.json lives) and not into .husky.
+  SCAFFOLD_PATH="${SCAFFOLD_PATH%/_}"
   cd "${PARENT_DIR}/${SCAFFOLD_PATH}/.."
 fi
 npx lint-staged
