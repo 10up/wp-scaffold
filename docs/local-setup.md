@@ -78,6 +78,8 @@ wp snapshots search <search_term>
 
 Follow Snapshots "pull" instructions.
 
+Once the snapshot is successfully pulled locally, ensure all personally identifiable information is scrubbed from the database using WP Scrubber.
+
 ### Manual Setup Steps
 
 > **Required** | Project Lead Responsible
@@ -96,6 +98,8 @@ Follow Snapshots "pull" instructions.
 1. [Step 1]
 2. [Step 2]
 3. [Step 3]
+
+**Important**: Manual steps should always include a reminder to scrub all personally identifiable information from the local database using WP Scrubber.
 
 ---
 
