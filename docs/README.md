@@ -5,6 +5,8 @@ Welcome to the documentation for the WP Scaffold! This is your starting point fo
 ## Table of Contents
 - [Getting Started](#getting-started)
 - [Installation](./installation.md)
+- [Local Setup Template](./local-setup.md)
+- [Engineering Workflow Template](./engineering-workflow.md)
 - [Scaffold CLI](./installation.md#running-the-scaffold-cli)
 - [Adding New Plugins](./installation.md#adding-a-new-plugin)
 - [Architecture Overview](./backend-development/architecture-overview.md)
