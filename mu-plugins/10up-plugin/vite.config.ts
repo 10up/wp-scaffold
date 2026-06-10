@@ -8,16 +8,13 @@
  * sidecars.
  */
 import { defineConfig } from "vite-plus";
-import { wp, wpCleanCssChunks } from "@10up/wp-vite-plugins";
+import { wp } from "@10up/wp-vite-plugins";
 
 export default defineConfig({
 	plugins: [
 		wp({
 			copyAssetsDir: "./assets",
 		}),
-		// Not auto-included by wp() here (no blocksStylesDir), but the
-		// css/admin entry below still produces an empty JS shim to clean up.
-		wpCleanCssChunks(),
 	],
 	build: {
 		outDir: "dist",
