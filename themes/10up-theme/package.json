@@ -3,35 +3,28 @@
   "version": "1.0.0",
   "scripts": {
     "start": "npm run watch",
-    "watch": "10up-toolkit watch --port=5000 --hot",
-    "build": "10up-toolkit build",
-    "format-js": "10up-toolkit format-js",
-    "lint-js": "10up-toolkit lint-js",
-    "lint-style": "10up-toolkit lint-style",
-    "test": "10up-toolkit test-unit-jest --passWithNoTests",
+    "watch": "vp build --watch",
+    "build": "vp build && vp build --mode modules",
+    "check": "vp check && tsgo --noEmit",
+    "typecheck": "tsgo --noEmit",
+    "format-js": "vp fmt --write",
+    "lint-js": "vp lint",
+    "lint-style": "stylelint \"assets/css/**/*.css\"",
+    "test": "vp test run --passWithNoTests",
     "clean-dist": "rm -rf ./dist",
     "scaffold:block": "cd blocks/ && wp-create-block --no-plugin --template ../../../../bin/create-block-template"
   },
   "dependencies": {
-    "10up-toolkit": "^6.5.1",
+    "@wordpress/block-editor": "^15.6.0",
+    "@wordpress/blocks": "^15.2.0",
+    "@wordpress/dom-ready": "^4.47.0",
+    "@wordpress/i18n": "^6.13.0",
     "modern-normalize": "^3.0.0"
   },
-  "10up-toolkit": {
-    "useBlockAssets": true,
-    "useScriptModules": true,
-    "loadBlockSpecificStyles": true,
-    "entry": {
-      "editor-style-overrides": "./assets/js/frontend/editor-style-overrides.ts",
-      "frontend": "./assets/js/frontend/frontend.ts",
-      "block-editor-script": "./assets/js/block-editor/block-editor-script.ts"
-    },
-    "paths": {
-      "blocksDir": "./blocks"
-    }
-  },
   "devDependencies": {
-    "@types/wordpress__block-editor": "^15.0.5",
-    "@types/wordpress__blocks": "^15.10.2",
-    "jest-environment-jsdom": "^29.7.0"
+    "@10up/wp-vite-plugins": "file:../../packages/10up-wp-vite-plugins-0.1.0-beta.0.tgz",
+    "@types/react": "^18.3.0",
+    "@typescript/native-preview": "^7.0.0-dev.20260610.1",
+    "vite-plus": "^0.1.24"
   }
 }

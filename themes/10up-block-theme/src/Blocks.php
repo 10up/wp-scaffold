@@ -92,21 +92,21 @@ class Blocks implements ModuleInterface {
 	 * @return void
 	 */
 	public function enqueue_theme_block_styles() {
-		$stylesheets = glob( TENUP_BLOCK_THEME_DIST_PATH . '/blocks/autoenqueue/**/*.css' );
+		$stylesheets = glob( TENUP_BLOCK_THEME_DIST_PATH . '/autoenqueue/**/*.css' );
 
 		if ( empty( $stylesheets ) ) {
 			return;
 		}
 
 		foreach ( $stylesheets as $stylesheet_path ) {
-			$block_type = str_replace( TENUP_BLOCK_THEME_DIST_PATH . '/blocks/autoenqueue/', '', $stylesheet_path );
+			$block_type = str_replace( TENUP_BLOCK_THEME_DIST_PATH . '/autoenqueue/', '', $stylesheet_path );
 			$block_type = str_replace( '.css', '', $block_type );
 
 			wp_register_style(
 				"tenup-block-theme-{$block_type}",
-				TENUP_BLOCK_THEME_DIST_URL . 'blocks/autoenqueue/' . $block_type . '.css',
-				$this->get_asset_info( 'blocks/autoenqueue/' . $block_type, 'dependencies' ),
-				$this->get_asset_info( 'blocks/autoenqueue/' . $block_type, 'version' ),
+				TENUP_BLOCK_THEME_DIST_URL . 'autoenqueue/' . $block_type . '.css',
+				$this->get_asset_info( 'autoenqueue/' . $block_type, 'dependencies' ),
+				$this->get_asset_info( 'autoenqueue/' . $block_type, 'version' ),
 			);
 
 			wp_enqueue_block_style(
@@ -117,12 +117,12 @@ class Blocks implements ModuleInterface {
 				]
 			);
 
-			if ( file_exists( TENUP_BLOCK_THEME_DIST_PATH . 'blocks/autoenqueue/' . $block_type . '.js' ) ) {
+			if ( file_exists( TENUP_BLOCK_THEME_DIST_PATH . 'autoenqueue/' . $block_type . '.js' ) ) {
 				wp_enqueue_script(
 					$block_type,
-					TENUP_BLOCK_THEME_DIST_URL . 'blocks/autoenqueue/' . $block_type . '.js',
-					$this->get_asset_info( 'blocks/autoenqueue/' . $block_type, 'dependencies' ),
-					$this->get_asset_info( 'blocks/autoenqueue/' . $block_type, 'version' ),
+					TENUP_BLOCK_THEME_DIST_URL . 'autoenqueue/' . $block_type . '.js',
+					$this->get_asset_info( 'autoenqueue/' . $block_type, 'dependencies' ),
+					$this->get_asset_info( 'autoenqueue/' . $block_type, 'version' ),
 					true
 				);
 			}
