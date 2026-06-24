@@ -27,6 +27,7 @@ This theme is designed to work with WordPress modern theme tooling and 10up conv
 - Classic and block-friendly templates with reusable partials
 
 Root files:
+
 - `style.css` — WordPress theme header and base stylesheet
 - `theme.json` — global settings, styles, color palettes, and editor options
 - `functions.php` — theme initialization, asset registration, and support setup

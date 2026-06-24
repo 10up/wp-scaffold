@@ -1,9 +1,11 @@
 # 10up Block Theme
 
 ## Overview
+
 This is a lightweight starter theme for WordPress block themes. It provides the minimal structure to get a modern full-site editing theme up and running, while also being easy to extend.
 
 ## Project Structure
+
 - `assets/`: theme asset source files (CSS, JS, fonts, images)
 - `blocks/`: custom blocks
 - `parts/`: reusable theme parts for header, footer, etc.
@@ -17,18 +19,20 @@ This is a lightweight starter theme for WordPress block themes. It provides the 
 ## 1. Theme overview
 
 This is a full-site block theme built using:
+
 - WordPress block theme system (`theme.json`, template files, template parts)
-- 10up toolkit (`10up-toolkit`) for asset bundling, linting, testing
+- [Vite+](https://viteplus.dev) (`vp`) with [`@10up/wp-vite-plugins`](https://github.com/10up/wp-vite-plugins) for asset bundling, linting, formatting, type-checking, and testing
 - 10up framework (`10up/wp-framework`) for modular PHP class loading
 - Modern CSS and JS modules in `assets/`
 - Custom blocks under `blocks/`
 
 Main root files:
+
 - `style.css` - WordPress theme header and bare stylesheet.
 - `theme.json` - block theme settings, styles, color/spacing scales, templates.
 - `functions.php` - Bootstrap: constants, composer loading, fast-refresh and theme setup.
 - `composer.json` - PHP dependencies and PSR-4 autoload.
-- `package.json` - JS/asset build and 10up-toolkit configuration.
+- `package.json` - JS dependencies and scripts; build/lint config lives in `vite.config.ts`.
 
 ---
 
@@ -88,7 +92,7 @@ If you can only have `themes/10up-block-theme` installed and are not able to use
 - `composer install` — install PHP dependencies for the theme.
 - `npm install` — install JavaScript dependencies.
 - `npm run build` — compile theme assets into `dist/`.
-- `npm run watch` — start 10up-toolkit in watch mode with HMR/hot-refresh.
+- `npm run watch` — rebuild assets on change (`vp build --watch`).
 - `npm run scaffold:block` — generate a new block scaffold in `blocks/` using the local template.
 - `composer lint` — run PHP, JS, and CSS linting across the theme.
 - `npm run lint` — run JS linting only.
@@ -105,7 +109,7 @@ If you can only have `themes/10up-block-theme` installed and are not able to use
 
 ## 5. Recommended WordPress packages
 
-This theme does not install every `@wordpress/*` package by default. `10up-toolkit` only bundles the packages you actually import in source, so keep your dependencies curated to what your blocks and editor extensions use.
+This theme does not install every `@wordpress/*` package by default. Install the packages you actually import — `@10up/wp-vite-plugins` reads each package's own metadata to externalize it against WordPress core (or bundle it when WordPress does not provide it), and you get real TypeScript types from the installed packages.
 
 When you need WordPress block packages, this is a good starting list:
 
@@ -143,6 +147,7 @@ These packages are useful to keep available when developing blocks, but they do 
 - Register template parts in `parts/`, and templates in `templates/`.
 
 ### Style variations
+
 - https://ignitewp.10uplabs.com/block-styling-and-css/
 
 ---
@@ -162,4 +167,3 @@ These packages are useful to keep available when developing blocks, but they do 
 - This theme is built to be minimal and extendable.
 - If you add or change blocks, always rebuild with `npm run build` before testing in WordPress.
 - Please go through the Gutenberg Training if you have questions on using: https://gutenberg.10up.com/training/
-

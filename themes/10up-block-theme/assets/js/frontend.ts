@@ -1,1 +1,4 @@
-import '../css/frontend.css';
+// Styles are built as their own entry (css/frontend in vite.config.ts),
+// not imported here — WordPress enqueues JS and CSS separately.
+
+export {};

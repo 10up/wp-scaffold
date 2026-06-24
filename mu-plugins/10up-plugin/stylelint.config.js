@@ -1,5 +1,5 @@
 const config = {
-	extends: ['@10up/stylelint-config'],
+	extends: ["@10up/stylelint-config"],
 	rules: {},
 };
 

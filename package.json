@@ -15,16 +15,18 @@
     "prepare": "TEN=\"$(pwd)\"; UP=\"$(git rev-parse --show-toplevel)\"; TENUP=\"${TEN#\"$UP\"}\"; cd \"$(git rev-parse --show-toplevel)\"; husky .\"${TENUP}\"/.husky",
     "setup": "npm install --omit=dev && composer setup",
     "setup:local": "npm install && composer setup:local",
-    "build": "npm run build --workspaces --if-present",
+    "build": "vp run -r --cache build",
     "start": "npm run watch",
-    "watch:theme": "npm run watch -w=tenup-theme",
-    "watch:plugin": "npm run watch -w=tenup-plugin",
-    "watch": "run-p watch:theme watch:plugin",
-    "lint-js": "npm run lint-js --workspaces --if-present",
-    "format-js": "npm run format-js --workspaces --if-present",
-    "lint-style": "npm run lint-style --workspaces --if-present",
-    "test": "npm run test --workspaces --if-present",
-    "clean-dist": "npm run clean-dist --workspaces --if-present",
+    "watch": "vp run -r watch",
+    "watch:theme": "vp run --filter tenup-theme watch",
+    "watch:block-theme": "vp run --filter tenup-block-theme watch",
+    "watch:plugin": "vp run --filter tenup-plugin watch",
+    "check": "vp run -r --cache check",
+    "lint-js": "vp run -r --cache lint-js",
+    "format-js": "vp run -r format-js",
+    "lint-style": "vp run -r --cache lint-style",
+    "test": "vp run -r --cache test",
+    "clean-dist": "vp run -r clean-dist",
     "clean": "rm -rf node_modules package-lock.json",
     "scaffold": "node bin/scaffold.mjs",
     "scaffold:plugin": "node bin/scaffold-plugin.mjs",
@@ -40,19 +42,17 @@
     "node": ">=24.0.0",
     "npm": ">=10.0.0"
   },
-  "overrides": {
-    "webpackbar": "^7.0.0"
-  },
-  "dependencies": {
-    "10up-toolkit": "^6.5.1"
-  },
   "devDependencies": {
+    "@10up/stylelint-config": "^3.0.1",
+    "@inquirer/prompts": "^7.0.0",
     "@wordpress/create-block": "4.55.0",
     "husky": "^9.1.7",
-    "lint-staged": "^15.2.0",
-    "npm-run-all": "^4.1.5",
-    "@inquirer/prompts": "^7.0.0",
-    "prettier": "3.3.3",
-    "tar": "^7.4.3"
-  }
+    "@csstools/postcss-global-data": "^4.0.0",
+    "postcss-mixins": "^12.0.0",
+    "postcss-preset-env": "^10.0.0",
+    "stylelint": "^15.11.0",
+    "tar": "^7.4.3",
+    "vite-plus": "^0.1.24"
+  },
+  "packageManager": "npm@11.16.0"
 }
