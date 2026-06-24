@@ -5,6 +5,8 @@
  * @package TenUpTheme
  */
 
+declare( strict_types = 1 );
+
 namespace TenUpTheme;
 
 use TenupFramework\Assets\GetAssetInfo;
@@ -26,7 +28,7 @@ class Assets implements ModuleInterface {
 	 *
 	 * @return bool
 	 */
-	public function can_register() {
+	public function can_register(): bool {
 		return true;
 	}
 
@@ -35,7 +37,7 @@ class Assets implements ModuleInterface {
 	 *
 	 * @return void
 	 */
-	public function register() {
+	public function register(): void {
 		$this->setup_asset_vars(
 			dist_path: TENUP_THEME_DIST_PATH,
 			fallback_version: TENUP_THEME_VERSION
@@ -51,7 +53,7 @@ class Assets implements ModuleInterface {
 	 *
 	 * @return void
 	 */
-	public function scripts() {
+	public function scripts(): void {
 		/**
 		 * Enqueuing frontend.js is required to get css hot reloading working in the frontend
 		 * If you're not shipping any front-end js wrap this enqueue in a SCRIPT_DEBUG check.
@@ -70,7 +72,7 @@ class Assets implements ModuleInterface {
 	 *
 	 * @return void
 	 */
-	public function enqueue_block_editor_scripts() {
+	public function enqueue_block_editor_scripts(): void {
 		wp_enqueue_script(
 			'block-editor-script',
 			TENUP_THEME_DIST_URL . 'js/block-editor-script.js',
@@ -85,7 +87,7 @@ class Assets implements ModuleInterface {
 	 *
 	 * @return void
 	 */
-	public function styles() {
+	public function styles(): void {
 		wp_enqueue_style(
 			'styles',
 			TENUP_THEME_TEMPLATE_URL . '/dist/css/frontend.css',
