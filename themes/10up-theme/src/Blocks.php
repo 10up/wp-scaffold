@@ -51,45 +51,34 @@ class Blocks implements ModuleInterface {
 	}
 
 	/**
-	 * Automatically registers all blocks that are located within the includes/blocks directory
+	 * Automatically registers all blocks from the generated Vite blocks manifest.
+	 *
+	 * Built by `wpBlocks` (@10up/wp-vite-plugins) into `dist/blocks-manifest.php`,
+	 * consumed by `wp_register_block_types_from_metadata_collection()` (WP 6.7+)
+	 * in one `include` instead of a per-block glob + JSON parse — the whole
+	 * point of generating the manifest, which the previous glob-based version
+	 * of this method left unused.
+	 *
+	 * Note the behavior change for blocks with a `markup.php` render callback:
+	 * `wp_register_block_types_from_metadata_collection()` has no equivalent of
+	 * the old manual `render_callback` closure below. Instead, declare
+	 * `"render": "file:./markup.php"` directly in the block's `block.json` —
+	 * `wpBlocks` copies that PHP next to the built block, and WordPress core
+	 * wires it up natively via the metadata collection.
 	 *
 	 * @return void
 	 */
 	public function register_theme_blocks() {
-		// Register all the blocks in the theme
-		if ( file_exists( TENUP_THEME_BLOCK_DIST_DIR ) ) {
-			$block_json_files = glob( TENUP_THEME_BLOCK_DIST_DIR . '*/block.json' );
+		$manifest_path = TENUP_THEME_DIST_PATH . 'blocks-manifest.php';
 
-			if ( empty( $block_json_files ) ) {
-				return;
-			}
-
-			// auto register all blocks that were found.
-			foreach ( $block_json_files as $filename ) {
-
-				$block_folder = dirname( $filename );
-
-				$block_options = [];
-
-				$markup_file_path = $block_folder . '/markup.php';
-				if ( file_exists( $markup_file_path ) ) {
-
-					// only add the render callback if the block has a file called markup.php in it's directory
-					$block_options['render_callback'] = function ( $attributes, $content, $block ) use ( $block_folder ) {
-
-						// create helpful variables that will be accessible in markup.php file
-						$context = $block->context;
-
-						// get the actual markup from the markup.php file
-						ob_start();
-						include $block_folder . '/markup.php';
-						return ob_get_clean();
-					};
-				}
-
-				register_block_type_from_metadata( $block_folder, $block_options );
-			}
+		if ( ! file_exists( $manifest_path ) ) {
+			return;
 		}
+
+		wp_register_block_types_from_metadata_collection(
+			TENUP_THEME_DIST_PATH . 'blocks',
+			$manifest_path
+		);
 	}
 
 	/**

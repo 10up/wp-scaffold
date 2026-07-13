@@ -38,12 +38,18 @@ export default defineConfig(({ mode }) => {
 				// Block entries are discovered from block.json by wpBlocks.
 				// CSS files are first-class entries (instead of JS-side
 				// imports) — wpCleanCssChunks removes the empty JS shims.
+				//
+				// 'css/frontend-style', not 'css/frontend': TenupFramework's
+				// get_asset_info('frontend') checks dist/js/frontend.asset.php
+				// before dist/css/frontend.asset.php, so a same-named CSS entry
+				// silently inherited the JS entry's version/deps instead of its
+				// own (the style enqueue never busted cache on CSS-only edits).
 				input: isModulePass
 					? {}
 					: {
 							"js/frontend": "./assets/js/frontend.ts",
 							"js/block-extensions": "./assets/js/block-extensions.ts",
-							"css/frontend": "./assets/css/frontend.css",
+							"css/frontend-style": "./assets/css/frontend.css",
 							"css/editor-frame-style-overrides": "./assets/css/editor-frame-style-overrides.css",
 							"css/editor-canvas-style-overrides": "./assets/css/editor-canvas-style-overrides.css",
 						},
