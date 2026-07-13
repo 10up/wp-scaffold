@@ -19,9 +19,14 @@ export default defineConfig({
 	build: {
 		outDir: "dist",
 		rollupOptions: {
+			// 'css/admin-style', not 'css/admin': TenupFramework's
+			// get_asset_info('admin') checks dist/js/admin.asset.php before
+			// dist/css/admin.asset.php, so a same-named CSS entry silently
+			// inherited the JS entry's version/deps instead of its own (the
+			// style enqueue never busted cache on CSS-only edits).
 			input: {
 				"js/admin": "./assets/js/admin/admin.js",
-				"css/admin": "./assets/css/admin/admin-style.css",
+				"css/admin-style": "./assets/css/admin/admin-style.css",
 			},
 			output: {
 				entryFileNames: "[name].js",

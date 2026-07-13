@@ -49,64 +49,85 @@ class Blocks implements ModuleInterface {
 
 
 	/**
-	 * Automatically registers all blocks that are located within the includes/blocks directory
+	 * Automatically registers all blocks from the generated Vite blocks manifest.
+	 *
+	 * Built by `wpBlocks` (@10up/wp-vite-plugins) into `dist/blocks-manifest.php`,
+	 * consumed by `wp_register_block_types_from_metadata_collection()` (WP 6.7+)
+	 * in one `include` instead of a per-block glob + JSON parse.
 	 *
 	 * @return void
 	 */
 	public function register_theme_blocks() {
-		// Register all the blocks in the theme.
-		if ( file_exists( TENUP_BLOCK_THEME_BLOCK_DIST_DIR ) ) {
-			$block_json_files = glob( TENUP_BLOCK_THEME_BLOCK_DIST_DIR . '*/block.json' );
-			$block_names      = [];
+		$manifest_path = TENUP_BLOCK_THEME_DIST_PATH . 'blocks-manifest.php';
 
-			if ( empty( $block_json_files ) ) {
-				return;
-			}
-
-			foreach ( $block_json_files as $filename ) {
-				$block_folder = dirname( $filename );
-				$block        = register_block_type_from_metadata( $block_folder );
-
-				if ( ! $block ) {
-					continue;
-				}
-
-				$block_names[] = $block->name;
-			}
-
-			add_filter(
-				'allowed_block_types_all',
-				function ( array|bool $allowed_blocks ) use ( $block_names ): array|bool {
-					if ( ! is_array( $allowed_blocks ) ) {
-						return $allowed_blocks;
-					}
-					return array_merge( $allowed_blocks, $block_names );
-				}
-			);
+		if ( ! file_exists( $manifest_path ) ) {
+			return;
 		}
+
+		wp_register_block_types_from_metadata_collection(
+			TENUP_BLOCK_THEME_DIST_PATH . 'blocks',
+			$manifest_path
+		);
+
+		// The manifest itself (not the registration call) is the source of truth
+		// for which block names got registered, so read it back for the filter below.
+		$manifest    = require $manifest_path;
+		$block_names = array_filter( array_column( $manifest, 'name' ) );
+
+		if ( empty( $block_names ) ) {
+			return;
+		}
+
+		add_filter(
+			'allowed_block_types_all',
+			function ( array|bool $allowed_blocks ) use ( $block_names ): array|bool {
+				if ( ! is_array( $allowed_blocks ) ) {
+					return $allowed_blocks;
+				}
+				return array_merge( $allowed_blocks, $block_names );
+			}
+		);
 	}
 
 	/**
 	 * Enqueue block specific styles.
 	 *
+	 * Built by `wpBlockStyles` (@10up/wp-vite-plugins) into `dist/autoenqueue/`.
+	 * These are CSS-only entries — `get_asset_info()` only probes `js/`, `css/`,
+	 * and `blocks/` prefixes, never `autoenqueue/`, so calling it with an
+	 * `autoenqueue/…` slug always silently falls through to the fallback
+	 * version and never reflects real CSS edits. Read the `.asset.php`
+	 * sidecar directly instead (falling back to the file's mtime if a given
+	 * stylesheet has no sidecar at all — e.g. no `@wordpress/*` imports).
+	 *
 	 * @return void
 	 */
 	public function enqueue_theme_block_styles() {
-		$stylesheets = glob( TENUP_BLOCK_THEME_DIST_PATH . '/autoenqueue/**/*.css' );
+		$stylesheets = glob( TENUP_BLOCK_THEME_DIST_PATH . 'autoenqueue/**/*.css' );
 
 		if ( empty( $stylesheets ) ) {
 			return;
 		}
 
 		foreach ( $stylesheets as $stylesheet_path ) {
-			$block_type = str_replace( TENUP_BLOCK_THEME_DIST_PATH . '/autoenqueue/', '', $stylesheet_path );
+			$block_type = str_replace( TENUP_BLOCK_THEME_DIST_PATH . 'autoenqueue/', '', $stylesheet_path );
 			$block_type = str_replace( '.css', '', $block_type );
+			$asset_file = TENUP_BLOCK_THEME_DIST_PATH . 'autoenqueue/' . $block_type . '.asset.php';
+
+			if ( file_exists( $asset_file ) ) {
+				$asset = require $asset_file;
+			} else {
+				$asset = [
+					'version'      => (string) filemtime( $stylesheet_path ),
+					'dependencies' => [],
+				];
+			}
 
 			wp_register_style(
 				"tenup-block-theme-{$block_type}",
 				TENUP_BLOCK_THEME_DIST_URL . 'autoenqueue/' . $block_type . '.css',
-				$this->get_asset_info( 'autoenqueue/' . $block_type, 'dependencies' ),
-				$this->get_asset_info( 'autoenqueue/' . $block_type, 'version' ),
+				$asset['dependencies'],
+				$asset['version'],
 			);
 
 			wp_enqueue_block_style(
@@ -121,8 +142,8 @@ class Blocks implements ModuleInterface {
 				wp_enqueue_script(
 					$block_type,
 					TENUP_BLOCK_THEME_DIST_URL . 'autoenqueue/' . $block_type . '.js',
-					$this->get_asset_info( 'autoenqueue/' . $block_type, 'dependencies' ),
-					$this->get_asset_info( 'autoenqueue/' . $block_type, 'version' ),
+					$asset['dependencies'],
+					$asset['version'],
 					true
 				);
 			}

@@ -88,9 +88,10 @@ class Assets implements ModuleInterface {
 	public function styles() {
 		wp_enqueue_style(
 			'styles',
-			TENUP_THEME_TEMPLATE_URL . '/dist/css/frontend.css',
+			TENUP_THEME_TEMPLATE_URL . '/dist/css/frontend-style.css',
 			[],
-			$this->get_asset_info( 'frontend', 'version' )
+			// Deliberately 'frontend-style', not 'frontend' — see vite.config.ts.
+			$this->get_asset_info( 'frontend-style', 'version' )
 		);
 	}
 }
