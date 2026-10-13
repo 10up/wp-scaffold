@@ -43,6 +43,17 @@ const ALLOWED = {
 
 const SHAPES = new Set(['line', 'polyline', 'circle', 'rect', 'ellipse']);
 
+/**
+ * Losses that don't change what the icon looks like, so they aren't reported.
+ *
+ * `defs` only matters through its children, which are reported themselves;
+ * `clip-rule` only applies inside a <clipPath>, which core strips anyway. A root
+ * fill="currentColor" is also let through: core's own icons ship with it and
+ * core's Icon block puts it back with CSS.
+ */
+const HARMLESS_ELEMENTS = new Set(['title', 'desc', 'metadata', 'defs']);
+const HARMLESS_ATTRIBUTES = new Set(['clip-rule', 'id', 'version', 'xmlns:xlink', 'xml:space']);
+
 const HINTS = {
 	stroke:
 		'stroke attributes are stripped by core — outline strokes in your design tool (Figma: Outline stroke) before exporting',
@@ -196,11 +207,20 @@ function lintSvg(source) {
 		}
 
 		if (!ALLOWED[name]) {
-			elements.set(name, (elements.get(name) ?? 0) + 1);
+			if (!HARMLESS_ELEMENTS.has(name)) {
+				elements.set(name, (elements.get(name) ?? 0) + 1);
+			}
 			return;
 		}
 
-		const disallowed = names.filter((attr) => !ALLOWED[name].includes(attr));
+		const isCurrentColorRoot =
+			index === 0 && name === 'svg' && attrs.fill?.trim().toLowerCase() === 'currentcolor';
+		const disallowed = names.filter(
+			(attr) =>
+				!ALLOWED[name].includes(attr) &&
+				!HARMLESS_ATTRIBUTES.has(attr) &&
+				!(isCurrentColorRoot && attr === 'fill'),
+		);
 		if (disallowed.length) {
 			const seen = attributes.get(name) ?? new Set();
 			disallowed.forEach((attr) => seen.add(attr));

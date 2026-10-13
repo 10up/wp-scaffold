@@ -137,6 +137,8 @@ SVG files in a theme's `assets/svg/` folder are built to `dist/svg/` and registe
 
 Everything else is removed without a warning: elements such as `g`, `line`, `polyline`, `circle`, `rect`, `ellipse`, `defs`, `clipPath`, `use`, `title` and `style`, and attributes such as `stroke`, `stroke-width`, `fill-opacity`, `opacity`, `clip-rule`, `id` and `style`. The icon still registers, but it renders empty or wrong. A typical stroke-based icon set (Feather, Lucide) comes back as an empty `<svg>`.
 
+The check skips losses that change nothing visible: `title`, `desc`, `metadata` and `defs` elements, the `clip-rule`, `id`, `version`, `xmlns:xlink` and `xml:space` attributes, and a `fill="currentColor"` on the root `<svg>`. Core's own icons ship with that root fill, and core's Icon block puts it back with CSS.
+
 Run the check with:
 
 ```bash
