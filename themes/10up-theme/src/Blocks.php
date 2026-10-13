@@ -48,6 +48,34 @@ class Blocks implements ModuleInterface {
 
 		// Prevents third-party blocks from being suggested in the block inserter.
 		remove_action( 'enqueue_block_editor_assets', 'wp_enqueue_editor_block_directory_assets' );
+
+		add_filter( 'block_editor_settings_all', [ $this, 'curate_editor_settings' ] );
+		add_action( 'admin_menu', [ $this, 'remove_font_library_screen' ] );
+	}
+
+	/**
+	 * Turns off editor features that pull in content from outside the design system.
+	 *
+	 * @param array<string, mixed> $settings Block editor settings.
+	 * @return array<string, mixed>
+	 */
+	public function curate_editor_settings( $settings ) {
+		// Openverse images are third-party media with their own licensing; editors use the media library.
+		$settings['enableOpenverseMediaCategory'] = false;
+
+		// Typography comes from theme.json; editors shouldn't install fonts through the Font Library.
+		$settings['fontLibraryEnabled'] = false;
+
+		return $settings;
+	}
+
+	/**
+	 * Removes the Appearance > Fonts screen (WP 7.0+), the Font Library outside the Site Editor.
+	 *
+	 * @return void
+	 */
+	public function remove_font_library_screen() {
+		remove_submenu_page( 'themes.php', 'font-library.php' );
 	}
 
 	/**
@@ -64,30 +92,9 @@ class Blocks implements ModuleInterface {
 				return;
 			}
 
-			// auto register all blocks that were found.
+			// Auto-register every block. Server rendering comes from the `render` file in block.json.
 			foreach ( $block_json_files as $filename ) {
-
-				$block_folder = dirname( $filename );
-
-				$block_options = [];
-
-				$markup_file_path = $block_folder . '/markup.php';
-				if ( file_exists( $markup_file_path ) ) {
-
-					// only add the render callback if the block has a file called markup.php in it's directory
-					$block_options['render_callback'] = function ( $attributes, $content, $block ) use ( $block_folder ) {
-
-						// create helpful variables that will be accessible in markup.php file
-						$context = $block->context;
-
-						// get the actual markup from the markup.php file
-						ob_start();
-						include $block_folder . '/markup.php';
-						return ob_get_clean();
-					};
-				}
-
-				register_block_type_from_metadata( $block_folder, $block_options );
+				register_block_type_from_metadata( dirname( $filename ) );
 			}
 		}
 	}

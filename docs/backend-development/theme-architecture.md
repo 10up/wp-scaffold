@@ -133,7 +133,7 @@ The `Blocks` class handles block editor integration:
 - Enqueues block-specific styles using `wp_enqueue_block_style`
 - Automatically detects and enqueues block-specific CSS files from the `blocks/autoenqueue` directory
 - Registers block pattern categories
-- Provides server-side rendering for dynamic blocks using markup.php files
+- Curates the editor: removes the block directory, disables Openverse media and the Font Library
 - Integrates with the WP Framework's asset management utilities via the `GetAssetInfo` trait
 
 ## Asset Management
@@ -154,10 +154,12 @@ The theme includes a framework for creating custom blocks:
 - Blocks are stored in the `blocks` directory
 - Each block follows a standard structure:
   - `block.json`: Block metadata and configuration
-  - `edit.js`: Block editor component
-  - `index.js`: Block registration
-  - `markup.php`: Server-side rendering (for dynamic blocks)
-  - `save.js`: Block save function
+  - `index.ts`: Block registration, with an inline `save` (`index.tsx` for blocks with inner blocks)
+  - `edit.tsx`: Block editor component
+  - `render.php`: Server-side rendering (every block is server-rendered)
+  - `style.css`: Block styles
+  - `view.ts`: Interactivity API store (interactive blocks only)
+- Create blocks with `npm run scaffold:block`; see [Creating Custom Blocks](../development-guides/creating-custom-blocks.md)
 
 ### Block Editor Integration
 
