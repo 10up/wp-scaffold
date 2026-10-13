@@ -10,6 +10,7 @@ This document outlines the frontend build process used in a WP Scaffold project,
 - [NPM Scripts](#npm-scripts)
 - [Webpack Configuration](#webpack-configuration)
 - [Asset Optimization](#asset-optimization)
+- [SVG Icons](#svg-icons)
 - [Development Workflow](#development-workflow)
 - [Production Builds](#production-builds)
 - [Troubleshooting](#troubleshooting)
@@ -123,6 +124,35 @@ Images are optimized through:
 - **Compression**: Reducing file size without significant quality loss
 - **Responsive Images**: Generating multiple sizes for different devices
 - **SVG Optimization**: Cleaning and minifying SVG files
+
+## SVG Icons
+
+SVG files in a theme's `assets/svg/` folder are built to `dist/svg/` and registered as icons by the theme's `Assets` class. Since WordPress 7.0 core sanitizes every registered icon in `WP_Icons_Registry::sanitize_icon_content()` with a fixed `wp_kses` allowlist that has no filter:
+
+| Element | Allowed attributes |
+| --- | --- |
+| `svg` | `class`, `xmlns`, `width`, `height`, `viewBox`, `aria-hidden`, `role`, `focusable` |
+| `path` | `fill`, `fill-rule`, `d`, `transform` |
+| `polygon` | `fill`, `fill-rule`, `points`, `transform`, `focusable` |
+
+Everything else is removed without a warning: elements such as `g`, `line`, `polyline`, `circle`, `rect`, `ellipse`, `defs`, `clipPath`, `use`, `title` and `style`, and attributes such as `stroke`, `stroke-width`, `fill-opacity`, `opacity`, `clip-rule`, `id` and `style`. The icon still registers, but it renders empty or wrong. A typical stroke-based icon set (Feather, Lucide) comes back as an empty `<svg>`.
+
+Run the check with:
+
+```bash
+npm run lint-svg                                 # every themes/*/assets/svg and mu-plugins/*/assets/svg
+npm run lint-svg -- themes/my-theme/assets/svg   # a folder, file or glob
+```
+
+It also runs on staged icons before each commit and in CI. XML declarations, doctypes and comments are fine; kses strips them harmlessly.
+
+To fix an icon it flags:
+
+- **Strokes:** outline the strokes in your design tool before exporting (Figma: *Outline stroke*), so the icon is drawn with filled paths. Use `fill="currentColor"` on the paths if the icon should follow the text color.
+- **Shapes** (`line`, `polyline`, `circle`, `rect`, `ellipse`): convert them to paths, for example with SVGO's `convertShapeToPath`.
+- **Groups:** flatten `<g>` wrappers and move any `fill` or `transform` they carry onto the paths.
+
+Core is widening the allowlist (see [WordPress/wordpress-develop#12197](https://github.com/WordPress/wordpress-develop/pull/12197) and [#13539](https://github.com/WordPress/wordpress-develop/pull/13539)). When a release ships with a wider list, update the `ALLOWED` constant in `bin/lint-svg.mjs` to match.
 
 ## Development Workflow
 
