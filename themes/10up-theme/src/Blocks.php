@@ -50,10 +50,7 @@ class Blocks implements ModuleInterface {
 		remove_action( 'enqueue_block_editor_assets', 'wp_enqueue_editor_block_directory_assets' );
 
 		add_filter( 'block_editor_settings_all', [ $this, 'curate_editor_settings' ] );
-		// Keep the Font Library on local environments, where developers try out fonts.
-		if ( 'local' !== wp_get_environment_type() ) {
-			add_action( 'admin_menu', [ $this, 'remove_font_library_screen' ] );
-		}
+		add_action( 'admin_menu', [ $this, 'remove_font_library_screen' ] );
 	}
 
 	/**
@@ -81,6 +78,11 @@ class Blocks implements ModuleInterface {
 	 * @return void
 	 */
 	public function remove_font_library_screen() {
+		// It stays on locally, where developers try out fonts.
+		if ( 'local' === wp_get_environment_type() ) {
+			return;
+		}
+
 		remove_submenu_page( 'themes.php', 'font-library.php' );
 	}
 
