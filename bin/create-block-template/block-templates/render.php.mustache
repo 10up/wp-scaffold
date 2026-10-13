@@ -1,0 +1,72 @@
+<?php
+/**
+ * {{title}} block markup.
+ *
+ * @package {{namespacePascalCase}}\Blocks\{{slugPascalCase}}
+ *
+{{#isInnerBlocksVariant}}
+ * @var array<string, mixed> $attributes Block attributes.
+{{/isInnerBlocksVariant}}
+{{^isInnerBlocksVariant}}
+ * @var array{content: string} $attributes Block attributes.
+{{/isInnerBlocksVariant}}
+ * @var string   $content Block content.
+ * @var WP_Block $block   Block instance.
+ */
+
+{{^isInnerBlocksVariant}}
+// Render nothing until the block has content.
+if ( empty( $attributes['content'] ) ) {
+	return;
+}
+
+{{/isInnerBlocksVariant}}
+{{#isInteractiveVariant}}
+$wrapper_attributes = get_block_wrapper_attributes(
+	[
+		'data-wp-interactive' => '{{namespace}}/{{slug}}',
+		'data-wp-context'     => (string) wp_json_encode(
+			[
+				'isOpen' => false,
+			],
+			JSON_HEX_TAG | JSON_HEX_APOS | JSON_HEX_QUOT | JSON_HEX_AMP
+		),
+	]
+);
+{{/isInteractiveVariant}}
+{{^isInteractiveVariant}}
+$wrapper_attributes = get_block_wrapper_attributes();
+{{/isInteractiveVariant}}
+?>
+<div <?php echo $wrapper_attributes; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- escaped by get_block_wrapper_attributes(). ?>>
+{{#isInnerBlocksVariant}}
+	<?php
+	/*
+	 * $content is the inner block markup. It was sanitized when it was saved,
+	 * and re-running wp_kses_post() strips valid block markup (embeds, for
+	 * example) and costs performance, so it is output as is.
+	 *
+	 * @see https://github.com/10up/gutenberg-best-practices/discussions/6
+	 */
+	echo $content; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+	?>
+{{/isInnerBlocksVariant}}
+{{#isInteractiveVariant}}
+	<button
+		type="button"
+		class="wp-block-{{namespace}}-{{slug}}__toggle"
+		data-wp-on--click="actions.toggle"
+		data-wp-bind--aria-expanded="context.isOpen"
+	>
+		<?php esc_html_e( 'Toggle', '{{textdomain}}' ); ?>
+	</button>
+	<p class="wp-block-{{namespace}}-{{slug}}__content" data-wp-bind--hidden="!context.isOpen">
+		<?php echo wp_kses_post( $attributes['content'] ); ?>
+	</p>
+{{/isInteractiveVariant}}
+{{#isDefaultVariant}}
+	<p class="wp-block-{{namespace}}-{{slug}}__content">
+		<?php echo wp_kses_post( $attributes['content'] ); ?>
+	</p>
+{{/isDefaultVariant}}
+</div>
