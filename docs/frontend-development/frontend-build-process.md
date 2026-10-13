@@ -139,6 +139,8 @@ Everything else is removed without a warning: elements such as `g`, `line`, `pol
 
 The check skips losses that change nothing visible: `title`, `desc`, `metadata` and `defs` elements, the `clip-rule`, `id`, `version`, `xmlns:xlink` and `xml:space` attributes, and a `fill="currentColor"` on the root `<svg>`. Core's own icons ship with that root fill, and core's Icon block puts it back with CSS.
 
+> **This is a lint, not a security control.** It catches icons that would render wrong after core's sanitizer, and nothing more. It reads files committed to the theme, which are trusted code like any PHP file. It must never be used to vet untrusted SVG, such as uploads. Core's `wp_kses` pass on registration is what removes dangerous markup. Anything that accepts SVG from users needs a real sanitizer that rebuilds the markup rather than filtering it.
+
 Run the check with:
 
 ```bash

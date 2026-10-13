@@ -7,6 +7,10 @@
  * registered icon through a fixed wp_kses allowlist (no filter) and silently
  * drops everything else, so an icon can register fine and still render empty.
  *
+ * This is a lint for rendering fidelity, not a security control: it reads trusted
+ * icons committed to the codebase and reports what core would strip. Its tokenizer is
+ * deliberately simple and must never be used to vet untrusted SVG (uploads).
+ *
  * Run with: npm run lint-svg [-- <file|dir|glob> ...]
  *
  * With no arguments it scans themes/<theme>/assets/svg and mu-plugins/<plugin>/assets/svg.
