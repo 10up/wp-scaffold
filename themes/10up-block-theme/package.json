@@ -35,8 +35,9 @@
 		"10up-toolkit": "^6.5.1"
 	},
 	"devDependencies": {
+		"@ravi.nder/wp-gutenberg-compat": "^0.5.1",
 		"@types/wordpress__block-editor": "^15.0.5",
 		"@types/wordpress__blocks": "^15.10.2",
-		"@ravi.nder/wp-gutenberg-compat": "^0.5.1"
+		"@wordpress/interactivity": "^6.33.3"
 	}
 }

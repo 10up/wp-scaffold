@@ -66,6 +66,9 @@ class ThemeCore {
 
 		remove_theme_support( 'core-block-patterns' );
 
+		// Patterns come from the theme, not the WordPress.org Pattern Directory.
+		add_filter( 'should_load_remote_block_patterns', '__return_false' );
+
 		// by adding the `theme.json` file block templates automatically get enabled.
 		// because the template editor will need additional QA and work to get right
 		// the default is to disable this feature.
