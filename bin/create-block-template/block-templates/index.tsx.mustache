@@ -1,17 +1,19 @@
-import { registerBlockType } from '@wordpress/blocks';
 {{#isInnerBlocksVariant}}
+import { registerBlockType, type BlockType } from '@wordpress/blocks';
 import { InnerBlocks } from '@wordpress/block-editor';
-{{/isInnerBlocksVariant}}
 
-import { BlockEdit } from './edit';
 import metadata from './block.json';
+import { BlockEdit } from './edit';
+{{^dashicon}}
+import { icon } from './icon';
+{{/dashicon}}
 
 registerBlockType(metadata, {
-	edit: BlockEdit,
-	{{#isDefaultVariant}}
-	save: () => null,
-	{{/isDefaultVariant}}
-	{{#isInnerBlocksVariant}}
+	{{^dashicon}}
+	icon: { src: icon },
+	{{/dashicon}}
+	// The editor component is typed with the block's own attributes.
+	edit: BlockEdit as BlockType['edit'],
 	save: () => <InnerBlocks.Content />,
-	{{/isInnerBlocksVariant}}
 });
+{{/isInnerBlocksVariant}}

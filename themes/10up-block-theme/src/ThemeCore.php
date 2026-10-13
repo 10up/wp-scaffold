@@ -52,6 +52,9 @@ class ThemeCore {
 		add_theme_support( 'editor-styles' );
 		add_editor_style( '/dist/css/frontend.css' );
 		remove_theme_support( 'core-block-patterns' );
+
+		// Patterns come from the theme, not the WordPress.org Pattern Directory.
+		add_filter( 'should_load_remote_block_patterns', '__return_false' );
 	}
 
 	/**
