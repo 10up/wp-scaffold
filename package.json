@@ -23,6 +23,7 @@
     "lint-js": "npm run lint-js --workspaces --if-present",
     "format-js": "npm run format-js --workspaces --if-present",
     "lint-style": "npm run lint-style --workspaces --if-present",
+    "lint-svg": "node bin/lint-svg.mjs",
     "test": "npm run test --workspaces --if-present",
     "clean-dist": "npm run clean-dist --workspaces --if-present",
     "clean": "rm -rf node_modules package-lock.json",
