@@ -47,7 +47,10 @@ class Blocks implements ModuleInterface {
 		remove_action( 'enqueue_block_editor_assets', 'wp_enqueue_editor_block_directory_assets' );
 
 		add_filter( 'block_editor_settings_all', [ $this, 'curate_editor_settings' ] );
-		add_action( 'admin_menu', [ $this, 'remove_font_library_screen' ] );
+		// Keep the Font Library on local environments, where developers try out fonts.
+		if ( 'local' !== wp_get_environment_type() ) {
+			add_action( 'admin_menu', [ $this, 'remove_font_library_screen' ] );
+		}
 	}
 
 	/**
@@ -61,7 +64,10 @@ class Blocks implements ModuleInterface {
 		$settings['enableOpenverseMediaCategory'] = false;
 
 		// Typography comes from theme.json; editors shouldn't install fonts through the Font Library.
-		$settings['fontLibraryEnabled'] = false;
+		// It stays on locally, where developers try out fonts.
+		if ( 'local' !== wp_get_environment_type() ) {
+			$settings['fontLibraryEnabled'] = false;
+		}
 
 		return $settings;
 	}
