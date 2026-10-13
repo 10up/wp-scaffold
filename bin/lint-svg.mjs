@@ -89,6 +89,61 @@ const TAG = /<([A-Za-z][\w:.-]*)((?:\s+[^\s=/>]+(?:\s*=\s*(?:"[^"]*"|'[^']*'|[^\
 const ATTR = /([^\s=/>]+)(?:\s*=\s*("[^"]*"|'[^']*'|[^\s"'>]+))?/g;
 
 /**
+ * Remove comments, CDATA sections, processing instructions (<?xml ?>) and
+ * doctypes in one forward scan.
+ *
+ * A single pass with indexOf (rather than chained regex replaces) keeps this
+ * linear and means removing one construct can never splice together another.
+ * An unterminated construct swallows the rest of the file, as a parser would.
+ *
+ * @param {string} source SVG markup.
+ * @returns {string} Markup with only elements and text left.
+ */
+function withoutDeclarations(source) {
+	let out = '';
+	let pos = 0;
+
+	while (pos < source.length) {
+		const start = source.indexOf('<', pos);
+		if (start === -1) {
+			out += source.slice(pos);
+			break;
+		}
+		out += source.slice(pos, start);
+
+		let end;
+		if (source.startsWith('<!--', start)) {
+			end = source.indexOf('-->', start + 4);
+			end = end === -1 ? source.length : end + 3;
+		} else if (source.startsWith('<![CDATA[', start)) {
+			end = source.indexOf(']]>', start + 9);
+			end = end === -1 ? source.length : end + 3;
+		} else if (source.startsWith('<?', start)) {
+			end = source.indexOf('?>', start + 2);
+			end = end === -1 ? source.length : end + 2;
+		} else if (source.startsWith('<!', start)) {
+			// Doctype: skip an internal [ … ] subset before the closing >.
+			const close = source.indexOf('>', start);
+			const subset = source.indexOf('[', start);
+			if (subset !== -1 && (close === -1 || subset < close)) {
+				const subsetEnd = source.indexOf(']', subset);
+				end = subsetEnd === -1 ? -1 : source.indexOf('>', subsetEnd);
+			} else {
+				end = close;
+			}
+			end = end === -1 ? source.length : end + 1;
+		} else {
+			out += '<';
+			pos = start + 1;
+			continue;
+		}
+		pos = end;
+	}
+
+	return out;
+}
+
+/**
  * Parse the start and self-closing tags of an SVG document.
  *
  * Comments, CDATA, <?xml ?> declarations and doctypes are removed first: kses
@@ -99,13 +154,7 @@ const ATTR = /([^\s=/>]+)(?:\s*=\s*("[^"]*"|'[^']*'|[^\s"'>]+))?/g;
  * @returns {{ name: string, attrs: Record<string, string|null> }[]} Tags in document order.
  */
 function tokenize(source) {
-	const markup = source
-		.replace(/<!--[\s\S]*?-->/g, '')
-		.replace(/<!\[CDATA\[[\s\S]*?\]\]>/g, '')
-		.replace(/<\?[\s\S]*?\?>/g, '')
-		.replace(/<!DOCTYPE(?:[^>[]|\[[\s\S]*?\])*>/gi, '');
-
-	return [...markup.matchAll(TAG)].map(([, name, rawAttrs]) => {
+	return [...withoutDeclarations(source).matchAll(TAG)].map(([, name, rawAttrs]) => {
 		const attrs = {};
 		for (const [, attr, value] of rawAttrs.matchAll(ATTR)) {
 			attrs[attr.toLowerCase()] = value === undefined ? null : value.replace(/^["']|["']$/g, '');
