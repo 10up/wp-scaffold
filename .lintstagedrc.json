@@ -4,5 +4,6 @@
   "*.ts": ["10up-toolkit lint-js"],
   "*.jsx": ["10up-toolkit lint-js"],
   "*.tsx": ["10up-toolkit lint-js"],
-  "*.php": ["./vendor/bin/phpcs"]
+  "*.php": ["./vendor/bin/phpcs"],
+  "**/assets/svg/**/*.svg": ["node bin/lint-svg.mjs"]
 }
