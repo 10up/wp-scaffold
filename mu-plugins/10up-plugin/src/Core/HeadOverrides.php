@@ -5,6 +5,8 @@
  * @package TenUpPlugin/Core
  */
 
+declare( strict_types = 1 );
+
 namespace TenUpPlugin\Core;
 
 use TenupFramework\Module;
