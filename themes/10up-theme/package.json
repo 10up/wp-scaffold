@@ -22,9 +22,16 @@
     "modern-normalize": "^3.0.0"
   },
   "devDependencies": {
+<<<<<<< HEAD
     "@10up/wp-vite-plugins": "file:../../packages/10up-wp-vite-plugins-0.1.0-beta.0.tgz",
     "@types/react": "^18.3.0",
     "@typescript/native-preview": "^7.0.0-dev.20260610.1",
     "vite-plus": "^0.1.24"
+=======
+    "@types/wordpress__block-editor": "^15.0.5",
+    "@types/wordpress__blocks": "^15.10.2",
+    "@wordpress/interactivity": "^6.33.3",
+    "jest-environment-jsdom": "^29.7.0"
+>>>>>>> d36e1843e44ed427db4678597294f6f494b66d9c
   }
 }

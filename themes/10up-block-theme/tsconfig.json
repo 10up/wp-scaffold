@@ -1,4 +1,5 @@
 {
+<<<<<<< HEAD
   "compilerOptions": {
     "target": "ESNext",
     "module": "ESNext",
@@ -13,4 +14,22 @@
     "typeRoots": ["./types", "./node_modules/@types"]
   },
   "include": ["blocks/**/*.ts", "blocks/**/*.tsx", "src/**/*.ts", "src/**/*.tsx", "types/**/*.d.ts"]
+=======
+	"compilerOptions": {
+		"target": "ESNext",
+		"module": "ESNext",
+		"moduleResolution": "Node",
+		"ignoreDeprecations": "6.0",
+		"strict": true,
+		"noEmit": true,
+		"esModuleInterop": true,
+		"resolveJsonModule": true,
+		"jsx": "react-jsx",
+		"isolatedModules": true,
+		"skipLibCheck": true,
+		"rootDir": ".",
+		"typeRoots": ["./types", "./node_modules/@types"]
+	},
+	"include": ["blocks/**/*.ts", "blocks/**/*.tsx", "src/**/*.ts", "src/**/*.tsx", "types/**/*.d.ts"]
+>>>>>>> d36e1843e44ed427db4678597294f6f494b66d9c
 }

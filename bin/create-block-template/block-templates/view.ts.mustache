@@ -1,13 +1,33 @@
-{{#isWithViewScriptVariant}}
-/**
- * setup an instance of the block
- *
- * @param element DOM Node of the block
- */
-function setup{{slugPascalCase}}Block(element: HTMLElement): void {
-	
-}
+{{#isInteractiveVariant}}
+import { store, getContext } from '@wordpress/interactivity';
 
-const all{{slugPascalCase}}Blocks = document.querySelectorAll<HTMLElement>('.wp-block-{{namespace}}-{{slug}}');
-all{{slugPascalCase}}Blocks.forEach(setup{{slugPascalCase}}Block);
-{{/isWithViewScriptVariant}}
+/**
+ * Per-instance state, set in render.php through `data-wp-context`.
+ */
+type Context = {
+	isOpen: boolean;
+};
+
+type Store = {
+	state: Record<string, never>;
+	actions: {
+		toggle: () => void;
+	};
+	callbacks: Record<string, never>;
+};
+
+/**
+ * Frontend behavior for the {{title}} block. The store namespace is the block
+ * name, matching `data-wp-interactive` in render.php.
+ */
+store<Store>('{{namespace}}/{{slug}}', {
+	state: {},
+	actions: {
+		toggle() {
+			const context = getContext<Context>();
+			context.isOpen = !context.isOpen;
+		},
+	},
+	callbacks: {},
+});
+{{/isInteractiveVariant}}

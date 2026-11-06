@@ -80,7 +80,8 @@ The WP Scaffold uses lint-staged and Husky to run linters on staged files before
   "*.css": ["10up-toolkit lint-style"],
   "*.js": ["10up-toolkit lint-js"],
   "*.jsx": ["10up-toolkit lint-js"],
-  "*.php": ["./vendor/bin/phpcs"]
+  "*.php": ["./vendor/bin/phpcs"],
+  "**/assets/svg/**/*.svg": ["node bin/lint-svg.mjs"]
 }
 ```
 
@@ -88,3 +89,4 @@ This configuration runs the following linters on staged files:
 - For CSS files: 10up-toolkit lint-style
 - For JS and JSX files: 10up-toolkit lint-js
 - For PHP files: PHP CodeSniffer
+- For SVG icons in an `assets/svg` folder: `bin/lint-svg.mjs`, which flags elements and attributes WordPress core's icon registry would strip (see [SVG Icons](../frontend-development/frontend-build-process.md#svg-icons))
