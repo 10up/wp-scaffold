@@ -55,38 +55,33 @@ The WP Scaffold uses PHPStan for static analysis of PHP code. See the [PHPStan d
 
 ## JavaScript and CSS Code Quality
 
-### ESLint
+### Oxlint, Oxfmt and tsgo
 
-The WP Scaffold uses ESLint to enforce JavaScript coding standards. The configuration is defined in `.eslintrc`:
+The WP Scaffold lints JavaScript and TypeScript with Oxlint, formats it with Oxfmt, and type-checks it with `tsgo`. Vite+ runs all three through `vp check`. Each workspace configures them in the `lint` and `fmt` blocks of its `vite.config.ts`.
 
-```json
-{
-    "extends": ["@10up/eslint-config/wordpress"]
-}
+```bash
+npm run check
 ```
-
-The configuration extends the "@10up/eslint-config/wordpress" configuration, which is a custom ESLint configuration for WordPress projects maintained by 10up.
 
 ### Stylelint
 
-The WP Scaffold uses Stylelint to enforce CSS coding standards. The configuration is not explicitly defined in a configuration file, but it's likely using the default configuration provided by the 10up-toolkit.
+The WP Scaffold uses Stylelint to enforce CSS coding standards. Each workspace's `stylelint.config.js` extends [`@10up/stylelint-config`](https://www.npmjs.com/package/@10up/stylelint-config).
 
 ## Pre-commit Hooks
 
-The WP Scaffold uses lint-staged and Husky to run linters on staged files before they are committed. The configuration is defined in `.lintstagedrc.json`:
+The WP Scaffold uses Husky to run [`vp staged`](https://viteplus.dev/guide/commit-hooks) on staged files before they are committed. The configuration is the `staged` block of the root `vite.config.ts`:
 
-```json
-{
-  "*.css": ["10up-toolkit lint-style"],
-  "*.js": ["10up-toolkit lint-js"],
-  "*.jsx": ["10up-toolkit lint-js"],
-  "*.php": ["./vendor/bin/phpcs"],
-  "**/assets/svg/**/*.svg": ["node bin/lint-svg.mjs"]
-}
+```ts
+staged: {
+	'*.{js,jsx,ts,tsx}': 'vp check --fix',
+	'*.css': 'stylelint --fix',
+	'*.php': './vendor/bin/phpcs',
+	'**/assets/svg/**/*.svg': 'node bin/lint-svg.mjs',
+},
 ```
 
 This configuration runs the following linters on staged files:
-- For CSS files: 10up-toolkit lint-style
-- For JS and JSX files: 10up-toolkit lint-js
+- For CSS files: Stylelint
+- For JS, JSX, TS and TSX files: `vp check --fix` (Oxfmt and Oxlint)
 - For PHP files: PHP CodeSniffer
 - For SVG icons in an `assets/svg` folder: `bin/lint-svg.mjs`, which flags elements and attributes WordPress core's icon registry would strip (see [SVG Icons](../frontend-development/frontend-build-process.md#svg-icons))

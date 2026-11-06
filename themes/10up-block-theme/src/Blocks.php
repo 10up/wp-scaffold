@@ -85,41 +85,50 @@ class Blocks implements ModuleInterface {
 
 
 	/**
-	 * Automatically registers all blocks that are located within the includes/blocks directory
+	 * Registers every block the build put in dist/blocks, and allows them in the inserter.
+	 *
+	 * The build writes `dist/blocks-manifest.php` with every block's metadata,
+	 * so WordPress 6.7+ registers them all from one include instead of reading
+	 * and parsing each block.json on every request.
 	 *
 	 * @return void
 	 */
 	public function register_theme_blocks() {
-		// Register all the blocks in the theme.
-		if ( file_exists( TENUP_BLOCK_THEME_BLOCK_DIST_DIR ) ) {
-			$block_json_files = glob( TENUP_BLOCK_THEME_BLOCK_DIST_DIR . '*/block.json' );
-			$block_names      = [];
+		$manifest    = TENUP_BLOCK_THEME_DIST_PATH . 'blocks-manifest.php';
+		$block_names = [];
 
-			if ( empty( $block_json_files ) ) {
-				return;
-			}
+		if ( file_exists( $manifest ) && function_exists( 'wp_register_block_types_from_metadata_collection' ) ) {
+			wp_register_block_types_from_metadata_collection( TENUP_BLOCK_THEME_BLOCK_DIST_DIR, $manifest );
+
+			$metadata    = require $manifest;
+			$block_names = is_array( $metadata ) ? array_values( array_filter( array_column( $metadata, 'name' ) ) ) : [];
+		} else {
+			// Before WordPress 6.7: register each block from its block.json.
+			$block_json_files = glob( TENUP_BLOCK_THEME_BLOCK_DIST_DIR . '*/block.json' );
+			$block_json_files = false === $block_json_files ? [] : $block_json_files;
 
 			foreach ( $block_json_files as $filename ) {
-				$block_folder = dirname( $filename );
-				$block        = register_block_type_from_metadata( $block_folder );
+				$block = register_block_type_from_metadata( dirname( $filename ) );
 
-				if ( ! $block ) {
-					continue;
+				if ( $block ) {
+					$block_names[] = $block->name;
 				}
-
-				$block_names[] = $block->name;
 			}
-
-			add_filter(
-				'allowed_block_types_all',
-				function ( array|bool $allowed_blocks ) use ( $block_names ): array|bool {
-					if ( ! is_array( $allowed_blocks ) ) {
-						return $allowed_blocks;
-					}
-					return array_merge( $allowed_blocks, $block_names );
-				}
-			);
 		}
+
+		if ( empty( $block_names ) ) {
+			return;
+		}
+
+		add_filter(
+			'allowed_block_types_all',
+			function ( array|bool $allowed_blocks ) use ( $block_names ): array|bool {
+				if ( ! is_array( $allowed_blocks ) ) {
+					return $allowed_blocks;
+				}
+				return array_merge( $allowed_blocks, $block_names );
+			}
+		);
 	}
 
 	/**
@@ -128,21 +137,28 @@ class Blocks implements ModuleInterface {
 	 * @return void
 	 */
 	public function enqueue_theme_block_styles() {
-		$stylesheets = glob( TENUP_BLOCK_THEME_DIST_PATH . '/autoenqueue/**/*.css' );
+		$stylesheets = glob( TENUP_BLOCK_THEME_DIST_PATH . 'autoenqueue/**/*.css' );
 
 		if ( empty( $stylesheets ) ) {
 			return;
 		}
 
 		foreach ( $stylesheets as $stylesheet_path ) {
-			$block_type = str_replace( TENUP_BLOCK_THEME_DIST_PATH . '/autoenqueue/', '', $stylesheet_path );
+			$block_type = str_replace( TENUP_BLOCK_THEME_DIST_PATH . 'autoenqueue/', '', $stylesheet_path );
 			$block_type = str_replace( '.css', '', $block_type );
+			$asset_file = TENUP_BLOCK_THEME_DIST_PATH . 'autoenqueue/' . $block_type . '.asset.php';
+			$asset      = file_exists( $asset_file )
+				? require $asset_file
+				: [
+					'version'      => filemtime( $stylesheet_path ),
+					'dependencies' => [],
+				];
 
 			wp_register_style(
 				"tenup-block-theme-{$block_type}",
 				TENUP_BLOCK_THEME_DIST_URL . 'autoenqueue/' . $block_type . '.css',
-				$this->get_asset_info( 'autoenqueue/' . $block_type, 'dependencies' ),
-				$this->get_asset_info( 'autoenqueue/' . $block_type, 'version' ),
+				$asset['dependencies'],
+				$asset['version'],
 			);
 
 			wp_enqueue_block_style(
@@ -152,16 +168,6 @@ class Blocks implements ModuleInterface {
 					'path'   => $stylesheet_path,
 				]
 			);
-
-			if ( file_exists( TENUP_BLOCK_THEME_DIST_PATH . 'autoenqueue/' . $block_type . '.js' ) ) {
-				wp_enqueue_script(
-					$block_type,
-					TENUP_BLOCK_THEME_DIST_URL . 'autoenqueue/' . $block_type . '.js',
-					$this->get_asset_info( 'autoenqueue/' . $block_type, 'dependencies' ),
-					$this->get_asset_info( 'autoenqueue/' . $block_type, 'version' ),
-					true
-				);
-			}
 		}
 	}
 }

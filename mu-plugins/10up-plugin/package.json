@@ -1,12 +1,14 @@
 {
   "name": "tenup-plugin",
   "version": "1.0.0",
+  "private": true,
   "scripts": {
     "start": "npm run watch",
-    "watch": "vp build --watch",
-    "build": "vp build",
+    "build": "wp-vite build --bin vp",
+    "watch": "wp-vite watch --bin vp",
+    "dev": "wp-vite dev --bin vp",
     "check": "vp check",
-    "format-js": "vp fmt --write",
+    "format-js": "vp fmt",
     "lint-js": "vp lint",
     "lint-style": "stylelint \"assets/css/**/*.css\"",
     "test": "vp test run --passWithNoTests",
@@ -16,7 +18,7 @@
     "prop-types": "^15.7.2"
   },
   "devDependencies": {
-    "@10up/wp-vite-plugins": "file:../../packages/10up-wp-vite-plugins-0.1.0-beta.0.tgz",
-    "vite-plus": "^0.1.24"
+    "@10up/wp-vite-plugins": "^1.0.0-alpha.3",
+    "vite-plus": "^1.5.0"
   }
 }

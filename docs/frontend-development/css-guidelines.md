@@ -117,7 +117,7 @@ Use `is-` or `has-` prefixes for state classes:
 
 ### PostCSS Plugins
 
-The WP Scaffold project comes with a preconfigured PostCSS setup that includes several useful features and plugins. If you need to customize or add new PostCSS plugins, you can do so by following the instructions within [10up Toolkit](https://github.com/10up/10up-toolkit/blob/develop/packages/toolkit/README.md#customizing-postcss).
+The WP Scaffold project comes with a preconfigured PostCSS setup that includes several useful features and plugins. To customize or add PostCSS plugins, edit the `postcss.config.js` file in the theme or plugin. Vite reads it automatically.
 
 ### Media Query Handling
 

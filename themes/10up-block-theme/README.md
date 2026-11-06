@@ -92,7 +92,8 @@ If you can only have `themes/10up-block-theme` installed and are not able to use
 - `composer install` — install PHP dependencies for the theme.
 - `npm install` — install JavaScript dependencies.
 - `npm run build` — compile theme assets into `dist/`.
-- `npm run watch` — rebuild assets on change (`vp build --watch`).
+- `npm run watch` — rebuild assets on change (`wp-vite watch`).
+- `npm run dev` — start a Vite dev server with hot reloading (`wp-vite dev`).
 - `npm run scaffold:block` — generate a new block scaffold in `blocks/` using the local template.
 - `composer lint` — run PHP, JS, and CSS linting across the theme.
 - `npm run lint` — run JS linting only.

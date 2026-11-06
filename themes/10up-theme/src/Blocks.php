@@ -87,23 +87,32 @@ class Blocks implements ModuleInterface {
 	}
 
 	/**
-	 * Automatically registers all blocks that are located within the includes/blocks directory
+	 * Registers every block the build put in dist/blocks.
+	 *
+	 * The build writes `dist/blocks-manifest.php` with every block's metadata,
+	 * so WordPress 6.7+ registers them all from one include instead of reading
+	 * and parsing each block.json on every request. Server rendering comes
+	 * from the `render` file in each block.json.
 	 *
 	 * @return void
 	 */
 	public function register_theme_blocks() {
-		// Register all the blocks in the theme
-		if ( file_exists( TENUP_THEME_BLOCK_DIST_DIR ) ) {
-			$block_json_files = glob( TENUP_THEME_BLOCK_DIST_DIR . '*/block.json' );
+		$manifest = TENUP_THEME_DIST_PATH . 'blocks-manifest.php';
 
-			if ( empty( $block_json_files ) ) {
-				return;
-			}
+		if ( file_exists( $manifest ) && function_exists( 'wp_register_block_types_from_metadata_collection' ) ) {
+			wp_register_block_types_from_metadata_collection( TENUP_THEME_BLOCK_DIST_DIR, $manifest );
+			return;
+		}
 
-			// Auto-register every block. Server rendering comes from the `render` file in block.json.
-			foreach ( $block_json_files as $filename ) {
-				register_block_type_from_metadata( dirname( $filename ) );
-			}
+		// Before WordPress 6.7: register each block from its block.json.
+		$block_json_files = glob( TENUP_THEME_BLOCK_DIST_DIR . '*/block.json' );
+
+		if ( empty( $block_json_files ) ) {
+			return;
+		}
+
+		foreach ( $block_json_files as $filename ) {
+			register_block_type_from_metadata( dirname( $filename ) );
 		}
 	}
 

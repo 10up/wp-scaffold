@@ -257,8 +257,8 @@ function mergeComposerJson(targetPath) {
 		extra: ourComposer.extra,
 		config: {
 			'allow-plugins': {
-				...(ourComposer.config?.['allow-plugins'] || {}),
-				...(vipComposer.config?.['allow-plugins'] || {}),
+				...ourComposer.config?.['allow-plugins'],
+				...vipComposer.config?.['allow-plugins'],
 			},
 		},
 	};
@@ -436,10 +436,9 @@ function appendDeployignore(targetPath) {
 	const additions = [
 		'phpstan.neon',
 		'phpstan/',
-		'.lintstagedrc.json',
+		'vite.config.ts',
 		'.npmrc',
 		'.nvmrc',
-		'.eslintrc',
 		'stylelint.config.js',
 		'bin/',
 		'.husky/',
@@ -459,7 +458,9 @@ function appendDeployignore(targetPath) {
 function updatePluginLoader(targetPath) {
 	const loaderPath = join(targetPath, 'client-mu-plugins', 'plugin-loader.php');
 	if (!existsSync(loaderPath)) {
-		console.log('  Warning: client-mu-plugins/plugin-loader.php not found, skipping loader update');
+		console.log(
+			'  Warning: client-mu-plugins/plugin-loader.php not found, skipping loader update',
+		);
 		return;
 	}
 
@@ -810,7 +811,7 @@ async function main() {
 	}
 
 	// -- Copy individual files --
-	const fileCopies = ['.eslintrc', 'stylelint.config.js', '.lintstagedrc.json', '.npmrc', '.nvmrc'];
+	const fileCopies = ['vite.config.ts', 'stylelint.config.js', '.npmrc', '.nvmrc'];
 	for (const file of fileCopies) {
 		const srcPath = join(SOURCE, file);
 		if (existsSync(srcPath)) {

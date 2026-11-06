@@ -6,18 +6,18 @@
  * `postcss-preset-env` resolves them plus nesting for the browserslist
  * targets.
  */
-const { join } = require("node:path");
+const { join } = require('node:path');
 
 module.exports = {
 	plugins: {
-		"@csstools/postcss-global-data": {
-			files: [join(__dirname, "assets/css/globals/media-queries.css")],
+		'@csstools/postcss-global-data': {
+			files: [join(__dirname, 'assets/css/globals/media-queries.css')],
 		},
-		"postcss-preset-env": {
+		'postcss-preset-env': {
 			stage: 2,
 			features: {
-				"custom-media-queries": true,
-				"nesting-rules": true,
+				'custom-media-queries': true,
+				'nesting-rules': true,
 			},
 		},
 	},

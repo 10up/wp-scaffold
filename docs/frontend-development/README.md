@@ -44,7 +44,7 @@ The following documents provide detailed information on specific aspects of fron
 
 ## Build Process
 
-The themes use a modern build process based on [10up Toolkit](https://github.com/10up/10up-toolkit/) to compile, optimize, and bundle frontend assets. This process is configured in the theme's `package.json` and related configuration files.
+The themes build with [Vite+](https://viteplus.dev) and [`@10up/wp-vite-plugins`](https://github.com/10up/wp-vite-plugins). Each theme's build is configured in its `vite.config.ts`.
 
 To get started with frontend development:
 

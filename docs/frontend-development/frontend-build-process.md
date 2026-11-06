@@ -8,7 +8,8 @@ This document outlines the frontend build process used in a WP Scaffold project,
 - [Build Tools](#build-tools)
 - [Project Structure](#project-structure)
 - [NPM Scripts](#npm-scripts)
-- [Webpack Configuration](#webpack-configuration)
+- [Vite Configuration](#vite-configuration)
+- [Dev Server](#dev-server)
 - [Asset Optimization](#asset-optimization)
 - [SVG Icons](#svg-icons)
 - [Development Workflow](#development-workflow)
@@ -32,11 +33,12 @@ Before working with the frontend build process, ensure you have:
 
 The WP Scaffold project uses the following build tools:
 
-- **Webpack**: Module bundler for JavaScript and other assets
-- **Babel**: JavaScript compiler for using next-generation JavaScript features
-- **PostCSS**: Primary CSS processor with plugins for modern CSS features, transformations, and optimizations
-- **ESLint**: JavaScript linter for identifying and fixing code issues
-- **Stylelint**: CSS linter for consistent code style
+- **[Vite+](https://viteplus.dev)** (`vp`): Vite 8 with the Rolldown bundler, plus the task runner, linter, formatter and test runner in one toolchain
+- **[`@10up/wp-vite-plugins`](https://github.com/10up/wp-vite-plugins)**: the WordPress parts — `block.json` discovery, `@wordpress/*` externals with `.asset.php` files, per-block stylesheets, static asset copying and the dev server bridge
+- **PostCSS**: CSS processing through each workspace's `postcss.config.js`
+- **Oxlint and Oxfmt**: JavaScript and TypeScript linting and formatting (`vp check`)
+- **tsgo**: TypeScript type checking
+- **Stylelint**: CSS linting with `@10up/stylelint-config`
 
 ## Project Structure
 
@@ -65,37 +67,69 @@ wp-content/themes/[theme-name]/
 ├── blocks/ (Gutenberg blocks)
 ├── src/ (PHP files)
 ├── package.json
-└── webpack.config.js
+└── vite.config.ts
 ```
 
 ## NPM Scripts
 
-The project includes several npm scripts to streamline the build process. These scripts are defined in the `package.json` file:
+Each theme and plugin defines the same scripts in its `package.json`:
 
 ```json
 {
   "scripts": {
-    "start": "webpack --watch --mode=development",
-    "build": "webpack --mode=production",
-    "lint:js": "eslint assets/js/src",
-    "lint:css": "stylelint assets/css/**/*.css",
-    "lint": "npm run lint:js && npm run lint:css",
-    "test": "jest"
+    "start": "npm run watch",
+    "build": "wp-vite build --bin vp",
+    "watch": "wp-vite watch --bin vp",
+    "dev": "wp-vite dev --bin vp",
+    "check": "vp check && tsgo --noEmit",
+    "lint-js": "vp lint",
+    "format-js": "vp fmt",
+    "lint-style": "stylelint \"assets/css/**/*.css\"",
+    "test": "vp test run --passWithNoTests"
   }
 }
 ```
 
+The root `package.json` runs each task in every workspace with `vp run -r`, and caches the results.
+
 ### Common Commands
 
-- `npm start`: Start the development build process with file watching
-- `npm run build`: Create a production-ready build
-- `npm run lint`: Run linting on JavaScript and CSS files
-- `npm test`: Run JavaScript tests
+- `npm run build`: Create a production build of every theme and plugin
+- `npm start` / `npm run watch`: Rebuild on file changes
+- `npm run dev:theme` (or `dev:block-theme`, `dev:plugin`): Start a Vite dev server with hot reloading for one workspace
+- `npm run check`: Check formatting, lint and types
+- `npm run lint-style`: Lint CSS
+- `npm test`: Run tests with Vitest
 
-## Webpack Configuration
-The WP Scaffold project uses [10up Toolkit](https://github.com/10up/10up-toolkit/) for Webpack configuration, which provides a standardized setup for building WordPress themes.
+## Vite Configuration
 
-This configuration can be overridden if needed. Please see the [10up Toolkit documentation](https://github.com/10up/10up-toolkit/blob/develop/packages/toolkit/README.md#customizations) for more details on how to customize the Webpack setup.
+Each workspace configures its build in `vite.config.ts` with the `wp()` plugin from `@10up/wp-vite-plugins`:
+
+```ts
+wp({
+	buildType: isModulePass ? 'module' : 'script',
+	blocksDir: './blocks',                  // block.json discovery
+	blocksStylesDir: './assets/css/blocks', // per-core-block styles in dist/autoenqueue/
+	copyAssetsDir: './assets',              // images, fonts and SVG copied to dist/
+}),
+```
+
+Theme-level entries live in `build.rollupOptions.input`. Name a JavaScript entry `js/<name>` and a stylesheet entry `css/<name>`. Give a stylesheet a different name from any script, for example `css/frontend-style` next to `js/frontend`. `GetAssetInfo::get_asset_info()` looks up `js/<name>` before `css/<name>`, so a shared name would give the stylesheet the script's version.
+
+`npm run build` runs `wp-vite build`, which builds in two passes into one `dist/`:
+
+1. The script pass builds classic scripts, all stylesheets, the `block.json` and `render.php` copies, `dist/blocks-manifest.php` and the static assets.
+2. The module pass builds Script Modules: `scriptModule` and `viewScriptModule` entries from `block.json`. It builds nothing while no block declares one.
+
+Every script and stylesheet gets an `.asset.php` file with its dependencies and a content-hash version. `@wordpress/*` imports become WordPress script dependencies, or Script Module imports, based on each installed package's own metadata. Install every `@wordpress/*` package you import in the workspace that imports it.
+
+The themes register their blocks from `dist/blocks-manifest.php` with `wp_register_block_types_from_metadata_collection()` (WordPress 6.7+).
+
+## Dev Server
+
+`npm run dev:theme` starts a Vite dev server for the theme. Every build writes `dist/dev-server.php`, and `functions.php` loads it. While the dev server runs, that file points WordPress's script and style URLs at the dev server, so changes show up without a rebuild. When the dev server stops, WordPress loads the built files again. The file does nothing in production.
+
+If WordPress runs on a different host than the dev server, for example in Docker or on a `.test` domain, set `server.origin` and `server.cors` in the workspace's `vite.config.ts`. See the [`wpDevServer` documentation](https://github.com/10up/wp-vite-plugins/blob/trunk/docs/wp-dev-server.md).
 
 ## Asset Optimization
 
@@ -103,27 +137,21 @@ This configuration can be overridden if needed. Please see the [10up Toolkit doc
 
 JavaScript files are optimized through:
 
-- **Transpilation**: Converting modern JavaScript to browser-compatible code using Babel
-- **Bundling**: Combining multiple JavaScript files into optimized bundles
-- **Minification**: Reducing file size by removing whitespace and shortening variable names
-- **Tree Shaking**: Eliminating unused code from the final bundle
+- **Transpilation**: Rolldown and Oxc compile TypeScript and JSX for the browserslist targets
+- **Bundling**: Each classic script is a self-contained file; Script Modules share chunks through WordPress's import map
+- **Minification**: Production builds are minified
+- **Tree Shaking**: Unused code is removed from the final bundle
 
 ### CSS Optimization
 
 CSS files are optimized through:
 
-- **PostCSS Processing**: Applying various transformations and optimizations via PostCSS plugins
-- **Autoprefixer**: Adding vendor prefixes for cross-browser compatibility
-- **Minification**: Reducing file size by removing whitespace and optimizing selectors
-- **Source Maps**: Generating source maps for easier debugging
+- **PostCSS Processing**: Each workspace's `postcss.config.js` applies `postcss-preset-env` and the shared global data
+- **Minification**: Production builds are minified with Lightning CSS
 
-### Image Optimization
+### Images and Fonts
 
-Images are optimized through:
-
-- **Compression**: Reducing file size without significant quality loss
-- **Responsive Images**: Generating multiple sizes for different devices
-- **SVG Optimization**: Cleaning and minifying SVG files
+Images, fonts and SVG files in `assets/` are copied to `dist/` unchanged, at the same relative path.
 
 ## SVG Icons
 
@@ -177,7 +205,7 @@ Core is widening the allowlist (see [WordPress/wordpress-develop#12197](https://
    npm start
    ```
 
-This will start Webpack in watch mode, which will automatically rebuild assets when files change.
+This rebuilds assets when files change. Use `npm run dev` instead for the Vite dev server with hot reloading.
 
 ### Working with PostCSS
 
@@ -199,9 +227,10 @@ When working with JavaScript:
 
 When preparing for production:
 
-1. Run linting to check for code issues:
+1. Check formatting, lint and types:
    ```bash
-   npm run lint
+   npm run check
+   npm run lint-style
    ```
 
 2. Run tests to ensure functionality:

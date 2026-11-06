@@ -17,29 +17,14 @@ The WP Scaffold project uses modern JavaScript to create interactive and dynamic
 
 ## Code Style
 
-### ESLint Configuration
+### Linting and Formatting
 
-The project uses ESLint to enforce coding standards. The configuration extends the WordPress coding standards with some project-specific rules:
-
-```json
-{
-  "extends": [
-    "eslint:recommended",
-    "plugin:@wordpress/eslint-plugin/recommended"
-  ],
-  "rules": {
-    "no-console": ["error", { "allow": ["warn", "error"] }],
-    "no-unused-vars": "warn",
-    "react/prop-types": "error",
-    "react/jsx-key": "error"
-  }
-}
-```
-
-To run the linter:
+The project lints JavaScript and TypeScript with Oxlint and formats it with Oxfmt, both through Vite+. The `lint` and `fmt` blocks of each workspace's `vite.config.ts` hold the configuration. Formatting follows the 10up house style: tabs, single quotes and a 100-character line width.
 
 ```bash
-npm run lint:js
+npm run check      # format check, lint and type check
+npm run lint-js    # lint only
+npm run format-js  # format in place
 ```
 
 ## Project Structure
