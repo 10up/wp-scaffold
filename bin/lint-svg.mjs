@@ -59,8 +59,7 @@ const HARMLESS_ELEMENTS = new Set(['title', 'desc', 'metadata', 'defs']);
 const HARMLESS_ATTRIBUTES = new Set(['clip-rule', 'id', 'version', 'xmlns:xlink', 'xml:space']);
 
 const HINTS = {
-	stroke:
-		'stroke attributes are stripped by core — outline strokes in your design tool (Figma: Outline stroke) before exporting',
+	stroke: 'stroke attributes are stripped by core — outline strokes in your design tool (Figma: Outline stroke) before exporting',
 	shapes: 'convert shapes to paths (e.g. SVGO convertShapeToPath)',
 	group: 'flatten <g> wrappers — core drops them along with every attribute they carry',
 };
@@ -100,7 +99,8 @@ function collectFiles(args) {
 // Tokenizer
 // ---------------------------------------------------------------------------
 
-const TAG = /<([A-Za-z][\w:.-]*)((?:\s+[^\s=/>]+(?:\s*=\s*(?:"[^"]*"|'[^']*'|[^\s"'>]+))?)*)\s*\/?>/g;
+const TAG =
+	/<([A-Za-z][\w:.-]*)((?:\s+[^\s=/>]+(?:\s*=\s*(?:"[^"]*"|'[^']*'|[^\s"'>]+))?)*)\s*\/?>/g;
 const ATTR = /([^\s=/>]+)(?:\s*=\s*("[^"]*"|'[^']*'|[^\s"'>]+))?/g;
 
 /**
@@ -172,7 +172,8 @@ function tokenize(source) {
 	return [...withoutDeclarations(source).matchAll(TAG)].map(([, name, rawAttrs]) => {
 		const attrs = {};
 		for (const [, attr, value] of rawAttrs.matchAll(ATTR)) {
-			attrs[attr.toLowerCase()] = value === undefined ? null : value.replace(/^["']|["']$/g, '');
+			attrs[attr.toLowerCase()] =
+				value === undefined ? null : value.replace(/^["']|["']$/g, '');
 		}
 		return { name: name.toLowerCase(), attrs };
 	});
@@ -266,7 +267,9 @@ function main() {
 	const summary = `${files.length} SVG file${files.length === 1 ? '' : 's'} checked, ${failed} with problems.`;
 
 	if (failed) {
-		console.log(`\n✖ ${summary} WordPress core's icon registry strips these when the icon is registered.\n`);
+		console.log(
+			`\n✖ ${summary} WordPress core's icon registry strips these when the icon is registered.\n`,
+		);
 		process.exit(1);
 	}
 

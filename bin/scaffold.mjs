@@ -201,9 +201,7 @@ async function main() {
 					});
 
 	if (isFueled && themeType === 'classic' && !args.theme) {
-		console.log(
-			'\n  Note: Block themes are recommended for Fueled/10up projects.\n',
-		);
+		console.log('\n  Note: Block themes are recommended for Fueled/10up projects.\n');
 	}
 
 	const installIgnite = args['skip-ignite']

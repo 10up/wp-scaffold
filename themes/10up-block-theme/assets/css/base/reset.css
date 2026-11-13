@@ -27,7 +27,7 @@ html {
  * Ensure best type rendering
  */
 :root {
-	font-feature-settings: "kern";
+	font-feature-settings: 'kern';
 	font-kerning: normal;
 	text-rendering: optimizeLegibility;
 }
@@ -88,7 +88,6 @@ h6 {
 p {
 	text-wrap: pretty;
 }
-
 
 /*
  * Create a root stacking context

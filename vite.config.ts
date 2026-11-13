@@ -16,7 +16,7 @@ import { defineConfig } from 'vite-plus';
 export default defineConfig({
 	staged: {
 		'*.{js,jsx,ts,tsx}': 'vp check --fix',
-		'*.css': 'stylelint --fix',
+		'*.css': ['vp fmt', 'stylelint --fix'],
 		'*.php': './vendor/bin/phpcs',
 		'**/assets/svg/**/*.svg': 'node bin/lint-svg.mjs',
 	},
@@ -30,9 +30,9 @@ export default defineConfig({
 		bracketSpacing: true,
 		semi: true,
 		arrowParens: 'always',
-		// CSS is owned by stylelint (10up config); block-theme HTML/JSON must
-		// match the Gutenberg serializer, so oxfmt only handles JS and TS.
-		ignorePatterns: ['**/*.css', '**/*.html', '**/*.json', '**/*.md', '**/*.yml', '**/*.yaml'],
+		// Oxfmt formats JS, TS and CSS (stylelint only lints CSS). Block-theme
+		// HTML and JSON must match the Gutenberg serializer, so it leaves them alone.
+		ignorePatterns: ['**/*.html', '**/*.json', '**/*.md', '**/*.yml', '**/*.yaml'],
 	},
 	lint: {
 		ignorePatterns: [

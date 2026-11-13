@@ -28,7 +28,7 @@
     "typecheck": "vp run -r --cache typecheck",
     "lint-js": "vp run -r --cache lint-js",
     "format-js": "vp run -r format-js",
-    "lint-style": "vp run -r --cache lint-style",
+    "lint-style": "stylelint \"themes/*/assets/css/**/*.css\" \"mu-plugins/*/assets/css/**/*.css\"",
     "lint-svg": "node bin/lint-svg.mjs",
     "test": "vp run -r --cache test",
     "clean-dist": "vp run -r clean-dist",
@@ -44,23 +44,21 @@
     "role": "developer"
   },
   "engines": {
-    "node": ">=24.0.0",
+    "node": "^22.18.0 || ^24.11.0 || >=26.0.0",
     "npm": ">=10.0.0"
   },
   "devDependencies": {
-    "@10up/stylelint-config": "^3.0.1",
-    "@csstools/postcss-global-data": "^4.0.0",
+    "@10up/oxlint-config": "^0.1.0-alpha.0",
+    "@10up/stylelint-config": "^5.0.0-alpha.0",
     "@inquirer/prompts": "^7.0.0",
     "@wordpress/create-block": "4.55.0",
     "husky": "^9.1.7",
-    "postcss-mixins": "^12.0.0",
-    "postcss-preset-env": "^10.0.0",
-    "stylelint": "^15.11.0",
+    "stylelint": "^18.0.0",
     "tar": "^7.4.3",
-    "vite-plus": "^1.5.0"
+    "vite-plus": "^1.6.0"
   },
   "packageManager": "npm@11.16.0",
   "overrides": {
-    "vite": "npm:@voidzero-dev/vite-plus-core@^1.5.0"
+    "vite": "npm:@voidzero-dev/vite-plus-core@^1.6.0"
   }
 }

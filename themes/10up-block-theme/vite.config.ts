@@ -1,89 +1,71 @@
 /**
  * Vite+ config for the 10up scaffold block theme.
  *
- * `npm run build` runs `wp-vite build`, which drives two passes over this
- * config into one dist/:
- *
- *   1. script pass (`vp build`)                 — classic scripts, all styles,
- *                                                 block.json + render.php
- *                                                 copying, blocks-manifest.php,
- *                                                 static assets.
- *   2. module pass (`vp build --mode modules`)  — Script Module entries only
- *                                                 (`scriptModule` /
- *                                                 `viewScriptModule`), additive.
- *
- * `npm run watch` rebuilds both passes on save. `npm run dev` starts one Vite
- * dev server with HMR; `dist/dev-server.php` (required from functions.php)
- * points WordPress at it while it runs.
+ * `npm run build` (`vp build`) builds into dist/: classic scripts and all
+ * styles, and the Script Modules blocks declare (`scriptModule` /
+ * `viewScriptModule`), along with the block.json and render.php copies,
+ * blocks-manifest.php and static assets. `npm run watch` rebuilds on save.
+ * `npm run dev` (`vp dev`) starts a dev server with HMR; `dist/dev-server.php`
+ * (required from functions.php) points WordPress at it while it runs.
  */
-import { defineConfig } from 'vite-plus';
+import tenup, { i18nRules } from '@10up/oxlint-config';
 import { wp } from '@10up/wp-vite-plugins';
+import { defineConfig } from 'vite-plus';
 
-export default defineConfig(({ mode }) => {
-	const isModulePass = mode === 'modules';
-
-	return {
-		plugins: [
-			wp({
-				buildType: isModulePass ? 'module' : 'script',
-				blocksDir: './blocks',
-				blocksStylesDir: './assets/css/blocks',
-				copyAssetsDir: './assets',
-			}),
-		],
-		build: {
-			outDir: 'dist',
-			// The script pass cleans dist/, the module pass adds to it.
-			emptyOutDir: !isModulePass,
-			rollupOptions: {
-				// Theme-level entries (was the `10up-toolkit.entry` config).
-				// Block entries are discovered from block.json by wpBlocks.
-				// CSS files are first-class entries (instead of JS-side
-				// imports) — wpCleanCssChunks removes the empty JS shims.
-				input: isModulePass
-					? {}
-					: {
-							'js/frontend': './assets/js/frontend.ts',
-							'js/block-extensions': './assets/js/block-extensions.ts',
-							'css/frontend-style': './assets/css/frontend.css',
-							'css/editor-frame-style-overrides':
-								'./assets/css/editor-frame-style-overrides.css',
-							'css/editor-canvas-style-overrides':
-								'./assets/css/editor-canvas-style-overrides.css',
-						},
-				output: {
-					entryFileNames: '[name].js',
-					assetFileNames: '[name][extname]',
-				},
+export default defineConfig({
+	plugins: [
+		wp({
+			blocksDir: './blocks',
+			blocksStylesDir: './assets/css/blocks',
+			copyAssetsDir: './assets',
+			// Custom media, custom selectors and mixins every stylesheet can use.
+			css: { globals: ['assets/css/globals/*.css', 'assets/css/mixins/*.css'] },
+		}),
+	],
+	build: {
+		outDir: 'dist',
+		rollupOptions: {
+			// Theme-level entries (was the `10up-toolkit.entry` config). Block
+			// entries are discovered from block.json. CSS files are entries of
+			// their own; wp() removes the empty JS files Vite emits for them.
+			input: {
+				'js/frontend': './assets/js/frontend.ts',
+				'js/block-extensions': './assets/js/block-extensions.ts',
+				'css/frontend-style': './assets/css/frontend.css',
+				'css/editor-frame-style-overrides': './assets/css/editor-frame-style-overrides.css',
+				'css/editor-canvas-style-overrides':
+					'./assets/css/editor-canvas-style-overrides.css',
+			},
+			output: {
+				entryFileNames: '[name].js',
+				assetFileNames: '[name][extname]',
 			},
 		},
-		fmt: {
-			// 10up house style — the same options @10up/eslint-config passed to Prettier.
-			useTabs: true,
-			tabWidth: 4,
-			printWidth: 100,
-			singleQuote: true,
-			trailingComma: 'all',
-			bracketSpacing: true,
-			semi: true,
-			arrowParens: 'always',
-			// CSS is owned by stylelint (10up config); block-theme HTML/JSON must
-			// match the Gutenberg serializer, so oxfmt only handles JS and TS.
-			ignorePatterns: [
-				'**/*.css',
-				'**/*.html',
-				'**/*.json',
-				'**/*.md',
-				'**/*.yml',
-				'**/*.yaml',
-			],
+	},
+	fmt: {
+		// 10up house style — the same options @10up/eslint-config passed to Prettier.
+		useTabs: true,
+		tabWidth: 4,
+		printWidth: 100,
+		singleQuote: true,
+		trailingComma: 'all',
+		bracketSpacing: true,
+		semi: true,
+		arrowParens: 'always',
+		// Oxfmt formats JS, TS and CSS (stylelint only lints CSS). Block-theme
+		// HTML and JSON must match the Gutenberg serializer, so it leaves them alone.
+		ignorePatterns: ['**/*.html', '**/*.json', '**/*.md', '**/*.yml', '**/*.yaml'],
+	},
+	lint: {
+		// @10up/eslint-config/wordpress, for Oxlint.
+		extends: [tenup],
+		rules: {
+			...i18nRules('tenup-block-theme'),
 		},
-		lint: {
-			ignorePatterns: ['dist/**', 'vendor/**'],
-			options: {
-				typeAware: true,
-				typeCheck: true,
-			},
+		ignorePatterns: ['dist/**', 'vendor/**'],
+		options: {
+			typeAware: true,
+			typeCheck: true,
 		},
-	};
+	},
 });

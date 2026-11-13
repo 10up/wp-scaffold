@@ -2,7 +2,6 @@
 	margin-trim: block;
 
 	@supports not (margin-trim: block) {
-
 		& > *:first-child {
 			margin-top: 0;
 		}

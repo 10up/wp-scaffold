@@ -4,13 +4,12 @@
   "private": true,
   "scripts": {
     "start": "npm run watch",
-    "build": "wp-vite build --bin vp",
-    "watch": "wp-vite watch --bin vp",
-    "dev": "wp-vite dev --bin vp",
+    "build": "vp build",
+    "watch": "vp build --watch",
+    "dev": "vp dev",
     "check": "vp check",
     "format-js": "vp fmt",
     "lint-js": "vp lint",
-    "lint-style": "stylelint \"assets/css/**/*.css\"",
     "test": "vp test run --passWithNoTests",
     "clean-dist": "rm -rf ./dist"
   },
@@ -18,7 +17,7 @@
     "prop-types": "^15.7.2"
   },
   "devDependencies": {
-    "@10up/wp-vite-plugins": "^1.0.0-alpha.3",
-    "vite-plus": "^1.5.0"
+    "@10up/wp-vite-plugins": "^1.0.0-alpha.4",
+    "vite-plus": "^1.6.0"
   }
 }

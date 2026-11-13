@@ -1,14 +1,14 @@
 /**
  * Vite+ config for the 10up scaffold mu-plugin.
  *
- * Single script-pass build (`wp-vite build`): one admin script, one admin
- * stylesheet, plus static assets. `wpExternals` (included by `wp()`) handles
- * any `@wordpress/*` imports and emits `.asset.php` sidecars. `npm run dev`
- * serves the same entries from a Vite dev server through
- * `dist/dev-server.php`.
+ * `npm run build` (`vp build`) builds one admin script, one admin stylesheet
+ * and the static assets into dist/. `wp()` externalizes `@wordpress/*`
+ * imports and writes `.asset.php` files. `npm run dev` (`vp dev`) serves the
+ * same entries from a dev server through `dist/dev-server.php`.
  */
-import { defineConfig } from 'vite-plus';
+import tenup, { i18nRules } from '@10up/oxlint-config';
 import { wp } from '@10up/wp-vite-plugins';
+import { defineConfig } from 'vite-plus';
 
 export default defineConfig({
 	plugins: [
@@ -39,11 +39,16 @@ export default defineConfig({
 		bracketSpacing: true,
 		semi: true,
 		arrowParens: 'always',
-		// CSS is owned by stylelint (10up config); block-theme HTML/JSON must
-		// match the Gutenberg serializer, so oxfmt only handles JS and TS.
-		ignorePatterns: ['**/*.css', '**/*.html', '**/*.json', '**/*.md', '**/*.yml', '**/*.yaml'],
+		// Oxfmt formats JS, TS and CSS (stylelint only lints CSS). Block-theme
+		// HTML and JSON must match the Gutenberg serializer, so it leaves them alone.
+		ignorePatterns: ['**/*.html', '**/*.json', '**/*.md', '**/*.yml', '**/*.yaml'],
 	},
 	lint: {
+		// @10up/eslint-config/wordpress, for Oxlint.
+		extends: [tenup],
+		rules: {
+			...i18nRules('tenup-plugin'),
+		},
 		ignorePatterns: ['dist/**', 'vendor/**'],
 	},
 });
