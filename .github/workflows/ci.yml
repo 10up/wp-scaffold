@@ -29,6 +29,8 @@ jobs:
       - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
         with:
           node-version-file: .nvmrc
+          # Its automatic npm cache would duplicate (and race) the node_modules cache.
+          package-manager-cache: false
 
       # The only job that saves node_modules: one writer per cache key.
       - uses: actions/cache@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
@@ -67,6 +69,8 @@ jobs:
       - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
         with:
           node-version-file: .nvmrc
+          # Its automatic npm cache would duplicate (and race) the node_modules cache.
+          package-manager-cache: false
 
       - uses: actions/cache/restore@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
         with:
@@ -88,6 +92,8 @@ jobs:
       - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
         with:
           node-version-file: .nvmrc
+          # Its automatic npm cache would duplicate (and race) the node_modules cache.
+          package-manager-cache: false
 
       # Stylelint and the config's plugins at the lockfile's versions, not the workspace.
       - run: >-
@@ -110,6 +116,8 @@ jobs:
       - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
         with:
           node-version-file: .nvmrc
+          # Its automatic npm cache would duplicate (and race) the node_modules cache.
+          package-manager-cache: false
 
       - run: node bin/lint-svg.mjs
 
