@@ -1,0 +1,179 @@
+# Every check runs on every push, in parallel, and reports everything it finds.
+# Each job installs only what its check reads (see bin/ci/).
+name: CI
+
+on:
+  push:
+    branches: [trunk]
+  pull_request:
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
+env:
+  HUSKY: '0'
+
+jobs:
+  js:
+    name: JS (format, lint, types, tests)
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+
+      - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
+        with:
+          node-version-file: .nvmrc
+
+      # The only job that saves node_modules: one writer per cache key.
+      - uses: actions/cache@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
+        with:
+          path: node_modules
+          key: node-modules-${{ runner.os }}-${{ hashFiles('.nvmrc', 'package-lock.json') }}
+
+      - id: install
+        run: bin/ci/npm-install-cached.sh
+
+      # Each step runs even when the one before it failed, so one push shows everything.
+      - name: Format
+        if: ${{ !cancelled() && steps.install.outcome == 'success' }}
+        run: npx vp run -r format-js --check
+
+      - name: Lint (type-aware, with type check)
+        if: ${{ !cancelled() && steps.install.outcome == 'success' }}
+        run: npx vp run -r lint-js
+
+      - name: Types
+        if: ${{ !cancelled() && steps.install.outcome == 'success' }}
+        run: npx vp run -r typecheck
+
+      - name: Tests
+        if: ${{ !cancelled() && steps.install.outcome == 'success' }}
+        run: npx vp run -r test
+
+  build:
+    name: Build
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+
+      - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
+        with:
+          node-version-file: .nvmrc
+
+      - uses: actions/cache/restore@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
+        with:
+          path: node_modules
+          key: node-modules-${{ runner.os }}-${{ hashFiles('.nvmrc', 'package-lock.json') }}
+
+      - run: bin/ci/npm-install-cached.sh
+
+      - run: npx vp run -r build
+
+  stylelint:
+    name: Stylelint
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+
+      - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
+        with:
+          node-version-file: .nvmrc
+
+      # Stylelint and the config's plugins at the lockfile's versions, not the workspace.
+      - run: >-
+          node bin/ci/install-tools.mjs stylelint @10up/stylelint-config
+          stylelint-config-recommended stylelint-declaration-strict-value
+          stylelint-order stylelint-stylistic
+
+      - run: >-
+          npx stylelint "themes/*/assets/css/**/*.css" "mu-plugins/*/assets/css/**/*.css"
+          --custom-formatter bin/ci/stylelint-github-formatter.cjs
+
+  svg:
+    name: SVG icons
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+
+      - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
+        with:
+          node-version-file: .nvmrc
+
+      - run: node bin/lint-svg.mjs
+
+  phpcs:
+    name: PHPCS
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+
+      - uses: shivammathur/setup-php@eb7c497e18156a6bbabfef1d3a82760b9eda3962 # 2.40.0
+        with:
+          php-version: '8.4'
+          tools: composer:v2, cs2pr
+          coverage: none
+
+      - id: composer
+        run: echo "dir=$(composer config cache-files-dir)" >> "$GITHUB_OUTPUT"
+
+      # Restore only: the PHPStan job installs every package and saves this key.
+      - uses: actions/cache/restore@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
+        with:
+          path: ${{ steps.composer.outputs.dir }}
+          key: composer-${{ runner.os }}-${{ hashFiles('**/composer.lock') }}
+          restore-keys: composer-${{ runner.os }}-
+
+      - name: Validate composer.json and composer.lock
+        run: |
+          for dir in . themes/10up-theme themes/10up-block-theme mu-plugins/10up-plugin; do
+            composer validate --strict --no-check-publish --working-dir="$dir"
+          done
+
+      # The 10up ruleset lives in the root vendor; PHPCS needs no other.
+      - run: composer install --no-interaction --no-progress --prefer-dist
+
+      - run: vendor/bin/phpcs --standard=./phpcs.xml -q --report=checkstyle | cs2pr
+
+  phpstan:
+    name: PHPStan
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+
+      - uses: shivammathur/setup-php@eb7c497e18156a6bbabfef1d3a82760b9eda3962 # 2.40.0
+        with:
+          php-version: '8.4'
+          tools: composer:v2
+          coverage: none
+
+      - id: composer
+        run: echo "dir=$(composer config cache-files-dir)" >> "$GITHUB_OUTPUT"
+
+      - uses: actions/cache@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
+        with:
+          path: ${{ steps.composer.outputs.dir }}
+          key: composer-${{ runner.os }}-${{ hashFiles('**/composer.lock') }}
+          restore-keys: composer-${{ runner.os }}-
+
+      # Every package's vendor, so PHPStan sees wp-framework's classes.
+      - run: |
+          printf '%s\n' . themes/10up-theme themes/10up-block-theme mu-plugins/10up-plugin |
+            xargs -P 4 -I {} composer install --no-interaction --no-progress --prefer-dist --working-dir={}
+
+      - run: vendor/bin/phpstan --memory-limit=2G --no-progress --error-format=github
