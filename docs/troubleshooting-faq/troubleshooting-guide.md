@@ -16,8 +16,8 @@ This guide provides solutions to common issues you may encounter when working wi
 	- Local WP (https://localwp.com/)
 	- Git
 	- Composer (for PHP dependencies)
-	- Node.js >= 20.0.0 (as specified in package.json)
-	- npm >= 9.0.0 (as specified in package.json)
+	- Node.js `^22.18.0 || ^24.11.0 || >=26` (as specified in package.json)
+	- npm >= 10.0.0 (as specified in package.json)
 	- PHP >= 8.3 (as specified in composer.json)
 - Check that your Local WP site is correctly mapped to your project's `wp-content` directory.
 - Verify file permissions for the `wp-content` directory and its subfolders.
@@ -39,7 +39,7 @@ This guide provides solutions to common issues you may encounter when working wi
 
 ## Build Failures
 - Check for errors in the terminal output when running build scripts from `wp-content`.
-- Ensure Node.js and npm versions are compatible with the project requirements (Node.js >= 20.0.0, npm >= 9.0.0).
+- Ensure Node.js and npm versions are compatible with the project requirements (Node.js `^22.18.0 || ^24.11.0 || >=26`, npm >= 10.0.0).
 - Run `npm run build` or `npm run dev` as appropriate from `wp-content`.
 - For theme-specific or plugin-specific builds, you can use:
   ```bash
@@ -61,14 +61,14 @@ This guide provides solutions to common issues you may encounter when working wi
 - The project uses several code quality tools that might prevent commits or builds if standards aren't met:
 	- PHP CodeSniffer (PHPCS) for PHP coding standards
 	- PHPStan for PHP static analysis
-	- ESLint for JavaScript linting
+	- Oxlint for JavaScript linting
 	- Stylelint for CSS linting
 - To run these tools manually:
   ```bash
   composer lint  # Run PHPCS
   composer lint-fix  # Fix PHPCS issues automatically
   composer static  # Run PHPStan
-  npm run lint-js  # Run ESLint
+  npm run lint-js  # Run Oxlint
   npm run lint-style  # Run Stylelint
   ```
 - Pre-commit hooks will automatically run these tools on staged files before commits.
@@ -91,7 +91,7 @@ This guide provides solutions to common issues you may encounter when working wi
 ## Common Error Messages
 - **"Vendor autoload file not found. Please run `composer install`."**: The Composer dependencies haven't been installed. Run `composer install` in the `wp-content` directory.
 - **"Node Sass does not yet support your current environment"**: Your Node.js version is incompatible with the installed version of Node Sass. Update Node.js or reinstall dependencies.
-- **"Error: Node.js version x.x.x is not supported, please use Node.js >= 20.0.0"**: Update your Node.js version to meet the requirements.
+- **"Error: Node.js version x.x.x is not supported, please use Node.js >= 22.18.0"**: Update your Node.js version to meet the requirements.
 - **"PHP Fatal error: Uncaught Error: Class 'XYZ' not found"**: This could indicate a missing dependency or an autoloading issue. Run `composer dump-autoload` to regenerate the autoloader.
 - **"Failed to load external module @10up/babel-preset-default"**: Ensure all npm dependencies are installed correctly with `npm install`.
 

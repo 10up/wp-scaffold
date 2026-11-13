@@ -1,12 +1,12 @@
-# PostCSS/CSS Guidelines
+# CSS Guidelines
 
-This document outlines the standards and best practices for writing PostCSS/CSS in a WP Scaffold project.
+This document outlines the standards and best practices for writing CSS in a WP Scaffold project.
 
 ## Table of Contents
 - [Introduction](#introduction)
 - [File Organization](#file-organization)
 - [Naming Conventions](#naming-conventions)
-- [PostCSS Features](#postcss-features)
+- [CSS Features](#css-features)
 - [CSS Architecture](#css-architecture)
 - [Performance Considerations](#performance-considerations)
 - [Accessibility](#accessibility)
@@ -14,7 +14,7 @@ This document outlines the standards and best practices for writing PostCSS/CSS 
 
 ## Introduction
 
-The WP Scaffold project uses PostCSS as the primary CSS processor to create more maintainable and organized stylesheets. PostCSS allows for modern CSS features and custom plugins while maintaining a clean and efficient workflow. These guidelines ensure consistency across the codebase and promote best practices for CSS development.
+The WP Scaffold project writes plain CSS. The `wp()` plugin from [`@10up/wp-vite-plugins`](https://github.com/10up/wp-tooling/tree/trunk/packages/wp-vite-plugins) compiles every stylesheet with [Lightning CSS](https://lightningcss.dev): it inlines local `@import`s, lowers nesting and newer syntax for the browserslist targets, and minifies the output. It also adds custom media, custom selectors and mixins from shared globals files. These guidelines ensure consistency across the codebase and promote best practices for CSS development.
 
 ## File Organization
 
@@ -30,31 +30,21 @@ wp-content/themes/[theme-name]/assets/css/
 │   └── templates/
 ├── blocks/
 ├── globals/
-│   ├── _variables.css
-│   ├── _typography.css
-│   └── _global.css
+│   └── media-queries.css
 └── mixins/
-    ├── _responsive.css
-    └── _utilities.css
+    └── visually-hidden.css
 ```
+
+`globals/` and `mixins/` hold definitions only (see [Globals and Mixins](#globals-and-mixins)).
 
 Compiled CSS is output to the `dist/css/` directory during the build process.
 
 ### Import Order
 
-CSS imports with PostCSS are typically organized in the following order:
+CSS imports are typically organized in the following order. Each local `@import` is inlined once at build time.
 
 ```css
 /* Example import order */
-/* Globals */
-@import 'globals/variables.css';
-@import 'globals/typography.css';
-@import 'globals/global.css';
-
-/* Mixins */
-@import 'mixins/responsive.css';
-@import 'mixins/utilities.css';
-
 /* Base styles */
 @import 'frontend/base/reset.css';
 @import 'frontend/base/layout.css';
@@ -68,6 +58,8 @@ CSS imports with PostCSS are typically organized in the following order:
 @import 'frontend/templates/home.css';
 @import 'frontend/templates/single.css';
 ```
+
+Don't import files from `globals/` or `mixins/`. Their definitions reach every stylesheet without an `@import`.
 
 The block styles in the `blocks` directory are treated specially. They don't need to be imported in the main CSS file, but they will be automatically loaded and compiled into individual block stylesheets that are only loaded when that block is actually rendered on the frontend.
 
@@ -113,15 +105,25 @@ Use `is-` or `has-` prefixes for state classes:
 .has-error {}
 ```
 
-## PostCSS Features
+## CSS Features
 
-### PostCSS Plugins
+### Globals and Mixins
 
-The WP Scaffold project comes with a preconfigured PostCSS setup that includes several useful features and plugins. To customize or add PostCSS plugins, edit the `postcss.config.js` file in the theme or plugin. Vite reads it automatically.
+Each theme's `vite.config.ts` passes its globals files to `wp()`:
+
+```ts
+wp({
+	// ...
+	// Custom media, custom selectors and mixins every stylesheet can use.
+	css: { globals: ['assets/css/globals/*.css', 'assets/css/mixins/*.css'] },
+}),
+```
+
+`@custom-media`, `@custom-selector` and `@define-mixin` definitions in these files are available in every stylesheet: CSS entries, block styles and the files they import. You don't import them. These files must not produce any output of their own. See the [`wpCss` documentation](https://github.com/10up/wp-tooling/blob/trunk/packages/wp-vite-plugins/docs/wp-css.md).
 
 ### Media Query Handling
 
-Use media queries with PostCSS:
+Use the custom media queries from `globals/media-queries.css`:
 
 ```css
 /* Example media query usage */
@@ -140,7 +142,7 @@ Use media queries with PostCSS:
 
 ### Custom Selectors
 
-Use custom selectors to create reusable selector patterns:
+Use custom selectors to create reusable selector patterns. Define them in a `globals/` file to share them across stylesheets:
 
 ```css
 /* Example custom selectors */
@@ -160,6 +162,31 @@ Use custom selectors to create reusable selector patterns:
   cursor: pointer;
 }
 ```
+
+### Mixins
+
+Define a mixin with `@define-mixin` in a `mixins/` file. `@mixin name;` pastes its declarations in place, so a declaration after it overrides it:
+
+```css
+/* mixins/visually-hidden.css */
+@define-mixin visually-hidden {
+	border: 0;
+	clip-path: inset(50%);
+	height: 1px;
+	margin: -1px;
+	overflow: hidden;
+	padding: 0;
+	position: absolute;
+	width: 1px;
+}
+
+/* Any stylesheet */
+.visually-hidden {
+	@mixin visually-hidden;
+}
+```
+
+An unknown mixin or custom selector fails the build. Mixins can't take parameters.
 
 ## CSS Architecture
 
@@ -256,7 +283,7 @@ Ensure sufficient color contrast for text readability:
 
 Always style focus states for interactive elements:
 
-```scss
+```css
 /* Example focus state */
 .button {
   &:focus-visible {
@@ -278,7 +305,7 @@ Include utility classes for screen reader text:
   padding: 0;
   margin: -1px;
   overflow: hidden;
-  clip: rect(0, 0, 0, 0);
+  clip-path: inset(50%);
   white-space: nowrap;
   border: 0;
 }
@@ -286,32 +313,23 @@ Include utility classes for screen reader text:
 
 ## Linting
 
-The project uses Stylelint to enforce coding standards. The configuration is in `.stylelintrc`:
+The project uses Stylelint to lint CSS. One `stylelint.config.js` at the repository root extends [`@10up/stylelint-config`](https://github.com/10up/wp-tooling/tree/trunk/packages/stylelint-config):
 
-```json
-{
-  "extends": "stylelint-config-standard-scss",
-  "rules": {
-    "indentation": 2,
-    "string-quotes": "single",
-    "no-duplicate-selectors": true,
-    "color-hex-case": "lower",
-    "color-hex-length": "short",
-    "selector-combinator-space-after": "always",
-    "selector-attribute-quotes": "always",
-    "declaration-block-trailing-semicolon": "always",
-    "declaration-colon-space-before": "never",
-    "declaration-colon-space-after": "always",
-    "property-no-vendor-prefix": true,
-    "value-no-vendor-prefix": true,
-    "selector-no-vendor-prefix": true,
-    "media-feature-name-no-vendor-prefix": true
-  }
-}
+```js
+const config = {
+	extends: ['@10up/stylelint-config'],
+	rules: {},
+};
+
+module.exports = config;
 ```
 
-To run the linter:
+The config knows `@define-mixin`, `@mixin` and `@custom-selector`. It leaves formatting to Oxfmt: `vp fmt` (part of `vp check`) formats CSS, and Stylelint only lints it.
+
+To run the linter from the repository root:
 
 ```bash
-npm run lint:css
+npm run lint-style
 ```
+
+It lints `themes/*/assets/css/**/*.css` and `mu-plugins/*/assets/css/**/*.css`. Before each commit, `vp staged` runs `vp fmt` and `stylelint --fix` on staged CSS files.

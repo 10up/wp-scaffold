@@ -2,11 +2,11 @@
 
 This scaffold is the starting point for all 10up WordPress projects.
 
-It contains a bare bones theme and must use plugin for you to base your development off of. Asset bundling, linting, formatting, type-checking, and testing are handled by [Vite+](https://viteplus.dev) (`vp`) together with [`@10up/wp-vite-plugins`](https://github.com/10up/wp-vite-plugins).
+It contains a bare bones theme and must use plugin for you to base your development off of. Asset bundling, linting, formatting, type-checking, and testing are handled by [Vite+](https://viteplus.dev) (`vp`) together with [`@10up/wp-vite-plugins`](https://github.com/10up/wp-tooling/tree/trunk/packages/wp-vite-plugins).
 
 ## Requirements
 
-- Node >= 24
+- Node `^22.18.0 || ^24.11.0 || >=26` (`.nvmrc` pins 24)
 - NPM >= 10
 
 ## How to Use
@@ -68,8 +68,8 @@ You can also set up the scaffold manually without the CLI:
 
 1. [Download a zip](https://github.com/10up/wp-scaffold/archive/trunk.zip) of the repository into your project. At 10up, by default we version control the `wp-content` directory (ignoring obvious things like `uploads`). This enables us to have plugins, theme, etc. all in one repository. Having separate repositories for each plugin and theme only happens in rare circumstances that are outside of our control.
 2. Take what you need. If your project doesn't have a theme, remove the theme. If your project doesn't need any plugin functionality, remove the MU plugin. If your plugin doesn't need CSS/JS, remove it. If your plugin doesn't need to be translated, remove all the translation functionality.
-3. Compiling, minifying, bundling, etc. of JavaScript and CSS is all done by [Vite+](https://viteplus.dev) with [`@10up/wp-vite-plugins`](https://github.com/10up/wp-vite-plugins). Both are dev dependencies, so `npm install` at the root is all you need. Entries are configured in each workspace's `vite.config.ts`. Block entries are discovered automatically from `block.json` files.
-4. Each workspace builds with the `wp-vite` CLI from `@10up/wp-vite-plugins`. `wp-vite build` runs two passes into one `dist/`: a script pass (`vp build`) and a Script Module pass (`vp build --mode modules`) for blocks that declare `scriptModule` / `viewScriptModule`. While no block needs the module pass, it builds nothing. `wp-vite watch` rebuilds both passes on save. `wp-vite dev` starts a Vite dev server with hot reloading; the `dist/dev-server.php` file that every build writes points WordPress at it while it runs (see [Frontend Build Process](docs/frontend-development/frontend-build-process.md#dev-server)).
+3. Compiling, minifying, bundling, etc. of JavaScript and CSS is all done by [Vite+](https://viteplus.dev) with [`@10up/wp-vite-plugins`](https://github.com/10up/wp-tooling/tree/trunk/packages/wp-vite-plugins). Both are dev dependencies, so `npm install` at the root is all you need. Entries are configured in each workspace's `vite.config.ts`. Block entries are discovered automatically from `block.json` files.
+4. Each workspace builds with one `vp build` into one `dist/`. It builds classic scripts and the Script Modules blocks declare (`scriptModule` / `viewScriptModule` in `block.json`) together. `vp build --watch` rebuilds on save. `vp dev` starts a Vite dev server with hot reloading; the `dist/dev-server.php` file that every build writes points WordPress at it while it runs (see [Frontend Build Process](docs/frontend-development/frontend-build-process.md#dev-server)).
 5. [npm workspaces](https://docs.npmjs.com/cli/v7/using-npm/workspaces) is used to manage npm dependencies. The main benefit of using npm workspaces is that we can hoist all dependencies to the root folder and avoid installing duplicate dependencies, saving time and space. By default the `workspaces` config are setup so that `mu-plugins/10up-plugin` and all themes are treated as "packages", if you are building a new plugin/theme make sure to update `workspaces` in `package.json` See the example below:
 
 ```json
@@ -96,7 +96,7 @@ You can also set up the scaffold manually without the CLI:
 
 Much of the functionality in the scaffold is intended to be optional depending on the needs of your project e.g. i18n functionality. However, there are a few important principles that you must follow:
 
-1. [Vite+](https://viteplus.dev) with [`@10up/wp-vite-plugins`](https://github.com/10up/wp-vite-plugins) must be used for asset bundling. Over the years we've found differences in how assets are built across projects to be very confusing for engineers. As such, we are standardizing on one toolchain: `vp build` (Vite/Rolldown), `vp check` (Oxfmt, Oxlint, tsgo), `vp test` (Vitest), and `vp run` (cached tasks).
+1. [Vite+](https://viteplus.dev) with [`@10up/wp-vite-plugins`](https://github.com/10up/wp-tooling/tree/trunk/packages/wp-vite-plugins) must be used for asset bundling. Over the years we've found differences in how assets are built across projects to be very confusing for engineers. As such, we are standardizing on one toolchain: `vp build` (Vite/Rolldown), `vp check` (Oxfmt, Oxlint, tsgo), `vp test` (Vitest), and `vp run` (cached tasks).
 2. Functionality should be built into the 10up must-use functionality as much as possible. Presentation should be kept in the theme. Separating these two makes long term development, maintenance, and extensibility much easier.
 3. Blocks should be built into the theme and follow the [example block](https://github.com/10up/wp-scaffold/tree/trunk/themes/10up-theme/includes/blocks/example-block) provided.
 4. When creating new themes or plugins make sure to follow the `scripts` convention:
@@ -104,18 +104,19 @@ Much of the functionality in the scaffold is intended to be optional depending o
 ```json
   "scripts": {
     "start": "npm run watch",
-    "build": "wp-vite build --bin vp",
-    "watch": "wp-vite watch --bin vp",
-    "dev": "wp-vite dev --bin vp",
+    "build": "vp build",
+    "watch": "vp build --watch",
+    "dev": "vp dev",
     "check": "vp check && tsgo --noEmit",
     "typecheck": "tsgo --noEmit",
     "format-js": "vp fmt",
     "lint-js": "vp lint",
-    "lint-style": "stylelint \"assets/css/**/*.css\"",
     "test": "vp test run --passWithNoTests",
     "clean-dist": "rm -rf ./dist"
   },
 ```
+
+Workspaces have no `lint-style` script. Stylelint runs once from the root (`npm run lint-style`) with the root `stylelint.config.js`, over `themes/*/assets/css` and `mu-plugins/*/assets/css`.
 
 ## Husky and `vp staged`
 
@@ -123,6 +124,6 @@ Husky runs [`vp staged`](https://viteplus.dev/guide/commit-hooks) on the pre-com
 By default it will run the following:
 
 - `vp check --fix` (Oxfmt + Oxlint) on JS/TS files.
-- `stylelint --fix` on CSS files.
+- `vp fmt` (Oxfmt) and `stylelint --fix` on CSS files.
 - `phpcs` on PHP files.
 - `node bin/lint-svg.mjs` on SVG icons in an `assets/svg` folder.

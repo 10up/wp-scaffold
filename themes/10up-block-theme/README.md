@@ -21,7 +21,7 @@ This is a lightweight starter theme for WordPress block themes. It provides the 
 This is a full-site block theme built using:
 
 - WordPress block theme system (`theme.json`, template files, template parts)
-- [Vite+](https://viteplus.dev) (`vp`) with [`@10up/wp-vite-plugins`](https://github.com/10up/wp-vite-plugins) for asset bundling, linting, formatting, type-checking, and testing
+- [Vite+](https://viteplus.dev) (`vp`) with [`@10up/wp-vite-plugins`](https://github.com/10up/wp-tooling/tree/trunk/packages/wp-vite-plugins) for asset bundling, linting, formatting, type-checking, and testing
 - 10up framework (`10up/wp-framework`) for modular PHP class loading
 - Modern CSS and JS modules in `assets/`
 - Custom blocks under `blocks/`
@@ -92,12 +92,12 @@ If you can only have `themes/10up-block-theme` installed and are not able to use
 - `composer install` — install PHP dependencies for the theme.
 - `npm install` — install JavaScript dependencies.
 - `npm run build` — compile theme assets into `dist/`.
-- `npm run watch` — rebuild assets on change (`wp-vite watch`).
-- `npm run dev` — start a Vite dev server with hot reloading (`wp-vite dev`).
+- `npm run watch` — rebuild assets on change (`vp build --watch`).
+- `npm run dev` — start a Vite dev server with hot reloading (`vp dev`).
 - `npm run scaffold:block` — generate a new block scaffold in `blocks/` using the local template.
-- `composer lint` — run PHP, JS, and CSS linting across the theme.
-- `npm run lint` — run JS linting only.
-- `npm run lint-style` — run CSS/style linting only.
+- `composer lint` — run PHP linting (`phpcs`) across the theme.
+- `npm run lint-js` — run JS linting only.
+- `npm run lint-style` — run CSS linting. Run it from the repository root; it lints every workspace.
 - `npm run test` — run unit tests.
 - `npm run clean-dist` — remove generated `dist/` assets.
 - `npm run wp-compat` — analyze installed `@wordpress/*` package versions against the theme's minimum WordPress requirement.
