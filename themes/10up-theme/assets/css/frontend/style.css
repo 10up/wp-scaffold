@@ -12,13 +12,13 @@
  * you can remove this import and add your own.
  * If replacing, be sure to provide clear guidance for engineering team.
  */
-@import url("modern-normalize/modern-normalize.css");
+@import url('modern-normalize/modern-normalize.css');
 
 /* Global - global pieces like media queries, mixins and placeholders */
-@import url("global/index.css");
+@import url('global/index.css');
 
 /* Base - base styles such as fonts, typography, and wordpress overrides */
-@import url("base/index.css");
+@import url('base/index.css');
 
 /* Layout - styles specific to layout */
 
@@ -30,4 +30,4 @@
 
 /* Components */
 
-@import url("components/index.css");
+@import url('components/index.css');

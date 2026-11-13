@@ -27,6 +27,7 @@ This theme is designed to work with WordPress modern theme tooling and 10up conv
 - Classic and block-friendly templates with reusable partials
 
 Root files:
+
 - `style.css` — WordPress theme header and base stylesheet
 - `theme.json` — global settings, styles, color palettes, and editor options
 - `functions.php` — theme initialization, asset registration, and support setup
@@ -95,8 +96,8 @@ Root files:
 - `npm run build` — compile theme assets
 - `npm run watch` — start watch mode for frontend assets
 - `npm run clean-dist` — remove generated build assets
-- `npm run lint` — run JS linting
-- `npm run lint-style` — run style/CSS linting
+- `npm run lint-js` — run JS linting
+- `npm run lint-style` — run CSS linting (from the repository root; it lints every workspace)
 - `npm run test` — run unit tests
 - `npm run format-js` — format JavaScript source files
 - `composer lint-fix` — auto-fix PHP lint issues using `phpcbf`

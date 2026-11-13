@@ -15,17 +15,23 @@
     "prepare": "TEN=\"$(pwd)\"; UP=\"$(git rev-parse --show-toplevel)\"; TENUP=\"${TEN#\"$UP\"}\"; cd \"$(git rev-parse --show-toplevel)\"; husky .\"${TENUP}\"/.husky",
     "setup": "npm install --omit=dev && composer setup",
     "setup:local": "npm install && composer setup:local",
-    "build": "npm run build --workspaces --if-present",
+    "build": "vp run -r --cache build",
     "start": "npm run watch",
-    "watch:theme": "npm run watch -w=tenup-theme",
-    "watch:plugin": "npm run watch -w=tenup-plugin",
-    "watch": "run-p watch:theme watch:plugin",
-    "lint-js": "npm run lint-js --workspaces --if-present",
-    "format-js": "npm run format-js --workspaces --if-present",
-    "lint-style": "npm run lint-style --workspaces --if-present",
+    "watch": "vp run -r --parallel watch",
+    "watch:theme": "vp run --filter tenup-theme watch",
+    "watch:block-theme": "vp run --filter tenup-block-theme watch",
+    "watch:plugin": "vp run --filter tenup-plugin watch",
+    "dev:theme": "vp run --filter tenup-theme dev",
+    "dev:block-theme": "vp run --filter tenup-block-theme dev",
+    "dev:plugin": "vp run --filter tenup-plugin dev",
+    "check": "vp run -r check",
+    "typecheck": "vp run -r typecheck",
+    "lint-js": "vp run -r --cache lint-js",
+    "format-js": "vp run -r format-js",
+    "lint-style": "stylelint \"themes/*/assets/css/**/*.css\" \"mu-plugins/*/assets/css/**/*.css\"",
     "lint-svg": "node bin/lint-svg.mjs",
-    "test": "npm run test --workspaces --if-present",
-    "clean-dist": "npm run clean-dist --workspaces --if-present",
+    "test": "vp run -r --cache test",
+    "clean-dist": "vp run -r clean-dist",
     "clean": "rm -rf node_modules package-lock.json",
     "scaffold": "node bin/scaffold.mjs",
     "scaffold:plugin": "node bin/scaffold-plugin.mjs",
@@ -38,22 +44,21 @@
     "role": "developer"
   },
   "engines": {
-    "node": ">=24.0.0",
+    "node": "^22.18.0 || ^24.11.0 || >=26.0.0",
     "npm": ">=10.0.0"
   },
-  "overrides": {
-    "webpackbar": "^7.0.0"
-  },
-  "dependencies": {
-    "10up-toolkit": "^6.5.1"
-  },
   "devDependencies": {
+    "@10up/oxlint-config": "^0.1.0-alpha.1",
+    "@10up/stylelint-config": "^5.0.0-alpha.0",
+    "@inquirer/prompts": "^7.0.0",
     "@wordpress/create-block": "4.55.0",
     "husky": "^9.1.7",
-    "lint-staged": "^15.2.0",
-    "npm-run-all": "^4.1.5",
-    "@inquirer/prompts": "^7.0.0",
-    "prettier": "3.3.3",
-    "tar": "^7.4.3"
+    "stylelint": "^18.0.0",
+    "tar": "^7.4.3",
+    "vite-plus": "^1.6.0"
+  },
+  "packageManager": "npm@11.16.0",
+  "overrides": {
+    "vite": "npm:@voidzero-dev/vite-plus-core@^1.6.0"
   }
 }

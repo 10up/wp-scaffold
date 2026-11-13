@@ -1,6 +1,6 @@
 # Frontend Development
 
-This section provides documentation on frontend development practices and standards used in a WP Scaffold project. It covers CSS/PostCSS, JavaScript, build processes, and responsive design approaches implemented in the themes.
+This section provides documentation on frontend development practices and standards used in a WP Scaffold project. It covers CSS, JavaScript, build processes, and responsive design approaches implemented in the themes.
 
 ## Themes
 
@@ -38,13 +38,13 @@ wp-content/themes/[theme-name]/
 
 The following documents provide detailed information on specific aspects of frontend development:
 
-- [CSS Guidelines](css-guidelines.md): Standards and best practices for writing CSS/PostCSS
+- [CSS Guidelines](css-guidelines.md): Standards and best practices for writing CSS
 - [JavaScript Guidelines](javascript-guidelines.md): Standards and best practices for writing JavaScript
 - [Frontend Build Process](frontend-build-process.md): Tools and workflows for compiling and optimizing frontend assets
 
 ## Build Process
 
-The themes use a modern build process based on [10up Toolkit](https://github.com/10up/10up-toolkit/) to compile, optimize, and bundle frontend assets. This process is configured in the theme's `package.json` and related configuration files.
+The themes build with [Vite+](https://viteplus.dev) and [`@10up/wp-vite-plugins`](https://github.com/10up/wp-tooling/tree/trunk/packages/wp-vite-plugins). Each theme's build is configured in its `vite.config.ts`.
 
 To get started with frontend development:
 

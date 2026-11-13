@@ -1,43 +1,37 @@
 {
-	"name": "tenup-block-theme",
-	"version": "1.0.0",
-	"scripts": {
-		"start": "npm run watch",
-		"watch": "10up-toolkit watch --port=5020",
-		"build": "10up-toolkit build",
-		"build:analyze": "10up-toolkit build --analyze",
-		"format-js": "10up-toolkit format-js",
-		"lint-js": "10up-toolkit lint-js",
-		"lint-style": "10up-toolkit lint-style",
-		"test": "10up-toolkit test-unit-jest --passWithNoTests",
-		"clean-dist": "rm -rf ./dist",
-		"wp-compat": "wp-gutenberg-compat analyze",
-		"wp-compat:fix": "wp-gutenberg-compat install",
-		"wp-compat:info": "wp-gutenberg-compat info",
-		"scaffold:block": "cd blocks/ && wp-create-block --no-plugin --template ../../../../bin/create-block-template"
-	},
-	"10up-toolkit": {
-		"useBlockAssets": true,
-		"useScriptModules": true,
-		"loadBlockSpecificStyles": true,
-		"entry": {
-			"editor-frame-style-overrides": "./assets/css/editor-frame-style-overrides.css",
-			"editor-canvas-style-overrides": "./assets/css/editor-canvas-style-overrides.css",
-			"frontend": "./assets/js/frontend.ts",
-			"block-extensions": "./assets/js/block-extensions.ts"
-		},
-		"paths": {
-			"blocksDir": "./blocks"
-		}
-	},
-	"dependencies": {
-		"@10up/block-components": "^1.22.1",
-		"10up-toolkit": "^6.5.1"
-	},
-	"devDependencies": {
-		"@ravi.nder/wp-gutenberg-compat": "^0.5.1",
-		"@types/wordpress__block-editor": "^15.0.5",
-		"@types/wordpress__blocks": "^15.10.2",
-		"@wordpress/interactivity": "^6.33.3"
-	}
+  "name": "tenup-block-theme",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "start": "npm run watch",
+    "build": "vp build",
+    "watch": "vp build --watch",
+    "dev": "vp dev",
+    "check": "vp check && tsgo --noEmit",
+    "typecheck": "tsgo --noEmit",
+    "format-js": "vp fmt",
+    "lint-js": "vp lint",
+    "test": "vp test run --passWithNoTests",
+    "clean-dist": "rm -rf ./dist",
+    "wp-compat": "wp-gutenberg-compat analyze",
+    "wp-compat:fix": "wp-gutenberg-compat install",
+    "wp-compat:info": "wp-gutenberg-compat info",
+    "scaffold:block": "cd blocks/ && wp-create-block --no-plugin --template ../../../../bin/create-block-template"
+  },
+  "dependencies": {
+    "@10up/block-components": "^1.22.1",
+    "@wordpress/block-editor": "^15.6.0",
+    "@wordpress/blocks": "^15.2.0",
+    "@wordpress/dom-ready": "^4.47.0",
+    "@wordpress/i18n": "^6.13.0",
+    "@wordpress/interactivity": "^6.33.3"
+  },
+  "devDependencies": {
+    "@10up/wp-vite-plugins": "^1.0.0-alpha.4",
+    "@ravi.nder/wp-gutenberg-compat": "^0.5.1",
+    "@types/react": "^18.3.0",
+    "@types/wordpress__block-editor": "^15.0.9",
+    "@typescript/native-preview": "^7.0.0-dev.20260707.2",
+    "vite-plus": "^1.6.0"
+  }
 }

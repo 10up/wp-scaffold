@@ -68,9 +68,9 @@ class Assets implements ModuleInterface {
 	public function admin_styles() {
 		wp_enqueue_style(
 			'tenup_plugin_admin',
-			TENUP_PLUGIN_URL . 'dist/css/admin.css',
+			TENUP_PLUGIN_URL . 'dist/css/admin-style.css',
 			[],
-			$this->get_asset_info( 'admin', 'version' ),
+			$this->get_asset_info( 'admin-style', 'version' ),
 		);
 	}
 }

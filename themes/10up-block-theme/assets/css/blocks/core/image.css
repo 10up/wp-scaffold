@@ -1,6 +1,5 @@
 .wp-block-image {
-
-	& img[src$=".svg"] {
+	& img[src$='.svg'] {
 		height: auto;
 	}
 }

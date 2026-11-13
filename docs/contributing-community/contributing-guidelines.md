@@ -18,7 +18,7 @@ Thank you for your interest in contributing to the WP Scaffold project! We welco
 
 ## Code Standards
 - Follow WordPress and 10up coding standards for PHP, JS, and CSS.
-- Use linting tools (`phpcs`, `eslint`, `stylelint`) before submitting.
+- Use linting tools (`phpcs`, `npm run check`, `stylelint`) before submitting.
 - Write clear, concise commit messages.
 
 ## Pull Requests

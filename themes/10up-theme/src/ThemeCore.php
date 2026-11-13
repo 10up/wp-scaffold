@@ -62,7 +62,7 @@ class ThemeCore {
 		);
 
 		add_theme_support( 'editor-styles' );
-		add_editor_style( 'dist/css/frontend.css' );
+		add_editor_style( 'dist/css/frontend-style.css' );
 
 		remove_theme_support( 'core-block-patterns' );
 

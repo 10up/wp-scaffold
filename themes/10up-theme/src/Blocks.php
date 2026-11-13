@@ -87,23 +87,32 @@ class Blocks implements ModuleInterface {
 	}
 
 	/**
-	 * Automatically registers all blocks that are located within the includes/blocks directory
+	 * Registers every block the build put in dist/blocks.
+	 *
+	 * The build writes `dist/blocks-manifest.php` with every block's metadata,
+	 * so WordPress 6.7+ registers them all from one include instead of reading
+	 * and parsing each block.json on every request. Server rendering comes
+	 * from the `render` file in each block.json.
 	 *
 	 * @return void
 	 */
 	public function register_theme_blocks() {
-		// Register all the blocks in the theme
-		if ( file_exists( TENUP_THEME_BLOCK_DIST_DIR ) ) {
-			$block_json_files = glob( TENUP_THEME_BLOCK_DIST_DIR . '*/block.json' );
+		$manifest = TENUP_THEME_DIST_PATH . 'blocks-manifest.php';
 
-			if ( empty( $block_json_files ) ) {
-				return;
-			}
+		if ( file_exists( $manifest ) && function_exists( 'wp_register_block_types_from_metadata_collection' ) ) {
+			wp_register_block_types_from_metadata_collection( TENUP_THEME_BLOCK_DIST_DIR, $manifest );
+			return;
+		}
 
-			// Auto-register every block. Server rendering comes from the `render` file in block.json.
-			foreach ( $block_json_files as $filename ) {
-				register_block_type_from_metadata( dirname( $filename ) );
-			}
+		// Before WordPress 6.7: register each block from its block.json.
+		$block_json_files = glob( TENUP_THEME_BLOCK_DIST_DIR . '*/block.json' );
+
+		if ( empty( $block_json_files ) ) {
+			return;
+		}
+
+		foreach ( $block_json_files as $filename ) {
+			register_block_type_from_metadata( dirname( $filename ) );
 		}
 	}
 
@@ -119,16 +128,6 @@ class Blocks implements ModuleInterface {
 			[],
 			$this->get_asset_info( 'editor-style-overrides', 'version' )
 		);
-
-		if ( defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ) {
-			wp_enqueue_script(
-				'editor-style-overrides',
-				TENUP_THEME_TEMPLATE_URL . '/dist/js/editor-style-overrides.js',
-				$this->get_asset_info( 'editor-style-overrides', 'dependencies' ),
-				$this->get_asset_info( 'editor-style-overrides', 'version' ),
-				true
-			);
-		}
 	}
 
 
@@ -136,7 +135,7 @@ class Blocks implements ModuleInterface {
 	 * Enqueue block specific styles.
 	 *
 	 * This function is used to enqueue styles that are specific to a block. It
-	 * first gets all the CSS files in the 'blocks/autoenqueue' directory. Then
+	 * first gets all the CSS files in the 'autoenqueue' directory. Then
 	 * for each stylesheet, it determines the block type by removing the directory
 	 * path and '.css' from the stylesheet path. It then tries to get the asset
 	 * file for the block type. If the asset file doesn't exist, it creates a new
@@ -148,16 +147,16 @@ class Blocks implements ModuleInterface {
 	 * @return void
 	 */
 	public function enqueue_block_specific_styles() {
-		$stylesheets = glob( TENUP_THEME_DIST_PATH . 'blocks/autoenqueue/**/*.css' );
+		$stylesheets = glob( TENUP_THEME_DIST_PATH . 'autoenqueue/**/*.css' );
 
 		if ( empty( $stylesheets ) ) {
 			return;
 		}
 
 		foreach ( $stylesheets as $stylesheet_path ) {
-			$block_type = str_replace( TENUP_THEME_DIST_PATH . 'blocks/autoenqueue/', '', $stylesheet_path );
+			$block_type = str_replace( TENUP_THEME_DIST_PATH . 'autoenqueue/', '', $stylesheet_path );
 			$block_type = str_replace( '.css', '', $block_type );
-			$asset_file = TENUP_THEME_DIST_PATH . 'blocks/autoenqueue/' . $block_type . '.asset.php';
+			$asset_file = TENUP_THEME_DIST_PATH . 'autoenqueue/' . $block_type . '.asset.php';
 
 			if ( file_exists( $asset_file ) ) {
 				$asset_file = require $asset_file;
@@ -172,7 +171,7 @@ class Blocks implements ModuleInterface {
 
 			wp_register_style(
 				"tenup-theme-{$block_namespace}-{$block_name}",
-				TENUP_THEME_DIST_URL . 'blocks/autoenqueue/' . $block_type . '.css',
+				TENUP_THEME_DIST_URL . 'autoenqueue/' . $block_type . '.css',
 				$asset_file['dependencies'],
 				$asset_file['version']
 			);

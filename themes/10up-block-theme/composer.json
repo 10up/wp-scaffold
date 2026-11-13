@@ -1,5 +1,7 @@
 {
   "name": "10up/tenup-block-theme",
+  "description": "The starting point for all 10up WordPress block themes.",
+  "license": "GPL-2.0-or-later",
   "type": "wordpress-theme",
   "authors": [
     {

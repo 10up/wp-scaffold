@@ -50,7 +50,7 @@ Provide a brief write-up of any relevant project-specific information or backgro
 - [ ] WordPress credentials (consider all environments)
 - [ ] Required plugins
 - [ ] Custom configuration
-  - [ ] Webpack / Deploybot
+  - [ ] Build tooling (Vite+) / Deploybot
   - [ ] Composer in theme, plugins, or MU plugins
 - [ ] Any required constants
   - [ ] `JETPACK_STAGING_MODE`

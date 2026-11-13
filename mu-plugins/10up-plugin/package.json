@@ -1,30 +1,23 @@
 {
   "name": "tenup-plugin",
   "version": "1.0.0",
+  "private": true,
   "scripts": {
     "start": "npm run watch",
-    "watch": "10up-toolkit watch --port=5010",
-    "build": "10up-toolkit build",
-    "format-js": "10up-toolkit format-js",
-    "lint-js": "10up-toolkit lint-js",
-    "lint-style": "10up-toolkit lint-style",
-    "test": "10up-toolkit test-unit-jest --passWithNoTests",
+    "build": "vp build",
+    "watch": "vp build --watch",
+    "dev": "vp dev",
+    "check": "vp check",
+    "format-js": "vp fmt",
+    "lint-js": "vp lint",
+    "test": "vp test run --passWithNoTests",
     "clean-dist": "rm -rf ./dist"
   },
-  "devDependencies": {
-    "jest-environment-jsdom": "^29.7.0"
-  },
   "dependencies": {
-    "10up-toolkit": "^6.5.1",
     "prop-types": "^15.7.2"
   },
-  "10up-toolkit": {
-    "entry": {
-      "admin": "./assets/js/admin/admin.js"
-    },
-    "paths": {
-      "globalStylesDir": "../../themes/10up-theme/assets/css/globals/",
-      "globalMixinsDir": "../../themes/10up-theme/assets/css/globals/mixins/"
-    }
+  "devDependencies": {
+    "@10up/wp-vite-plugins": "^1.0.0-alpha.4",
+    "vite-plus": "^1.6.0"
   }
 }

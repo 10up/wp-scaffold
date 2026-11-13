@@ -3,23 +3,23 @@
   */
 
 /* tiny */
-@custom-media --bp-tiny ( min-width: 24.375rem ); /* 390px */
-@custom-media --bp-tiny-max ( max-width: 24.3125rem ); /* 389px */
+@custom-media --bp-tiny (min-width: 24.375rem); /* 390px */
+@custom-media --bp-tiny-max (max-width: 24.3125rem); /* 389px */
 
 /* small */
-@custom-media --bp-small ( min-width: 37.5rem ); /* 600px */
-@custom-media --bp-small-max ( max-width: 37.4375rem ); /* 599px */
+@custom-media --bp-small (min-width: 37.5rem); /* 600px */
+@custom-media --bp-small-max (max-width: 37.4375rem); /* 599px */
 
 /* medium */
-@custom-media --bp-medium ( min-width: 60rem ); /* 960px */
-@custom-media --bp-medium-max ( max-width: 59.9375rem ); /* 959px */
+@custom-media --bp-medium (min-width: 60rem); /* 960px */
+@custom-media --bp-medium-max (max-width: 59.9375rem); /* 959px */
 
 /* large */
-@custom-media --bp-large ( min-width: 80rem ); /* 1280px */
-@custom-media --bp-large-max ( max-width: 79.9375rem ); /* 1279px */
+@custom-media --bp-large (min-width: 80rem); /* 1280px */
+@custom-media --bp-large-max (max-width: 79.9375rem); /* 1279px */
 
 /* WP Core Breakpoints (used for the admin bar for example) */
-@custom-media --wp-small ( min-width: 600px );
-@custom-media --wp-small-max ( max-width: 599px );
+@custom-media --wp-small (min-width: 600px);
+@custom-media --wp-small-max (max-width: 599px);
 @custom-media --wp-medium (min-width: 783px);
 @custom-media --wp-medium-max (max-width: 782px);

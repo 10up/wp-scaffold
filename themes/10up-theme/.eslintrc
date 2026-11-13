@@ -1,8 +1,0 @@
-{
-  "parser": "@typescript-eslint/parser",
-  "extends": ["@10up/eslint-config/wordpress"],
-  "plugins": ["@typescript-eslint"],
-  "rules": {
-    "@wordpress/no-unsafe-wp-apis": "off"
-  }
-}

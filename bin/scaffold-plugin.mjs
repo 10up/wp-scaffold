@@ -10,20 +10,20 @@
  */
 
 import { input, confirm } from '@inquirer/prompts';
-import { createWriteStream, existsSync, readFileSync, writeFileSync, mkdirSync, rmSync } from 'node:fs';
+import {
+	createWriteStream,
+	existsSync,
+	readFileSync,
+	writeFileSync,
+	mkdirSync,
+	rmSync,
+} from 'node:fs';
 import { join, resolve } from 'node:path';
 import { parseArgs } from 'node:util';
 import { pipeline } from 'node:stream/promises';
 import { createGunzip } from 'node:zlib';
 import { extract } from 'tar';
-import {
-	toKebab,
-	toPascal,
-	toConstant,
-	toSnake,
-	toTitle,
-	walkFiles,
-} from './scaffold-helpers.mjs';
+import { toKebab, toPascal, toConstant, toSnake, toTitle, walkFiles } from './scaffold-helpers.mjs';
 
 // ---------------------------------------------------------------------------
 // Constants
@@ -180,7 +180,10 @@ async function downloadPluginFromGitHub(ref) {
 			strip: 2, // Strip "10up-wp-scaffold-<hash>/mu-plugins/"
 			filter: (path) => {
 				// Only extract mu-plugins/10up-plugin/ and mu-plugins/10up-plugin-loader.php
-				return path.includes('/mu-plugins/10up-plugin/') || path.endsWith('/mu-plugins/10up-plugin-loader.php');
+				return (
+					path.includes('/mu-plugins/10up-plugin/') ||
+					path.endsWith('/mu-plugins/10up-plugin-loader.php')
+				);
 			},
 		}),
 	);
@@ -426,15 +429,15 @@ async function main() {
 			pkg.workspaces.push(workspacePath);
 		}
 
-		// Add watch script
+		// Add per-plugin watch and dev scripts. The root `watch`, `build` and
+		// `check` scripts use `vp run -r`, which already picks up every workspace.
 		const watchScriptName = `watch:${values.pluginNpmName}`;
 		if (!pkg.scripts[watchScriptName]) {
-			pkg.scripts[watchScriptName] = `npm run watch -w=${values.pluginNpmName}`;
+			pkg.scripts[watchScriptName] = `vp run --filter ${values.pluginNpmName} watch`;
 		}
-
-		// Update main watch script to include new plugin
-		if (pkg.scripts.watch && !pkg.scripts.watch.includes(watchScriptName)) {
-			pkg.scripts.watch = `${pkg.scripts.watch.replace('run-p', 'run-p')} ${watchScriptName}`;
+		const devScriptName = `dev:${values.pluginNpmName}`;
+		if (!pkg.scripts[devScriptName]) {
+			pkg.scripts[devScriptName] = `vp run --filter ${values.pluginNpmName} dev`;
 		}
 
 		writeFileSync(pkgPath, `${JSON.stringify(pkg, null, 2)}\n`);
