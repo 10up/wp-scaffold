@@ -99,11 +99,10 @@ jobs:
       - run: >-
           node bin/ci/install-tools.mjs stylelint @10up/stylelint-config
           stylelint-config-recommended stylelint-declaration-strict-value
-          stylelint-order stylelint-stylistic
+          stylelint-order
 
       - run: >-
-          npx stylelint "themes/*/assets/css/**/*.css" "mu-plugins/*/assets/css/**/*.css"
-          --custom-formatter bin/ci/stylelint-github-formatter.cjs
+          npm run lint-style -- --custom-formatter bin/ci/stylelint-github-formatter.cjs
 
   svg:
     name: SVG icons
