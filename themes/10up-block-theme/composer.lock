@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "7262d78396bbfbf384b98308f3631b6a",
+    "content-hash": "b41bf24da6d700a255cf1bafc23f7cdd",
     "packages": [
         {
             "name": "10up/wp-framework",
@@ -1532,8 +1532,8 @@
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": {
-        "php": ">=8.2"
+        "php": ">=8.4"
     },
     "platform-dev": {},
-    "plugin-api-version": "2.9.0"
+    "plugin-api-version": "2.11.0"
 }
