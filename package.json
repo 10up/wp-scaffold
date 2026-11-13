@@ -48,7 +48,7 @@
     "npm": ">=10.0.0"
   },
   "devDependencies": {
-    "@10up/oxlint-config": "^0.1.0-alpha.0",
+    "@10up/oxlint-config": "^0.1.0-alpha.1",
     "@10up/stylelint-config": "^5.0.0-alpha.0",
     "@inquirer/prompts": "^7.0.0",
     "@wordpress/create-block": "4.55.0",

@@ -24,7 +24,17 @@ const specs = process.argv.slice(2).map((name) => {
 const prefix = path.join(process.env.RUNNER_TEMP ?? os.tmpdir(), 'ci-tools');
 execFileSync(
 	'npm',
-	['install', '--no-save', '--no-package-lock', '--ignore-scripts', '--no-audit', '--no-fund', '--prefix', prefix, ...specs],
+	[
+		'install',
+		'--no-save',
+		'--no-package-lock',
+		'--ignore-scripts',
+		'--no-audit',
+		'--no-fund',
+		'--prefix',
+		prefix,
+		...specs,
+	],
 	{ stdio: 'inherit' },
 );
 fs.symlinkSync(path.join(prefix, 'node_modules'), 'node_modules');
