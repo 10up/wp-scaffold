@@ -41,7 +41,7 @@ export default defineConfig(({ mode }) => {
 				// CSS files are first-class entries (instead of JS-side
 				// imports) — wpCleanCssChunks removes the empty JS shims.
 				input: isModulePass
-					? {}
+					? ({} as Record<string, string>)
 					: {
 							'js/frontend': './assets/js/frontend/frontend.ts',
 							'js/block-editor-script':
