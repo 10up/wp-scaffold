@@ -5,6 +5,8 @@
  * @package TenUpPlugin
  */
 
+declare( strict_types = 1 );
+
 namespace TenUpPlugin;
 
 use TenupFramework\Assets\GetAssetInfo;
@@ -26,7 +28,7 @@ class Assets implements ModuleInterface {
 	 *
 	 * @return bool
 	 */
-	public function can_register() {
+	public function can_register(): bool {
 		return true;
 	}
 
@@ -35,7 +37,7 @@ class Assets implements ModuleInterface {
 	 *
 	 * @return void
 	 */
-	public function register() {
+	public function register(): void {
 		$this->setup_asset_vars(
 			dist_path: TENUP_PLUGIN_PATH . 'dist/',
 			fallback_version: TENUP_PLUGIN_VERSION
@@ -50,7 +52,7 @@ class Assets implements ModuleInterface {
 	 *
 	 * @return void
 	 */
-	public function admin_scripts() {
+	public function admin_scripts(): void {
 		wp_enqueue_script(
 			'tenup_plugin_admin',
 			TENUP_PLUGIN_URL . 'dist/js/admin.js',
@@ -65,7 +67,7 @@ class Assets implements ModuleInterface {
 	 *
 	 * @return void
 	 */
-	public function admin_styles() {
+	public function admin_styles(): void {
 		wp_enqueue_style(
 			'tenup_plugin_admin',
 			TENUP_PLUGIN_URL . 'dist/css/admin.css',

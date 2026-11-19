@@ -5,6 +5,8 @@
  * @package TenupBlockTheme
  */
 
+declare( strict_types = 1 );
+
 namespace TenupBlockTheme;
 
 use TenupFramework\Assets\GetAssetInfo;
@@ -26,7 +28,7 @@ class Assets implements ModuleInterface {
 	 *
 	 * @return bool
 	 */
-	public function can_register() {
+	public function can_register(): bool {
 		return true;
 	}
 
@@ -35,7 +37,7 @@ class Assets implements ModuleInterface {
 	 *
 	 * @return void
 	 */
-	public function register() {
+	public function register(): void {
 		$this->setup_asset_vars(
 			dist_path: TENUP_BLOCK_THEME_DIST_PATH,
 			fallback_version: TENUP_BLOCK_THEME_VERSION
@@ -51,7 +53,7 @@ class Assets implements ModuleInterface {
 	 *
 	 * @return void
 	 */
-	public function enqueue_frontend_assets() {
+	public function enqueue_frontend_assets(): void {
 		wp_enqueue_style(
 			'tenup-block-theme-styles',
 			TENUP_BLOCK_THEME_TEMPLATE_URL . '/dist/css/frontend.css',
@@ -77,7 +79,7 @@ class Assets implements ModuleInterface {
 	 *
 	 * @return void
 	 */
-	public function enqueue_block_editor_assets() {
+	public function enqueue_block_editor_assets(): void {
 		wp_enqueue_style(
 			'tenup-block-theme-editor-frame-style-overrides',
 			TENUP_BLOCK_THEME_TEMPLATE_URL . '/dist/css/editor-frame-style-overrides.css',
@@ -99,7 +101,7 @@ class Assets implements ModuleInterface {
 	 *
 	 * @return void
 	 */
-	public function enqueue_block_editor_iframe_assets() {
+	public function enqueue_block_editor_iframe_assets(): void {
 
 		// The `enqueue_block_assets` action is triggered both on the front-end and in the editor iframe.
 		// We only want to enqueue these styles inside the editor iframe.
@@ -120,7 +122,7 @@ class Assets implements ModuleInterface {
 	 *
 	 * @return void
 	 */
-	public function register_all_icons() {
+	public function register_all_icons(): void {
 		if ( ! function_exists( '\UIKitCore\Helpers\register_icons' ) ) {
 			return;
 		}

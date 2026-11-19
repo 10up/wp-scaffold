@@ -5,6 +5,8 @@
  * @package TenUpPlugin
  */
 
+declare( strict_types = 1 );
+
 namespace TenUpPlugin\PostTypes;
 
 use TenupFramework\PostTypes\AbstractCorePostType;
@@ -22,7 +24,7 @@ class Page extends AbstractCorePostType {
 	 *
 	 * @return string
 	 */
-	public function get_name() {
+	public function get_name(): string {
 		return 'page';
 	}
 
@@ -32,7 +34,7 @@ class Page extends AbstractCorePostType {
 	 *
 	 * @return array<string>
 	 */
-	public function get_supported_taxonomies() {
+	public function get_supported_taxonomies(): array {
 		return [];
 	}
 
@@ -41,7 +43,7 @@ class Page extends AbstractCorePostType {
 	 *
 	 * @return void
 	 */
-	public function after_register() {
+	public function after_register(): void {
 		// Do nothing.
 	}
 }

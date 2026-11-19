@@ -5,6 +5,8 @@
  * @package TenUpPlugin
  */
 
+declare( strict_types = 1 );
+
 namespace TenUpPlugin;
 
 use TenupFramework\ModuleInitialization;
