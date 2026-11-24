@@ -215,6 +215,14 @@ function checkGitStatus(targetPath) {
 // Config merge helpers
 // ---------------------------------------------------------------------------
 
+/**
+ * Point scaffold paths at VIP's client-mu-plugins/. The lookbehind keeps
+ * paths that already say client-mu-plugins/ from being prefixed twice.
+ */
+function toClientMuPlugins(content) {
+	return content.replace(/(?<![\w-])mu-plugins\//g, 'client-mu-plugins/');
+}
+
 function mergeComposerJson(targetPath) {
 	const ourComposer = JSON.parse(readFileSync(join(SOURCE, 'composer.json'), 'utf-8'));
 	const vipComposer = JSON.parse(readFileSync(join(targetPath, 'composer.json'), 'utf-8'));
@@ -243,13 +251,21 @@ function mergeComposerJson(targetPath) {
 		);
 	}
 
+	// installer-paths only apply when composer/installers is installed. The
+	// scaffold gets it through the wpackagist debug plugins removed above, so
+	// require it directly or Composer-managed plugins land in vendor/.
+	const require = { php: ourComposer.require.php };
+	if (ourComposer.extra?.['installer-paths']) {
+		require['composer/installers'] = '^2.3';
+	}
+
 	const merged = {
 		name: ourComposer.name,
 		description: ourComposer.description,
 		license: vipComposer.license || 'GPL-2.0-or-later',
 		authors: ourComposer.authors,
 		repositories: ourComposer.repositories,
-		require: { php: ourComposer.require.php },
+		require,
 		'minimum-stability': ourComposer['minimum-stability'],
 		'prefer-stable': ourComposer['prefer-stable'],
 		'require-dev': mergedRequireDev,
@@ -275,6 +291,11 @@ function writePackageJson(targetPath) {
 		ws.replace('mu-plugins/10up-plugin', 'client-mu-plugins/10up-plugin'),
 	);
 
+	// Scripts that glob mu-plugins/ (e.g. lint-style) must target client-mu-plugins/
+	for (const [name, cmd] of Object.entries(ourPkg.scripts)) {
+		ourPkg.scripts[name] = toClientMuPlugins(cmd);
+	}
+
 	// Add scaffold:vip script
 	ourPkg.scripts['scaffold:vip'] = 'node bin/scaffold-vip.mjs';
 
@@ -286,7 +307,7 @@ function mergeGitignore(targetPath) {
 	const content = `# Dependencies
 node_modules
 bower_components
-/vendor/
+vendor
 
 # Uploads directory
 /uploads/
@@ -452,6 +473,36 @@ function appendDeployignore(targetPath) {
 		content += newLines.join('\n') + '\n';
 		writeFileSync(deployignorePath, content);
 		console.log('  Updated .deployignore');
+	}
+}
+
+/**
+ * CI workflows and bin/lint-svg.mjs name scaffold paths directly. Point them
+ * at client-mu-plugins/ and drop the theme that wasn't copied, so CI doesn't
+ * try to validate or analyse a directory that doesn't exist.
+ */
+function rewriteToolingPaths(targetPath, isBlock) {
+	const unusedTheme = isBlock ? '10up-theme' : '10up-block-theme';
+	const files = [join(targetPath, 'bin', 'lint-svg.mjs')];
+
+	const workflowsDir = join(targetPath, '.github', 'workflows');
+	if (existsSync(workflowsDir)) {
+		for (const name of readdirSync(workflowsDir)) {
+			if (/\.ya?ml$/.test(name)) files.push(join(workflowsDir, name));
+		}
+	}
+
+	for (const file of files) {
+		if (!existsSync(file)) continue;
+		const content = readFileSync(file, 'utf-8');
+		let updated = toClientMuPlugins(content);
+		if (file.startsWith(workflowsDir)) {
+			updated = updated.replace(new RegExp(` themes/${unusedTheme}(?=[\\s|;])`, 'g'), '');
+		}
+		if (updated !== content) {
+			writeFileSync(file, updated);
+			console.log(`  Updated paths in ${file.replace(`${targetPath}/`, '')}`);
+		}
 	}
 }
 
@@ -851,6 +902,7 @@ async function main() {
 	writePhpstanNeon(TARGET, isBlock);
 	appendDeployignore(TARGET);
 	updatePluginLoader(TARGET);
+	rewriteToolingPaths(TARGET, isBlock);
 
 	// -----------------------------------------------------------------------
 	// 8. Pre-replacement cleanup (phpstan)
@@ -1037,10 +1089,24 @@ async function main() {
 			console.log('  Removed scaffold scripts and deps from package.json');
 		}
 
+		// Remove only the scaffold scripts: bin/ also holds tooling the project
+		// keeps using (bin/ci/ for CI, lint-svg.mjs for npm run lint-svg).
 		const binDir = join(TARGET, 'bin');
-		if (existsSync(binDir)) {
-			rmSync(binDir, { recursive: true, force: true });
-			console.log('  Deleted bin/ directory');
+		for (const script of [
+			'scaffold.mjs',
+			'scaffold-vip.mjs',
+			'scaffold-plugin.mjs',
+			'scaffold-helpers.mjs',
+		]) {
+			const scriptPath = join(binDir, script);
+			if (existsSync(scriptPath)) {
+				rmSync(scriptPath);
+				console.log(`  Deleted bin/${script}`);
+			}
+		}
+		if (existsSync(binDir) && readdirSync(binDir).length === 0) {
+			rmSync(binDir, { recursive: true });
+			console.log('  Deleted empty bin/ directory');
 		}
 	}
 
