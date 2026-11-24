@@ -223,7 +223,7 @@ function toClientMuPlugins(content) {
 	return content.replace(/(?<![\w-])mu-plugins\//g, 'client-mu-plugins/');
 }
 
-function mergeComposerJson(targetPath) {
+function mergeComposerJson(targetPath, isBlock) {
 	const ourComposer = JSON.parse(readFileSync(join(SOURCE, 'composer.json'), 'utf-8'));
 	const vipComposer = JSON.parse(readFileSync(join(targetPath, 'composer.json'), 'utf-8'));
 
@@ -238,17 +238,18 @@ function mergeComposerJson(targetPath) {
 		Object.assign(mergedRequireDev, vipComposer['require-dev']);
 	}
 
-	// Build merged composer.json with VIP paths
+	// Build merged composer.json with VIP paths. The setup scripts name the
+	// block theme; point them at the classic theme when that's the one copied.
+	const toVipPath = (cmd) => {
+		const vipCmd = toClientMuPlugins(cmd);
+		return isBlock ? vipCmd : vipCmd.replace('themes/10up-block-theme', 'themes/10up-theme');
+	};
 	const scripts = { ...ourComposer.scripts };
 	if (scripts.setup) {
-		scripts.setup = scripts.setup.map((cmd) =>
-			cmd.replace('mu-plugins/', 'client-mu-plugins/'),
-		);
+		scripts.setup = scripts.setup.map(toVipPath);
 	}
 	if (scripts['setup:local']) {
-		scripts['setup:local'] = scripts['setup:local'].map((cmd) =>
-			cmd.replace('mu-plugins/', 'client-mu-plugins/'),
-		);
+		scripts['setup:local'] = scripts['setup:local'].map(toVipPath);
 	}
 
 	// installer-paths only apply when composer/installers is installed. The
@@ -415,9 +416,14 @@ function writePhpcsXml(targetPath) {
 	<!-- VIP minimum WP version -->
 	<config name="minimum_supported_wp_version" value="6.8"/>
 
-	<!-- Ignore filecomment for the plugin loader -->
-	<rule ref="Squiz.Commenting.FileComment.Missing">
+	<!-- The plugin loader is VIP's file; its file comment has no @package -->
+	<rule ref="Squiz.Commenting.FileComment">
 		<exclude-pattern>./client-mu-plugins/plugin-loader.php</exclude-pattern>
+	</rule>
+
+	<!-- PluginCore::activate() only runs from an activation hook, and flushing there is the documented pattern -->
+	<rule ref="WordPressVIPMinimum.Functions.RestrictedFunctions.flush_rewrite_rules_flush_rewrite_rules">
+		<exclude-pattern>client-mu-plugins/*/src/PluginCore.php</exclude-pattern>
 	</rule>
 
 	<arg value="sp"/> <!-- Show sniff and progress -->
@@ -894,7 +900,7 @@ async function main() {
 	// 7. Merge config files
 	// -----------------------------------------------------------------------
 
-	mergeComposerJson(TARGET);
+	mergeComposerJson(TARGET, isBlock);
 	writePackageJson(TARGET);
 	mergeGitignore(TARGET);
 	writeEditorconfig(TARGET);
