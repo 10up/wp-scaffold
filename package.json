@@ -55,10 +55,10 @@
     "husky": "^9.1.7",
     "stylelint": "^18.0.0",
     "tar": "^7.4.3",
-    "vite-plus": "^1.6.0"
+    "vite-plus": "1.8.0"
   },
   "packageManager": "npm@11.16.0",
   "overrides": {
-    "vite": "npm:@voidzero-dev/vite-plus-core@^1.6.0"
+    "vite": "npm:@voidzero-dev/vite-plus-core@8.3.8001"
   }
 }

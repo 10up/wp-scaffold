@@ -18,6 +18,6 @@
   },
   "devDependencies": {
     "@10up/wp-vite-plugins": "^1.0.0-alpha.4",
-    "vite-plus": "^1.6.0"
+    "vite-plus": "1.8.0"
   }
 }
